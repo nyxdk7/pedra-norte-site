@@ -1,10 +1,16 @@
+import Image from "next/image";
+
 const obras = [
   {
     titulo: "Obras de pavimentação",
     categoria: "Infraestrutura urbana",
     descricao:
       "Execução e apoio em serviços de pavimentação, recuperação de vias e fornecimento de materiais para obras públicas e privadas.",
-    detalhes: ["Pavimentação asfáltica", "Base e sub-base", "Fornecimento de agregados"],
+    detalhes: [
+      "Pavimentação asfáltica",
+      "Base e sub-base",
+      "Fornecimento de agregados",
+    ],
   },
   {
     titulo: "Fornecimento para construção civil",
@@ -26,6 +32,29 @@ const obras = [
     descricao:
       "Atuação em projetos ligados ao desenvolvimento regional, fornecendo produtos e serviços para infraestrutura.",
     detalhes: ["Órgãos públicos", "Infraestrutura", "Desenvolvimento regional"],
+  },
+];
+
+const casosSucesso = [
+  {
+    nome: "Prefeitura de Rio Branco",
+    imagem: "/images/casos-sucesso/prefeitura-rio-branco.png",
+  },
+  {
+    nome: "7º BEC",
+    imagem: "/images/casos-sucesso/bec.png",
+  },
+  {
+    nome: "DEPASA",
+    imagem: "/images/casos-sucesso/depasa.png",
+  },
+  {
+    nome: "DERACRE",
+    imagem: "/images/casos-sucesso/deracre.png",
+  },
+  {
+    nome: "DNIT",
+    imagem: "/images/casos-sucesso/dnit.png",
   },
 ];
 
@@ -127,6 +156,42 @@ export default function ObrasPage() {
                     ))}
                   </div>
                 </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-24 rounded-3xl border border-sky-100 bg-white p-8 shadow-sm shadow-sky-100 md:p-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
+                Casos de sucesso
+              </span>
+
+              <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
+                Confiança de instituições e parceiros estratégicos.
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                Ao longo da sua trajetória, a Pedra Norte participou de projetos
+                e fornecimentos para órgãos, instituições e parceiros que
+                contribuem para o desenvolvimento da região.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+              {casosSucesso.map((caso) => (
+                <div
+                  key={caso.nome}
+                  className="group flex h-36 items-center justify-center rounded-3xl border border-sky-100 bg-sky-50/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:bg-white hover:shadow-xl hover:shadow-sky-100"
+                >
+                  <Image
+                    src={caso.imagem}
+                    alt={caso.nome}
+                    width={180}
+                    height={90}
+                    quality={100}
+                    className="max-h-20 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0"
+                  />
+                </div>
               ))}
             </div>
           </div>

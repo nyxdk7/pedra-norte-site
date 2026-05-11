@@ -1,65 +1,86 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-white text-slate-950">
+      <section className="relative overflow-hidden pt-28">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#e0f2fe,transparent_35%),radial-gradient(circle_at_bottom_left,#f0f9ff,transparent_35%)]" />
+
+        <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-2">
+          <div className="text-center lg:text-left">
+            <span className="inline-flex rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
+              Pedra Norte
+            </span>
+
+            <h1 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 md:text-6xl">
+              Engenharia e infraestrutura com qualidade, segurança e confiança.
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+              Soluções para obras públicas e privadas, com atuação em
+              infraestrutura, manutenção, pavimentação, terraplenagem e apoio
+              operacional.
+            </p>
+
+            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+              <Link
+                href="/servicos"
+                className="rounded-xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+              >
+                Conhecer serviços
+              </Link>
+
+              <Link
+                href="/contato"
+                className="rounded-xl border border-sky-200 bg-white px-6 py-3 font-bold text-sky-700 transition hover:-translate-y-0.5 hover:bg-sky-50"
+              >
+                Fale conosco
+              </Link>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-sky-100 pt-8">
+              <div>
+                <strong className="block text-2xl font-bold text-sky-600">
+                  +40
+                </strong>
+                <span className="text-sm text-slate-500">Anos de atuação</span>
+              </div>
+
+              <div>
+                <strong className="block text-2xl font-bold text-sky-600">
+                  +50
+                </strong>
+                <span className="text-sm text-slate-500">Projetos atendidos</span>
+              </div>
+
+              <div>
+                <strong className="block text-2xl font-bold text-sky-600">
+                  100%
+                </strong>
+                <span className="text-sm text-slate-500">Foco em qualidade</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-sky-200 blur-3xl" />
+
+              <div className="relative flex h-80 w-80 items-center justify-center rounded-full border border-sky-100 bg-white shadow-2xl shadow-sky-200/60 md:h-[430px] md:w-[430px]">
+                <Image
+                  src="/images/logo-pedra-norte.png"
+                  alt="Logo Pedra Norte"
+                  width={320}
+                  height={320}
+                  priority
+                  className="h-auto w-64 md:w-80"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

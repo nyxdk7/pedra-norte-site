@@ -10,7 +10,7 @@ const linksRapidos = [
 ];
 
 const servicos = [
-  "Mineração",
+  "Engenharia civil",
   "Concreto usinado",
   "Pavimentação asfáltica",
   "Usinagem de asfalto",
@@ -19,35 +19,28 @@ const servicos = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-sky-100 bg-slate-950 text-white">
+    <footer className="border-t border-[#dbe5ff] bg-slate-950 text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
         <div>
-          <Link href="/" className="inline-flex items-center gap-3">
+          <Link href="/" className="inline-flex items-center">
             <Image
-              src="/images/logo-pedra-norte.png"
-              alt="Logo Pedra Norte"
-              width={56}
-              height={56}
-              className="rounded-full bg-white p-1"
+              src="/images/logo-letras-brancas.png"
+              alt="Logo MSM Industrial LTDA"
+              width={260}
+              height={90}
+              className="h-auto w-[190px] object-contain"
             />
-
-            <div className="leading-tight">
-              <strong className="block text-lg font-bold">Pedra Norte</strong>
-              <span className="text-sm text-sky-300">
-                Engenharia e Infraestrutura
-              </span>
-            </div>
           </Link>
 
           <p className="mt-5 max-w-sm leading-7 text-slate-300">
-            Uma das maiores empresas de mineração da região amazônica, atuando
-            com produtos, serviços e soluções para construção civil,
-            infraestrutura e desenvolvimento regional.
+            Empresa voltada para soluções em engenharia civil, atuando com
+            estrutura, compromisso e qualidade em projetos, obras e
+            fornecimentos.
           </p>
         </div>
 
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-sky-300">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
             Links rápidos
           </h3>
 
@@ -56,7 +49,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-slate-300 transition hover:text-sky-300"
+                  className="text-sm font-medium text-slate-300 transition hover:text-[#8fb1ff]"
                 >
                   {link.label}
                 </Link>
@@ -66,7 +59,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-sky-300">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
             Atuação
           </h3>
 
@@ -80,7 +73,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-sky-300">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
             Contato
           </h3>
 
@@ -91,24 +84,19 @@ export function Footer() {
             </p>
 
             <p>
-              <strong className="block text-white">Unidade mineradora</strong>
-              Rondônia
-            </p>
-
-            <p>
               <strong className="block text-white">Telefone</strong>
               (68) 99999-9999
             </p>
 
             <p>
               <strong className="block text-white">E-mail</strong>
-              contato@pedranorte.com.br
+              contato@empresa.com.br
             </p>
           </div>
 
           <Link
             href="/contato"
-            className="mt-6 inline-flex rounded-xl bg-sky-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+            className="mt-6 inline-flex rounded-xl bg-[#143987] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
           >
             Fale conosco
           </Link>
@@ -118,14 +106,14 @@ export function Footer() {
       <div className="border-t border-white/10 px-6 py-5">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-center text-sm text-slate-400 md:flex-row">
           <p>
-            © {new Date().getFullYear()} Pedra Norte. Todos os direitos
+            © {new Date().getFullYear()} MSM Industrial LTDA. Todos os direitos
             reservados.
           </p>
 
-            <p>
-                Desenvolvido por{" "}
-                <span className="font-semibold text-sky-300">João Pedro</span>
-            </p>
+          <p>
+            Desenvolvido por{" "}
+            <span className="font-semibold text-[#8fb1ff]">João Pedro</span>
+          </p>
         </div>
       </div>
     </footer>

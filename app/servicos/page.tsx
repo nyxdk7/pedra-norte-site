@@ -5,7 +5,7 @@ const servicos = [
     titulo: "Concreto usinado",
     imagem: "/images/servicos/concreto-usinado.png",
     descricao:
-      "Água, cimento e agregados parecem simples, mas produzir concreto de qualidade exige técnica, conhecimento e atendimento personalizado para cada necessidade.",
+      "Produção e fornecimento de concreto usinado com qualidade, controle técnico e atendimento conforme a necessidade da obra.",
   },
   {
     titulo: "Pavimentação asfáltica",
@@ -82,28 +82,28 @@ export default function ServicosPage() {
   return (
     <main className="min-h-screen bg-white pt-32 text-slate-950">
       <section className="relative overflow-hidden px-6 pb-20">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#e0f2fe,transparent_35%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%)]" />
 
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <span className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
+            <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
               Serviços e produtos
             </span>
 
             <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
-              Soluções em mineração, concreto e pavimentação.
+              Soluções em engenharia civil, concreto e pavimentação.
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              A Pedra Norte reúne experiência, estrutura e qualidade no
-              fornecimento de produtos e serviços para construção civil,
-              infraestrutura e obras públicas ou privadas.
+              A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento
+              de produtos e serviços para construção civil, infraestrutura e
+              obras públicas ou privadas.
             </p>
           </div>
 
           <div className="mt-16">
             <div className="flex items-center gap-4">
-              <div className="h-8 w-1 rounded-full bg-sky-500" />
+              <div className="h-8 w-1 rounded-full bg-[#143987]" />
               <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800">
                 Serviços
               </h2>
@@ -113,9 +113,9 @@ export default function ServicosPage() {
               {servicos.map((servico) => (
                 <article
                   key={servico.titulo}
-                  className="group rounded-3xl border border-sky-100 bg-white p-5 shadow-sm shadow-sky-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-100"
+                  className="group rounded-3xl border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
                 >
-                  <div className="relative mx-auto h-56 w-full overflow-hidden rounded-2xl bg-sky-50">
+                  <div className="relative mx-auto h-56 w-full overflow-hidden rounded-2xl bg-[#eaf0ff]">
                     <Image
                       src={servico.imagem}
                       alt={servico.titulo}
@@ -138,7 +138,7 @@ export default function ServicosPage() {
                     <div className="mt-6 text-center">
                       <a
                         href="/contato"
-                        className="inline-flex items-center text-sm font-bold text-sky-600 transition hover:text-sky-700"
+                        className="inline-flex items-center text-sm font-bold text-[#143987] transition hover:text-[#0f2c6a]"
                       >
                         Solicitar informações
                         <span className="ml-2">→</span>
@@ -152,7 +152,7 @@ export default function ServicosPage() {
 
           <div className="mt-24">
             <div className="flex items-center gap-4">
-              <div className="h-8 w-1 rounded-full bg-sky-500" />
+              <div className="h-8 w-1 rounded-full bg-[#143987]" />
               <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800">
                 Produtos
               </h2>
@@ -162,9 +162,9 @@ export default function ServicosPage() {
               {produtos.map((produto) => (
                 <article
                   key={produto.titulo}
-                  className="group rounded-3xl border border-sky-100 bg-white p-5 shadow-sm shadow-sky-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-100"
+                  className="group rounded-3xl border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
                 >
-                  <div className="relative mx-auto h-48 w-full max-w-[260px] overflow-hidden rounded-2xl bg-sky-50">
+                  <div className="relative mx-auto h-48 w-full max-w-[260px] overflow-hidden rounded-2xl bg-[#eaf0ff]">
                     <Image
                       src={produto.imagem}
                       alt={produto.titulo}
@@ -187,7 +187,7 @@ export default function ServicosPage() {
                     <div className="mt-6 text-center">
                       <a
                         href="/contato"
-                        className="inline-flex items-center text-sm font-bold text-sky-600 transition hover:text-sky-700"
+                        className="inline-flex items-center text-sm font-bold text-[#143987] transition hover:text-[#0f2c6a]"
                       >
                         Solicitar produto
                         <span className="ml-2">→</span>
@@ -201,11 +201,11 @@ export default function ServicosPage() {
         </div>
       </section>
 
-      <section className="bg-sky-50 px-6 py-16">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 rounded-3xl bg-white p-8 shadow-sm shadow-sky-100 md:flex-row md:items-center">
+      <section className="bg-[#eaf0ff] px-6 py-16">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 rounded-3xl bg-white p-8 shadow-sm shadow-[#dbe5ff] md:flex-row md:items-center">
           <div>
-            <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
-              Atendimento Pedra Norte
+            <span className="text-sm font-bold uppercase tracking-wide text-[#143987]">
+              Atendimento MSM Industrial
             </span>
 
             <h2 className="mt-3 text-3xl font-bold text-slate-950">
@@ -213,14 +213,14 @@ export default function ServicosPage() {
             </h2>
 
             <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-              Entre em contato com a equipe da Pedra Norte e solicite uma
-              proposta conforme a necessidade do seu projeto.
+              Entre em contato com nossa equipe e solicite uma proposta conforme
+              a necessidade do seu projeto.
             </p>
           </div>
 
           <a
             href="/contato"
-            className="rounded-xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+            className="rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
           >
             Solicitar orçamento
           </a>

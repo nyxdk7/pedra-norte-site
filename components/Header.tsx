@@ -20,25 +20,17 @@ export function Header() {
   }
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-sky-100 bg-white/90 backdrop-blur">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-[#dbe5ff] bg-white/75 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/" className="flex items-center gap-3" onClick={fecharMenu}>
+        <Link href="/" className="flex items-center" onClick={fecharMenu}>
           <Image
-            src="/images/logo-pedra-norte.png"
-            alt="Logo Pedra Norte"
-            width={46}
-            height={46}
+            src="/images/logo-letras-pretas.png"
+            alt="Logo MSM Industrial LTDA"
+            width={260}
+            height={100}
             priority
+            className="h-auto w-[145px] object-contain md:w-[185px]"
           />
-
-          <div className="leading-tight">
-            <strong className="block text-base font-bold text-slate-950">
-              Pedra Norte
-            </strong>
-            <span className="text-xs font-medium text-sky-600">
-              Engenharia e Infraestrutura
-            </span>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -46,7 +38,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-slate-600 transition hover:text-sky-600"
+              className="relative text-sm font-bold text-slate-700 transition hover:text-[#143987] after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-[#143987] after:transition-all hover:after:w-full"
             >
               {link.label}
             </Link>
@@ -55,7 +47,7 @@ export function Header() {
 
         <Link
           href="/contato"
-          className="hidden rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-600 md:inline-flex"
+          className="hidden rounded-xl bg-[#143987] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a] md:inline-flex"
         >
           Solicitar orçamento
         </Link>
@@ -64,7 +56,7 @@ export function Header() {
           type="button"
           onClick={() => setMenuAberto(!menuAberto)}
           aria-label="Abrir menu"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-sky-100 bg-white text-slate-800 shadow-sm transition hover:bg-sky-50 md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#dbe5ff] bg-white text-[#143987] shadow-sm transition hover:bg-[#eaf0ff] md:hidden"
         >
           {menuAberto ? (
             <svg
@@ -101,14 +93,14 @@ export function Header() {
       </div>
 
       {menuAberto && (
-        <div className="border-t border-sky-100 bg-white px-6 py-5 shadow-lg md:hidden">
+        <div className="border-t border-[#dbe5ff] bg-white/95 px-6 py-5 shadow-lg backdrop-blur-xl md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-2">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={fecharMenu}
-                className="rounded-xl px-4 py-3 text-base font-semibold text-slate-700 transition hover:bg-sky-50 hover:text-sky-600"
+                className="rounded-xl px-4 py-3 text-base font-semibold text-slate-700 transition hover:bg-[#eaf0ff] hover:text-[#143987]"
               >
                 {link.label}
               </Link>
@@ -117,7 +109,7 @@ export function Header() {
             <Link
               href="/contato"
               onClick={fecharMenu}
-              className="mt-3 rounded-xl bg-sky-500 px-5 py-3 text-center text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-600"
+              className="mt-3 rounded-xl bg-[#143987] px-5 py-3 text-center text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:bg-[#0f2c6a]"
             >
               Solicitar orçamento
             </Link>

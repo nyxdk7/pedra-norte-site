@@ -5,9 +5,9 @@ import { WhatsappButton } from "@/components/WhatsappButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pedra Norte | Engenharia e Infraestrutura",
+  title: "MSM Industrial LTDA | Soluções em Engenharia Civil",
   description:
-    "Site institucional da Pedra Norte, empresa de mineração, engenharia, infraestrutura, concreto usinado e fornecimento de agregados.",
+    "Site institucional da MSM Industrial LTDA, empresa de engenharia civil, infraestrutura, concreto usinado, pavimentação e fornecimento de agregados.",
 };
 
 export default function RootLayout({

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatedLogoCard } from "@/components/AnimatedLogoCard";
 
 const parceiros = [
   {
@@ -28,50 +29,50 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <section className="relative overflow-hidden pt-28">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#e0f2fe,transparent_35%),radial-gradient(circle_at_bottom_left,#f0f9ff,transparent_35%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%),radial-gradient(circle_at_bottom_left,#f5f8ff,transparent_35%)]" />
 
         <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-2">
           <div className="text-center lg:text-left">
-            <span className="inline-flex rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
-              Pedra Norte
+            <span className="inline-flex rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
+              MSM Industrial LTDA
             </span>
 
             <h1 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 md:text-6xl">
-              Engenharia e infraestrutura com qualidade, segurança e confiança.
+              Soluções em engenharia civil com qualidade, segurança e confiança.
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Soluções para obras públicas e privadas, com atuação em
-              infraestrutura, manutenção, pavimentação, terraplenagem e apoio
-              operacional.
+              Atuamos com compromisso, excelência e foco em resultados para
+              oferecer soluções modernas e eficientes em engenharia civil,
+              infraestrutura, pavimentação e fornecimento de insumos.
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
               <Link
                 href="/servicos"
-                className="rounded-xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+                className="rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
               >
                 Conhecer serviços
               </Link>
 
               <Link
                 href="/contato"
-                className="rounded-xl border border-sky-200 bg-white px-6 py-3 font-bold text-sky-700 transition hover:-translate-y-0.5 hover:bg-sky-50"
+                className="rounded-xl border border-[#dbe5ff] bg-white px-6 py-3 font-bold text-[#143987] transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
               >
                 Fale conosco
               </Link>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-sky-100 pt-8">
+            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-[#dbe5ff] pt-8">
               <div>
-                <strong className="block text-2xl font-bold text-sky-600">
+                <strong className="block text-2xl font-bold text-[#143987]">
                   +40
                 </strong>
                 <span className="text-sm text-slate-500">Anos de atuação</span>
               </div>
 
               <div>
-                <strong className="block text-2xl font-bold text-sky-600">
+                <strong className="block text-2xl font-bold text-[#143987]">
                   +50
                 </strong>
                 <span className="text-sm text-slate-500">
@@ -80,7 +81,7 @@ export default function Home() {
               </div>
 
               <div>
-                <strong className="block text-2xl font-bold text-sky-600">
+                <strong className="block text-2xl font-bold text-[#143987]">
                   100%
                 </strong>
                 <span className="text-sm text-slate-500">
@@ -90,29 +91,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-sky-200 blur-3xl" />
-
-              <div className="relative flex h-80 w-80 items-center justify-center rounded-full border border-sky-100 bg-white shadow-2xl shadow-sky-200/60 md:h-[430px] md:w-[430px]">
-                <Image
-                  src="/images/logo-pedra-norte.png"
-                  alt="Logo Pedra Norte"
-                  width={320}
-                  height={320}
-                  priority
-                  className="h-auto w-64 md:w-80"
-                />
-              </div>
-            </div>
-          </div>
+          <AnimatedLogoCard />
         </div>
       </section>
 
-      <section className="border-y border-sky-100 bg-sky-50/60 px-6 py-14">
+      <section className="border-y border-[#dbe5ff] bg-[#eaf0ff]/60 px-6 py-14">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="rounded-full border border-sky-200 bg-white px-4 py-2 text-sm font-semibold text-sky-700">
+            <span className="rounded-full border border-[#dbe5ff] bg-white px-4 py-2 text-sm font-semibold text-[#143987]">
               Clientes e parceiros
             </span>
 
@@ -121,9 +107,8 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-base leading-7 text-slate-600">
-              A Pedra Norte possui trajetória ligada a projetos, fornecimentos e
-              serviços para instituições que contribuem com o desenvolvimento da
-              região.
+              Nossa trajetória é marcada por parcerias e fornecimentos para
+              instituições que contribuem com o desenvolvimento da região.
             </p>
           </div>
 
@@ -131,7 +116,7 @@ export default function Home() {
             {parceiros.map((parceiro) => (
               <div
                 key={parceiro.nome}
-                className="group flex h-32 items-center justify-center rounded-3xl border border-sky-100 bg-white p-5 shadow-sm shadow-sky-100 transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100"
+                className="group flex h-32 items-center justify-center rounded-3xl border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#143987]/30 hover:shadow-xl hover:shadow-[#dbe5ff]"
               >
                 <Image
                   src={parceiro.imagem}
@@ -148,7 +133,7 @@ export default function Home() {
           <div className="mt-8 text-center">
             <Link
               href="/obras"
-              className="inline-flex items-center rounded-xl border border-sky-200 bg-white px-5 py-3 text-sm font-bold text-sky-700 transition hover:-translate-y-0.5 hover:bg-sky-50"
+              className="inline-flex items-center rounded-xl border border-[#dbe5ff] bg-white px-5 py-3 text-sm font-bold text-[#143987] transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
             >
               Ver obras e casos de sucesso
               <span className="ml-2">→</span>

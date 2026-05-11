@@ -2,16 +2,16 @@ export default function ContatoPage() {
   return (
     <main className="min-h-screen bg-white pt-32 text-slate-950">
       <section className="relative overflow-hidden px-6 pb-20">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#e0f2fe,transparent_35%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%)]" />
 
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <span className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
+            <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
               Contato
             </span>
 
             <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
-              Fale com a Pedra Norte.
+              Fale com a MSM Industrial.
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
@@ -22,8 +22,8 @@ export default function ContatoPage() {
 
           <div className="mt-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="space-y-6">
-              <div className="rounded-3xl border border-sky-100 bg-white p-8 shadow-sm shadow-sky-100">
-                <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
+              <div className="rounded-3xl border border-[#dbe5ff] bg-white p-8 shadow-sm shadow-[#dbe5ff]">
+                <span className="text-sm font-bold uppercase tracking-wide text-[#143987]">
                   Atendimento comercial
                 </span>
 
@@ -37,67 +37,41 @@ export default function ContatoPage() {
                 </p>
 
                 <a
-                  href="https://wa.me/556899851248"
+                  href="https://wa.me/5568999999999"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex rounded-xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+                  className="mt-6 inline-flex rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
                 >
                   Chamar no WhatsApp
                 </a>
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-                <div className="rounded-3xl border border-sky-100 bg-sky-50 p-6">
-                  <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
-                    Telefone
-                  </span>
-                  <p className="mt-3 text-lg font-bold text-slate-950">
-                    (68) 99999-9999
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    Atendimento em horário comercial.
-                  </p>
-                </div>
-
-                <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100">
-                  <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
-                    E-mail
-                  </span>
-                  <p className="mt-3 text-lg font-bold text-slate-950">
-                    contato@pedranorte.com.br
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    Envie sua solicitação ou proposta comercial.
-                  </p>
-                </div>
-
-                <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100">
-                  <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
-                    Sede administrativa
-                  </span>
-                  <p className="mt-3 text-lg font-bold text-slate-950">
-                    Rio Branco - Acre
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    Atendimento administrativo e comercial.
-                  </p>
-                </div>
-
-                <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100">
-                  <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
-                    Unidade mineradora
-                  </span>
-                  <p className="mt-3 text-lg font-bold text-slate-950">
-                    Rondônia
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    Produção mineral e fornecimento de agregados.
-                  </p>
-                </div>
+                {[
+                  ["Telefone", "(68) 99999-9999", "Atendimento em horário comercial."],
+                  ["E-mail", "contato@empresa.com.br", "Envie sua solicitação ou proposta comercial."],
+                  ["Sede administrativa", "Rio Branco - Acre", "Atendimento administrativo e comercial."],
+                  ["Atuação", "Região Norte", "Soluções para obras, engenharia e infraestrutura."],
+                ].map(([titulo, valor, descricao], index) => (
+                  <div
+                    key={titulo}
+                    className={`rounded-3xl border border-[#dbe5ff] p-6 shadow-sm shadow-[#dbe5ff] ${
+                      index === 0 ? "bg-[#eaf0ff]" : "bg-white"
+                    }`}
+                  >
+                    <span className="text-sm font-bold uppercase tracking-wide text-[#143987]">
+                      {titulo}
+                    </span>
+                    <p className="mt-3 text-lg font-bold text-slate-950">
+                      {valor}
+                    </p>
+                    <p className="mt-2 text-sm text-slate-600">{descricao}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100">
+            <div className="rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff]">
               <h2 className="text-2xl font-bold text-slate-950">
                 Envie uma mensagem
               </h2>
@@ -118,7 +92,7 @@ export default function ContatoPage() {
                     id="nome"
                     type="text"
                     placeholder="Digite seu nome"
-                    className="w-full rounded-xl border border-sky-100 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                    className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                   />
                 </div>
 
@@ -134,7 +108,7 @@ export default function ContatoPage() {
                       id="telefone"
                       type="text"
                       placeholder="(00) 00000-0000"
-                      className="w-full rounded-xl border border-sky-100 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                      className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                     />
                   </div>
 
@@ -149,7 +123,7 @@ export default function ContatoPage() {
                       id="email"
                       type="email"
                       placeholder="seuemail@exemplo.com"
-                      className="w-full rounded-xl border border-sky-100 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                      className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                     />
                   </div>
                 </div>
@@ -163,7 +137,7 @@ export default function ContatoPage() {
                   </label>
                   <select
                     id="assunto"
-                    className="w-full rounded-xl border border-sky-100 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                    className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -188,20 +162,20 @@ export default function ContatoPage() {
                     id="mensagem"
                     rows={6}
                     placeholder="Descreva sua solicitação..."
-                    className="w-full resize-none rounded-xl border border-sky-100 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                    className="w-full resize-none rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-600"
+                  className="w-full rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
                 >
                   Enviar mensagem
                 </button>
 
                 <p className="text-center text-sm text-slate-500">
-                  No momento, este formulário é apenas visual. Depois podemos
-                  conectar com e-mail, WhatsApp ou banco de dados.
+                  No momento, este formulário é visual. Depois podemos conectar
+                  com e-mail, WhatsApp ou banco de dados.
                 </p>
               </form>
             </div>
@@ -209,11 +183,11 @@ export default function ContatoPage() {
         </div>
       </section>
 
-      <section className="bg-sky-50 px-6 py-16">
+      <section className="bg-[#eaf0ff] px-6 py-16">
         <div className="mx-auto max-w-7xl">
-          <div className="overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm shadow-sky-100">
+          <div className="overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white shadow-sm shadow-[#dbe5ff]">
             <div className="p-8">
-              <span className="text-sm font-bold uppercase tracking-wide text-sky-600">
+              <span className="text-sm font-bold uppercase tracking-wide text-[#143987]">
                 Localização
               </span>
 
@@ -222,15 +196,14 @@ export default function ContatoPage() {
               </h2>
 
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                A Pedra Norte possui sede administrativa em Rio Branco, Acre, e
-                atuação ligada à mineração e fornecimento de produtos na região
-                amazônica.
+                A MSM Industrial LTDA atua com soluções para engenharia civil,
+                obras, infraestrutura e fornecimento de insumos.
               </p>
             </div>
 
-            <div className="h-80 bg-sky-100">
+            <div className="h-80 bg-[#eaf0ff]">
               <iframe
-                title="Mapa Pedra Norte"
+                title="Mapa MSM Industrial"
                 src="https://www.google.com/maps?q=Rio%20Branco%20Acre&output=embed"
                 className="h-full w-full border-0"
                 loading="lazy"

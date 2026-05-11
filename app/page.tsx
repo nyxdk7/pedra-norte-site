@@ -1,6 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const parceiros = [
+  {
+    nome: "Prefeitura de Rio Branco",
+    imagem: "/images/casos-sucesso/prefeitura-rio-branco.png",
+  },
+  {
+    nome: "7º BEC",
+    imagem: "/images/casos-sucesso/bec.png",
+  },
+  {
+    nome: "DEPASA",
+    imagem: "/images/casos-sucesso/depasa.png",
+  },
+  {
+    nome: "DERACRE",
+    imagem: "/images/casos-sucesso/deracre.png",
+  },
+  {
+    nome: "DNIT",
+    imagem: "/images/casos-sucesso/dnit.png",
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
@@ -51,14 +74,18 @@ export default function Home() {
                 <strong className="block text-2xl font-bold text-sky-600">
                   +50
                 </strong>
-                <span className="text-sm text-slate-500">Projetos atendidos</span>
+                <span className="text-sm text-slate-500">
+                  Projetos atendidos
+                </span>
               </div>
 
               <div>
                 <strong className="block text-2xl font-bold text-sky-600">
                   100%
                 </strong>
-                <span className="text-sm text-slate-500">Foco em qualidade</span>
+                <span className="text-sm text-slate-500">
+                  Foco em qualidade
+                </span>
               </div>
             </div>
           </div>
@@ -78,6 +105,54 @@ export default function Home() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-sky-100 bg-sky-50/60 px-6 py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="rounded-full border border-sky-200 bg-white px-4 py-2 text-sm font-semibold text-sky-700">
+              Clientes e parceiros
+            </span>
+
+            <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+              Confiança de instituições e parceiros estratégicos.
+            </h2>
+
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              A Pedra Norte possui trajetória ligada a projetos, fornecimentos e
+              serviços para instituições que contribuem com o desenvolvimento da
+              região.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {parceiros.map((parceiro) => (
+              <div
+                key={parceiro.nome}
+                className="group flex h-32 items-center justify-center rounded-3xl border border-sky-100 bg-white p-5 shadow-sm shadow-sky-100 transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100"
+              >
+                <Image
+                  src={parceiro.imagem}
+                  alt={parceiro.nome}
+                  width={170}
+                  height={90}
+                  quality={100}
+                  className="max-h-16 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/obras"
+              className="inline-flex items-center rounded-xl border border-sky-200 bg-white px-5 py-3 text-sm font-bold text-sky-700 transition hover:-translate-y-0.5 hover:bg-sky-50"
+            >
+              Ver obras e casos de sucesso
+              <span className="ml-2">→</span>
+            </Link>
           </div>
         </div>
       </section>

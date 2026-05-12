@@ -427,38 +427,13 @@ export default function Home() {
               no Acre.
             </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/sobre"
-                className="rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-              >
-                Conheça o grupo
-              </Link>
-
-              <Link
-                href="/servicos"
-                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
-              >
-                Ver áreas de atuação
-              </Link>
-            </div>
-
-            <div className="mt-12 grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div className="mt-12 grid max-w-2xl gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
                 <strong className="block text-3xl font-bold text-white">
                   +40
                 </strong>
                 <span className="mt-1 block text-sm text-slate-200">
                   Anos de atuação
-                </span>
-              </div>
-
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                <strong className="block text-3xl font-bold text-white">
-                  6
-                </strong>
-                <span className="mt-1 block text-sm text-slate-200">
-                  Empresas integradas
                 </span>
               </div>
 
@@ -483,6 +458,22 @@ export default function Home() {
                   </span>
                 </div>
               </div>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/sobre"
+                className="rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
+              >
+                Conheça o grupo
+              </Link>
+
+              <Link
+                href="/servicos"
+                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
+              >
+                Ver áreas de atuação
+              </Link>
             </div>
           </div>
         </div>

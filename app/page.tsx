@@ -2,9 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Building2,
+  Factory,
+  Hammer,
+  LucideIcon,
+  Mountain,
+  Route,
+  Truck,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-const AZUL_MSM = "#143987";
 
 const empresasGrupo = [
   {
@@ -71,6 +78,56 @@ const estruturaCards = [
   "Máquinas e equipamentos",
   "Equipe operacional",
   "Experiência em infraestrutura",
+];
+
+const servicosPrincipais: Array<{
+  titulo: string;
+  descricao: string;
+  detalhe: string;
+  icone: LucideIcon;
+}> = [
+  {
+    titulo: "Pavimentação asfáltica",
+    descricao:
+      "Execução de obras de pavimentação com estrutura operacional, equipe técnica e suporte de máquinas.",
+    detalhe: "Infraestrutura rodoviária",
+    icone: Route,
+  },
+  {
+    titulo: "Concreto usinado",
+    descricao:
+      "Produção e fornecimento de concreto usinado para obras civis, industriais e estruturais.",
+    detalhe: "Fornecimento técnico",
+    icone: Building2,
+  },
+  {
+    titulo: "Britas e agregados",
+    descricao:
+      "Produção de agregados minerais para obras, pavimentação, drenagem e construção civil.",
+    detalhe: "Pedra Norte",
+    icone: Mountain,
+  },
+  {
+    titulo: "Usinagem de asfalto",
+    descricao:
+      "Produção de massa asfáltica para aplicação em obras urbanas, rodoviárias e industriais.",
+    detalhe: "Produção própria",
+    icone: Factory,
+  },
+  {
+    titulo: "Pré-moldados",
+    descricao:
+      "Soluções em peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
+    detalhe: "Peças de concreto",
+    icone: Hammer,
+  },
+  {
+    titulo: "Locação de máquinas",
+    descricao:
+      "Disponibilização de máquinas e equipamentos pesados para apoio em obras e operações.",
+    detalhe: "Frota operacional",
+    icone: Truck,
+  },
 ];
 
 const areasLicitacao = [
@@ -357,17 +414,19 @@ export default function Home() {
         <div className="relative z-10 mx-auto flex min-h-[calc(100vh-7rem)] max-w-7xl items-center px-6 py-20">
           <div className="max-w-4xl">
             <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-              Grupo Soster
+              MSM Industrial / Pedra Norte
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-bold tracking-tight text-white md:text-7xl">
-              Estrutura integrada para grandes obras de infraestrutura.
+              Engenharia, pavimentação, agregados e estrutura para grandes
+              obras.
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200 md:text-xl">
-              Da produção dos insumos à execução em campo, o Grupo Soster reúne
-              empresas especializadas em pavimentação, mineração, construção
-              civil, pré-moldados e locação de máquinas.
+              O Grupo Soster reúne empresas especializadas em infraestrutura,
+              pavimentação, mineração, concreto usinado, pré-moldados e locação
+              de máquinas, com atuação integrada para obras públicas e privadas
+              no Acre.
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -431,6 +490,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Estrutura integrada */}
       <section className="relative overflow-hidden bg-white px-6 py-24">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%)]" />
 
@@ -446,9 +506,9 @@ export default function Home() {
             </h2>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              O Grupo Soster atua de forma integrada, reunindo pedreira, usinagem,
-              pavimentação, construção civil, pré-moldados e locação de
-              máquinas. Essa estrutura permite maior controle, eficiência e
+              O Grupo Soster atua de forma integrada, reunindo pedreira,
+              usinagem, pavimentação, construção civil, pré-moldados e locação
+              de máquinas. Essa estrutura permite maior controle, eficiência e
               capacidade operacional nas obras.
             </p>
           </div>
@@ -462,7 +522,9 @@ export default function Home() {
                 <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#143987] font-bold text-white">
                   ✓
                 </span>
+
                 <p className="mt-5 font-bold text-slate-900">{item}</p>
+
                 <p className="mt-2 text-sm leading-6 text-slate-600">
                   Parte essencial da capacidade operacional do grupo para
                   atender obras de diferentes portes.
@@ -473,8 +535,105 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Serviços principais com ícones */}
+      <section className="relative overflow-hidden bg-white px-6 py-24">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#eaf0ff,transparent_34%),radial-gradient(circle_at_bottom_right,#f8fbff,transparent_35%)]" />
+
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
+                Serviços principais
+              </span>
+
+              <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
+                Soluções completas para infraestrutura, construção e operação em
+                campo.
+              </h2>
+            </div>
+
+            <p className="text-lg leading-8 text-slate-600">
+              A MSM Industrial e a Pedra Norte atuam de forma integrada,
+              reunindo produção de insumos, fornecimento técnico, frota
+              operacional e execução de obras para atender demandas públicas e
+              privadas.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {servicosPrincipais.map((servico, index) => {
+              const Icone = servico.icone;
+
+              return (
+                <article
+                  key={servico.titulo}
+                  className="group relative min-h-[300px] overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#143987]/30 hover:bg-[#143987] hover:shadow-xl hover:shadow-[#dbe5ff]"
+                >
+                  <div className="absolute -right-14 -top-14 h-44 w-44 rounded-full bg-[#eaf0ff] transition duration-500 group-hover:bg-white/10" />
+                  <div className="absolute bottom-0 right-0 translate-x-8 translate-y-8 text-[#eaf0ff] opacity-60 transition duration-500 group-hover:text-white/10 group-hover:opacity-100">
+                    <Icone size={180} strokeWidth={1.2} />
+                  </div>
+
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="flex items-start justify-between gap-5">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#143987] text-white shadow-lg shadow-[#143987]/20 transition duration-300 group-hover:bg-white group-hover:text-[#143987]">
+                        <Icone size={28} strokeWidth={2.2} />
+                      </div>
+
+                      <span className="text-5xl font-black text-[#eaf0ff] transition duration-300 group-hover:text-white/15">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    <span className="mt-8 inline-flex w-fit rounded-full bg-[#eaf0ff] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:bg-white/15 group-hover:text-white">
+                      {servico.detalhe}
+                    </span>
+
+                    <h3 className="mt-5 text-2xl font-bold text-slate-950 transition duration-300 group-hover:text-white">
+                      {servico.titulo}
+                    </h3>
+
+                    <p className="mt-4 leading-7 text-slate-600 transition duration-300 group-hover:text-white/85">
+                      {servico.descricao}
+                    </p>
+
+                    <div className="mt-auto pt-7">
+                      <div className="h-1 w-14 rounded-full bg-[#143987] transition-all duration-300 group-hover:w-24 group-hover:bg-white" />
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-12 rounded-[2rem] border border-[#dbe5ff] bg-[#143987] p-8 text-white shadow-xl shadow-[#dbe5ff] md:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <h3 className="text-2xl font-bold md:text-3xl">
+                  Estrutura preparada para atender obras de diferentes portes.
+                </h3>
+
+                <p className="mt-3 max-w-3xl leading-7 text-white/85">
+                  Do fornecimento de materiais à execução em campo, o grupo
+                  conta com empresas, equipamentos e equipes que fortalecem a
+                  capacidade operacional em infraestrutura.
+                </p>
+              </div>
+
+              <Link
+                href="/servicos"
+                className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
+              >
+                Conhecer serviços
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <GaleriaOperacoes />
 
+      {/* Grupo Soster */}
       <section className="bg-[#eaf0ff]/70 px-6 py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-3xl text-center">
@@ -514,6 +673,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-slate-950">
                     {empresa.nome}
                   </h3>
+
                   <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-[#143987]">
                     {empresa.atuacao}
                   </p>
@@ -567,6 +727,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Operação em campo */}
       <section className="bg-white px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="relative min-h-[560px] overflow-hidden rounded-[2rem] border border-[#dbe5ff] shadow-2xl shadow-[#dbe5ff]">
@@ -607,6 +768,7 @@ export default function Home() {
                       <strong className="block text-lg font-bold">
                         {item}
                       </strong>
+
                       <span className="mt-1 block text-sm text-slate-200">
                         Estrutura integrada
                       </span>
@@ -626,6 +788,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Capacidade */}
       <section className="bg-white px-6 pb-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 rounded-3xl border border-[#dbe5ff] bg-slate-950 p-8 text-white shadow-2xl shadow-[#dbe5ff] lg:grid-cols-[0.9fr_1.1fr] lg:p-12">
@@ -659,11 +822,56 @@ export default function Home() {
                   className="rounded-2xl border border-white/10 bg-white/10 p-5"
                 >
                   <p className="font-bold text-white">{item}</p>
+
                   <p className="mt-2 text-sm leading-6 text-slate-300">
                     Área estratégica dentro da estrutura operacional do grupo.
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="bg-white px-6 pb-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-[2rem] bg-[#143987] p-8 text-white shadow-2xl shadow-[#dbe5ff] md:p-12">
+            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#8fb1ff]/20 blur-3xl" />
+
+            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <span className="text-sm font-bold uppercase tracking-wide text-white/70">
+                  Atendimento institucional
+                </span>
+
+                <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
+                  Precisa de estrutura para sua obra?
+                </h2>
+
+                <p className="mt-4 max-w-3xl text-lg leading-8 text-white/85">
+                  Fale com o Grupo Soster e conheça as soluções da MSM
+                  Industrial, Pedra Norte e empresas integradas para
+                  infraestrutura, fornecimento de materiais e execução em campo.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                <Link
+                  href="/contato"
+                  className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
+                >
+                  Fale conosco
+                </Link>
+
+                <Link
+                  href="/servicos"
+                  className="inline-flex justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
+                >
+                  Ver serviços
+                </Link>
+              </div>
             </div>
           </div>
         </div>

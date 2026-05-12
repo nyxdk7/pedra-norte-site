@@ -73,24 +73,21 @@ const outrosParceiros = [
   },
 ];
 
-const estruturaCards = [
-  "Produção própria de insumos",
-  "Máquinas e equipamentos",
-  "Equipe operacional",
-  "Experiência em infraestrutura",
-];
-
 const servicosPrincipais: Array<{
   titulo: string;
   descricao: string;
   detalhe: string;
+  empresa: string;
+  operacional: string;
   icone: LucideIcon;
 }> = [
   {
     titulo: "Pavimentação asfáltica",
     descricao:
-      "Execução de obras de pavimentação com estrutura operacional, equipe técnica e suporte de máquinas.",
+      "Execução de obras urbanas e rodoviárias com equipe técnica, frota operacional e suporte de usinagem.",
     detalhe: "Infraestrutura rodoviária",
+    empresa: "MSM Industrial",
+    operacional: "Obras urbanas e rodoviárias",
     icone: Route,
   },
   {
@@ -98,20 +95,26 @@ const servicosPrincipais: Array<{
     descricao:
       "Produção e fornecimento de concreto usinado para obras civis, industriais e estruturais.",
     detalhe: "Fornecimento técnico",
+    empresa: "MSM Industrial",
+    operacional: "Controle de produção e entrega",
     icone: Building2,
   },
   {
     titulo: "Britas e agregados",
     descricao:
-      "Produção de agregados minerais para obras, pavimentação, drenagem e construção civil.",
-    detalhe: "Pedra Norte",
+      "Produção de agregados minerais para pavimentação, drenagem, construção civil e infraestrutura.",
+    detalhe: "Produção própria",
+    empresa: "Pedra Norte",
+    operacional: "Insumos para grandes obras",
     icone: Mountain,
   },
   {
     titulo: "Usinagem de asfalto",
     descricao:
-      "Produção de massa asfáltica para aplicação em obras urbanas, rodoviárias e industriais.",
-    detalhe: "Produção própria",
+      "Produção de massa asfáltica para aplicação em obras públicas, privadas, urbanas e rodoviárias.",
+    detalhe: "Produção industrial",
+    empresa: "MSM Industrial",
+    operacional: "Apoio direto à pavimentação",
     icone: Factory,
   },
   {
@@ -119,24 +122,19 @@ const servicosPrincipais: Array<{
     descricao:
       "Soluções em peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
     detalhe: "Peças de concreto",
+    empresa: "Pré Molde",
+    operacional: "Drenagem e urbanização",
     icone: Hammer,
   },
   {
     titulo: "Locação de máquinas",
     descricao:
-      "Disponibilização de máquinas e equipamentos pesados para apoio em obras e operações.",
-    detalhe: "Frota operacional",
+      "Disponibilização de máquinas e equipamentos pesados para apoio operacional em obras de diferentes portes.",
+    detalhe: "Frota pesada",
+    empresa: "Tratorron",
+    operacional: "Máquinas para operação em campo",
     icone: Truck,
   },
-];
-
-const areasLicitacao = [
-  "Pavimentação asfáltica",
-  "Produção de agregados",
-  "Locação de máquinas",
-  "Pré-moldados de cimento",
-  "Construção civil",
-  "Apoio operacional",
 ];
 
 const galeriaImagens = Array.from({ length: 20 }, (_, i) => ({
@@ -490,142 +488,139 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Estrutura integrada */}
-      <section className="relative overflow-hidden bg-white px-6 py-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%)]" />
-
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-4xl">
-            <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-              Estrutura integrada
-            </span>
-
-            <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
-              Uma cadeia operacional completa para atender obras públicas e
-              privadas.
-            </h2>
-
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              O Grupo Soster atua de forma integrada, reunindo pedreira,
-              usinagem, pavimentação, construção civil, pré-moldados e locação
-              de máquinas. Essa estrutura permite maior controle, eficiência e
-              capacidade operacional nas obras.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {estruturaCards.map((item) => (
-              <div
-                key={item}
-                className="rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff] transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#143987] font-bold text-white">
-                  ✓
-                </span>
-
-                <p className="mt-5 font-bold text-slate-900">{item}</p>
-
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Parte essencial da capacidade operacional do grupo para
-                  atender obras de diferentes portes.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Serviços principais com ícones */}
+      {/* Capacidade operacional */}
       <section className="relative overflow-hidden bg-white px-6 py-24">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#eaf0ff,transparent_34%),radial-gradient(circle_at_bottom_right,#f8fbff,transparent_35%)]" />
 
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-            <div>
-              <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-                Serviços principais
-              </span>
-
-              <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
-                Soluções completas para infraestrutura, construção e operação em
-                campo.
-              </h2>
-            </div>
-
-            <p className="text-lg leading-8 text-slate-600">
-              A MSM Industrial e a Pedra Norte atuam de forma integrada,
-              reunindo produção de insumos, fornecimento técnico, frota
-              operacional e execução de obras para atender demandas públicas e
-              privadas.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {servicosPrincipais.map((servico, index) => {
-              const Icone = servico.icone;
-
-              return (
-                <article
-                  key={servico.titulo}
-                  className="group relative min-h-[300px] overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#143987]/30 hover:bg-[#143987] hover:shadow-xl hover:shadow-[#dbe5ff]"
-                >
-                  <div className="absolute -right-14 -top-14 h-44 w-44 rounded-full bg-[#eaf0ff] transition duration-500 group-hover:bg-white/10" />
-                  <div className="absolute bottom-0 right-0 translate-x-8 translate-y-8 text-[#eaf0ff] opacity-60 transition duration-500 group-hover:text-white/10 group-hover:opacity-100">
-                    <Icone size={180} strokeWidth={1.2} />
-                  </div>
-
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="flex items-start justify-between gap-5">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#143987] text-white shadow-lg shadow-[#143987]/20 transition duration-300 group-hover:bg-white group-hover:text-[#143987]">
-                        <Icone size={28} strokeWidth={2.2} />
-                      </div>
-
-                      <span className="text-5xl font-black text-[#eaf0ff] transition duration-300 group-hover:text-white/15">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    <span className="mt-8 inline-flex w-fit rounded-full bg-[#eaf0ff] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:bg-white/15 group-hover:text-white">
-                      {servico.detalhe}
-                    </span>
-
-                    <h3 className="mt-5 text-2xl font-bold text-slate-950 transition duration-300 group-hover:text-white">
-                      {servico.titulo}
-                    </h3>
-
-                    <p className="mt-4 leading-7 text-slate-600 transition duration-300 group-hover:text-white/85">
-                      {servico.descricao}
-                    </p>
-
-                    <div className="mt-auto pt-7">
-                      <div className="h-1 w-14 rounded-full bg-[#143987] transition-all duration-300 group-hover:w-24 group-hover:bg-white" />
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-12 rounded-[2rem] border border-[#dbe5ff] bg-[#143987] p-8 text-white shadow-xl shadow-[#dbe5ff] md:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="overflow-hidden rounded-[2rem] border border-[#dbe5ff] bg-white shadow-sm shadow-[#dbe5ff]">
+            <div className="grid gap-8 border-b border-[#dbe5ff] bg-gradient-to-br from-white via-[#f8fbff] to-[#eaf0ff] p-8 md:p-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
               <div>
-                <h3 className="text-2xl font-bold md:text-3xl">
-                  Estrutura preparada para atender obras de diferentes portes.
-                </h3>
+                <span className="rounded-full border border-[#dbe5ff] bg-white px-4 py-2 text-sm font-semibold text-[#143987] shadow-sm">
+                  Capacidade operacional
+                </span>
 
-                <p className="mt-3 max-w-3xl leading-7 text-white/85">
-                  Do fornecimento de materiais à execução em campo, o grupo
-                  conta com empresas, equipamentos e equipes que fortalecem a
-                  capacidade operacional em infraestrutura.
-                </p>
+                <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
+                  Da pedreira à pavimentação, uma estrutura completa para grandes
+                  obras.
+                </h2>
               </div>
 
-              <Link
-                href="/servicos"
-                className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-              >
-                Conhecer serviços
-              </Link>
+              <div>
+                <p className="text-lg leading-8 text-slate-600">
+                  A MSM Industrial, Pedra Norte e empresas integradas do Grupo
+                  Soster conectam produção de insumos, frota pesada, equipe
+                  técnica e execução em campo para atender obras públicas e
+                  privadas com mais controle, agilidade e capacidade operacional.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {[
+                    "Insumos próprios",
+                    "Frota operacional",
+                    "Equipe técnica",
+                    "Execução em campo",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-[#dbe5ff] bg-white px-4 py-2 text-sm font-bold text-[#143987] shadow-sm"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-5 p-5 md:grid-cols-2 md:p-6 lg:grid-cols-3">
+              {servicosPrincipais.map((servico, index) => {
+                const Icone = servico.icone;
+
+                return (
+                  <article
+                    key={servico.titulo}
+                    className="group relative min-h-[360px] overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#143987]/30 hover:bg-[#143987] hover:shadow-xl hover:shadow-[#dbe5ff]"
+                  >
+                    <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#eaf0ff] transition duration-500 group-hover:bg-white/10" />
+
+                    <div className="absolute bottom-0 right-0 translate-x-8 translate-y-8 text-[#eaf0ff] opacity-60 transition duration-500 group-hover:text-white/10 group-hover:opacity-100">
+                      <Icone size={190} strokeWidth={1.1} />
+                    </div>
+
+                    <div className="relative z-10 flex h-full flex-col">
+                      <div className="flex items-start justify-between gap-5">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#143987] text-white shadow-lg shadow-[#143987]/20 transition duration-300 group-hover:bg-white group-hover:text-[#143987]">
+                          <Icone size={28} strokeWidth={2.2} />
+                        </div>
+
+                        <span className="text-5xl font-black text-[#eaf0ff] transition duration-300 group-hover:text-white/15">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+
+                      <div className="mt-8 flex flex-wrap gap-2">
+                        <span className="inline-flex w-fit rounded-full bg-[#eaf0ff] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:bg-white/15 group-hover:text-white">
+                          {servico.empresa}
+                        </span>
+
+                        <span className="inline-flex w-fit rounded-full border border-[#dbe5ff] bg-white px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-500 transition duration-300 group-hover:border-white/20 group-hover:bg-white/10 group-hover:text-white/80">
+                          {servico.detalhe}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-5 text-2xl font-bold text-slate-950 transition duration-300 group-hover:text-white">
+                        {servico.titulo}
+                      </h3>
+
+                      <p className="mt-4 leading-7 text-slate-600 transition duration-300 group-hover:text-white/85">
+                        {servico.descricao}
+                      </p>
+
+                      <div className="mt-auto pt-7">
+                        <div className="rounded-2xl border border-[#dbe5ff] bg-slate-50 p-4 transition duration-300 group-hover:border-white/15 group-hover:bg-white/10">
+                          <p className="text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:text-white/70">
+                            Aplicação operacional
+                          </p>
+
+                          <p className="mt-1 text-sm font-semibold text-slate-700 transition duration-300 group-hover:text-white">
+                            {servico.operacional}
+                          </p>
+                        </div>
+
+                        <div className="mt-6 h-1 w-14 rounded-full bg-[#143987] transition-all duration-300 group-hover:w-24 group-hover:bg-white" />
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="border-t border-[#dbe5ff] bg-[#143987] p-8 text-white md:p-10">
+              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                <div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-white/65">
+                    Estrutura integrada
+                  </span>
+
+                  <h3 className="mt-3 text-2xl font-bold md:text-3xl">
+                    Materiais, máquinas, equipe e execução trabalhando de forma
+                    conectada.
+                  </h3>
+
+                  <p className="mt-3 max-w-3xl leading-7 text-white/85">
+                    Do fornecimento de materiais à atuação em campo, o grupo
+                    conta com empresas, equipamentos e equipes que fortalecem a
+                    capacidade operacional em infraestrutura.
+                  </p>
+                </div>
+
+                <Link
+                  href="/servicos"
+                  className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
+                >
+                  Conhecer serviços
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -727,107 +722,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Operação em campo */}
+      {/* Pedra Norte em operação */}
       <section className="bg-white px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="relative min-h-[560px] overflow-hidden rounded-[2rem] border border-[#dbe5ff] shadow-2xl shadow-[#dbe5ff]">
             <Image
               src="/images/home/grupo-estrutura.png"
-              alt="Escavadeira carregando caminhão da Pedra Norte"
+              alt="Escavadeira carregando caminhão na operação da Pedra Norte"
               fill
               quality={100}
               className="object-cover transition duration-700 hover:scale-105"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/45 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
 
             <div className="relative z-10 flex min-h-[560px] items-end px-6 py-8 md:items-center md:px-12 lg:px-16">
               <div className="max-w-2xl">
                 <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-                  Operação em campo
+                  Pedra Norte em operação
                 </span>
 
                 <h2 className="mt-6 text-3xl font-bold tracking-tight text-white md:text-5xl">
-                  Da pedreira à execução, o grupo atua com estrutura própria em
-                  cada etapa da obra.
+                  Agregados produzidos com estrutura própria para abastecer
+                  grandes obras.
                 </h2>
 
                 <p className="mt-5 text-lg leading-8 text-slate-200">
-                  A integração entre empresas do grupo fortalece a logística, o
-                  fornecimento de insumos, o uso de equipamentos e a execução em
-                  campo, garantindo mais controle e eficiência operacional.
+                  Com operação de pedreira, máquinas pesadas e controle de
+                  produção, a Pedra Norte fornece materiais essenciais para
+                  pavimentação, drenagem, concreto e infraestrutura.
                 </p>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                  {["Pedreira", "Máquinas", "Execução"].map((item) => (
+                  {[
+                    {
+                      titulo: "Britas e agregados",
+                      texto: "Produção mineral",
+                    },
+                    {
+                      titulo: "Apoio à pavimentação",
+                      texto: "Base para obras rodoviárias",
+                    },
+                    {
+                      titulo: "Fornecimento técnico",
+                      texto: "Materiais para infraestrutura",
+                    },
+                  ].map((item) => (
                     <div
-                      key={item}
+                      key={item.titulo}
                       className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur"
                     >
                       <strong className="block text-lg font-bold">
-                        {item}
+                        {item.titulo}
                       </strong>
 
                       <span className="mt-1 block text-sm text-slate-200">
-                        Estrutura integrada
+                        {item.texto}
                       </span>
                     </div>
                   ))}
                 </div>
 
                 <Link
-                  href="/obras"
+                  href="/servicos"
                   className="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
                 >
-                  Ver obras e atuação
+                  Ver áreas de atuação
                 </Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Capacidade */}
-      <section className="bg-white px-6 pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 rounded-3xl border border-[#dbe5ff] bg-slate-950 p-8 text-white shadow-2xl shadow-[#dbe5ff] lg:grid-cols-[0.9fr_1.1fr] lg:p-12">
-            <div>
-              <span className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
-                Capacidade para licitações
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold md:text-5xl">
-                Estrutura para atender contratos públicos e grandes obras.
-              </h2>
-
-              <p className="mt-5 leading-8 text-slate-300">
-                A atuação integrada do grupo fortalece a capacidade técnica,
-                operacional e logística para participação em obras públicas,
-                especialmente em infraestrutura rodoviária e pavimentação.
-              </p>
-
-              <Link
-                href="/obras"
-                className="mt-8 inline-flex rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
-              >
-                Ver obras e atuação
-              </Link>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {areasLicitacao.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/10 p-5"
-                >
-                  <p className="font-bold text-white">{item}</p>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">
-                    Área estratégica dentro da estrutura operacional do grupo.
-                  </p>
-                </div>
-              ))}
             </div>
           </div>
         </div>

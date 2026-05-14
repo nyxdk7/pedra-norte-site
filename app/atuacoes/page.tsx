@@ -54,7 +54,7 @@ const atuacoes = [
       "Produção de peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
     descricao:
       "A área de pré-moldados oferece soluções em concreto para obras que exigem padronização, resistência e agilidade na execução. As peças podem atender demandas de drenagem, urbanização, contenção, infraestrutura e apoio a obras civis, reduzindo tempo de execução e aumentando a eficiência em campo.",
-  },  G
+  },  
   {
     titulo: "Edificações",
     subtitulo: "Construção civil e obras estruturais",

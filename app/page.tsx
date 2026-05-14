@@ -24,7 +24,7 @@ const empresasGrupo = [
   {
     nome: "Pedra Norte",
     imagem: "/images/grupo/pedra-norte-logo.png",
-    atuacao: "Agregados",
+    atuacao: "Minerais e agregados",
     descricao:
       "Pedreira responsável pela produção e fornecimento de agregados minerais para obras e infraestrutura.",
   },
@@ -56,17 +56,24 @@ const empresasGrupo = [
     descricao:
       "Locação de máquinas e equipamentos pesados para apoio operacional em obras de grande porte.",
   },
-];
-
-const outrosParceiros = [
   {
     nome: "Comercial da Construção",
     imagem: "/images/parceiros/comercial-construcao.png",
+    atuacao: "Materiais de construção",
+    descricao:
+      "Fornecedor de materiais de construção, complementando a rede de apoio comercial e operacional do grupo.",
   },
   {
     nome: "MW Materiais",
     imagem: "/images/parceiros/mw-materiais.png",
+    atuacao: "Materiais de construção",
+    descricao:
+      "Fornecedor parceiro em materiais para construção, apoiando demandas de obras, manutenção e operação.",
   },
+];
+
+
+const outrosParceiros = [
   {
     nome: "Santa Maria",
     imagem: "/images/parceiros/santa-maria.png",
@@ -137,10 +144,42 @@ const servicosPrincipais: Array<{
   },
 ];
 
-const galeriaImagens = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  imagem: `/images/galeria/operacao-${i + 1}.png`,
-}));
+const galeriaImagens = [
+  { id: 1, imagem: "/images/galeria/home.png" },
+  { id: 2, imagem: "/images/galeria/home2.png" },
+  { id: 3, imagem: "/images/galeria/home3.png" },
+  { id: 4, imagem: "/images/galeria/home4.png" },
+  { id: 5, imagem: "/images/galeria/home5.png" },
+  { id: 6, imagem: "/images/galeria/home6.png" },
+  { id: 7, imagem: "/images/galeria/home7.png" },
+  { id: 8, imagem: "/images/galeria/home8.png" },
+  { id: 9, imagem: "/images/galeria/home9.png" },
+  { id: 10, imagem: "/images/galeria/home10.png" },
+  { id: 11, imagem: "/images/galeria/home11.jpeg" },
+  { id: 12, imagem: "/images/galeria/home12.jpeg" },
+  { id: 13, imagem: "/images/galeria/home13.jpeg" },
+  { id: 14, imagem: "/images/galeria/home14.jpeg" },
+  { id: 15, imagem: "/images/galeria/operacao-1.png" },
+  { id: 16, imagem: "/images/galeria/operacao-2.png" },
+  { id: 17, imagem: "/images/galeria/operacao-3.png" },
+  { id: 18, imagem: "/images/galeria/operacao-4.png" },
+  { id: 19, imagem: "/images/galeria/operacao-5.png" },
+  { id: 20, imagem: "/images/galeria/operacao-6.png" },
+  { id: 21, imagem: "/images/galeria/operacao-7.png" },
+  { id: 22, imagem: "/images/galeria/operacao-8.png" },
+  { id: 23, imagem: "/images/galeria/operacao-9.png" },
+  { id: 24, imagem: "/images/galeria/operacao-10.png" },
+  { id: 25, imagem: "/images/galeria/operacao-11.png" },
+  { id: 26, imagem: "/images/galeria/operacao-12.png" },
+  { id: 27, imagem: "/images/galeria/operacao-13.png" },
+  { id: 28, imagem: "/images/galeria/operacao-14.png" },
+  { id: 29, imagem: "/images/galeria/operacao-15.png" },
+  { id: 30, imagem: "/images/galeria/operacao-16.png" },
+  { id: 31, imagem: "/images/galeria/operacao-17.png" },
+  { id: 32, imagem: "/images/galeria/operacao-18.png" },
+  { id: 33, imagem: "/images/galeria/operacao-19.png" },
+  { id: 34, imagem: "/images/galeria/operacao-20.png" },
+];
 
 const galeriaSlots = [
   {
@@ -226,7 +265,7 @@ function GaleriaOperacoes() {
     Array(galeriaSlots.length).fill(false)
   );
 
-  const [imagensAtuais, setImagensAtuais] = useState(imagensIniciais());
+  const [imagensAtuais, setImagensAtuais] = useState(imagensIniciais);
 
   const [cardsTrocando, setCardsTrocando] = useState<boolean[]>(
     Array(galeriaSlots.length).fill(false)
@@ -366,7 +405,7 @@ function GaleriaOperacoes() {
                     ? "(max-width: 768px) 100vw, 50vw"
                     : "(max-width: 768px) 100vw, 25vw"
                 }
-                className={`object-cover transition-all duration-700 ease-in-out group-hover:scale-110 ${
+                className={`object-cover object-center transition-all duration-700 ease-in-out group-hover:scale-110 ${
                   cardsTrocando[index]
                     ? "scale-105 opacity-35"
                     : "scale-100 opacity-100"
@@ -416,8 +455,8 @@ export default function Home() {
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-bold tracking-tight text-white md:text-7xl">
-              Engenharia, pavimentação, agregados e estrutura para grandes
-              obras.
+              Engenharia, pavimentação, extração e obras para grandes estruturas
+
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200 md:text-xl">
@@ -469,7 +508,7 @@ export default function Home() {
               </Link>
 
               <Link
-                href="/servicos"
+                href="/atuacoes"
                 className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
               >
                 Ver áreas de atuação
@@ -492,7 +531,7 @@ export default function Home() {
                 </span>
 
                 <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
-                  Da pedreira à pavimentação, uma estrutura completa para grandes
+                  Da extração à execução, uma estrutura completa para grandes
                   obras.
                 </h2>
               </div>
@@ -606,10 +645,10 @@ export default function Home() {
                 </div>
 
                 <Link
-                  href="/servicos"
+                  href="/estrutura"
                   className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
                 >
-                  Conhecer serviços
+                  Conhecer estrutura
                 </Link>
               </div>
             </div>
@@ -632,13 +671,14 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-base leading-7 text-slate-600 md:text-lg">
-              Um conjunto de empresas integradas que fortalece a atuação do
-              grupo em infraestrutura, pavimentação, mineração, construção
-              civil, pré-moldados e máquinas.
+              Um conjunto de empresas e parceiros integrados que fortalece a
+              atuação do grupo em infraestrutura, pavimentação, mineração,
+              construção civil, pré-moldados, máquinas e fornecimento de
+              materiais.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {empresasGrupo.map((empresa) => (
               <article
                 key={empresa.nome}
@@ -692,11 +732,11 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mx-auto mt-8 grid max-w-5xl gap-5 sm:grid-cols-3">
+            <div className="mx-auto mt-8 flex max-w-5xl flex-wrap justify-center gap-5">
               {outrosParceiros.map((parceiro) => (
                 <div
                   key={parceiro.nome}
-                  className="flex h-36 items-center justify-center rounded-3xl border border-[#dbe5ff] bg-white/80 p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:shadow-[#dbe5ff]"
+                  className="flex h-36 w-full max-w-sm items-center justify-center rounded-3xl border border-[#dbe5ff] bg-white/80 p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:shadow-[#dbe5ff]"
                 >
                   <Image
                     src={parceiro.imagem}
@@ -776,7 +816,7 @@ export default function Home() {
                 </div>
 
                 <Link
-                  href="/servicos"
+                  href="/atuacoes"
                   className="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
                 >
                   Ver áreas de atuação
@@ -820,10 +860,10 @@ export default function Home() {
                 </Link>
 
                 <Link
-                  href="/servicos"
+                  href="/atuacoes"
                   className="inline-flex justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
                 >
-                  Ver serviços
+                  Ver atuações
                 </Link>
               </div>
             </div>

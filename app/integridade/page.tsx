@@ -61,7 +61,7 @@ export default function IntegridadePage() {
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
               O Grupo{" "}
               <span className="font-bold text-[#8fb1ff]">
-                M. S. M. Industrial LTDA
+                M. S. M. INDUSTRIAL
               </span>{" "}
               atua com foco em transparência, ética e integridade nas atividades
               desenvolvidas e realizadas, fortalecendo sua relação com
@@ -102,22 +102,22 @@ export default function IntegridadePage() {
 
             <div className="mt-6 max-w-5xl space-y-4 text-lg leading-8 text-slate-600">
               <p>
-                No Grupo{" "}
+                O Grupo{" "}
                 <span className="font-bold text-[#143987]">
-                  M. S. M. Industrial LTDA
+                  M. S. M. INDUSTRIAL
                 </span>
                 , acreditamos que o sucesso sustentável só é possível quando
                 construído sobre uma base sólida de ética, transparência e
                 conformidade. Nosso compromisso com a integridade vai além do
                 cumprimento de leis e regulamentos, refletindo a nossa cultura e
                 a forma como nos relacionamos com nossos colaboradores, clientes,
-                parceiros e com toda a sociedade.
+                parceiros, Poderes Públicos e com toda a sociedade.
               </p>
 
               <p>
                 O nosso{" "}
                 <span className="font-bold text-[#143987]">
-                  Programa de Integridade MSM.
+                  Programa de Integridade
                 </span>{" "}
                 é o conjunto de mecanismos e diretrizes que guiam as nossas
                 decisões diárias, garantindo um ambiente de trabalho seguro,
@@ -125,7 +125,8 @@ export default function IntegridadePage() {
               </p>
 
               <p>
-                O programa de Compliance é conduzido pelo{" "}
+                O programa de Compliance é administrado por nossa Compliance
+                Officer em conjunto com o{" "}
                 <span className="font-bold text-[#143987]">
                   Comitê de Integridade e Ética (CIE)
                 </span>{" "}
@@ -138,7 +139,7 @@ export default function IntegridadePage() {
                 <span className="font-bold text-[#143987]">
                   CIE/M. S. M.
                 </span>{" "}
-                pode ser contatado pelo canal de Ouvidoria disponível no link{" "}
+                pode ser contatado por seus canais de denúncias no link{" "}
                 <Link
                   href="https://sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem/"
                   target="_blank"
@@ -157,13 +158,18 @@ export default function IntegridadePage() {
                 .
               </p>
 
-              <p>
-                Acesse, nos links abaixo, nosso Código de Ética e Conduta,
-                nossas Políticas de Integridade e Ética e nossos Canais de
-                Denúncias. Esses instrumentos compõem o Programa de Compliance
-                da empresa e tornam público o compromisso do grupo com a
-                transparência, a integridade e a ética empresarial.
-              </p>
+              <div>
+                <h3 className="text-2xl font-bold text-slate-950">
+                  Nossas Diretrizes e Documentos
+                </h3>
+
+                <p className="mt-3">
+                  Para nós, a transparência é fundamental. Abaixo, você tem
+                  acesso aos principais documentos que norteiam a nossa conduta e
+                  fundamentam a nossa governança corporativa. Convidamos você a
+                  conhecer as nossas políticas.
+                </p>
+              </div>
             </div>
           </div>
 

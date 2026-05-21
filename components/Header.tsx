@@ -10,6 +10,7 @@ const links = [
   { href: "/estrutura", label: "Estrutura" },
   { href: "/atuacoes", label: "Atuações" },
   { href: "/galeria", label: "Galeria" },
+  { href: "/integridade", label: "Integridade MSM" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -61,7 +62,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-6 xl:flex">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -75,7 +76,7 @@ export function Header() {
 
         <Link
           href="/contato"
-          className="hidden rounded-xl bg-[#143987] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a] lg:inline-flex"
+          className="hidden rounded-xl bg-[#143987] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a] xl:inline-flex"
         >
           Solicitar orçamento
         </Link>
@@ -85,7 +86,7 @@ export function Header() {
           onClick={() => setMenuAberto(!menuAberto)}
           aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
           aria-expanded={menuAberto}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#dbe5ff] bg-white text-[#143987] shadow-sm transition hover:bg-[#eaf0ff] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#dbe5ff] bg-white text-[#143987] shadow-sm transition hover:bg-[#eaf0ff] xl:hidden"
         >
           {menuAberto ? (
             <svg
@@ -122,8 +123,8 @@ export function Header() {
       </div>
 
       <div
-        className={`overflow-hidden border-t border-[#dbe5ff] bg-white/95 shadow-lg backdrop-blur-xl transition-all duration-300 lg:hidden ${
-          menuAberto ? "max-h-[620px] opacity-100" : "max-h-0 opacity-0"
+        className={`overflow-hidden border-t border-[#dbe5ff] bg-white/95 shadow-lg backdrop-blur-xl transition-all duration-300 xl:hidden ${
+          menuAberto ? "max-h-[720px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-5">

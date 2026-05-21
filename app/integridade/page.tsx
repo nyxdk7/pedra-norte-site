@@ -16,7 +16,7 @@ const documentosIntegridade = [
   },
   {
     titulo: "Canal de denúncias",
-    href: "#",
+    href: "https://sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem/",
     icone: MessagesSquare,
   },
   {
@@ -44,41 +44,44 @@ const documentosIntegridade = [
 export default function IntegridadePage() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <section className="relative overflow-hidden bg-slate-950 px-6 pb-20 pt-36 text-white">
+      <section className="relative overflow-hidden bg-slate-950 px-6 pb-16 pt-32 text-white md:pb-20 md:pt-36">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,#8fb1ff33,transparent_35%),linear-gradient(135deg,#071225,#143987_55%,#0f2c6a)]" />
         <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-white/5 lg:block" />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-          <div>
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-center">
+          <div className="max-w-3xl">
             <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
               Programa de Integridade
             </span>
 
-            <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
               Integridade MSM
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              vitae justo vitae mi posuere luctus. Suspendisse potenti. Donec
-              facilisis, magna at porta consequat, lorem ipsum gravida lorem,
-              vitae dignissim justo urna a velit.
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
+              O Grupo{" "}
+              <span className="font-bold text-[#8fb1ff]">
+                M. S. M. Industrial LTDA
+              </span>{" "}
+              atua com foco em transparência, ética e integridade nas atividades
+              desenvolvidas e realizadas, fortalecendo sua relação com
+              colaboradores, parceiros, sociedade e Poder Público.
             </p>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/10 p-8 backdrop-blur-xl">
-            <p className="text-sm font-bold uppercase tracking-wide text-white/60">
+          <div className="w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl md:p-8 lg:ml-auto">
+            <p className="text-xs font-bold uppercase tracking-wide text-white/60 md:text-sm">
               Compromisso institucional
             </p>
 
-            <h2 className="mt-4 text-3xl font-bold">
+            <h2 className="mt-4 text-2xl font-bold leading-tight md:text-3xl">
               Ética, transparência e responsabilidade nas relações.
             </h2>
 
-            <p className="mt-4 leading-7 text-slate-200">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              non massa sed ipsum facilisis fermentum. Mauris id purus vitae
-              justo luctus dictum.
+            <p className="mt-4 text-base leading-7 text-slate-200">
+              O Programa de Integridade Corporativa da MSM promove valores
+              positivos no ambiente empresarial e orienta boas práticas no
+              relacionamento com o Poder Público, parceiros e sociedade.
             </p>
           </div>
         </div>
@@ -90,33 +93,68 @@ export default function IntegridadePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-5xl">
             <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-              Integridade Corporativa
+              Integridade Corporativa — Compliance
             </span>
 
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
-              Documentos, canais e políticas de integridade.
+              Compliance - Integridade, ética empresarial.
             </h2>
 
             <div className="mt-6 max-w-5xl space-y-4 text-lg leading-8 text-slate-600">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. A MSM
-                Industrial busca promover relações éticas, transparentes e
-                responsáveis em suas atividades, fortalecendo sua cultura
-                organizacional e seu compromisso com a sociedade.
+                O Grupo{" "}
+                <span className="font-bold text-[#143987]">
+                  M. S. M. Industrial LTDA
+                </span>{" "}
+                é focado em atingir o mais alto nível de transparência, ética e
+                integridade nas atividades que desenvolve e realiza. Para isso,
+                está implementando um{" "}
+                <span className="font-bold text-[#143987]">
+                  Programa de Integridade MSM.
+                </span>{" "}
+                que promove valores positivos no ambiente empresarial e no
+                relacionamento com o Poder Público, parceiros e sociedade.
               </p>
 
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                sed magna non lectus facilisis malesuada. Integer porta, magna
-                vitae porta consequat, lorem massa posuere justo, vitae
-                consectetur ipsum urna vitae lorem.
+                O programa de Compliance é conduzido pelo{" "}
+                <span className="font-bold text-[#143987]">
+                  Comitê de Integridade e Ética (CIE)
+                </span>{" "}
+                do Grupo M. S. M., responsável pelas apurações internas
+                recebidas por meio do seu canal de Ouvidoria.
               </p>
 
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Curabitur sed lorem at ipsum vestibulum porttitor. Donec
-                tincidunt, justo vitae ultricies convallis, arcu sem elementum
-                libero, vel dignissim sapien justo sed lorem.
+                O{" "}
+                <span className="font-bold text-[#143987]">
+                  CIE/M. S. M.
+                </span>{" "}
+                pode ser contatado pelo canal de Ouvidoria disponível no link{" "}
+                <Link
+                  href="https://sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#143987] underline underline-offset-4 transition hover:text-[#0f2c6a]"
+                >
+                  sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem
+                </Link>{" "}
+                e pelo e-mail da Ouvidoria{" "}
+                <a
+                  href="mailto:msm@msmind.com.br"
+                  className="font-bold text-[#143987] underline underline-offset-4 transition hover:text-[#0f2c6a]"
+                >
+                  msm@msmind.com.br
+                </a>
+                .
+              </p>
+
+              <p>
+                Acesse, nos links abaixo, nosso Código de Ética e Conduta,
+                nossas Políticas de Integridade e Ética e nossos Canais de
+                Denúncias. Esses instrumentos compõem o Programa de Compliance
+                da empresa e tornam público o compromisso do grupo com a
+                transparência, a integridade e a ética empresarial.
               </p>
             </div>
           </div>
@@ -148,6 +186,16 @@ export default function IntegridadePage() {
 
                     <Link
                       href={documento.href}
+                      target={
+                        documento.href.startsWith("http")
+                          ? "_blank"
+                          : undefined
+                      }
+                      rel={
+                        documento.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="mt-4 inline-flex justify-center rounded-lg bg-[#143987] px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-[#143987]/15 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
                     >
                       Acessar
@@ -172,14 +220,14 @@ export default function IntegridadePage() {
               </span>
 
               <h2 className="mt-4 max-w-4xl text-3xl font-bold tracking-tight md:text-5xl">
-                Um espaço dedicado à ética, transparência e boas práticas
-                corporativas.
+                Compromisso com transparência, integridade e ética empresarial.
               </h2>
 
               <p className="mt-4 max-w-4xl text-lg leading-8 text-white/85">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                sed lectus vitae justo porta tincidunt. Integer et magna at
-                lorem elementum commodo.
+                O Programa de Integridade MSM reúne diretrizes, canais e
+                documentos institucionais voltados ao fortalecimento das boas
+                práticas corporativas e da responsabilidade nas relações
+                empresariais.
               </p>
             </div>
           </div>

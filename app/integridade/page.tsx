@@ -102,18 +102,26 @@ export default function IntegridadePage() {
 
             <div className="mt-6 max-w-5xl space-y-4 text-lg leading-8 text-slate-600">
               <p>
-                O Grupo{" "}
+                No Grupo{" "}
                 <span className="font-bold text-[#143987]">
                   M. S. M. Industrial LTDA
-                </span>{" "}
-                é focado em atingir o mais alto nível de transparência, ética e
-                integridade nas atividades que desenvolve e realiza. Para isso,
-                está implementando um{" "}
+                </span>
+                , acreditamos que o sucesso sustentável só é possível quando
+                construído sobre uma base sólida de ética, transparência e
+                conformidade. Nosso compromisso com a integridade vai além do
+                cumprimento de leis e regulamentos, refletindo a nossa cultura e
+                a forma como nos relacionamos com nossos colaboradores, clientes,
+                parceiros e com toda a sociedade.
+              </p>
+
+              <p>
+                O nosso{" "}
                 <span className="font-bold text-[#143987]">
                   Programa de Integridade MSM.
                 </span>{" "}
-                que promove valores positivos no ambiente empresarial e no
-                relacionamento com o Poder Público, parceiros e sociedade.
+                é o conjunto de mecanismos e diretrizes que guiam as nossas
+                decisões diárias, garantindo um ambiente de trabalho seguro,
+                justo e alinhado aos padrões éticos do mercado.
               </p>
 
               <p>

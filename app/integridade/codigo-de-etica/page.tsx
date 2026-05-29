@@ -39,14 +39,6 @@ export default function CodigoEticaPage() {
 
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
-              <p className="text-sm font-bold uppercase tracking-wide text-white/60">
-                Grupo MSM Industrial
-              </p>
-
-              <p className="mt-3 leading-7 text-slate-200">
-              </p>
-            </div>
           </div>
         </div>
       </section>

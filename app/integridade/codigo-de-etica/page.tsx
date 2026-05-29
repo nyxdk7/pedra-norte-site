@@ -37,10 +37,6 @@ export default function CodigoEticaPage() {
                 Código de Conduta e Ética
               </h1>
 
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-200">
-                Documento visualizado em modo protegido contra seleção e cópia de texto.
-                O conteúdo foi disponibilizado como imagem para consulta pública.
-              </p>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
@@ -69,9 +65,6 @@ export default function CodigoEticaPage() {
                   Página {pagina.numero} de {paginas.length}
                 </span>
 
-                <span className="rounded-full bg-[#eaf0ff] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#143987]">
-                  Visualização protegida
-                </span>
               </div>
 
               <img

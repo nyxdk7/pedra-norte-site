@@ -11,7 +11,7 @@ import {
 const documentosIntegridade = [
   {
     titulo: "Código de Conduta e Ética",
-    href: "#",
+    href: "/integridade/codigo-de-etica",
     icone: ShieldCheck,
   },
   {

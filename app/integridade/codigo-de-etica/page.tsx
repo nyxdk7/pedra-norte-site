@@ -45,8 +45,6 @@ export default function CodigoEticaPage() {
               </p>
 
               <p className="mt-3 leading-7 text-slate-200">
-                Para melhor segurança visual, a seleção de texto, arrastar imagens
-                e menu de contexto foram desativados nesta página.
               </p>
             </div>
           </div>

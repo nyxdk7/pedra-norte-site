@@ -455,7 +455,7 @@ export default function Home() {
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-bold tracking-tight text-white md:text-7xl">
-              Engenharia, pavimentação, extração e obras para grandes estruturas
+              Engenharia, pavimentação, mineração e obras para grandes estruturas
 
             </h1>
 

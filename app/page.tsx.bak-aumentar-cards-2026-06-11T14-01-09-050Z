@@ -272,62 +272,8 @@ const empresasCarousel = [
 ];
 
 
-
-
 function EmpresasCarousel() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const ajustandoScrollRef = useRef(false);
-  const empresasLoop = [
-    ...empresasCarousel,
-    ...empresasCarousel,
-    ...empresasCarousel,
-  ];
-
-  function calcularLarguraBloco() {
-    const carousel = carouselRef.current;
-
-    if (!carousel) return 0;
-
-    const cards = Array.from(
-      carousel.querySelectorAll<HTMLElement>("[data-empresa-card]")
-    ).slice(0, empresasCarousel.length);
-
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-
-    return cards.reduce((total, card) => total + card.offsetWidth, 0) + gap * empresasCarousel.length;
-  }
-
-  function ajustarLoopInfinito() {
-    const carousel = carouselRef.current;
-
-    if (!carousel || ajustandoScrollRef.current) return;
-
-    const larguraBloco = calcularLarguraBloco();
-
-    if (!larguraBloco) return;
-
-    const limiteInicio = larguraBloco * 0.35;
-    const limiteFim = larguraBloco * 1.65;
-
-    if (carousel.scrollLeft < limiteInicio) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft += larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-
-    if (carousel.scrollLeft > limiteFim) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft -= larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-  }
 
   function rolarCarousel(direcao: "esquerda" | "direita") {
     const carousel = carouselRef.current;
@@ -338,38 +284,14 @@ function EmpresasCarousel() {
       "[data-empresa-card]"
     );
 
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-    const larguraCard = primeiroCard?.offsetWidth ?? 320;
-    const distancia = larguraCard + gap;
+    const larguraCard = primeiroCard?.offsetWidth ?? 260;
+    const distancia = larguraCard + 20;
 
     carousel.scrollBy({
       left: direcao === "esquerda" ? -distancia : distancia,
       behavior: "smooth",
     });
   }
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-
-    if (!carousel) return;
-
-    const posicionarNoMeio = () => {
-      const larguraBloco = calcularLarguraBloco();
-
-      if (!larguraBloco) return;
-
-      carousel.scrollLeft = larguraBloco;
-    };
-
-    const frame = window.requestAnimationFrame(posicionarNoMeio);
-    window.addEventListener("resize", posicionarNoMeio);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", posicionarNoMeio);
-    };
-  }, []);
 
   return (
     <section className="relative overflow-hidden bg-white px-6 py-20">
@@ -417,56 +339,44 @@ function EmpresasCarousel() {
         </div>
 
         <div className="relative mt-10">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-white to-transparent md:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-white to-transparent md:w-24" />
+
           <div
             ref={carouselRef}
-            onScroll={ajustarLoopInfinito}
             className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain scroll-smooth scroll-px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {empresasLoop.map((empresa, index) => (
+            {empresasCarousel.map((empresa) => (
               <article
-                key={empresa.nome + "-" + index}
+                key={empresa.nome}
                 data-empresa-card
-                className="group flex h-[315px] min-w-[280px] snap-start flex-col overflow-hidden rounded-[1.75rem] border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[325px] lg:min-w-[350px]"
+                className="group h-[235px] min-w-[235px] snap-start overflow-hidden rounded-[1.5rem] border border-[#dbe5ff] bg-white p-4 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[265px] lg:min-w-[285px]"
               >
-                <div className="flex h-28 shrink-0 items-center justify-center rounded-[1.35rem] bg-[#f7faff] p-6">
+                <div className="flex h-24 items-center justify-center rounded-[1.15rem] bg-[#f7faff] p-5">
                   <Image
                     src={empresa.imagem}
                     alt={"Logo " + empresa.nome}
-                    width={235}
-                    height={110}
+                    width={200}
+                    height={90}
                     quality={100}
-                    className="max-h-20 w-auto object-contain transition duration-300 group-hover:scale-105"
+                    className="max-h-16 w-auto object-contain transition duration-300 group-hover:scale-105"
                   />
                 </div>
 
-                <div className="flex min-h-0 flex-1 flex-col pt-5">
-                  <p
-                    className="min-h-[16px] overflow-hidden text-[11px] font-extrabold uppercase leading-4 tracking-[0.2em] text-[#0b3b91]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 1,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
+                <div className="mt-5">
+                  <p className="truncate text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#0b3b91]">
                     {empresa.atuacao}
                   </p>
 
-                  <h3
-                    className="mt-3 min-h-[56px] overflow-hidden text-[22px] font-bold leading-7 text-[#050a1f]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
+                  <h3 className="mt-2 truncate text-xl font-bold text-[#050a1f]">
                     {empresa.nome}
                   </h3>
 
                   <p
-                    className="mt-2 overflow-hidden text-sm leading-6 text-[#50627f]"
+                    className="mt-2 overflow-hidden text-xs leading-5 text-[#50627f]"
                     style={{
                       display: "-webkit-box",
-                      WebkitLineClamp: 3,
+                      WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
                     }}
                   >
@@ -481,8 +391,6 @@ function EmpresasCarousel() {
     </section>
   );
 }
-
-
 
 
 function GaleriaOperacoes() {
@@ -914,7 +822,7 @@ export default function Home() {
                 </span>
 
                 <h2 className="mt-6 text-3xl font-bold tracking-tight text-white md:text-5xl">
-                  Materiais pétros produzidos com estrutura própria para abastecer
+                  Agregados produzidos com estrutura própria para abastecer
                   grandes obras.
                 </h2>
 

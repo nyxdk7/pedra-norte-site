@@ -271,77 +271,16 @@ const empresasCarousel = [
   })),
 ];
 
-
-
-
 function EmpresasCarousel() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const ajustandoScrollRef = useRef(false);
-  const empresasLoop = [
-    ...empresasCarousel,
-    ...empresasCarousel,
-    ...empresasCarousel,
-  ];
-
-  function calcularLarguraBloco() {
-    const carousel = carouselRef.current;
-
-    if (!carousel) return 0;
-
-    const cards = Array.from(
-      carousel.querySelectorAll<HTMLElement>("[data-empresa-card]")
-    ).slice(0, empresasCarousel.length);
-
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-
-    return cards.reduce((total, card) => total + card.offsetWidth, 0) + gap * empresasCarousel.length;
-  }
-
-  function ajustarLoopInfinito() {
-    const carousel = carouselRef.current;
-
-    if (!carousel || ajustandoScrollRef.current) return;
-
-    const larguraBloco = calcularLarguraBloco();
-
-    if (!larguraBloco) return;
-
-    const limiteInicio = larguraBloco * 0.35;
-    const limiteFim = larguraBloco * 1.65;
-
-    if (carousel.scrollLeft < limiteInicio) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft += larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-
-    if (carousel.scrollLeft > limiteFim) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft -= larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-  }
+  const empresasDuplicadas = [...empresasCarousel, ...empresasCarousel];
 
   function rolarCarousel(direcao: "esquerda" | "direita") {
     const carousel = carouselRef.current;
 
     if (!carousel) return;
 
-    const primeiroCard = carousel.querySelector<HTMLElement>(
-      "[data-empresa-card]"
-    );
-
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-    const larguraCard = primeiroCard?.offsetWidth ?? 320;
-    const distancia = larguraCard + gap;
+    const distancia = Math.min(carousel.clientWidth * 0.85, 420);
 
     carousel.scrollBy({
       left: direcao === "esquerda" ? -distancia : distancia,
@@ -354,40 +293,44 @@ function EmpresasCarousel() {
 
     if (!carousel) return;
 
-    const posicionarNoMeio = () => {
-      const larguraBloco = calcularLarguraBloco();
+    const intervalo = window.setInterval(() => {
+      const limiteMetade = carousel.scrollWidth / 2;
 
-      if (!larguraBloco) return;
+      if (carousel.scrollLeft >= limiteMetade - carousel.clientWidth - 12) {
+        carousel.scrollTo({
+          left: 0,
+          behavior: "auto",
+        });
 
-      carousel.scrollLeft = larguraBloco;
-    };
+        return;
+      }
 
-    const frame = window.requestAnimationFrame(posicionarNoMeio);
-    window.addEventListener("resize", posicionarNoMeio);
+      carousel.scrollBy({
+        left: 320,
+        behavior: "smooth",
+      });
+    }, 3400);
 
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", posicionarNoMeio);
-    };
+    return () => window.clearInterval(intervalo);
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-20">
-      <div className="pointer-events-none absolute -left-24 top-8 h-64 w-64 rounded-full bg-[#eaf0ff] blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-8 h-72 w-72 rounded-full bg-[#f3f6ff] blur-3xl" />
+    <section className="relative overflow-hidden bg-white px-6 py-24">
+      <div className="pointer-events-none absolute -left-28 top-10 h-72 w-72 rounded-full bg-[#eaf0ff] blur-3xl" />
+      <div className="pointer-events-none absolute -right-28 bottom-8 h-80 w-80 rounded-full bg-[#f3f6ff] blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-4xl">
             <span className="inline-flex rounded-full border border-[#cbdcff] bg-white px-5 py-2 text-sm font-bold text-[#0b3b91] shadow-sm">
               Grupo Soster
             </span>
 
-            <h2 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight text-[#050a1f] md:text-5xl">
+            <h2 className="mt-6 text-4xl font-bold tracking-tight text-[#050a1f] md:text-6xl">
               Empresas que fazem parte do grupo Soster.
             </h2>
 
-            <p className="mt-4 max-w-3xl text-base leading-8 text-[#365074] md:text-lg">
+            <p className="mt-5 max-w-3xl text-base leading-8 text-[#365074] md:text-lg">
               Um conjunto de empresas e parceiros integrados que fortalece a
               atuação do grupo em infraestrutura, pavimentação, mineração,
               construção civil, pré-moldados, máquinas e fornecimento de
@@ -400,76 +343,56 @@ function EmpresasCarousel() {
               type="button"
               aria-label="Ver empresas anteriores"
               onClick={() => rolarCarousel("esquerda")}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
+              className="grid h-12 w-12 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
             >
-              <ChevronLeft size={21} />
+              <ChevronLeft size={22} />
             </button>
 
             <button
               type="button"
               aria-label="Ver próximas empresas"
               onClick={() => rolarCarousel("direita")}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
+              className="grid h-12 w-12 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
             >
-              <ChevronRight size={21} />
+              <ChevronRight size={22} />
             </button>
           </div>
         </div>
 
-        <div className="relative mt-10">
+        <div className="relative mt-14">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent md:w-28" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent md:w-28" />
+
           <div
             ref={carouselRef}
-            onScroll={ajustarLoopInfinito}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain scroll-smooth scroll-px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-5 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {empresasLoop.map((empresa, index) => (
+            {empresasDuplicadas.map((empresa, index) => (
               <article
                 key={empresa.nome + "-" + index}
-                data-empresa-card
-                className="group flex h-[315px] min-w-[280px] snap-start flex-col overflow-hidden rounded-[1.75rem] border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[325px] lg:min-w-[350px]"
+                className="group min-w-[285px] overflow-hidden rounded-[2rem] border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[350px]"
               >
-                <div className="flex h-28 shrink-0 items-center justify-center rounded-[1.35rem] bg-[#f7faff] p-6">
+                <div className="flex h-36 items-center justify-center rounded-[1.4rem] bg-[#f7faff] p-6">
                   <Image
                     src={empresa.imagem}
                     alt={"Logo " + empresa.nome}
-                    width={235}
-                    height={110}
+                    width={240}
+                    height={120}
                     quality={100}
-                    className="max-h-20 w-auto object-contain transition duration-300 group-hover:scale-105"
+                    className="max-h-24 w-auto object-contain transition duration-300 group-hover:scale-105"
                   />
                 </div>
 
-                <div className="flex min-h-0 flex-1 flex-col pt-5">
-                  <p
-                    className="min-h-[16px] overflow-hidden text-[11px] font-extrabold uppercase leading-4 tracking-[0.2em] text-[#0b3b91]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 1,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
+                <div className="mt-6">
+                  <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#0b3b91]">
                     {empresa.atuacao}
                   </p>
 
-                  <h3
-                    className="mt-3 min-h-[56px] overflow-hidden text-[22px] font-bold leading-7 text-[#050a1f]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
+                  <h3 className="mt-2 text-2xl font-bold text-[#050a1f]">
                     {empresa.nome}
                   </h3>
 
-                  <p
-                    className="mt-2 overflow-hidden text-sm leading-6 text-[#50627f]"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
+                  <p className="mt-3 text-sm leading-6 text-[#50627f]">
                     {empresa.descricao}
                   </p>
                 </div>
@@ -481,9 +404,6 @@ function EmpresasCarousel() {
     </section>
   );
 }
-
-
-
 
 function GaleriaOperacoes() {
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
@@ -890,8 +810,6 @@ export default function Home() {
 
 
 
-
-
       {/* Pedra Norte em operação */}
       <section className="bg-white px-6 py-24">
         <div className="mx-auto max-w-7xl">
@@ -914,7 +832,7 @@ export default function Home() {
                 </span>
 
                 <h2 className="mt-6 text-3xl font-bold tracking-tight text-white md:text-5xl">
-                  Materiais pétros produzidos com estrutura própria para abastecer
+                  Agregados produzidos com estrutura própria para abastecer
                   grandes obras.
                 </h2>
 

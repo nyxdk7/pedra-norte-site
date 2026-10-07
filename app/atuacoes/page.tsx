@@ -92,11 +92,6 @@ export default function AtuacoesPage() {
 
     if (!atuacaoAberta || atuacaoAberta.imagensDetalhes.length <= 1) return;
 
-    setImagemAtualPorCard((estadoAtual) => ({
-      ...estadoAtual,
-      [cardAberto]: estadoAtual[cardAberto] ?? 0,
-    }));
-
     const intervalo = setInterval(() => {
       setImagemAtualPorCard((estadoAtual) => {
         const indiceAtual = estadoAtual[cardAberto] ?? 0;

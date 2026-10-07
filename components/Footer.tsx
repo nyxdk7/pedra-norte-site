@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteContact } from "@/lib/site-config";
 
 const linksRapidos = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Sobre" },
-  { href: "/empresas", label: "Empresas" },
+  { href: "/estrutura", label: "Estrutura" },
+  { href: "/atuacoes", label: "Atuações" },
   { href: "/servicos", label: "Serviços" },
   { href: "/obras", label: "Obras" },
-  { href: "/galeria", label: "Galeria" },
+  { href: "/integridade", label: "Integridade" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -143,26 +145,40 @@ export function Footer() {
                   <strong className="block text-white">
                     Sede administrativa
                   </strong>
-                  Rio Branco - Acre
+                  {siteContact.location}
                 </p>
 
                 <p>
-                  <strong className="block text-white">Telefone</strong>
-                  (68) 99999-9999
+                  <strong className="block text-white">WhatsApp</strong>
+                  <a
+                    href={siteContact.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-[#8fb1ff]"
+                  >
+                    {siteContact.whatsappDisplay}
+                  </a>
                 </p>
 
                 <p>
                   <strong className="block text-white">E-mail</strong>
-                  contato@empresa.com.br
+                  <a
+                    href={`mailto:${siteContact.email}`}
+                    className="break-all transition hover:text-[#8fb1ff]"
+                  >
+                    {siteContact.email}
+                  </a>
                 </p>
               </div>
 
-              <Link
-                href="/contato"
+              <a
+                href={siteContact.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-flex rounded-xl bg-[#143987] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
               >
                 Fale conosco
-              </Link>
+              </a>
             </div>
           </div>
         </div>

@@ -8,8 +8,11 @@ import {
   ChevronRight,
   Factory,
   Hammer,
+  Images,
   LucideIcon,
   Mountain,
+  Pause,
+  Play,
   Route,
   Truck,
 } from "lucide-react";
@@ -182,84 +185,6 @@ const galeriaImagens = [
   { id: 33, imagem: "/images/galeria/operacao-19.png" },
   { id: 34, imagem: "/images/galeria/operacao-20.png" },
 ];
-
-const galeriaSlots = [
-  {
-    titulo: "Operação em campo",
-    descricao: "Máquinas e equipes atuando em obras de infraestrutura.",
-    destaque: true,
-  },
-  {
-    titulo: "Frota e logística",
-    descricao: "Suporte operacional para transporte e execução.",
-    destaque: false,
-  },
-  {
-    titulo: "Estrutura pesada",
-    descricao: "Equipamentos preparados para obras de grande porte.",
-    destaque: false,
-  },
-  {
-    titulo: "Execução rodoviária",
-    descricao: "Atuação em infraestrutura e pavimentação.",
-    destaque: true,
-  },
-  {
-    titulo: "Produção e suporte",
-    descricao: "Integração entre insumos, máquinas e operação.",
-    destaque: false,
-  },
-  {
-    titulo: "Presença regional",
-    descricao: "Estrutura voltada ao desenvolvimento do Acre.",
-    destaque: false,
-  },
-];
-
-function embaralharArray<T>(array: T[]) {
-  const novoArray = [...array];
-
-  for (let i = novoArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [novoArray[i], novoArray[j]] = [novoArray[j], novoArray[i]];
-  }
-
-  return novoArray;
-}
-
-function imagensIniciais() {
-  return galeriaImagens.slice(0, galeriaSlots.length);
-}
-
-function sortearImagens() {
-  return embaralharArray(galeriaImagens).slice(0, galeriaSlots.length);
-}
-
-function escolherImagemUnica(
-  imagensAtuais: typeof galeriaImagens,
-  indexAtual: number
-) {
-  const imagensEmUso = new Set(
-    imagensAtuais
-      .filter((_, index) => index !== indexAtual)
-      .map((imagem) => imagem.id)
-  );
-
-  const imagensDisponiveis = galeriaImagens.filter(
-    (imagem) =>
-      !imagensEmUso.has(imagem.id) &&
-      imagem.id !== imagensAtuais[indexAtual]?.id
-  );
-
-  if (imagensDisponiveis.length === 0) {
-    return galeriaImagens[Math.floor(Math.random() * galeriaImagens.length)];
-  }
-
-  return imagensDisponiveis[
-    Math.floor(Math.random() * imagensDisponiveis.length)
-  ];
-}
-
 
 const empresasCarousel = [
   ...empresasGrupo,
@@ -485,174 +410,153 @@ function EmpresasCarousel() {
 
 
 
+const INTERVALO_GALERIA = 5200;
+
 function GaleriaOperacoes() {
-  const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const [indiceAtivo, setIndiceAtivo] = useState(0);
+  const [pausado, setPausado] = useState(false);
 
-  const [visiveis, setVisiveis] = useState<boolean[]>(
-    Array(galeriaSlots.length).fill(false)
-  );
-
-  const [imagensAtuais, setImagensAtuais] = useState(imagensIniciais);
-
-  const [cardsTrocando, setCardsTrocando] = useState<boolean[]>(
-    Array(galeriaSlots.length).fill(false)
+  const imagemAtiva = galeriaImagens[indiceAtivo];
+  const proximosIndices = [1, 2, 3].map(
+    (distancia) => (indiceAtivo + distancia) % galeriaImagens.length
   );
 
   useEffect(() => {
-    setImagensAtuais(sortearImagens());
-  }, []);
+    if (pausado) return;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"));
+    const timeoutId = window.setTimeout(() => {
+      setIndiceAtivo((indiceAtual) =>
+        (indiceAtual + 1) % galeriaImagens.length
+      );
+    }, INTERVALO_GALERIA);
 
-          if (entry.isIntersecting) {
-            setVisiveis((prev) => {
-              const novo = [...prev];
-              novo[index] = true;
-              return novo;
-            });
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
+    return () => window.clearTimeout(timeoutId);
+  }, [indiceAtivo, pausado]);
+
+  function mostrarAnterior() {
+    setIndiceAtivo((indiceAtual) =>
+      indiceAtual === 0 ? galeriaImagens.length - 1 : indiceAtual - 1
     );
+  }
 
-    cardsRef.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const timeouts: Array<ReturnType<typeof setTimeout>> = [];
-    const intervals: Array<ReturnType<typeof setInterval>> = [];
-
-    function trocarCard(index: number) {
-      setCardsTrocando((prev) => {
-        const novo = [...prev];
-        novo[index] = true;
-        return novo;
-      });
-
-      const timeoutTroca = setTimeout(() => {
-        setImagensAtuais((prev) => {
-          const novo = [...prev];
-          novo[index] = escolherImagemUnica(prev, index);
-          return novo;
-        });
-
-        setCardsTrocando((prev) => {
-          const novo = [...prev];
-          novo[index] = false;
-          return novo;
-        });
-      }, 650);
-
-      timeouts.push(timeoutTroca);
-    }
-
-    galeriaSlots.forEach((_, index) => {
-      const atrasoInicial = 2500 + index * 1800;
-
-      const timeoutInicial = setTimeout(() => {
-        trocarCard(index);
-
-        const intervalo = setInterval(() => {
-          trocarCard(index);
-        }, 14000 + index * 900);
-
-        intervals.push(intervalo);
-      }, atrasoInicial);
-
-      timeouts.push(timeoutInicial);
-    });
-
-    return () => {
-      timeouts.forEach(clearTimeout);
-      intervals.forEach(clearInterval);
-    };
-  }, []);
+  function mostrarProxima() {
+    setIndiceAtivo((indiceAtual) =>
+      (indiceAtual + 1) % galeriaImagens.length
+    );
+  }
 
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-24">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_left,#eaf0ff,transparent_32%),radial-gradient(circle_at_right,#f8fbff,transparent_35%)]" />
+    <section className="relative isolate overflow-hidden bg-[#07101f] px-6 py-24 text-white md:py-28">
+      <div className="absolute inset-0 -z-20 bg-[linear-gradient(135deg,#07101f_0%,#0b1b35_48%,#102f62_100%)]" />
+      <div className="absolute -left-40 top-20 -z-10 h-96 w-96 rounded-full bg-[#245bb8]/20 blur-3xl" />
+      <div className="absolute -right-48 bottom-0 -z-10 h-[30rem] w-[30rem] rounded-full bg-[#4f82dc]/15 blur-3xl" />
 
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl">
-          <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-            Operação em campo
-          </span>
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-[#c8d8ff] backdrop-blur">
+              <Images className="h-4 w-4" aria-hidden="true" />
+              Nossa operação em imagens
+            </span>
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
-            Frota, equipamentos e estrutura que movimentam grandes obras.
-          </h2>
+            <h2 className="mt-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+              Estrutura que transforma planejamento em grandes obras.
+            </h2>
 
-          <p className="mt-5 text-lg leading-8 text-slate-600">
-            Uma amostra da operação do grupo em campo, reunindo máquinas,
-            transporte, equipes e estrutura própria para atender obras de
-            infraestrutura com eficiência.
-          </p>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              Conheça de perto a frota, as equipes e a capacidade operacional
+              que sustentam cada etapa dos nossos projetos.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2" aria-label="Controles da galeria">
+            <button
+              type="button"
+              onClick={mostrarAnterior}
+              aria-label="Mostrar imagem anterior"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+            >
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setPausado((estadoAtual) => !estadoAtual)}
+              aria-label={
+                pausado
+                  ? "Continuar troca automática das imagens"
+                  : "Pausar troca automática das imagens"
+              }
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white px-4 text-sm font-bold text-[#143987] transition hover:-translate-y-0.5 hover:bg-[#edf3ff] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+            >
+              {pausado ? (
+                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+              ) : (
+                <Pause className="h-4 w-4 fill-current" aria-hidden="true" />
+              )}
+              {pausado ? "Continuar" : "Pausar"}
+            </button>
+
+            <button
+              type="button"
+              onClick={mostrarProxima}
+              aria-label="Mostrar próxima imagem"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+            >
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
-        <div className="mt-12 grid auto-rows-[260px] gap-5 md:grid-cols-4">
-          {galeriaSlots.map((foto, index) => (
-            <div
-              key={`${foto.titulo}-${index}`}
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              data-index={index}
-              className={`group relative overflow-hidden rounded-[2rem] border border-[#dbe5ff] bg-slate-900 shadow-sm shadow-[#dbe5ff] transition-all duration-700 ease-out ${
-                foto.destaque ? "md:col-span-2 md:row-span-2" : "md:col-span-1"
-              } ${
-                visiveis[index]
-                  ? "translate-y-0 opacity-100 blur-0"
-                  : "translate-y-12 opacity-0 blur-sm"
-              }`}
-              style={{
-                transitionDelay: `${index * 90}ms`,
-              }}
-            >
-              <Image
-                src={
-                  imagensAtuais[index]?.imagem ||
-                  "/images/galeria/operacao-1.png"
-                }
-                alt={foto.titulo}
-                fill
-                quality={100}
-                sizes={
-                  foto.destaque
-                    ? "(max-width: 768px) 100vw, 50vw"
-                    : "(max-width: 768px) 100vw, 25vw"
-                }
-                className={`object-cover object-center transition-all duration-700 ease-in-out group-hover:scale-110 ${
-                  cardsTrocando[index]
-                    ? "scale-105 opacity-35"
-                    : "scale-100 opacity-100"
-                }`}
-              />
+        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.75fr)_minmax(290px,0.65fr)]">
+          <article
+            className="group relative min-h-[520px] overflow-hidden rounded-[2rem] border border-white/15 bg-slate-900 shadow-2xl shadow-black/30 md:min-h-[620px]"
+          >
+            <Image
+              key={imagemAtiva.id}
+              src={imagemAtiva.imagem}
+              alt={`Operação da MSM Industrial - foto ${indiceAtivo + 1}`}
+              fill
+              quality={100}
+              sizes="(max-width: 1024px) 100vw, 72vw"
+              className="gallery-image-enter object-cover object-center transition-transform duration-[1400ms] ease-out group-hover:scale-[1.025]"
+            />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-              <div className="absolute inset-0 bg-[#143987]/0 transition duration-500 group-hover:bg-[#143987]/20" />
-
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                <div className="translate-y-2 transition duration-500 group-hover:translate-y-0">
-                  <h3 className="text-xl font-bold">{foto.titulo}</h3>
-
-                  <p className="mt-2 max-h-0 overflow-hidden text-sm leading-6 text-slate-200 opacity-0 transition-all duration-500 group-hover:max-h-20 group-hover:opacity-100">
-                    {foto.descricao}
-                  </p>
-                </div>
-              </div>
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/15">
+              {!pausado && (
+                <span
+                  key={indiceAtivo}
+                  className="gallery-progress block h-full bg-[#79a4ff]"
+                  style={{ animationDuration: `${INTERVALO_GALERIA}ms` }}
+                />
+              )}
             </div>
-          ))}
+          </article>
+
+          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            {proximosIndices.map((indice) => {
+              const imagem = galeriaImagens[indice];
+
+              return (
+                <button
+                  key={imagem.id}
+                  type="button"
+                  onClick={() => setIndiceAtivo(indice)}
+                  className="group relative min-h-[180px] overflow-hidden rounded-2xl border border-white/15 bg-slate-900 shadow-lg shadow-black/15 transition hover:-translate-y-1 hover:border-[#79a4ff]/60 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#79a4ff]/25 lg:min-h-0"
+                  aria-label={`Mostrar foto ${indice + 1}`}
+                >
+                  <Image
+                    src={imagem.imagem}
+                    alt=""
+                    fill
+                    quality={90}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 24vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 
@@ -57,9 +58,13 @@ export default function CodigoEticaPage() {
 
               </div>
 
-              <img
+              <Image
                 src={pagina.src}
                 alt={`Código de Conduta e Ética - página ${pagina.numero}`}
+                width={1240}
+                height={1754}
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                quality={100}
                 draggable={false}
                 className="pointer-events-none block w-full select-none bg-white"
               />

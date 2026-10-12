@@ -165,7 +165,7 @@ export default function AtuacoesPage() {
               <Eyebrow>Onde atuamos</Eyebrow>
               <h2
                 id="frentes-titulo"
-                className="mt-4 text-3xl font-bold leading-[1.1] text-heading md:text-[2.75rem]"
+                className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading"
               >
                 Frentes de atuação do grupo.
               </h2>

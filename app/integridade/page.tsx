@@ -91,7 +91,7 @@ export default function IntegridadePage() {
 
             <h2
               id="compliance-titulo"
-              className="mt-4 text-3xl font-bold leading-[1.1] text-heading md:text-[2.75rem]"
+              className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading"
             >
               Compliance - Integridade, ética empresarial.
             </h2>

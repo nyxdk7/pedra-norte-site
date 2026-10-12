@@ -101,7 +101,9 @@ export function CadeiaIntegrada() {
             </div>
           </li>
 
-          {/* 02 · Mosaic: text first, two production photos at different sizes and heights */}
+          {/* 02 · Mosaic: text first, two production photos at different sizes and heights.
+              Portrait crops of landscape files need more source pixels than the box width
+              (width × crop ratio × file ratio), hence the generous `sizes`. */}
           <li className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-12 md:gap-6 lg:gap-10">
             <div className="col-span-2 md:col-span-12 lg:col-span-4 lg:pt-10">
               <Etapa numero="02" nome="Produção" />
@@ -112,7 +114,7 @@ export function CadeiaIntegrada() {
                 src="/images/atuacoes/edificacoes/edificacoes2.png"
                 alt="Caminhão betoneira abastecendo obra de edificação"
                 fill
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 58vw, 36vw"
+                sizes="(max-width: 768px) 89vw, (max-width: 1024px) 97vw, 60vw"
                 className="object-cover object-[0%_center]"
               />
             </div>
@@ -121,7 +123,7 @@ export function CadeiaIntegrada() {
                 src="/images/atuacoes/pre-moldados/pre-moldados2.png"
                 alt="Pátio de peças pré-moldadas de concreto com tubos de drenagem"
                 fill
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 42vw, 22vw"
+                sizes="(max-width: 768px) 119vw, (max-width: 1024px) 100vw, 52vw"
                 className="object-cover object-[30%_center]"
               />
             </div>

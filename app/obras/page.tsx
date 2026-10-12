@@ -77,11 +77,14 @@ const frentes = [
 
 export default function ObrasPage() {
   return (
-    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Obras e projetos"
         title="Presença em obras que movimentam o desenvolvimento da região."
-        image="/images/galeria/home3.png"
+        image="/images/atuacoes/extracao-minerios/pedreira (2).jpeg"
+        imageAlt="Caminhão basculante com identificação MSM em frente de obra"
+        imagePosition="object-[68%_40%]"
+        legenda="Caminhão basculante com identificação MSM"
         description={
           <p>
             A MSM Industrial LTDA participa de projetos de infraestrutura,
@@ -90,49 +93,53 @@ export default function ObrasPage() {
           </p>
         }
       >
-        <dl className="mt-12 grid grid-cols-2 gap-y-6 border-t border-white/20 pt-6 md:grid-cols-4">
+        <dl className="mt-12 grid max-w-[52rem] grid-cols-2 gap-y-6 border-t border-white/25 pt-6 md:grid-cols-4">
           {indicadores.map(([numero, texto]) => (
             <div key={texto} className="flex flex-col-reverse pr-4">
-              <dt className="mt-1 text-sm text-on-dark-muted">{texto}</dt>
-              <dd className="font-display text-3xl font-bold md:text-4xl">{numero}</dd>
+              <dt className="mt-2 text-sm font-semibold text-on-dark-muted">{texto}</dt>
+              <dd className="font-serif text-[2rem] leading-none tracking-[-0.02em] tabular-nums md:text-[2.5rem]">{numero}</dd>
             </div>
           ))}
         </dl>
       </PageHero>
 
-      <section aria-labelledby="areas-titulo" className="py-16 md:py-24">
+      {/* Case-study index: category, scope and deliverables on one ruled row each */}
+      <section aria-labelledby="areas-titulo" className="py-20 md:py-28">
         <Container>
           <SectionHeading id="areas-titulo" title="Áreas de atuação" />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <ul className="mt-12 border-b border-border md:mt-16">
             {obras.map((obra) => (
-              <article
+              <li
                 key={obra.titulo}
-                className="flex flex-col rounded-card border border-border bg-white p-6 md:p-8"
+                className="grid gap-4 border-t border-border py-8 md:grid-cols-12 md:gap-10 md:py-10"
               >
-                <p className="text-sm font-semibold text-brand">{obra.categoria}</p>
-
-                <h3 className="mt-2 text-2xl font-bold text-heading">{obra.titulo}</h3>
-
-                <p className="mt-3 leading-relaxed text-muted-strong">{obra.descricao}</p>
-
-                <ul className="mt-auto flex flex-wrap gap-2 pt-6">
+                <p className="flex items-center gap-3 text-[0.9375rem] font-semibold text-brand md:col-span-3 md:items-start md:pt-2">
+                  <span aria-hidden="true" className="h-px w-8 shrink-0 bg-accent md:mt-2.5" />
+                  {obra.categoria}
+                </p>
+                <div className="md:col-span-5">
+                  <h3 className="text-2xl font-bold leading-tight text-heading md:text-[1.75rem]">{obra.titulo}</h3>
+                  <p className="mt-3 font-serif text-lg leading-relaxed text-muted-strong">{obra.descricao}</p>
+                </div>
+                <ul className="md:col-span-4 md:pt-1">
                   {obra.detalhes.map((detalhe) => (
                     <li
                       key={detalhe}
-                      className="rounded-control border border-border bg-neutral-50 px-3 py-1.5 text-sm font-medium text-muted-strong"
+                      className="flex items-center gap-3 border-b border-border py-2.5 text-[0.9375rem] font-semibold text-heading last:border-b-0"
                     >
+                      <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand" />
                       {detalhe}
                     </li>
                   ))}
                 </ul>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
-      <section aria-labelledby="casos-titulo" className="bg-surface-subtle py-16 md:py-24">
+      <section aria-labelledby="casos-titulo" className="bg-brita-100 py-20 md:py-28">
         <Container>
           <SectionHeading
             id="casos-titulo"
@@ -141,61 +148,54 @@ export default function ObrasPage() {
             description="Ao longo da sua trajetória, a empresa participou de projetos e fornecimentos para órgãos, instituições e parceiros que contribuem para o desenvolvimento da região."
           />
 
-          <ul className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
+          <ul className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-card bg-ink/10 sm:grid-cols-3 lg:grid-cols-5">
             {casosSucesso.map((caso) => (
               <li
                 key={caso.nome}
-                className="flex h-32 items-center justify-center bg-white p-6 md:h-36"
+                className="flex h-32 items-center justify-center bg-white p-6 md:h-40"
               >
-                <Image
-                  src={caso.imagem}
-                  alt={caso.nome}
-                  width={180}
-                  height={90}
-                  quality={100}
-                  className="max-h-20 w-auto object-contain"
-                />
+                <div className="relative h-20 w-full max-w-[11.25rem]">
+                  <Image src={caso.imagem} alt={caso.nome} fill sizes="180px" className="object-contain" />
+                </div>
               </li>
             ))}
           </ul>
         </Container>
       </section>
 
-      <section className="py-16 md:py-24">
-        <Container>
-          <div className="on-dark relative isolate grid overflow-hidden rounded-panel bg-surface-navy text-white lg:grid-cols-[0.9fr_1.1fr]">
-            <div aria-hidden="true" className="bg-survey-grid absolute inset-0 -z-10" />
-            <div className="p-6 md:p-12">
-              <Eyebrow onDark>Estrutura e confiança</Eyebrow>
+      {/* Closing band: deep navy, no texture */}
+      <section aria-labelledby="estrutura-confianca-titulo" className="on-dark bg-ink py-20 text-white md:py-28">
+        <Container className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-6">
+            <Eyebrow onDark>Estrutura e confiança</Eyebrow>
 
-              <h2 className="mt-4 text-3xl font-bold leading-tight md:text-4xl">
-                Produtos, serviços e operação para atender obras de diferentes
-                portes.
-              </h2>
+            <h2
+              id="estrutura-confianca-titulo"
+              className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06]"
+            >
+              Produtos, serviços e operação para atender obras de diferentes
+              portes.
+            </h2>
 
-              <p className="mt-5 leading-relaxed text-on-dark-muted">
-                Com atuação consolidada, a empresa combina estrutura,
-                compromisso e fornecimento de insumos essenciais para o
-                andamento de obras.
-              </p>
+            <p className="mt-5 max-w-xl font-serif text-[length:var(--type-lead)] leading-[1.55] text-on-dark-muted">
+              Com atuação consolidada, a empresa combina estrutura,
+              compromisso e fornecimento de insumos essenciais para o
+              andamento de obras.
+            </p>
 
-              <ButtonLink href="/contato" variant="light" size="lg" className="mt-8">
-                Falar com a equipe
-              </ButtonLink>
-            </div>
-
-            <dl className="grid grid-cols-1 border-t border-on-dark-border sm:grid-cols-2 lg:border-l lg:border-t-0">
-              {frentes.map(([titulo, texto]) => (
-                <div
-                  key={titulo}
-                  className="border-b border-on-dark-border p-6 last:border-b-0 sm:odd:border-r sm:[&:nth-last-child(-n+2)]:border-b-0 md:p-8"
-                >
-                  <dt className="font-display text-lg font-bold text-white">{titulo}</dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-on-dark-muted">{texto}</dd>
-                </div>
-              ))}
-            </dl>
+            <ButtonLink href="/contato" variant="light" size="lg" className="mt-8">
+              Falar com a equipe
+            </ButtonLink>
           </div>
+
+          <dl className="grid content-start gap-x-10 sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
+            {frentes.map(([titulo, texto]) => (
+              <div key={titulo} className="border-t border-white/20 py-6">
+                <dt className="text-lg font-bold">{titulo}</dt>
+                <dd className="mt-2 text-[0.9375rem] leading-relaxed text-on-dark-muted">{texto}</dd>
+              </div>
+            ))}
+          </dl>
         </Container>
       </section>
     </main>

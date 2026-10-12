@@ -60,7 +60,8 @@ export function Header() {
     }
 
     function medirAbertura() {
-      limite = Math.max(abertura ? abertura.offsetHeight - 88 : 8, 8);
+      // Light openings (inner pages with data-header="claro") keep the solid capsule.
+      limite = abertura?.dataset.header === "claro" ? -1 : Math.max(abertura ? abertura.offsetHeight - 88 : 8, 8);
       verificarScroll();
     }
 

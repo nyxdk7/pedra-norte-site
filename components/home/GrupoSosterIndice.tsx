@@ -32,7 +32,7 @@ export function GrupoSosterIndice() {
                     width={235}
                     height={110}
                     sizes="104px"
-                    className="max-h-16 w-auto max-w-full object-contain object-left"
+                    className="h-auto max-h-16 w-auto max-w-full object-contain object-left"
                   />
                 </div>
                 <div>

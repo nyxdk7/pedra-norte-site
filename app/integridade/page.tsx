@@ -51,14 +51,15 @@ const linkTexto =
 
 export default function IntegridadePage() {
   return (
-    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
+        variante="sereno"
         eyebrow="Programa de Integridade"
         title="Integridade MSM"
         description={
           <p>
             O Grupo{" "}
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-heading">
               M. S. M. INDUSTRIAL
             </span>{" "}
             atua com foco em transparência, ética e integridade nas atividades
@@ -67,16 +68,16 @@ export default function IntegridadePage() {
           </p>
         }
       >
-        <div className="mt-12 max-w-3xl border-l-2 border-accent pl-6">
-          <p className="text-sm font-semibold text-on-dark-muted">
+        <div className="mt-12 max-w-3xl border-l-2 border-accent pl-6 md:mt-16">
+          <p className="text-sm font-semibold text-brand">
             Compromisso institucional
           </p>
 
-          <h2 className="mt-2 text-2xl font-bold leading-tight md:text-3xl">
+          <h2 className="mt-2 text-2xl font-bold leading-tight text-heading md:text-3xl">
             Ética, transparência e responsabilidade nas relações.
           </h2>
 
-          <p className="mt-3 leading-relaxed text-on-dark-muted">
+          <p className="mt-3 font-serif text-lg leading-relaxed text-muted-strong">
             O Programa de Integridade Corporativa da MSM promove valores
             positivos no ambiente empresarial e orienta boas práticas no
             relacionamento com o Poder Público, parceiros e sociedade.
@@ -84,7 +85,7 @@ export default function IntegridadePage() {
         </div>
       </PageHero>
 
-      <section aria-labelledby="compliance-titulo" className="py-16 md:py-24">
+      <section aria-labelledby="compliance-titulo" className="py-20 md:py-28">
         <Container>
           <div className="max-w-3xl">
             <Eyebrow>Integridade Corporativa — Compliance</Eyebrow>
@@ -96,7 +97,7 @@ export default function IntegridadePage() {
               Compliance - Integridade, ética empresarial.
             </h2>
 
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-muted-strong">
+            <div className="mt-6 space-y-5 font-serif text-lg leading-relaxed text-muted-strong">
               <p>
                 O Grupo{" "}
                 <span className={destaque}>
@@ -158,7 +159,7 @@ export default function IntegridadePage() {
               Nossas Diretrizes e Documentos
             </h3>
 
-            <p className="mt-3 text-lg leading-relaxed text-muted-strong">
+            <p className="mt-3 font-serif text-lg leading-relaxed text-muted-strong">
               Para nós, a transparência é fundamental. Abaixo, você tem
               acesso aos principais documentos que norteiam a nossa conduta e
               fundamentam a nossa governança corporativa. Convidamos você a
@@ -166,35 +167,39 @@ export default function IntegridadePage() {
             </p>
           </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Document disclosures as a ruled index (DNA: clear document links) */}
+          <ul className="mt-10 grid gap-x-10 border-b border-border md:grid-cols-2">
             {documentosIntegridade.map((documento) => {
               const Icone = documento.icone;
               const externo = documento.href.startsWith("http");
 
               return (
-                <li key={documento.titulo}>
+                <li key={documento.titulo} className="border-t border-border">
                   <Link
                     href={documento.href}
                     target={externo ? "_blank" : undefined}
                     rel={externo ? "noopener noreferrer" : undefined}
-                    className="group flex h-full items-center gap-4 rounded-card border border-border bg-white p-5 transition-colors hover:border-brand hover:bg-surface-subtle"
+                    className="group flex min-h-20 items-center gap-5 py-5 transition-colors"
                   >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-control bg-brand text-white">
-                      <Icone size={24} strokeWidth={1.8} aria-hidden="true" />
-                    </span>
+                    <Icone
+                      size={26}
+                      strokeWidth={1.6}
+                      aria-hidden="true"
+                      className="shrink-0 text-brand"
+                    />
 
                     <span className="min-w-0 flex-1">
-                      <span className="block font-semibold leading-snug text-heading">
+                      <span className="block text-lg font-bold leading-snug text-heading transition-colors group-hover:text-brand">
                         {documento.titulo}
                       </span>
-                      <span className="mt-0.5 block text-sm text-brand">
+                      <span className="mt-0.5 block text-sm font-semibold text-brand">
                         Acessar
                         {externo ? <span className="sr-only"> (abre em nova aba)</span> : null}
                       </span>
                     </span>
 
                     <ArrowUpRight
-                      className="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-brand"
+                      className="h-5 w-5 shrink-0 text-muted transition-[color,transform] duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
                       aria-hidden="true"
                     />
                   </Link>
@@ -206,6 +211,7 @@ export default function IntegridadePage() {
       </section>
 
       <CtaBanner
+        className="pt-4"
         eyebrow="Integridade MSM"
         title="Compromisso com transparência, integridade e ética empresarial."
         description="O Programa de Integridade MSM reúne diretrizes, canais e documentos institucionais voltados ao fortalecimento das boas práticas corporativas e da responsabilidade nas relações empresariais."

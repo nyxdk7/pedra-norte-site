@@ -84,16 +84,19 @@ const produtos = [
   },
 ];
 
-const linkCartao =
-  "mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-3 text-sm font-semibold text-brand transition-colors hover:text-brand-hover";
+const linkAcao =
+  "group/link inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-brand transition-colors hover:text-brand-hover";
 
 export default function ServicosPage() {
   return (
-    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
+        variante="dividido"
         eyebrow="Serviços e produtos"
         title="Soluções em engenharia civil, concreto e pavimentação."
-        image="/images/servicos/usinagem-asfalto.png"
+        image="/images/atuacoes/edificacoes/edificacoes.png"
+        imageAlt="Caminhão betoneira e bomba de concreto abastecendo obra de edificação"
+        imagePosition="object-[62%_center]"
         description={
           <p>
             A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento
@@ -103,92 +106,89 @@ export default function ServicosPage() {
         }
       />
 
-      <section aria-labelledby="servicos-titulo" className="py-16 md:py-24">
+      {/* Services as feature rows: photo, name, description and action on one ruled line */}
+      <section aria-labelledby="servicos-titulo" className="py-20 md:py-28">
         <Container>
           <SectionHeading id="servicos-titulo" title="Serviços" />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <ul className="mt-12 border-b border-border md:mt-16">
             {servicos.map((servico) => (
-              <article
+              <li
                 key={servico.titulo}
-                className="group flex flex-col overflow-hidden rounded-card border border-border bg-white"
+                className="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-5 gap-y-4 border-t border-border py-6 md:grid-cols-12 md:items-center md:gap-x-10 md:py-8"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-surface-subtle">
+                <div className="relative aspect-square overflow-hidden rounded-card bg-brita-100 md:col-span-3 md:max-w-[17rem]">
                   <Image
                     src={servico.imagem}
                     alt={servico.titulo}
                     fill
-                    quality={100}
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 96px, 272px"
+                    className="object-cover"
                   />
                 </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-xl font-bold text-heading">{servico.titulo}</h3>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-strong">
-                    {servico.descricao}
-                  </p>
-                  <Link href="/contato" className={linkCartao}>
+                <h3 className="self-center text-xl font-bold leading-snug text-heading md:col-span-4 md:text-[1.75rem] md:leading-tight">
+                  {servico.titulo}
+                </h3>
+                <div className="col-span-2 md:col-span-5">
+                  <p className="font-serif text-lg leading-relaxed text-muted-strong">{servico.descricao}</p>
+                  <Link href="/contato" className={`${linkAcao} mt-3`}>
                     Solicitar informações
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" aria-hidden="true" />
                   </Link>
                 </div>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
-      <section aria-labelledby="produtos-titulo" className="bg-surface-subtle py-16 md:py-24">
+      {/* Products as a technical schedule on stone */}
+      <section aria-labelledby="produtos-titulo" className="bg-brita-100 py-20 md:py-28">
         <Container>
           <SectionHeading id="produtos-titulo" title="Produtos" />
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-12 grid gap-x-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
             {produtos.map((produto) => (
-              <article
+              <li
                 key={produto.titulo}
-                className="group flex gap-5 rounded-card border border-border bg-white p-4 sm:flex-col sm:p-5"
+                className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-5 border-t border-ink/15 py-7"
               >
-                <div className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-control bg-surface-subtle sm:w-full sm:aspect-[16/10]">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-card bg-white">
                   <Image
                     src={produto.imagem}
                     alt={produto.titulo}
                     fill
-                    quality={100}
-                    sizes="(max-width: 640px) 96px, 380px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="88px"
+                    className="object-cover"
                   />
                 </div>
-
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <h3 className="text-lg font-bold text-heading">{produto.titulo}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-strong">
+                <div className="flex min-w-0 flex-col">
+                  <h3 className="text-lg font-bold leading-snug text-heading">{produto.titulo}</h3>
+                  <p className="mt-2 font-serif text-[0.9375rem] leading-relaxed text-muted-strong">
                     {produto.descricao}
                   </p>
-                  <Link href="/contato" className={linkCartao}>
+                  <Link href="/contato" className={`${linkAcao} mt-auto pt-2`}>
                     Solicitar produto
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" aria-hidden="true" />
                   </Link>
                 </div>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
-      <div className="pt-16 md:pt-24">
-        <CtaBanner
-          eyebrow="Atendimento MSM Industrial"
-          title="Precisa de produtos ou serviços para sua obra?"
-          description="Entre em contato com nossa equipe e solicite uma proposta conforme a necessidade do seu projeto."
-          actions={
-            <ButtonLink href="/contato" variant="light" size="lg">
-              Solicitar orçamento
-            </ButtonLink>
-          }
-        />
-      </div>
+      <CtaBanner
+        className="pt-16 md:pt-24"
+        eyebrow="Atendimento MSM Industrial"
+        title="Precisa de produtos ou serviços para sua obra?"
+        description="Entre em contato com nossa equipe e solicite uma proposta conforme a necessidade do seu projeto."
+        actions={
+          <ButtonLink href="/contato" variant="light" size="lg">
+            Solicitar orçamento
+          </ButtonLink>
+        }
+      />
     </main>
   );
 }

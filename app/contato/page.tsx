@@ -24,8 +24,9 @@ const acao = "mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-br
 
 export default function ContatoPage() {
   return (
-    <main id="conteudo" className="min-h-screen bg-neutral-50 text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
+        variante="sereno"
         eyebrow="Canais oficiais"
         title="Vamos conversar?"
         description={
@@ -35,7 +36,7 @@ export default function ContatoPage() {
           </p>
         }
         actions={
-          <ButtonLink href={siteContact.whatsappUrl} variant="light" size="lg">
+          <ButtonLink href={siteContact.whatsappUrl} variant="primary" size="lg">
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
             Falar com nossa equipe
             <ArrowRight className="h-5 w-5" aria-hidden="true" />

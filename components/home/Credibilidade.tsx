@@ -53,7 +53,7 @@ export function Credibilidade() {
                   width={180}
                   height={90}
                   sizes="160px"
-                  className="max-h-full w-auto object-contain"
+                  className="h-auto max-h-full w-auto object-contain"
                 />
               </li>
             ))}

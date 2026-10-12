@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ButtonLink } from "@/components/ui/Button";
+import { ButtonLink, buttonClasses } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container, Eyebrow } from "@/components/ui/Section";
@@ -49,16 +49,17 @@ const atuacoes = [
   {
     titulo: "Pré-moldados",
     subtitulo: "Peças de concreto para obras",
-    imagem: "/images/atuacoes/pre-moldados/pre-moldados.png",
+    // Opens on the 1280px photograph; the 451px one stays in the series.
+    imagem: "/images/atuacoes/pre-moldados/pre-moldados2.png",
     imagensDetalhes: [
-      "/images/atuacoes/pre-moldados/pre-moldados.png",
       "/images/atuacoes/pre-moldados/pre-moldados2.png",
+      "/images/atuacoes/pre-moldados/pre-moldados.png",
     ],
     resumo:
       "Produção de peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
     descricao:
       "A área de pré-moldados oferece soluções em concreto para obras que exigem padronização, resistência e agilidade na execução. As peças podem atender demandas de drenagem, urbanização, contenção, infraestrutura e apoio a obras civis, reduzindo tempo de execução e aumentando a eficiência em campo.",
-  },  
+  },
   {
     titulo: "Edificações",
     subtitulo: "Construção civil e obras estruturais",
@@ -132,12 +133,14 @@ export default function AtuacoesPage() {
   }
 
   return (
-    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Principais atuações"
         title="Áreas de atuação com estrutura para atender obras e operações de diferentes portes."
-        image="/images/atuacoes/pavimentacao/pavimentacao.png"
-        imageAlt="Principais atuações do Grupo Soster"
+        image="/images/galeria/home13.jpeg"
+        imageAlt="Escavadeira carregando caminhão basculante da Pedra Norte"
+        imagePosition="object-[50%_35%]"
+        legenda="Escavadeira carregando caminhão da Pedra Norte"
         description={
           <p>
             O Grupo Soster reúne frentes de atuação em pavimentação, extração
@@ -147,21 +150,21 @@ export default function AtuacoesPage() {
         }
         actions={
           <>
-            <ButtonLink href="/contato" variant="light" size="lg">
+            <ButtonLink href="/contato" variant="signal" size="lg">
               Solicitar orçamento
               <ArrowRight size={18} aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href="/estrutura" variant="outlineLight" size="lg">
+            <ButtonLink href="/estrutura" variant="glass" size="lg">
               Ver estrutura
             </ButtonLink>
           </>
         }
       />
 
-      <section aria-labelledby="frentes-titulo" className="py-16 md:py-24">
+      <section aria-labelledby="frentes-titulo" className="py-20 md:py-28">
         <Container>
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-            <div>
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <div className="lg:col-span-6">
               <Eyebrow>Onde atuamos</Eyebrow>
               <h2
                 id="frentes-titulo"
@@ -171,115 +174,102 @@ export default function AtuacoesPage() {
               </h2>
             </div>
 
-            <p className="text-lg leading-relaxed text-muted-strong">
+            <p className="font-serif text-lg leading-relaxed text-muted-strong lg:col-span-5 lg:col-start-8">
               Clique em uma área para expandir os detalhes. Ao abrir, as
               imagens começam a alternar automaticamente, destacando
               melhor cada frente de serviço.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6">
+          {/* Landscape photo essays, alternating sides; the photo is also the expand control */}
+          <div className="mt-16 space-y-16 md:mt-20 md:space-y-24">
             {atuacoes.map((atuacao, index) => {
               const aberto = cardAberto === atuacao.titulo;
               const inverter = index % 2 !== 0;
               const imagemDoCard = obterImagemDoCard(atuacao);
               const idDetalhes = idDaAtuacao(atuacao.titulo);
+              const indiceImagem = aberto ? (imagemAtualPorCard[atuacao.titulo] ?? 0) : 0;
 
               return (
                 <article
                   key={atuacao.titulo}
-                  className={`overflow-hidden rounded-panel border bg-white transition-[border-color,box-shadow] duration-300 ${
-                    aberto ? "border-brand shadow-brand-soft" : "border-border"
-                  }`}
+                  className="grid gap-8 border-t border-border pt-10 md:grid-cols-12 md:items-center md:gap-8 md:border-t-0 md:pt-0 lg:gap-10"
                 >
-                  <div className="grid lg:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => alternarCard(atuacao.titulo)}
+                    className={`group relative aspect-[16/10] overflow-hidden rounded-card bg-ink text-left md:col-span-6 md:aspect-[4/3] lg:col-span-7 lg:aspect-[16/10] ${
+                      inverter ? "md:order-2 md:col-start-7 lg:col-start-6" : ""
+                    }`}
+                    aria-expanded={aberto}
+                    aria-controls={idDetalhes}
+                    aria-label={`${aberto ? "Ocultar" : "Ver"} detalhes de ${atuacao.titulo}`}
+                  >
+                    <Image
+                      key={imagemDoCard}
+                      src={imagemDoCard}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 58vw"
+                      className={`object-cover object-center ${
+                        aberto ? "gallery-image-enter" : "transition-transform duration-300 group-hover:scale-[1.02]"
+                      }`}
+                    />
+
+                    {/* Technical annotation: which photograph of the series is on screen */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-4 left-4 flex items-center gap-3 rounded-full bg-ink/75 px-3.5 py-1.5 text-sm font-semibold tabular-nums text-white backdrop-blur"
+                    >
+                      <span className="h-px w-6 bg-accent" />
+                      {String(indiceImagem + 1).padStart(2, "0")} / {String(atuacao.imagensDetalhes.length).padStart(2, "0")}
+                    </span>
+                  </button>
+
+                  <div className={`md:col-span-6 lg:col-span-5 ${inverter ? "md:order-1 md:col-start-1" : ""}`}>
+                    <p className="flex items-center gap-3 text-[0.9375rem] font-semibold text-brand">
+                      <span aria-hidden="true" className="h-px w-8 bg-accent" />
+                      {atuacao.subtitulo}
+                    </p>
+
+                    <h3 className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading">
+                      {atuacao.titulo}
+                    </h3>
+
+                    <p className="mt-5 font-serif text-[length:var(--type-lead)] leading-[1.55] text-muted-strong">
+                      {atuacao.resumo}
+                    </p>
+
+                    <div
+                      id={idDetalhes}
+                      className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ${
+                        aberto
+                          ? "mt-6 grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                      inert={!aberto}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="border-l-2 border-accent pl-5 font-serif leading-relaxed text-muted-strong">
+                          {atuacao.descricao}
+                        </p>
+                      </div>
+                    </div>
+
                     <button
                       type="button"
                       onClick={() => alternarCard(atuacao.titulo)}
-                      className={`group relative overflow-hidden bg-neutral-900 text-left transition-[min-height] duration-500 ${
-                        aberto
-                          ? "min-h-[320px] md:min-h-[480px]"
-                          : "min-h-[260px] md:min-h-[400px]"
-                      } ${inverter ? "lg:order-2" : ""}`}
+                      className={buttonClasses(aberto ? "secondary" : "primary", "md", "mt-8")}
                       aria-expanded={aberto}
                       aria-controls={idDetalhes}
-                      aria-label={`${aberto ? "Ocultar" : "Ver"} detalhes de ${atuacao.titulo}`}
                     >
-                      <Image
-                        key={imagemDoCard}
-                        src={imagemDoCard}
-                        alt=""
-                        fill
-                        quality={100}
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className={`object-cover object-center transition-transform duration-700 ${
-                          aberto ? "gallery-image-enter" : "group-hover:scale-[1.03]"
-                        }`}
+                      {aberto ? "Ocultar detalhes" : "Ver detalhes"}
+                      <ChevronDown
+                        size={18}
+                        aria-hidden="true"
+                        className={`transition-transform duration-200 ${aberto ? "rotate-180" : ""}`}
                       />
-
-                      <div aria-hidden="true" className="scrim-bottom absolute inset-0" />
-
-                      <div aria-hidden="true" className="absolute inset-x-6 bottom-6">
-                        <p className="text-sm font-semibold text-white">
-                          {atuacao.subtitulo}
-                        </p>
-                        <p className="mt-1 font-display text-3xl font-bold tracking-tight text-white md:text-4xl">
-                          {atuacao.titulo}
-                        </p>
-                      </div>
                     </button>
-
-                    <div className="flex flex-col justify-between p-6 md:p-10">
-                      <div>
-                        <p className="flex items-center gap-3 text-sm font-semibold text-brand">
-                          <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-accent" />
-                          {atuacao.subtitulo}
-                        </p>
-
-                        <h3 className="mt-3 text-3xl font-bold text-heading md:text-4xl">
-                          {atuacao.titulo}
-                        </h3>
-
-                        <p className="mt-4 text-lg leading-relaxed text-muted-strong">
-                          {atuacao.resumo}
-                        </p>
-
-                        <div
-                          id={idDetalhes}
-                          className={`grid transition-[grid-template-rows,opacity,margin] duration-500 ${
-                            aberto
-                              ? "mt-6 grid-rows-[1fr] opacity-100"
-                              : "grid-rows-[0fr] opacity-0"
-                          }`}
-                          inert={!aberto}
-                        >
-                          <div className="overflow-hidden">
-                            <p className="border-l-2 border-accent pl-5 leading-relaxed text-muted-strong">
-                              {atuacao.descricao}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-8">
-                        <button
-                          type="button"
-                          onClick={() => alternarCard(atuacao.titulo)}
-                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-control bg-brand px-5 text-sm font-semibold text-white shadow-brand-soft transition-colors hover:bg-brand-hover"
-                          aria-expanded={aberto}
-                          aria-controls={idDetalhes}
-                        >
-                          {aberto ? "Ocultar detalhes" : "Ver detalhes"}
-                          <ChevronDown
-                            size={18}
-                            aria-hidden="true"
-                            className={`transition-transform duration-300 ${
-                              aberto ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </article>
               );

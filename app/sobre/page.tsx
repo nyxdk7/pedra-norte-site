@@ -24,10 +24,14 @@ const pilares = [
 
 export default function SobrePage() {
   return (
-    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+    <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
+        variante="dividido"
         eyebrow="Sobre a empresa"
         title="Soluções em engenharia civil com compromisso, qualidade e responsabilidade."
+        image="/images/home/hero-obras-acre.png"
+        imageAlt="Escavadeira e equipe em obra de infraestrutura do Grupo Soster"
+        imagePosition="object-[58%_center]"
         description={
           <p>
             A MSM Industrial LTDA atua no setor de engenharia civil oferecendo
@@ -38,20 +42,24 @@ export default function SobrePage() {
         }
       />
 
-      <section className="py-16 md:py-24">
-        <Container className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          <article>
-            <h2 className="text-3xl font-bold text-heading md:text-4xl">
-              Nossa atuação
-            </h2>
+      {/* Editorial reading surface: heading column + prose with a serif lead */}
+      <section aria-labelledby="atuacao-titulo" className="py-20 md:py-28">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-10">
+          <h2
+            id="atuacao-titulo"
+            className="text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading lg:col-span-4"
+          >
+            Nossa atuação
+          </h2>
 
-            <div className="mt-6 max-w-[65ch] space-y-5 text-lg leading-relaxed text-muted-strong">
-              <p>
-                A empresa atua com soluções voltadas à engenharia civil,
-                fornecendo estrutura, produtos e serviços para atender obras de
-                diferentes portes.
-              </p>
+          <div className="max-w-[65ch] lg:col-span-7 lg:col-start-6">
+            <p className="font-serif text-[length:var(--type-lead)] leading-[1.55] text-heading">
+              A empresa atua com soluções voltadas à engenharia civil,
+              fornecendo estrutura, produtos e serviços para atender obras de
+              diferentes portes.
+            </p>
 
+            <div className="mt-8 space-y-5 border-t border-border pt-8 font-serif text-lg leading-relaxed text-muted-strong">
               <p>
                 Com foco em qualidade e responsabilidade, a MSM Industrial LTDA
                 busca contribuir para o desenvolvimento regional por meio de
@@ -72,24 +80,27 @@ export default function SobrePage() {
                 engenharia civil.
               </p>
             </div>
-          </article>
+          </div>
+        </Container>
+      </section>
 
-          <aside aria-label="Compromisso, atuação e valores" className="self-start rounded-panel border border-border bg-surface-subtle">
-            <ul className="divide-y divide-border">
-              {pilares.map((pilar) => (
-                <li key={pilar.rotulo} className="p-6 md:p-8">
-                  <p className="flex items-center gap-3 text-sm font-semibold text-brand">
-                    <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-accent" />
-                    {pilar.rotulo}
-                  </p>
-                  <h2 className="mt-3 text-xl font-bold text-heading md:text-2xl">
-                    {pilar.titulo}
-                  </h2>
-                  <p className="mt-3 leading-relaxed text-muted-strong">{pilar.texto}</p>
-                </li>
-              ))}
-            </ul>
-          </aside>
+      {/* Commitment, scope and values as a ruled triptych on stone */}
+      <section aria-label="Compromisso, atuação e valores" className="bg-brita-100 py-16 md:py-24">
+        <Container>
+          <ul className="grid gap-x-10 md:grid-cols-3">
+            {pilares.map((pilar) => (
+              <li key={pilar.rotulo} className="border-t-2 border-ink py-8 md:py-10">
+                <p className="flex items-center gap-3 text-[0.9375rem] font-semibold text-brand">
+                  <span aria-hidden="true" className="h-px w-8 bg-accent" />
+                  {pilar.rotulo}
+                </p>
+                <h3 className="mt-5 text-2xl font-bold leading-tight text-heading md:text-[1.75rem]">
+                  {pilar.titulo}
+                </h3>
+                <p className="mt-4 font-serif text-lg leading-relaxed text-muted-strong">{pilar.texto}</p>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
     </main>

@@ -14,7 +14,7 @@ export default function CodigoEticaPage() {
   return (
     <main
       id="conteudo"
-      className="min-h-screen bg-neutral-100 text-foreground"
+      className="min-h-screen bg-brita-100 text-foreground"
       onContextMenu={(event) => event.preventDefault()}
     >
       <PageHero
@@ -23,7 +23,7 @@ export default function CodigoEticaPage() {
         before={
           <Link
             href="/integridade"
-            className="mb-8 inline-flex min-h-11 items-center gap-2 rounded-control border border-white/30 px-4 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+            className="mb-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-border-strong bg-white px-4 text-sm font-semibold text-brand transition-colors hover:border-brand"
           >
             <ArrowLeft size={17} aria-hidden="true" />
             Voltar para Integridade MSM
@@ -51,7 +51,7 @@ export default function CodigoEticaPage() {
                 height={1754}
                 sizes="(max-width: 1024px) 100vw, 896px"
                 quality={100}
-                priority={pagina.numero === 1}
+                loading={pagina.numero === 1 ? "eager" : undefined}
                 draggable={false}
                 className="pointer-events-none block w-full select-none bg-white"
               />

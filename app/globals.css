@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "dna-4";
+  --css-build: "dna-7";
 
   color-scheme: light;
 }
@@ -255,29 +255,6 @@ html {
   box-shadow: inset 0 0 0 1px var(--border);
 }
 
-/* Engineering grid: faint survey-sheet texture for navy surfaces */
-.bg-survey-grid {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-/* Photo scrims built from tokens (legible text over real photography) */
-.scrim-band {
-  background:
-    linear-gradient(90deg, rgb(11 31 77 / 0.96) 0%, rgb(11 31 77 / 0.88) 50%, rgb(20 57 135 / 0.62) 100%);
-}
-
-/* Below lg the text spans (nearly) the full width, so scrims must be evenly dark */
-@media (max-width: 1023px) {
-  .scrim-band { background: rgb(11 31 77 / 0.8); }
-}
-
-.scrim-bottom {
-  background: linear-gradient(0deg, rgb(7 15 40 / 0.88) 0%, rgb(7 15 40 / 0.35) 45%, transparent 75%);
-}
-
 /* --- Official logo, cropped to its drawn area ---
    The PNG (674×370) carries transparent padding; the mark occupies 529×196 from
    (73, 76). The file is untouched: the box below only hides the empty margin
@@ -397,6 +374,35 @@ html {
   .hero-title { font-size: 3.25rem; }
   .hero-lead { font-size: 1.125rem; }
   .hero-lead + div { margin-top: 1.5rem; }
+}
+
+/* Inner-page photo hero: text sits on the base of the photograph. The inner
+   photographs are brighter than the Home's (open sky, white trucks), so the tone
+   is stronger and measured per range (evidence: wave3 contraste-internas).
+   The right side of the photograph stays clean on desktop. */
+.page-hero-scrim {
+  background:
+    linear-gradient(180deg, rgb(11 25 43 / 0.45) 0%, transparent 20%),
+    linear-gradient(0deg, rgb(11 25 43 / 0.9) 0%, rgb(11 25 43 / 0.72) 45%, rgb(11 25 43 / 0.5) 66%, rgb(11 25 43 / 0.15) 84%, transparent 100%);
+}
+
+/* 1024–1279: the headline spans ~75% of the width, so the side tone reaches further. */
+@media (min-width: 1024px) {
+  .page-hero-scrim {
+    background:
+      linear-gradient(180deg, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.25) 22%, transparent 34%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.82) 0%, rgb(11 25 43 / 0.68) 50%, rgb(11 25 43 / 0.42) 72%, rgb(11 25 43 / 0.12) 88%, transparent 100%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.72) 0%, rgb(11 25 43 / 0.3) 40%, transparent 64%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .page-hero-scrim {
+    background:
+      linear-gradient(180deg, rgb(11 25 43 / 0.45) 0%, transparent 22%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.68) 44%, rgb(11 25 43 / 0.3) 66%, transparent 82%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.75) 0%, rgb(11 25 43 / 0.32) 40%, transparent 64%);
+  }
 }
 
 /* Annotation: marker on the conveyor truss, leader line, caption card.

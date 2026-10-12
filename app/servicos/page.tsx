@@ -1,4 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/Button";
+import { CtaBanner } from "@/components/ui/CtaBanner";
+import { PageHero } from "@/components/ui/PageHero";
+import { Container, SectionHeading } from "@/components/ui/Section";
 
 const servicos = [
   {
@@ -78,154 +84,111 @@ const produtos = [
   },
 ];
 
+const linkCartao =
+  "mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-brand transition-colors hover:text-brand-hover";
+
 export default function ServicosPage() {
   return (
-    <main className="min-h-screen bg-white pt-32 text-slate-950">
-      <section className="relative overflow-hidden px-6 pb-20">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#eaf0ff,transparent_35%)]" />
+    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+      <PageHero
+        eyebrow="Serviços e produtos"
+        title="Soluções em engenharia civil, concreto e pavimentação."
+        image="/images/servicos/usinagem-asfalto.png"
+        description={
+          <p>
+            A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento
+            de produtos e serviços para construção civil, infraestrutura e
+            obras públicas ou privadas.
+          </p>
+        }
+      />
 
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
-            <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-              Serviços e produtos
-            </span>
+      <section aria-labelledby="servicos-titulo" className="py-16 md:py-24">
+        <Container>
+          <SectionHeading id="servicos-titulo" title="Serviços" />
 
-            <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
-              Soluções em engenharia civil, concreto e pavimentação.
-            </h1>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {servicos.map((servico) => (
+              <article
+                key={servico.titulo}
+                className="group flex flex-col overflow-hidden rounded-card border border-border bg-white"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-surface-subtle">
+                  <Image
+                    src={servico.imagem}
+                    alt={servico.titulo}
+                    fill
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
 
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento
-              de produtos e serviços para construção civil, infraestrutura e
-              obras públicas ou privadas.
-            </p>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-bold text-heading">{servico.titulo}</h3>
+                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-strong">
+                    {servico.descricao}
+                  </p>
+                  <Link href="/contato" className={linkCartao}>
+                    Solicitar informações
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
-
-          <div className="mt-16">
-            <div className="flex items-center gap-4">
-              <div className="h-8 w-1 rounded-full bg-[#143987]" />
-              <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800">
-                Serviços
-              </h2>
-            </div>
-
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {servicos.map((servico) => (
-                <article
-                  key={servico.titulo}
-                  className="group rounded-3xl border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
-                >
-                  <div className="relative mx-auto h-56 w-full overflow-hidden rounded-2xl bg-[#eaf0ff]">
-                    <Image
-                      src={servico.imagem}
-                      alt={servico.titulo}
-                      fill
-                      quality={100}
-                      sizes="(max-width: 768px) 100vw, 380px"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="px-2 py-6">
-                    <h3 className="text-center text-lg font-bold uppercase tracking-wide text-slate-800">
-                      {servico.titulo}
-                    </h3>
-
-                    <p className="mt-4 text-center text-sm leading-7 text-slate-600">
-                      {servico.descricao}
-                    </p>
-
-                    <div className="mt-6 text-center">
-                      <a
-                        href="/contato"
-                        className="inline-flex items-center text-sm font-bold text-[#143987] transition hover:text-[#0f2c6a]"
-                      >
-                        Solicitar informações
-                        <span className="ml-2">→</span>
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-24">
-            <div className="flex items-center gap-4">
-              <div className="h-8 w-1 rounded-full bg-[#143987]" />
-              <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800">
-                Produtos
-              </h2>
-            </div>
-
-            <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {produtos.map((produto) => (
-                <article
-                  key={produto.titulo}
-                  className="group rounded-3xl border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
-                >
-                  <div className="relative mx-auto h-48 w-full max-w-[260px] overflow-hidden rounded-2xl bg-[#eaf0ff]">
-                    <Image
-                      src={produto.imagem}
-                      alt={produto.titulo}
-                      fill
-                      quality={100}
-                      sizes="260px"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="px-2 py-6">
-                    <h3 className="text-center text-lg font-bold uppercase tracking-wide text-slate-800">
-                      {produto.titulo}
-                    </h3>
-
-                    <p className="mt-4 text-center text-sm leading-7 text-slate-600">
-                      {produto.descricao}
-                    </p>
-
-                    <div className="mt-6 text-center">
-                      <a
-                        href="/contato"
-                        className="inline-flex items-center text-sm font-bold text-[#143987] transition hover:text-[#0f2c6a]"
-                      >
-                        Solicitar produto
-                        <span className="ml-2">→</span>
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
+        </Container>
       </section>
 
-      <section className="bg-[#eaf0ff] px-6 py-16">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 rounded-3xl bg-white p-8 shadow-sm shadow-[#dbe5ff] md:flex-row md:items-center">
-          <div>
-            <span className="text-sm font-bold uppercase tracking-wide text-[#143987]">
-              Atendimento MSM Industrial
-            </span>
+      <section aria-labelledby="produtos-titulo" className="bg-surface-subtle py-16 md:py-24">
+        <Container>
+          <SectionHeading id="produtos-titulo" title="Produtos" />
 
-            <h2 className="mt-3 text-3xl font-bold text-slate-950">
-              Precisa de produtos ou serviços para sua obra?
-            </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {produtos.map((produto) => (
+              <article
+                key={produto.titulo}
+                className="group flex gap-5 rounded-card border border-border bg-white p-4 sm:flex-col sm:p-5"
+              >
+                <div className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-control bg-surface-subtle sm:w-full sm:aspect-[16/10]">
+                  <Image
+                    src={produto.imagem}
+                    alt={produto.titulo}
+                    fill
+                    quality={100}
+                    sizes="(max-width: 640px) 96px, 380px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
 
-            <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-              Entre em contato com nossa equipe e solicite uma proposta conforme
-              a necessidade do seu projeto.
-            </p>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="text-lg font-bold text-heading">{produto.titulo}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-strong">
+                    {produto.descricao}
+                  </p>
+                  <Link href="/contato" className={linkCartao}>
+                    Solicitar produto
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
-
-          <a
-            href="/contato"
-            className="rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
-          >
-            Solicitar orçamento
-          </a>
-        </div>
+        </Container>
       </section>
+
+      <div className="pt-16 md:pt-24">
+        <CtaBanner
+          eyebrow="Atendimento MSM Industrial"
+          title="Precisa de produtos ou serviços para sua obra?"
+          description="Entre em contato com nossa equipe e solicite uma proposta conforme a necessidade do seu projeto."
+          actions={
+            <ButtonLink href="/contato" variant="light" size="lg">
+              Solicitar orçamento
+            </ButtonLink>
+          }
+        />
+      </div>
     </main>
   );
 }

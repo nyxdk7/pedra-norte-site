@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ButtonLink } from "@/components/ui/Button";
+import { CtaBanner } from "@/components/ui/CtaBanner";
+import { PageHero } from "@/components/ui/PageHero";
+import { Container, Eyebrow } from "@/components/ui/Section";
+import { useReducedMotion } from "@/components/ui/useReducedMotion";
 
 const atuacoes = [
   {
@@ -72,8 +76,14 @@ const atuacoes = [
   },
 ];
 
+function idDaAtuacao(titulo: string) {
+  const semAcentos = titulo.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  return "atuacao-" + semAcentos.replace(/[^a-zA-Z]+/g, "-").toLowerCase();
+}
+
 export default function AtuacoesPage() {
   const [cardAberto, setCardAberto] = useState<string | null>(null);
+  const reduzirMovimento = useReducedMotion();
 
   const [imagemAtualPorCard, setImagemAtualPorCard] = useState<
     Record<string, number>
@@ -84,7 +94,7 @@ export default function AtuacoesPage() {
   }
 
   useEffect(() => {
-    if (!cardAberto) return;
+    if (!cardAberto || reduzirMovimento) return;
 
     const atuacaoAberta = atuacoes.find(
       (atuacao) => atuacao.titulo === cardAberto
@@ -106,7 +116,7 @@ export default function AtuacoesPage() {
     }, 3200);
 
     return () => clearInterval(intervalo);
-  }, [cardAberto]);
+  }, [cardAberto, reduzirMovimento]);
 
   function obterImagemDoCard(atuacao: (typeof atuacoes)[number]) {
     const cardEstaAberto = cardAberto === atuacao.titulo;
@@ -122,191 +132,148 @@ export default function AtuacoesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white text-slate-950">
-      <section className="relative overflow-hidden bg-slate-950 px-6 pb-20 pt-36 text-white">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/atuacoes/pavimentacao/pavimentacao.png"
-            alt="Principais atuações do Grupo Soster"
-            fill
-            priority
-            quality={100}
-            className="object-cover object-center opacity-35"
-          />
+    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+      <PageHero
+        eyebrow="Principais atuações"
+        title="Áreas de atuação com estrutura para atender obras e operações de diferentes portes."
+        image="/images/atuacoes/pavimentacao/pavimentacao.png"
+        imageAlt="Principais atuações do Grupo Soster"
+        description={
+          <p>
+            O Grupo Soster reúne frentes de atuação em pavimentação, extração
+            de minérios, pré-moldados e edificações, conectando estrutura
+            própria, experiência operacional e execução em campo.
+          </p>
+        }
+        actions={
+          <>
+            <ButtonLink href="/contato" variant="light" size="lg">
+              Solicitar orçamento
+              <ArrowRight size={18} aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink href="/estrutura" variant="outlineLight" size="lg">
+              Ver estrutura
+            </ButtonLink>
+          </>
+        }
+      />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-[#143987]/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-4xl">
-            <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-              Principais atuações
-            </span>
-
-            <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
-              Áreas de atuação com estrutura para atender obras e operações de
-              diferentes portes.
-            </h1>
-
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              O Grupo Soster reúne frentes de atuação em pavimentação, extração
-              de minérios, pré-moldados e edificações, conectando estrutura
-              própria, experiência operacional e execução em campo.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/contato"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-              >
-                Solicitar orçamento
-                <ArrowRight size={18} />
-              </Link>
-
-              <Link
-                href="/estrutura"
-                className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
-              >
-                Ver estrutura
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-white px-6 py-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#eaf0ff,transparent_34%),radial-gradient(circle_at_bottom_right,#f8fbff,transparent_35%)]" />
-
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <section aria-labelledby="frentes-titulo" className="py-16 md:py-24">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
             <div>
-              <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-                Onde atuamos
-              </span>
-
-              <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
+              <Eyebrow>Onde atuamos</Eyebrow>
+              <h2
+                id="frentes-titulo"
+                className="mt-4 text-3xl font-bold leading-[1.1] text-heading md:text-[2.75rem]"
+              >
                 Frentes de atuação do grupo.
               </h2>
             </div>
 
-            <p className="text-lg leading-8 text-slate-600">
+            <p className="text-lg leading-relaxed text-muted-strong">
               Clique em uma área para expandir os detalhes. Ao abrir, as
               imagens começam a alternar automaticamente, destacando
               melhor cada frente de serviço.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-7">
+          <div className="mt-12 grid gap-6">
             {atuacoes.map((atuacao, index) => {
               const aberto = cardAberto === atuacao.titulo;
               const inverter = index % 2 !== 0;
               const imagemDoCard = obterImagemDoCard(atuacao);
+              const idDetalhes = idDaAtuacao(atuacao.titulo);
 
               return (
                 <article
                   key={atuacao.titulo}
-                  className={`group overflow-hidden rounded-[2rem] border border-[#dbe5ff] bg-white shadow-sm shadow-[#dbe5ff] transition duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#dbe5ff] ${
-                    aberto ? "ring-2 ring-[#143987]/20" : ""
+                  className={`overflow-hidden rounded-panel border bg-white transition-[border-color,box-shadow] duration-300 ${
+                    aberto ? "border-brand shadow-brand-soft" : "border-border"
                   }`}
                 >
-                  <div
-                    className={`grid w-full text-left lg:grid-cols-2 ${
-                      inverter ? "lg:[&>div:first-child]:order-2" : ""
-                    }`}
-                  >
+                  <div className="grid lg:grid-cols-2">
                     <button
                       type="button"
                       onClick={() => alternarCard(atuacao.titulo)}
-                      className={`relative overflow-hidden bg-slate-950 text-left ${
+                      className={`group relative overflow-hidden bg-neutral-900 text-left transition-[min-height] duration-500 ${
                         aberto
-                          ? "min-h-[420px] md:min-h-[500px]"
-                          : "min-h-[340px] md:min-h-[430px]"
-                      }`}
+                          ? "min-h-[320px] md:min-h-[480px]"
+                          : "min-h-[260px] md:min-h-[400px]"
+                      } ${inverter ? "lg:order-2" : ""}`}
                       aria-expanded={aberto}
+                      aria-controls={idDetalhes}
+                      aria-label={`${aberto ? "Ocultar" : "Ver"} detalhes de ${atuacao.titulo}`}
                     >
                       <Image
                         key={imagemDoCard}
                         src={imagemDoCard}
-                        alt={atuacao.titulo}
+                        alt=""
                         fill
                         quality={100}
                         sizes="(max-width: 1024px) 100vw, 50vw"
-                        className={`object-cover object-center transition duration-700 ${
-                          aberto ? "scale-100" : "group-hover:scale-105"
+                        className={`object-cover object-center transition-transform duration-700 ${
+                          aberto ? "gallery-image-enter" : "group-hover:scale-[1.03]"
                         }`}
                       />
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/25 to-transparent" />
-                      <div className="absolute inset-0 bg-[#143987]/0 transition duration-500 group-hover:bg-[#143987]/15" />
+                      <div aria-hidden="true" className="scrim-bottom absolute inset-0" />
 
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white backdrop-blur">
+                      <div aria-hidden="true" className="absolute inset-x-6 bottom-6">
+                        <p className="text-sm font-semibold text-on-dark-muted">
                           {atuacao.subtitulo}
-                        </span>
-
-                        <h3 className="mt-4 text-3xl font-bold tracking-tight text-white md:text-5xl">
+                        </p>
+                        <p className="mt-1 font-display text-3xl font-bold tracking-tight text-white md:text-4xl">
                           {atuacao.titulo}
-                        </h3>
+                        </p>
                       </div>
                     </button>
 
-                    <div className="flex min-h-[340px] flex-col justify-between p-7 md:p-10">
+                    <div className="flex flex-col justify-between p-6 md:p-10">
                       <div>
-                        <div className="flex items-start justify-between gap-5">
-                          <div>
-                            <h3 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
-                              {atuacao.titulo}
-                            </h3>
-                          </div>
+                        <p className="flex items-center gap-3 text-sm font-semibold text-brand">
+                          <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-accent" />
+                          {atuacao.subtitulo}
+                        </p>
 
-                          <button
-                            type="button"
-                            onClick={() => alternarCard(atuacao.titulo)}
-                            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#dbe5ff] bg-[#eaf0ff] text-[#143987] transition duration-300 ${
-                              aberto ? "rotate-180" : ""
-                            }`}
-                            aria-label={
-                              aberto ? "Ocultar detalhes" : "Ver detalhes"
-                            }
-                            aria-expanded={aberto}
-                          >
-                            <ChevronDown size={24} strokeWidth={2.3} />
-                          </button>
-                        </div>
+                        <h3 className="mt-3 text-3xl font-bold text-heading md:text-4xl">
+                          {atuacao.titulo}
+                        </h3>
 
-                        <p className="mt-5 text-lg leading-8 text-slate-600">
+                        <p className="mt-4 text-lg leading-relaxed text-muted-strong">
                           {atuacao.resumo}
                         </p>
 
                         <div
-                          className={`grid transition-all duration-500 ${
+                          id={idDetalhes}
+                          className={`grid transition-[grid-template-rows,opacity,margin] duration-500 ${
                             aberto
                               ? "mt-6 grid-rows-[1fr] opacity-100"
                               : "grid-rows-[0fr] opacity-0"
                           }`}
+                          inert={!aberto}
                         >
                           <div className="overflow-hidden">
-                            <div className="rounded-3xl border border-[#dbe5ff] bg-[#f8fbff] p-5">
-                              <p className="leading-8 text-slate-600">
-                                {atuacao.descricao}
-                              </p>
-                            </div>
+                            <p className="border-l-2 border-accent pl-5 leading-relaxed text-muted-strong">
+                              {atuacao.descricao}
+                            </p>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                      <div className="mt-8">
                         <button
                           type="button"
                           onClick={() => alternarCard(atuacao.titulo)}
-                          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#143987] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
+                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-control bg-brand px-5 text-sm font-semibold text-white shadow-brand-soft transition-colors hover:bg-brand-hover"
                           aria-expanded={aberto}
+                          aria-controls={idDetalhes}
                         >
                           {aberto ? "Ocultar detalhes" : "Ver detalhes"}
                           <ChevronDown
                             size={18}
-                            className={`transition duration-300 ${
+                            aria-hidden="true"
+                            className={`transition-transform duration-300 ${
                               aberto ? "rotate-180" : ""
                             }`}
                           />
@@ -318,41 +285,19 @@ export default function AtuacoesPage() {
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
-      <section className="bg-white px-6 pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#143987] p-8 text-white shadow-2xl shadow-[#dbe5ff] md:p-12">
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-            <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#8fb1ff]/20 blur-3xl" />
-
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <span className="text-sm font-bold uppercase tracking-wide text-white/70">
-                  Atendimento institucional
-                </span>
-
-                <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
-                  Precisa de uma solução para sua obra?
-                </h2>
-
-                <p className="mt-4 max-w-3xl text-lg leading-8 text-white/85">
-                  Fale com o Grupo Soster e conheça as possibilidades de atuação
-                  para pavimentação, mineração, pré-moldados e edificações.
-                </p>
-              </div>
-
-              <Link
-                href="/contato"
-                className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-              >
-                Fale conosco
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CtaBanner
+        eyebrow="Atendimento institucional"
+        title="Precisa de uma solução para sua obra?"
+        description="Fale com o Grupo Soster e conheça as possibilidades de atuação para pavimentação, mineração, pré-moldados e edificações."
+        actions={
+          <ButtonLink href="/contato" variant="light" size="lg">
+            Fale conosco
+          </ButtonLink>
+        }
+      />
     </main>
   );
 }

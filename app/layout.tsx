@@ -82,7 +82,7 @@ const sora = Sora({
   subsets: ["latin"],
   display: "swap",
   weight: ["600", "700", "800"],
-  variable: "--font-display",
+  variable: "--font-sora",
 });
 
 export default function RootLayout({
@@ -93,6 +93,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${sora.variable}`}>
       <body>
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <IntegrityPopup />
         <Header />
         {children}

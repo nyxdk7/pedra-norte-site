@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { PageHero } from "@/components/ui/PageHero";
 
 const paginas = Array.from({ length: 14 }, (_, index) => ({
   numero: index + 1,
@@ -12,50 +13,35 @@ const paginas = Array.from({ length: 14 }, (_, index) => ({
 export default function CodigoEticaPage() {
   return (
     <main
-      className="min-h-screen bg-[#f8fbff] text-slate-950"
+      id="conteudo"
+      className="min-h-screen bg-neutral-100 text-foreground"
       onContextMenu={(event) => event.preventDefault()}
     >
-      <section className="relative overflow-hidden bg-slate-950 px-6 pb-16 pt-32 text-white md:pb-20 md:pt-36">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,#8fb1ff33,transparent_35%),linear-gradient(135deg,#071225,#143987_55%,#0f2c6a)]" />
-
-        <div className="relative z-10 mx-auto max-w-7xl">
+      <PageHero
+        eyebrow="Documento institucional"
+        title="Código de Conduta e Ética"
+        before={
           <Link
             href="/integridade"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20"
+            className="mb-8 inline-flex min-h-10 items-center gap-2 rounded-control border border-white/30 px-4 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
           >
-            <ArrowLeft size={17} />
+            <ArrowLeft size={17} aria-hidden="true" />
             Voltar para Integridade MSM
           </Link>
+        }
+      />
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-end">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-                <ShieldCheck size={17} />
-                Documento institucional
-              </span>
-
-              <h1 className="mt-6 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-                Código de Conduta e Ética
-              </h1>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-10 md:px-6 md:py-14">
-        <div className="mx-auto max-w-5xl select-none space-y-8">
+      <section aria-label="Páginas do documento" className="px-4 py-10 md:px-6 md:py-14">
+        <ol className="mx-auto max-w-4xl select-none space-y-8">
           {paginas.map((pagina) => (
-            <article
+            <li
               key={pagina.numero}
-              className="overflow-hidden rounded-2xl border border-[#dbe5ff] bg-white shadow-xl shadow-[#dbe5ff]"
+              className="overflow-hidden rounded-card border border-border bg-white shadow-brand-soft"
             >
-              <div className="flex items-center justify-between border-b border-[#dbe5ff] bg-white px-5 py-3">
-                <span className="text-sm font-bold text-[#143987]">
+              <div className="flex items-center justify-between border-b border-border px-5 py-3">
+                <span className="text-sm font-semibold tabular-nums text-brand">
                   Página {pagina.numero} de {paginas.length}
                 </span>
-
               </div>
 
               <Image
@@ -63,14 +49,14 @@ export default function CodigoEticaPage() {
                 alt={`Código de Conduta e Ética - página ${pagina.numero}`}
                 width={1240}
                 height={1754}
-                sizes="(max-width: 1024px) 100vw, 1024px"
+                sizes="(max-width: 1024px) 100vw, 896px"
                 quality={100}
                 draggable={false}
                 className="pointer-events-none block w-full select-none bg-white"
               />
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
     </main>
   );

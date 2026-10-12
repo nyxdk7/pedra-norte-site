@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MapPin, Mail, MessageCircle } from "lucide-react";
 import { siteContact } from "@/lib/site-config";
+import { buttonClasses } from "@/components/ui/Button";
 
 const linksRapidos = [
   { href: "/", label: "Início" },
@@ -33,159 +35,145 @@ const empresasGrupo = [
   "Tratorron",
 ];
 
+const diferenciais = [
+  {
+    titulo: "Estrutura própria",
+    texto: "Integração entre produção, frota, equipe e execução em campo.",
+  },
+  {
+    titulo: "Atuação regional",
+    texto: "Presença forte em obras e fornecimentos no Acre.",
+  },
+];
+
+const tituloColuna = "font-display text-sm font-semibold text-white";
+const linkRodape = "text-sm text-on-dark-subtle transition-colors hover:text-white";
+
 export function Footer() {
   return (
-    <footer className="border-t border-[#dbe5ff] bg-slate-950 text-white">
-      <div className="relative overflow-hidden">
-        <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-[#143987]/25 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#8fb1ff]/10 blur-3xl" />
+    <footer className="on-dark relative isolate overflow-hidden bg-surface-strong text-white">
+      <div aria-hidden="true" className="bg-survey-grid absolute inset-0 -z-10 opacity-50" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_0.9fr_1fr]">
-          <div>
-            <Link href="/" className="inline-flex items-center">
-              <Image
-                src="/images/logo-letras-brancas.png"
-                alt="Logo MSM Industrial LTDA"
-                width={260}
-                height={90}
-                className="h-auto w-[190px] object-contain"
-              />
-            </Link>
+      <div className="container-msm grid gap-12 py-14 md:py-20 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
+        <div>
+          {/* The logo's blue lettering needs a light plate to stay legible on navy. */}
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-card bg-white px-5 py-3"
+            aria-label="MSM Industrial — página inicial"
+          >
+            <Image
+              src="/images/logo-letras-pretas.png"
+              alt="Logo MSM Industrial LTDA"
+              width={260}
+              height={100}
+              className="h-auto w-[160px] object-contain"
+            />
+          </Link>
 
-            <p className="mt-5 max-w-sm leading-7 text-slate-300">
-              Grupo com atuação integrada em engenharia civil, infraestrutura,
-              pavimentação, concreto usinado, mineração, agregados,
-              pré-moldados e locação de máquinas.
-            </p>
+          <p className="mt-6 max-w-sm leading-relaxed text-on-dark-muted">
+            Grupo com atuação integrada em engenharia civil, infraestrutura,
+            pavimentação, concreto usinado, mineração, agregados,
+            pré-moldados e locação de máquinas.
+          </p>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#143987] text-sm font-bold text-white">
-                  ✓
-                </span>
-
-                <p className="mt-3 text-sm font-bold text-white">
-                  Estrutura própria
-                </p>
-
-                <p className="mt-1 text-xs leading-5 text-slate-400">
-                  Integração entre produção, frota, equipe e execução em campo.
-                </p>
+          <dl className="mt-8 grid max-w-md gap-5 border-t border-on-dark-border pt-6 sm:grid-cols-2">
+            {diferenciais.map((item) => (
+              <div key={item.titulo}>
+                <dt className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-accent" />
+                  {item.titulo}
+                </dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-on-dark-subtle">{item.texto}</dd>
               </div>
+            ))}
+          </dl>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#143987] text-sm font-bold text-white">
-                  AC
-                </span>
+          <a
+            href={siteContact.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses("light", "md", "mt-8")}
+          >
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            Fale conosco
+          </a>
+        </div>
 
-                <p className="mt-3 text-sm font-bold text-white">
-                  Atuação regional
-                </p>
-
-                <p className="mt-1 text-xs leading-5 text-slate-400">
-                  Presença forte em obras e fornecimentos no Acre.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
-              Links rápidos
-            </h3>
-
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[0.8fr_1fr_1.2fr]">
+          <nav aria-label="Links rápidos">
+            <h2 className={tituloColuna}>Links rápidos</h2>
             <ul className="mt-5 space-y-3">
               {linksRapidos.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm font-medium text-slate-300 transition hover:text-[#8fb1ff]"
-                  >
+                  <Link href={link.href} className={linkRodape}>
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
-              Atuação
-            </h3>
-
+            <h2 className={tituloColuna}>Atuação</h2>
             <ul className="mt-5 space-y-3">
               {areasAtuacao.map((area) => (
-                <li key={area} className="text-sm text-slate-300">
+                <li key={area} className="text-sm text-on-dark-subtle">
                   {area}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
-              Grupo Soster
-            </h3>
-
+          <div className="col-span-2 md:col-span-1">
+            <h2 className={tituloColuna}>Grupo Soster</h2>
             <ul className="mt-5 space-y-3">
               {empresasGrupo.map((empresa) => (
-                <li key={empresa} className="text-sm text-slate-300">
+                <li key={empresa} className="text-sm text-on-dark-subtle">
                   {empresa}
                 </li>
               ))}
             </ul>
 
-            <div className="mt-8">
-              <h3 className="text-sm font-bold uppercase tracking-wide text-[#8fb1ff]">
-                Contato
-              </h3>
-
-              <div className="mt-4 space-y-4 text-sm text-slate-300">
-                <p>
-                  <strong className="block text-white">
-                    Sede administrativa
-                  </strong>
-                  {siteContact.location}
-                </p>
-
-                <p>
-                  <strong className="block text-white">WhatsApp</strong>
+            <h2 className={`${tituloColuna} mt-10`}>Contato</h2>
+            <ul className="mt-5 space-y-4 text-sm">
+              <li className="flex gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>
+                  <strong className="block font-semibold text-white">Sede administrativa</strong>
+                  <span className="text-on-dark-subtle">{siteContact.location}</span>
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>
+                  <strong className="block font-semibold text-white">WhatsApp</strong>
                   <a
                     href={siteContact.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="transition hover:text-[#8fb1ff]"
+                    className={linkRodape}
                   >
                     {siteContact.whatsappDisplay}
                   </a>
-                </p>
-
-                <p>
-                  <strong className="block text-white">E-mail</strong>
-                  <a
-                    href={`mailto:${siteContact.email}`}
-                    className="break-all transition hover:text-[#8fb1ff]"
-                  >
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span className="min-w-0">
+                  <strong className="block font-semibold text-white">E-mail</strong>
+                  <a href={`mailto:${siteContact.email}`} className={`${linkRodape} break-all`}>
                     {siteContact.email}
                   </a>
-                </p>
-              </div>
-
-              <a
-                href={siteContact.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex rounded-xl bg-[#143987] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
-              >
-                Fale conosco
-              </a>
-            </div>
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-6 py-5">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-center text-sm text-slate-400 md:flex-row">
+      <div className="border-t border-on-dark-border">
+        <div className="container-msm flex flex-col items-center justify-between gap-2 py-5 text-center text-sm text-on-dark-subtle md:flex-row md:text-left">
           <p>
             © {new Date().getFullYear()} MSM Industrial LTDA / Pedra Norte.
             Todos os direitos reservados.
@@ -193,7 +181,7 @@ export function Footer() {
 
           <p>
             Desenvolvido por{" "}
-            <span className="font-semibold text-[#8fb1ff]">João Pedro</span>
+            <span className="font-semibold text-on-dark-muted">João Pedro</span>
           </p>
         </div>
       </div>

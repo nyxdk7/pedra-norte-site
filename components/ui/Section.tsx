@@ -6,9 +6,9 @@ export function Container({ children, className = "" }: { children: ReactNode; c
 
 type Tone = "light" | "subtle" | "dark";
 const tones: Record<Tone, string> = {
-  light: "bg-white text-[var(--foreground)]",
-  subtle: "bg-[var(--surface-subtle)] text-[var(--foreground)]",
-  dark: "bg-[var(--surface-strong)] text-white",
+  light: "bg-white text-foreground",
+  subtle: "bg-surface-subtle text-foreground",
+  dark: "on-dark bg-surface-navy text-white",
 };
 
 export function Section({
@@ -16,31 +16,40 @@ export function Section({
   tone = "light",
   className = "",
   id,
+  labelledBy,
 }: {
   children: ReactNode;
   tone?: Tone;
   className?: string;
   id?: string;
+  labelledBy?: string;
 }) {
   return (
-    <section id={id} className={`relative px-0 py-20 md:py-28 ${tones[tone]} ${className}`}>
+    <section
+      id={id}
+      aria-labelledby={labelledBy}
+      className={`relative py-16 md:py-24 ${tones[tone]} ${className}`}
+    >
       <Container>{children}</Container>
     </section>
   );
 }
 
+/**
+ * Small section label: sentence case, with a short amber rule (the safety-yellow
+ * marker used across the site). Replaces the old uppercase pill badges.
+ */
 export function Eyebrow({ children, onDark = false }: { children: ReactNode; onDark?: boolean }) {
   return (
-    <span
+    <p
       className={
-        "inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] " +
-        (onDark
-          ? "bg-white/10 text-[var(--on-dark-muted)] ring-1 ring-white/15"
-          : "bg-[var(--surface-subtle)] text-[var(--brand)] ring-1 ring-[var(--blue-100)]")
+        "flex items-center gap-3 text-sm font-semibold " +
+        (onDark ? "text-on-dark-muted" : "text-brand")
       }
     >
+      <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-accent" />
       {children}
-    </span>
+    </p>
   );
 }
 
@@ -49,27 +58,37 @@ export function SectionHeading({
   title,
   description,
   onDark = false,
-  align = "left",
+  id,
+  as: Tag = "h2",
+  className = "",
 }: {
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   onDark?: boolean;
-  align?: "left" | "center";
+  id?: string;
+  as?: "h1" | "h2";
+  className?: string;
 }) {
   return (
-    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+    <div className={`max-w-3xl ${className}`}>
       {eyebrow ? <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow> : null}
-      <h2
+      <Tag
+        id={id}
         className={
-          "mt-5 text-3xl font-bold tracking-tight md:text-5xl " +
-          (onDark ? "text-white" : "text-[var(--heading)]")
+          "mt-4 text-3xl font-bold leading-[1.1] md:text-[2.75rem] " +
+          (onDark ? "text-white" : "text-heading")
         }
       >
         {title}
-      </h2>
+      </Tag>
       {description ? (
-        <p className={"mt-5 text-lg leading-relaxed " + (onDark ? "text-[var(--on-dark-muted)]" : "text-[var(--muted-strong)]")}>
+        <p
+          className={
+            "mt-5 text-base leading-relaxed md:text-lg " +
+            (onDark ? "text-on-dark-muted" : "text-muted-strong")
+          }
+        >
           {description}
         </p>
       ) : null}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  ArrowUpRight,
   BookOpen,
   Building2,
   FileCheck2,
@@ -7,6 +8,9 @@ import {
   Network,
   ShieldCheck,
 } from "lucide-react";
+import { CtaBanner } from "@/components/ui/CtaBanner";
+import { PageHero } from "@/components/ui/PageHero";
+import { Container, Eyebrow } from "@/components/ui/Section";
 
 const documentosIntegridade = [
   {
@@ -41,69 +45,61 @@ const documentosIntegridade = [
   },
 ];
 
+const destaque = "font-semibold text-brand";
+const linkTexto =
+  "font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand";
+
 export default function IntegridadePage() {
   return (
-    <main className="min-h-screen bg-white text-slate-950">
-      <section className="relative overflow-hidden bg-slate-950 px-6 pb-16 pt-32 text-white md:pb-20 md:pt-36">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,#8fb1ff33,transparent_35%),linear-gradient(135deg,#071225,#143987_55%,#0f2c6a)]" />
-        <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-white/5 lg:block" />
+    <main id="conteudo" className="min-h-screen bg-white text-foreground">
+      <PageHero
+        eyebrow="Programa de Integridade"
+        title="Integridade MSM"
+        description={
+          <p>
+            O Grupo{" "}
+            <span className="font-semibold text-white">
+              M. S. M. INDUSTRIAL
+            </span>{" "}
+            atua com foco em transparência, ética e integridade nas atividades
+            desenvolvidas e realizadas, fortalecendo sua relação com
+            colaboradores, parceiros, sociedade e Poder Público.
+          </p>
+        }
+      >
+        <div className="mt-12 max-w-3xl border-l-2 border-accent pl-6">
+          <p className="text-sm font-semibold text-on-dark-muted">
+            Compromisso institucional
+          </p>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-center">
-          <div className="max-w-3xl">
-            <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-              Programa de Integridade
-            </span>
+          <h2 className="mt-2 text-2xl font-bold leading-tight md:text-3xl">
+            Ética, transparência e responsabilidade nas relações.
+          </h2>
 
-            <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              Integridade MSM
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
-              O Grupo{" "}
-              <span className="font-bold text-[#8fb1ff]">
-                M. S. M. INDUSTRIAL
-              </span>{" "}
-              atua com foco em transparência, ética e integridade nas atividades
-              desenvolvidas e realizadas, fortalecendo sua relação com
-              colaboradores, parceiros, sociedade e Poder Público.
-            </p>
-          </div>
-
-          <div className="w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl md:p-8 lg:ml-auto">
-            <p className="text-xs font-bold uppercase tracking-wide text-white/60 md:text-sm">
-              Compromisso institucional
-            </p>
-
-            <h2 className="mt-4 text-2xl font-bold leading-tight md:text-3xl">
-              Ética, transparência e responsabilidade nas relações.
-            </h2>
-
-            <p className="mt-4 text-base leading-7 text-slate-200">
-              O Programa de Integridade Corporativa da MSM promove valores
-              positivos no ambiente empresarial e orienta boas práticas no
-              relacionamento com o Poder Público, parceiros e sociedade.
-            </p>
-          </div>
+          <p className="mt-3 leading-relaxed text-on-dark-muted">
+            O Programa de Integridade Corporativa da MSM promove valores
+            positivos no ambiente empresarial e orienta boas práticas no
+            relacionamento com o Poder Público, parceiros e sociedade.
+          </p>
         </div>
-      </section>
+      </PageHero>
 
-      <section className="relative overflow-hidden bg-white px-6 py-20">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#eaf0ff,transparent_34%),radial-gradient(circle_at_bottom_right,#f8fbff,transparent_35%)]" />
+      <section aria-labelledby="compliance-titulo" className="py-16 md:py-24">
+        <Container>
+          <div className="max-w-3xl">
+            <Eyebrow>Integridade Corporativa — Compliance</Eyebrow>
 
-        <div className="mx-auto max-w-7xl">
-          <div className="mx-auto max-w-5xl">
-            <span className="rounded-full border border-[#dbe5ff] bg-[#eaf0ff] px-4 py-2 text-sm font-semibold text-[#143987]">
-              Integridade Corporativa — Compliance
-            </span>
-
-            <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
+            <h2
+              id="compliance-titulo"
+              className="mt-4 text-3xl font-bold leading-[1.1] text-heading md:text-[2.75rem]"
+            >
               Compliance - Integridade, ética empresarial.
             </h2>
 
-            <div className="mt-6 max-w-5xl space-y-4 text-lg leading-8 text-slate-600">
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-muted-strong">
               <p>
                 O Grupo{" "}
-                <span className="font-bold text-[#143987]">
+                <span className={destaque}>
                   M. S. M. INDUSTRIAL
                 </span>
                 , acreditamos que o sucesso sustentável só é possível quando
@@ -116,7 +112,7 @@ export default function IntegridadePage() {
 
               <p>
                 O nosso{" "}
-                <span className="font-bold text-[#143987]">
+                <span className={destaque}>
                   Programa de Integridade
                 </span>{" "}
                 é o conjunto de mecanismos e diretrizes que guiam as nossas
@@ -127,7 +123,7 @@ export default function IntegridadePage() {
               <p>
                 O programa de Compliance é administrado por nossa Compliance
                 Officer em conjunto com o{" "}
-                <span className="font-bold text-[#143987]">
+                <span className={destaque}>
                   Comitê de Integridade e Ética (CIE)
                 </span>{" "}
                 do Grupo M. S. M., responsável pelas apurações internas
@@ -136,7 +132,7 @@ export default function IntegridadePage() {
 
               <p>
                 O{" "}
-                <span className="font-bold text-[#143987]">
+                <span className={destaque}>
                   CIE/M. S. M.
                 </span>{" "}
                 pode ser contatado por seus canais de denúncias no link{" "}
@@ -144,109 +140,76 @@ export default function IntegridadePage() {
                   href="https://sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-[#143987] underline underline-offset-4 transition hover:text-[#0f2c6a]"
+                  className={`${linkTexto} break-words`}
                 >
                   sgcompliance.net/sg/m-s-m-edificacoes-e-terraplanagem
                 </Link>{" "}
                 e pelo e-mail da Ouvidoria{" "}
-                <a
-                  href="mailto:msm@msmind.com.br"
-                  className="font-bold text-[#143987] underline underline-offset-4 transition hover:text-[#0f2c6a]"
-                >
+                <a href="mailto:msm@msmind.com.br" className={linkTexto}>
                   msm@msmind.com.br
                 </a>
                 .
               </p>
-
-              <div>
-                <h3 className="text-2xl font-bold text-slate-950">
-                  Nossas Diretrizes e Documentos
-                </h3>
-
-                <p className="mt-3">
-                  Para nós, a transparência é fundamental. Abaixo, você tem
-                  acesso aos principais documentos que norteiam a nossa conduta e
-                  fundamentam a nossa governança corporativa. Convidamos você a
-                  conhecer as nossas políticas.
-                </p>
-              </div>
             </div>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+          <div className="mt-16 max-w-3xl">
+            <h3 className="text-2xl font-bold text-heading">
+              Nossas Diretrizes e Documentos
+            </h3>
+
+            <p className="mt-3 text-lg leading-relaxed text-muted-strong">
+              Para nós, a transparência é fundamental. Abaixo, você tem
+              acesso aos principais documentos que norteiam a nossa conduta e
+              fundamentam a nossa governança corporativa. Convidamos você a
+              conhecer as nossas políticas.
+            </p>
+          </div>
+
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {documentosIntegridade.map((documento) => {
               const Icone = documento.icone;
+              const externo = documento.href.startsWith("http");
 
               return (
-                <article
-                  key={documento.titulo}
-                  className="group flex flex-col overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#dbe5ff]"
-                >
-                  <div className="relative flex h-36 items-center justify-center overflow-hidden bg-[#143987] text-white">
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/10 transition duration-500 group-hover:scale-125" />
-                    <div className="absolute -bottom-14 -left-14 h-32 w-32 rounded-full bg-[#8fb1ff]/20 blur-2xl" />
+                <li key={documento.titulo}>
+                  <Link
+                    href={documento.href}
+                    target={externo ? "_blank" : undefined}
+                    rel={externo ? "noopener noreferrer" : undefined}
+                    className="group flex h-full items-center gap-4 rounded-card border border-border bg-white p-5 transition-colors hover:border-brand hover:bg-surface-subtle"
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-control bg-brand text-white">
+                      <Icone size={24} strokeWidth={1.8} aria-hidden="true" />
+                    </span>
 
-                    <Icone
-                      size={54}
-                      strokeWidth={1.7}
-                      className="relative z-10 transition duration-300 group-hover:scale-110"
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-semibold leading-snug text-heading">
+                        {documento.titulo}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-brand">
+                        Acessar
+                        {externo ? <span className="sr-only"> (abre em nova aba)</span> : null}
+                      </span>
+                    </span>
+
+                    <ArrowUpRight
+                      className="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-brand"
+                      aria-hidden="true"
                     />
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-4 text-center">
-                    <h3 className="flex min-h-[56px] items-center justify-center text-base font-semibold leading-6 text-slate-700">
-                      {documento.titulo}
-                    </h3>
-
-                    <Link
-                      href={documento.href}
-                      target={
-                        documento.href.startsWith("http")
-                          ? "_blank"
-                          : undefined
-                      }
-                      rel={
-                        documento.href.startsWith("http")
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
-                      className="mt-4 inline-flex justify-center rounded-lg bg-[#143987] px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-[#143987]/15 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
-                    >
-                      Acessar
-                    </Link>
-                  </div>
-                </article>
+                  </Link>
+                </li>
               );
             })}
-          </div>
-        </div>
+          </ul>
+        </Container>
       </section>
 
-      <section className="bg-white px-6 pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#143987] p-8 text-white shadow-2xl shadow-[#dbe5ff] md:p-12">
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-            <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#8fb1ff]/20 blur-3xl" />
-
-            <div className="relative z-10">
-              <span className="text-sm font-bold uppercase tracking-wide text-white/70">
-                Integridade MSM
-              </span>
-
-              <h2 className="mt-4 max-w-4xl text-3xl font-bold tracking-tight md:text-5xl">
-                Compromisso com transparência, integridade e ética empresarial.
-              </h2>
-
-              <p className="mt-4 max-w-4xl text-lg leading-8 text-white/85">
-                O Programa de Integridade MSM reúne diretrizes, canais e
-                documentos institucionais voltados ao fortalecimento das boas
-                práticas corporativas e da responsabilidade nas relações
-                empresariais.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CtaBanner
+        eyebrow="Integridade MSM"
+        title="Compromisso com transparência, integridade e ética empresarial."
+        description="O Programa de Integridade MSM reúne diretrizes, canais e documentos institucionais voltados ao fortalecimento das boas práticas corporativas e da responsabilidade nas relações empresariais."
+      />
     </main>
   );
 }

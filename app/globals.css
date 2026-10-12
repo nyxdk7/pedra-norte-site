@@ -20,15 +20,19 @@
   --blue-900: #0b1f4d;
   --blue-950: #070f28;
 
-  /* Ink: night blue on the brand hue, for headings and dark surfaces */
-  --ink-900: #0a1a3f;
-  --ink-950: #06102a;
-  --steel-600: #4b5875;
+  /* DNA palette ("Industrial Editorial Futurism"). Candidates validated for WCAG:
+     ink on canvas 15.6:1, slate on canvas 9.4:1, ochre button with ink 7.5:1,
+     muted inverse on deep navy 13:1. */
+  --ink-900: #0b192b; /* DNA deep_navy: dark sections, overlays, header text */
+  --ink-950: #07111e; /* darkest overlay tone */
+  --midnight: #101e30; /* DNA midnight: secondary dark surface */
+  --text-ink: #17212b; /* DNA ink: body text on light */
+  --steel-600: #344557; /* DNA slate: secondary text on light */
 
-  /* Brita: the cool grey of crushed aggregate, for alternate light surfaces */
-  --brita-50: #f6f7f8;
-  --brita-100: #eceef1;
-  --brita-200: #dce0e6;
+  /* Light surfaces named after crushed stone (kept "brita" token names) */
+  --brita-50: #fafaf7; /* DNA canvas_white */
+  --brita-100: #f2f2ee; /* DNA stone_light */
+  --brita-200: #e4e4de;
 
   /* Neutral (cool slate, engineered feel) */
   --neutral-0: #ffffff;
@@ -44,47 +48,66 @@
   --neutral-900: #0f172a;
   --neutral-950: #060b18;
 
-  /* Accent: machinery / road-sign yellow from the real photos. The one point of
-     colour: primary action over photography and the annotation marker. Always
-     paired with ink text (9.5:1); never used as text on white. */
-  --accent-400: #f7c934;
-  --accent-500: #f2b705;
+  /* Accent: DNA warm ochre. Restrained: the hero's main action, the annotation
+     marker, thin separators and focus on dark. Never dominates MSM Blue and is
+     never used as text on light surfaces (2.1:1). */
+  --accent-400: #e2bd66;
+  --accent-500: #d6aa46;
 
   /* WhatsApp brand green (contact channel identity) */
   --whatsapp-500: #16a34a;
   --whatsapp-600: #15803d;
 
   /* --- Layer 2: semantic (light) --- */
-  --background: var(--neutral-0);
+  --background: var(--brita-50);
   --surface: var(--neutral-0);
   --surface-subtle: var(--brita-100);
   --surface-strong: var(--ink-950);
-  --foreground: #1e2a44;
+  --foreground: var(--text-ink);
   --heading: var(--ink-900);
-  --muted: #5b6681;
+  --muted: #56657a; /* 5.7:1 on canvas */
   --muted-strong: var(--steel-600);
-  --border: #dde1e8;
-  --border-strong: #c5cbd6;
+  --border: #e2e2dc;
+  --border-strong: #cdcdc5;
   --brand: var(--blue-700);
   --brand-hover: var(--blue-800);
   --brand-contrast: #ffffff;
   --brand-soft: var(--blue-100);
   --surface-navy: var(--ink-900);
-  --on-dark: #ffffff;
-  --on-dark-muted: #c9d4ea;
-  --on-dark-subtle: #9fb0d0;
+  --on-dark: #f9fbfe; /* DNA text_inverse */
+  --on-dark-muted: #d6dee7; /* DNA muted_inverse */
+  --on-dark-subtle: #a9b6c6;
   --on-dark-border: rgb(255 255 255 / 0.14);
   --ring: var(--blue-500);
   --ring-on-dark: var(--accent-400);
   /* Space the floating header occupies (offset + capsule): content starts below it. */
   --header-h: 4.5rem;
-  --shadow-color: 10 26 63; /* ink rgb for soft brand shadows */
+  --shadow-color: 11 25 43; /* deep navy rgb for soft shadows */
+  /* DNA gutters: 20 mobile / 32 tablet / 64 desktop / 88 wide */
+  --gutter: 1.25rem;
+
+  /* Fluid type (DNA: clamp() scales tested at 375/768/1280/1440) */
+  --type-hero: clamp(2.25rem, 1.35rem + 2.9vw, 3.75rem);
+  --type-h2: clamp(2rem, 1.35rem + 2.1vw, 3.25rem);
+  --type-figure: clamp(2.75rem, 1.9rem + 2.8vw, 4.5rem);
+  --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
+
+  /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
+  --css-build: "dna-3";
 
   color-scheme: light;
 }
 
 @media (min-width: 768px) {
-  :root { --header-h: 5rem; }
+  :root { --header-h: 5rem; --gutter: 2rem; }
+}
+
+@media (min-width: 1024px) {
+  :root { --gutter: 4rem; }
+}
+
+@media (min-width: 1440px) {
+  :root { --gutter: 5.5rem; }
 }
 
 /* --- Tailwind theme bridge: exposes tokens as utilities (bg-brand, text-heading, ...) --- */
@@ -114,6 +137,7 @@
   --color-whatsapp-hover: var(--whatsapp-600);
 
   --color-ink: var(--ink-900);
+  --color-midnight: var(--midnight);
   --color-ink-deep: var(--ink-950);
   --color-steel: var(--steel-600);
   --color-brita-50: var(--brita-50);
@@ -214,19 +238,12 @@ html {
 }
 
 /* --- Component utilities --- */
+/* DNA grid: 1440px maximum, gutters from --gutter (20/32/64/88). */
 .container-msm {
   width: 100%;
-  max-width: 80rem; /* 1280px */
+  max-width: 90rem;
   margin-inline: auto;
-  padding-inline: 1.25rem;
-}
-
-@media (min-width: 768px) {
-  .container-msm { padding-inline: 2rem; }
-}
-
-@media (min-width: 1280px) {
-  .container-msm { max-width: 82rem; padding-inline: 2.5rem; }
+  padding-inline: var(--gutter);
 }
 
 .shadow-brand-soft {
@@ -290,7 +307,7 @@ html {
 }
 
 .header-capsule[data-tone="media"] {
-  background-color: rgb(6 16 42 / 0.32);
+  background-color: rgb(11 25 43 / 0.32);
   border-color: rgb(255 255 255 / 0.2);
 }
 
@@ -332,16 +349,16 @@ html {
    tone); the middle of the photograph stays clean. */
 .hero-scrim {
   background:
-    linear-gradient(180deg, rgb(6 16 42 / 0.55) 0%, rgb(6 16 42 / 0.35) 30%, rgb(6 16 42 / 0.12) 42%, transparent 50%),
-    linear-gradient(0deg, rgb(6 16 42 / 0.86) 0%, rgb(6 16 42 / 0.6) 38%, rgb(6 16 42 / 0.45) 48%, rgb(6 16 42 / 0.08) 60%, transparent 70%);
+    linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, rgb(11 25 43 / 0.35) 30%, rgb(11 25 43 / 0.12) 42%, transparent 50%),
+    linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.6) 38%, rgb(11 25 43 / 0.45) 48%, rgb(11 25 43 / 0.08) 60%, transparent 70%);
 }
 
 /* Tablets: the whole text block sits on the base; only a light strip under the header. */
 @media (min-width: 640px) {
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(6 16 42 / 0.35) 0%, transparent 18%),
-      linear-gradient(0deg, rgb(6 16 42 / 0.86) 0%, rgb(6 16 42 / 0.6) 44%, rgb(6 16 42 / 0.45) 58%, rgb(6 16 42 / 0.1) 70%, transparent 80%);
+      linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 18%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.6) 44%, rgb(11 25 43 / 0.45) 58%, rgb(11 25 43 / 0.1) 70%, transparent 80%);
   }
 }
 
@@ -351,10 +368,10 @@ html {
   /* The lit ridge of the stockpile runs behind the lead text: tone that corner only. */
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(6 16 42 / 0.35) 0%, transparent 20%),
-      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(6 16 42 / 0.5) 0%, rgb(6 16 42 / 0.3) 55%, transparent 100%),
-      linear-gradient(90deg, rgb(6 16 42 / 0.62) 0%, rgb(6 16 42 / 0.36) 40%, transparent 66%),
-      linear-gradient(0deg, rgb(6 16 42 / 0.6) 0%, rgb(6 16 42 / 0.15) 36%, transparent 52%);
+      linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 20%),
+      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.62) 0%, rgb(11 25 43 / 0.36) 40%, transparent 66%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.15) 36%, transparent 52%);
   }
 }
 
@@ -362,10 +379,10 @@ html {
 @media (min-width: 1024px) and (max-width: 1279px) {
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(6 16 42 / 0.45) 0%, transparent 34%),
-      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(6 16 42 / 0.5) 0%, rgb(6 16 42 / 0.3) 55%, transparent 100%),
-      linear-gradient(90deg, rgb(6 16 42 / 0.66) 0%, rgb(6 16 42 / 0.5) 48%, rgb(6 16 42 / 0.22) 68%, transparent 84%),
-      linear-gradient(0deg, rgb(6 16 42 / 0.6) 0%, rgb(6 16 42 / 0.15) 36%, transparent 52%);
+      linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, rgb(11 25 43 / 0.25) 30%, transparent 46%),
+      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.55) 50%, rgb(11 25 43 / 0.25) 70%, transparent 86%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.15) 36%, transparent 52%);
   }
 }
 
@@ -385,8 +402,8 @@ html {
   --mark-y: 29%;
   --note-y: 43%;
   --note-w: 17rem;
-  /* Card sits right of the marker but never past the content column. */
-  --note-x: min(74%, calc(50% + 38.5rem - var(--note-w)));
+  /* Card sits right of the marker but never past the content column (DNA grid). */
+  --note-x: min(74%, calc(100% - var(--gutter) - var(--note-w)), calc(50% + 45rem - var(--gutter) - var(--note-w)));
 }
 
 .hero-mark {
@@ -398,7 +415,7 @@ html {
   translate: -50% -50%;
   border-radius: 9999px;
   background: var(--accent-500);
-  box-shadow: 0 0 0 4px rgb(242 183 5 / 0.28), 0 0 0 1px rgb(6 16 42 / 0.5);
+  box-shadow: 0 0 0 4px rgb(214 170 70 / 0.3), 0 0 0 1px rgb(11 25 43 / 0.5);
 }
 
 .hero-mark::after {
@@ -406,7 +423,7 @@ html {
   position: absolute;
   inset: -4px;
   border-radius: inherit;
-  border: 1px solid rgb(242 183 5 / 0.8);
+  border: 1px solid rgb(214 170 70 / 0.85);
   animation: markPulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s 3 both;
 }
 
@@ -451,13 +468,13 @@ html {
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .gallery-image-enter { animation: galleryImageEnter 900ms ease-out both; }
 .gallery-progress { animation-name: galleryProgress; animation-timing-function: linear; animation-fill-mode: forwards; }
-.animate-fade-up { animation: fadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-up { animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .anim-delay-1 { animation-delay: 80ms; }
 .anim-delay-2 { animation-delay: 160ms; }
 .anim-delay-3 { animation-delay: 240ms; }

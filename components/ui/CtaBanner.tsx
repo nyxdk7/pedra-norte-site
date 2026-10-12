@@ -7,14 +7,16 @@ export function CtaBanner({
   title,
   description,
   actions,
+  className = "",
 }: {
+  className?: string;
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
 }) {
   return (
-    <section className="bg-white pb-16 md:pb-24">
+    <section className={`bg-background pb-16 md:pb-24 ${className}`}>
       <Container>
         <div className="on-dark relative isolate overflow-hidden rounded-panel bg-brand px-6 py-10 text-white md:px-12 md:py-14">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">

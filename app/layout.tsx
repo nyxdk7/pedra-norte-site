@@ -92,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${overpass.variable} ${sourceSerif.variable}`}>
+    <html lang="pt-BR" data-scroll-behavior="smooth" className={`${overpass.variable} ${sourceSerif.variable}`}>
       <body>
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo

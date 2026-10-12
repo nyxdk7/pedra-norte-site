@@ -137,12 +137,10 @@ export function Header() {
             <BrandLogo priority className="[--logo-h:2rem] md:[--logo-h:2.5rem]" />
           </Link>
 
+          {/* Restrained glass: links sit on the capsule itself; the current page is marked
+              by a thin ochre rule, not a filled pill. */}
           <nav className="hidden xl:block" aria-label="Navegação principal">
-            <ul
-              className={`flex items-center gap-0.5 rounded-full p-1 transition-colors duration-300 ${
-                solido ? "bg-brita-100" : "bg-white"
-              }`}
-            >
+            <ul className="flex items-center gap-1">
               {links.map((link) => {
                 const ativo = linkAtivo(link.href);
 
@@ -151,10 +149,14 @@ export function Header() {
                     <Link
                       href={link.href}
                       aria-current={ativo ? "page" : undefined}
-                      className={`flex h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-semibold transition-colors ${
-                        ativo
-                          ? "bg-brand text-white"
-                          : "text-steel hover:bg-ink/[0.06] hover:text-ink"
+                      className={`focus-media relative flex h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-semibold transition-colors duration-200 after:absolute after:inset-x-3.5 after:bottom-1.5 after:h-0.5 after:rounded-full after:transition-colors after:duration-200 ${
+                        solido
+                          ? ativo
+                            ? "text-ink after:bg-accent"
+                            : "text-steel after:bg-transparent hover:bg-ink/[0.05] hover:text-ink"
+                          : ativo
+                            ? "text-white after:bg-accent"
+                            : "text-on-dark-muted after:bg-transparent hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       {link.label}
@@ -172,7 +174,7 @@ export function Header() {
                 href="/contato"
                 onClick={fecharMenu}
                 aria-current={pathname.startsWith("/contato") ? "page" : undefined}
-                className={buttonClasses("signal", "md", "focus-media h-full px-6")}
+                className={buttonClasses(solido ? "primary" : "light", "md", "focus-media h-full px-6")}
               >
                 Fale conosco
               </Link>

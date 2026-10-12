@@ -52,7 +52,6 @@ const linkRodape = "text-sm text-on-dark-subtle transition-colors hover:text-whi
 export function Footer() {
   return (
     <footer className="on-dark relative isolate overflow-hidden bg-surface-strong text-white">
-      <div aria-hidden="true" className="bg-survey-grid absolute inset-0 -z-10 opacity-50" />
 
       <div className="container-msm grid gap-12 py-14 md:py-20 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
         <div>

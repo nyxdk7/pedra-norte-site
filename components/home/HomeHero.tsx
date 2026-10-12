@@ -9,7 +9,7 @@ export function HomeHero() {
   return (
     <section
       aria-labelledby="hero-titulo"
-      className="on-dark relative isolate flex min-h-[calc(100svh-3rem)] flex-col overflow-hidden bg-ink text-white md:min-h-[min(calc(100svh-5rem),52rem)] lg:min-h-[clamp(38rem,calc(100svh-7rem),58rem)]"
+      className="on-dark relative isolate flex min-h-[calc(100svh-3rem)] flex-col overflow-hidden bg-ink text-white md:min-h-[min(calc(100svh-5rem),52rem)] lg:min-h-[max(36rem,min(92svh,950px))]"
     >
       {/* Photograph: manual cover frame shared with the annotation layer (see .hero-stage) */}
       <div className="hero-stage absolute inset-0 -z-10">
@@ -32,13 +32,13 @@ export function HomeHero() {
       <div className="hero-content container-msm flex flex-1 flex-col justify-between gap-12 pb-10 pt-[calc(var(--header-h)+2.5rem)] sm:justify-end sm:gap-7 md:pb-14 lg:justify-center lg:gap-0 lg:pb-20 lg:pt-[calc(var(--header-h)+3rem)]">
         <h1
           id="hero-titulo"
-          className="hero-title animate-fade-up max-w-[40rem] text-[2.25rem] font-bold leading-[1.02] tracking-[-0.03em] min-[390px]:text-[2.5rem] sm:text-[3.5rem] lg:max-w-[44rem]"
+          className="hero-title animate-fade-up max-w-[46rem] text-[length:var(--type-hero)] font-bold leading-[1.02] tracking-[-0.03em]"
         >
           Engenharia, pavimentação, mineração e obras para grandes estruturas
         </h1>
 
         <div className="lg:mt-7">
-          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-lg leading-relaxed text-white sm:text-white/90 md:text-xl md:leading-[1.55]">
+          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-[length:var(--type-lead)] leading-[1.55] text-white sm:text-white/90">
             O Grupo Soster reúne empresas especializadas em infraestrutura,
             pavimentação, mineração, concreto usinado, pré-moldados e locação
             de máquinas, com atuação integrada para obras públicas e privadas
@@ -79,7 +79,7 @@ export function HomeHero() {
             </span>
             <span className="relative block aspect-[16/7]">
               <Image
-                src="/images/atuacoes/extracao-minerios/pedreira (4).jpeg"
+                src="/images/atuacoes/extracao-minerios/pedreira (9).jpeg"
                 alt=""
                 fill
                 sizes="272px"

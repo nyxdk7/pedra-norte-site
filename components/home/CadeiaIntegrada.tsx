@@ -96,52 +96,57 @@ export function CadeiaIntegrada() {
                 )}
               </div>
 
-              <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-card bg-ink/10">
-                <Image
-                  src={etapa.foto}
-                  alt={etapa.alt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 400px"
-                  className={`object-cover ${etapa.posicao}`}
-                />
-              </div>
-
-              <ul className="mt-2 divide-y divide-ink/10">
-                {etapa.frentes.map((titulo) => {
-                  const servico = frente(titulo);
-
-                  return (
-                    <li key={titulo} className="py-5">
-                      <h3 className="text-lg font-bold leading-snug text-heading">{servico.titulo}</h3>
-                      <p className="mt-0.5 text-sm font-semibold text-brand">{servico.empresa}</p>
-                      <p className="mt-2 font-serif text-base leading-relaxed text-muted-strong">
-                        {servico.descricao}
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {etapa.produtos ? (
-                <div className="border-t border-ink/10 pt-5">
-                  <h4 className="text-sm font-semibold text-muted-strong">Produtos</h4>
-                  <ul className="mt-3 grid gap-2">
-                    {etapa.produtos.map((produto) => (
-                      <li key={produto} className="flex items-center gap-3 text-[0.9375rem] font-semibold text-heading">
-                        <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand" />
-                        {produto}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/servicos"
-                    className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand"
-                  >
-                    Ver produtos e serviços
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                  </Link>
+              {/* Tablets: photo and text side by side; desktop: stacked inside the column */}
+              <div className="mt-6 md:grid md:grid-cols-2 md:gap-8 lg:block">
+                <div className="relative aspect-[4/3] self-start overflow-hidden rounded-card bg-ink/10">
+                  <Image
+                    src={etapa.foto}
+                    alt={etapa.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    className={`object-cover ${etapa.posicao}`}
+                  />
                 </div>
-              ) : null}
+
+                <div>
+                  <ul className="mt-2 divide-y divide-ink/10 md:-mt-5 lg:mt-2">
+                    {etapa.frentes.map((titulo) => {
+                      const servico = frente(titulo);
+
+                      return (
+                        <li key={titulo} className="py-5">
+                          <h3 className="text-lg font-bold leading-snug text-heading">{servico.titulo}</h3>
+                          <p className="mt-0.5 text-sm font-semibold text-brand">{servico.empresa}</p>
+                          <p className="mt-2 font-serif text-base leading-relaxed text-muted-strong">
+                            {servico.descricao}
+                          </p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  {etapa.produtos ? (
+                    <div className="border-t border-ink/10 pt-5">
+                      <h4 className="text-sm font-semibold text-muted-strong">Produtos</h4>
+                      <ul className="mt-3 grid gap-2">
+                        {etapa.produtos.map((produto) => (
+                          <li key={produto} className="flex items-center gap-3 text-[0.9375rem] font-semibold text-heading">
+                            <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand" />
+                            {produto}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link
+                        href="/servicos"
+                        className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand"
+                      >
+                        Ver produtos e serviços
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                      </Link>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
             </li>
           ))}
         </ol>

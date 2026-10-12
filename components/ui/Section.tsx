@@ -35,19 +35,15 @@ export function Section({
   );
 }
 
-/**
- * Small section label: sentence case, with a short amber rule (the safety-yellow
- * marker used across the site). Replaces the old uppercase pill badges.
- */
+/** Small section label in sentence case. Plain text: no decorative rule. */
 export function Eyebrow({ children, onDark = false }: { children: ReactNode; onDark?: boolean }) {
   return (
     <p
       className={
-        "flex items-center gap-3 text-sm font-semibold " +
+        "text-[0.9375rem] font-semibold " +
         (onDark ? "text-on-dark-muted" : "text-brand")
       }
     >
-      <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-accent" />
       {children}
     </p>
   );
@@ -85,7 +81,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={
-            "mt-5 text-base leading-relaxed md:text-lg " +
+            "mt-5 font-serif text-lg leading-relaxed md:text-xl md:leading-[1.55] " +
             (onDark ? "text-on-dark-muted" : "text-muted-strong")
           }
         >

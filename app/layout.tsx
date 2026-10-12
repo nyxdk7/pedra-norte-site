@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Overpass, Source_Serif_4 } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsappButton } from "@/components/WhatsappButton";
@@ -71,18 +71,19 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({
-  subsets: ["latin"],
+// Interface and headings: Overpass descends from Highway Gothic, the road-sign
+// lettering of the highways the group paves.
+const overpass = Overpass({
+  subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-overpass",
 });
 
-// Display face for headings — geometric, engineered character for an infrastructure/industrial brand.
-const sora = Sora({
-  subsets: ["latin"],
+// Editorial text (leads, long paragraphs, large figures).
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin", "latin-ext"],
   display: "swap",
-  weight: ["600", "700", "800"],
-  variable: "--font-sora",
+  variable: "--font-source-serif",
 });
 
 export default function RootLayout({
@@ -91,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${sora.variable}`}>
+    <html lang="pt-BR" className={`${overpass.variable} ${sourceSerif.variable}`}>
       <body>
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo

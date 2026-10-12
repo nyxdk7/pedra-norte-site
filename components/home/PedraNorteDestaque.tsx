@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
-import { Container, Eyebrow } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Section";
 
 const destaques = [
   {
@@ -17,55 +17,66 @@ const destaques = [
   },
 ];
 
+/**
+ * Split composition: text on night blue, photograph untinted and bleeding to the
+ * right edge. Deliberately different from the full-bleed hero.
+ */
 export function PedraNorteDestaque() {
   return (
-    <section aria-labelledby="pedra-norte-titulo" className="bg-white py-16 md:py-24">
-      <Container>
-        <div className="on-dark relative isolate flex min-h-[560px] items-end overflow-hidden rounded-panel bg-neutral-900 text-white lg:items-center">
-          {/* Phones/tablets: photo as a top band; lg+: full-bleed behind the text */}
-          <div className="absolute inset-x-0 top-0 -z-20 h-64 md:h-80 lg:inset-0 lg:h-auto">
+    <section
+      aria-labelledby="pedra-norte-titulo"
+      className="on-dark relative isolate overflow-hidden bg-ink text-white"
+    >
+      <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-1/2">
+        <Image
+          src="/images/atuacoes/extracao-minerios/pedreira (1).jpeg"
+          alt="Caminhão basculante da Pedra Norte na pedreira"
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover object-[62%_center]"
+        />
+      </div>
+
+      <Container className="relative">
+        <div className="py-16 md:py-20 lg:w-1/2 lg:py-28 lg:pr-16">
+          <div className="flex items-center gap-3">
             <Image
-              src="/images/home/grupo-estrutura.png"
-              alt="Escavadeira carregando caminhão na operação da Pedra Norte"
-              fill
-              quality={100}
-              sizes="(max-width: 1280px) 100vw, 1232px"
-              className="object-cover object-[45%_40%] lg:object-center"
+              src="/images/grupo/pedra-norte-logo.png"
+              alt=""
+              width={500}
+              height={500}
+              sizes="40px"
+              className="h-10 w-10"
             />
-            <div aria-hidden="true" className="scrim-photo-top absolute inset-0 lg:hidden" />
-            <div aria-hidden="true" className="scrim-hero absolute inset-0 hidden lg:block" />
+            <p className="text-[0.9375rem] font-semibold text-on-dark-muted">Pedra Norte em operação</p>
           </div>
 
-          <div className="max-w-2xl px-6 pb-10 pt-60 md:px-12 md:pt-72 lg:px-16 lg:py-12">
-            <Eyebrow onDark>Pedra Norte em operação</Eyebrow>
+          <h2
+            id="pedra-norte-titulo"
+            className="mt-6 text-[2rem] font-bold leading-[1.08] md:text-[2.75rem]"
+          >
+            Materiais pétros produzidos com estrutura própria para abastecer
+            grandes obras.
+          </h2>
 
-            <h2
-              id="pedra-norte-titulo"
-              className="mt-4 text-3xl font-bold leading-[1.1] md:text-4xl lg:text-[2.5rem]"
-            >
-              Materiais pétros produzidos com estrutura própria para abastecer
-              grandes obras.
-            </h2>
+          <p className="mt-5 max-w-xl font-serif text-lg leading-relaxed text-on-dark-muted md:text-xl md:leading-[1.55]">
+            Com operação de pedreira, máquinas pesadas e controle de
+            produção, a Pedra Norte fornece materiais essenciais para
+            pavimentação, drenagem, concreto e infraestrutura.
+          </p>
 
-            <p className="mt-5 text-lg leading-relaxed text-on-dark-muted">
-              Com operação de pedreira, máquinas pesadas e controle de
-              produção, a Pedra Norte fornece materiais essenciais para
-              pavimentação, drenagem, concreto e infraestrutura.
-            </p>
+          <dl className="mt-10 grid gap-x-6 sm:grid-cols-3">
+            {destaques.map((item) => (
+              <div key={item.titulo} className="border-t border-white/20 py-4">
+                <dt className="font-bold leading-snug">{item.titulo}</dt>
+                <dd className="mt-1 text-sm text-on-dark-muted">{item.texto}</dd>
+              </div>
+            ))}
+          </dl>
 
-            <dl className="mt-8 grid gap-5 border-t border-white/20 pt-6 sm:grid-cols-3">
-              {destaques.map((item) => (
-                <div key={item.titulo}>
-                  <dt className="font-display text-base font-bold">{item.titulo}</dt>
-                  <dd className="mt-1 text-sm text-on-dark-muted">{item.texto}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <ButtonLink href="/atuacoes" variant="light" size="lg" className="mt-8">
-              Ver áreas de atuação
-            </ButtonLink>
-          </div>
+          <ButtonLink href="/atuacoes" variant="light" size="lg" className="mt-8">
+            Ver áreas de atuação
+          </ButtonLink>
         </div>
       </Container>
     </section>

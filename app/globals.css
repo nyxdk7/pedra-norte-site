@@ -20,6 +20,16 @@
   --blue-900: #0b1f4d;
   --blue-950: #070f28;
 
+  /* Ink: night blue on the brand hue, for headings and dark surfaces */
+  --ink-900: #0a1a3f;
+  --ink-950: #06102a;
+  --steel-600: #4b5875;
+
+  /* Brita: the cool grey of crushed aggregate, for alternate light surfaces */
+  --brita-50: #f6f7f8;
+  --brita-100: #eceef1;
+  --brita-200: #dce0e6;
+
   /* Neutral (cool slate, engineered feel) */
   --neutral-0: #ffffff;
   --neutral-50: #f8fafc;
@@ -34,10 +44,11 @@
   --neutral-900: #0f172a;
   --neutral-950: #060b18;
 
-  /* Accent: safety amber taken from the machinery in the real photos.
-     Decorative markers only (never body text on white: fails contrast). */
-  --accent-400: #ffc24d;
-  --accent-500: #f5a623;
+  /* Accent: machinery / road-sign yellow from the real photos. The one point of
+     colour: primary action over photography and the annotation marker. Always
+     paired with ink text (9.5:1); never used as text on white. */
+  --accent-400: #f7c934;
+  --accent-500: #f2b705;
 
   /* WhatsApp brand green (contact channel identity) */
   --whatsapp-500: #16a34a;
@@ -46,29 +57,34 @@
   /* --- Layer 2: semantic (light) --- */
   --background: var(--neutral-0);
   --surface: var(--neutral-0);
-  --surface-subtle: var(--blue-50);
-  --surface-strong: var(--blue-950);
-  --foreground: var(--neutral-900);
-  --heading: var(--neutral-950);
-  --muted: var(--neutral-500);
-  --muted-strong: var(--neutral-600);
-  --border: var(--neutral-200);
-  --border-strong: var(--neutral-300);
+  --surface-subtle: var(--brita-100);
+  --surface-strong: var(--ink-950);
+  --foreground: #1e2a44;
+  --heading: var(--ink-900);
+  --muted: #5b6681;
+  --muted-strong: var(--steel-600);
+  --border: #dde1e8;
+  --border-strong: #c5cbd6;
   --brand: var(--blue-700);
   --brand-hover: var(--blue-800);
   --brand-contrast: #ffffff;
   --brand-soft: var(--blue-100);
-  --surface-navy: var(--blue-900);
+  --surface-navy: var(--ink-900);
   --on-dark: #ffffff;
-  --on-dark-muted: #c7d8ff;
-  --on-dark-subtle: #9fb3d9;
+  --on-dark-muted: #c9d4ea;
+  --on-dark-subtle: #9fb0d0;
   --on-dark-border: rgb(255 255 255 / 0.14);
   --ring: var(--blue-500);
-  --ring-on-dark: var(--blue-300);
+  --ring-on-dark: var(--accent-400);
+  /* Space the floating header occupies (offset + capsule): content starts below it. */
   --header-h: 4.5rem;
-  --shadow-color: 16 32 72; /* blue-900-ish rgb for soft brand shadows */
+  --shadow-color: 10 26 63; /* ink rgb for soft brand shadows */
 
   color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root { --header-h: 5rem; }
 }
 
 /* --- Tailwind theme bridge: exposes tokens as utilities (bg-brand, text-heading, ...) --- */
@@ -97,6 +113,13 @@
   --color-whatsapp: var(--whatsapp-500);
   --color-whatsapp-hover: var(--whatsapp-600);
 
+  --color-ink: var(--ink-900);
+  --color-ink-deep: var(--ink-950);
+  --color-steel: var(--steel-600);
+  --color-brita-50: var(--brita-50);
+  --color-brita-100: var(--brita-100);
+  --color-brita-200: var(--brita-200);
+
   --color-neutral-50: var(--neutral-50);
   --color-neutral-100: var(--neutral-100);
   --color-neutral-200: var(--neutral-200);
@@ -121,27 +144,29 @@
   --color-blue-900: var(--blue-900);
   --color-blue-950: var(--blue-950);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-overpass), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
 
-  /* Radius hierarchy: controls < cards < media panels */
+  /* Radius hierarchy: interactive controls are pills (set on the component);
+     content is near-square for an engineered, precise feel. */
   --radius-control: 0.5rem;
-  --radius-card: 0.75rem;
-  --radius-panel: 1rem;
+  --radius-card: 0.375rem;
+  --radius-panel: 0.5rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-overpass), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
 h1, h2, h3, .font-display {
-  font-family: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.022em;
   text-wrap: balance;
 }
 
@@ -252,6 +277,139 @@ html {
   background: linear-gradient(0deg, rgb(7 15 40 / 0.88) 0%, rgb(7 15 40 / 0.35) 45%, transparent 75%);
 }
 
+/* --- Official logo, cropped to its drawn area ---
+   The PNG (674×370) carries transparent padding; the mark occupies 528×195 from
+   (73, 76). The file is untouched: the box below only hides the empty margin.
+   Size it with --logo-h (height of the drawn mark). */
+.brand-logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  height: var(--logo-h, 2rem);
+  width: calc(var(--logo-h, 2rem) * 2.7077);
+}
+
+.brand-logo > img {
+  position: absolute;
+  max-width: none;
+  height: calc(var(--logo-h, 2rem) * 1.8974);
+  width: calc(var(--logo-h, 2rem) * 3.4564);
+  left: calc(var(--logo-h, 2rem) * -0.3744);
+  top: calc(var(--logo-h, 2rem) * -0.3897);
+}
+
+/* --- Floating header capsule --- */
+.header-capsule {
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.header-capsule[data-tone="media"] {
+  background-color: rgb(6 16 42 / 0.32);
+  border-color: rgb(255 255 255 / 0.2);
+}
+
+.header-capsule[data-tone="solid"] {
+  background-color: rgb(255 255 255 / 0.9);
+  border-color: rgb(10 26 63 / 0.08);
+  box-shadow: 0 1px 2px rgb(var(--shadow-color) / 0.06), 0 16px 40px -20px rgb(var(--shadow-color) / 0.35);
+}
+
+/* --- Home hero stage ---
+   A manual object-fit: cover on a 4:3 frame. The image and the annotation layer
+   share this geometry, so the marker stays on the same point of the photograph
+   at every viewport. --fx/--fy behave like object-position. */
+.hero-stage {
+  container-type: size;
+  overflow: hidden;
+}
+
+.hero-frame {
+  --fx: 58%;
+  --fy: 50%;
+  position: absolute;
+  aspect-ratio: 4 / 3;
+  width: max(100cqw, 133.334cqh);
+  left: var(--fx);
+  top: var(--fy);
+  translate: calc(var(--fx) * -1) calc(var(--fy) * -1);
+}
+
+/* Minimum tint for contrast: deep sky already carries the headline; only the
+   bright aggregate under the lead text and the strip under the header are toned. */
+.hero-scrim {
+  background:
+    linear-gradient(180deg, rgb(6 16 42 / 0.6) 0%, rgb(6 16 42 / 0.3) 38%, transparent 55%),
+    linear-gradient(0deg, rgb(6 16 42 / 0.88) 0%, rgb(6 16 42 / 0.6) 42%, rgb(6 16 42 / 0.12) 72%, transparent 100%);
+}
+
+@media (min-width: 1024px) {
+  .hero-frame { --fx: 50%; --fy: 22%; }
+
+  /* The lit ridge of the stockpile runs behind the lead text: tone that corner only. */
+  .hero-scrim {
+    background:
+      linear-gradient(180deg, rgb(6 16 42 / 0.35) 0%, transparent 20%),
+      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(6 16 42 / 0.5) 0%, rgb(6 16 42 / 0.3) 55%, transparent 100%),
+      linear-gradient(90deg, rgb(6 16 42 / 0.62) 0%, rgb(6 16 42 / 0.36) 40%, transparent 66%),
+      linear-gradient(0deg, rgb(6 16 42 / 0.6) 0%, rgb(6 16 42 / 0.15) 36%, transparent 52%);
+  }
+}
+
+/* Annotation: marker on the conveyor truss, leader line, caption card.
+   All positions are fractions of the 4:3 photograph. */
+.hero-annotation {
+  --mark-x: 65.5%;
+  --mark-y: 29%;
+  --note-y: 43%;
+  --note-w: 17rem;
+  /* Card sits right of the marker but never past the content column. */
+  --note-x: min(74%, calc(50% + 38.5rem - var(--note-w)));
+}
+
+.hero-mark {
+  position: absolute;
+  left: var(--mark-x);
+  top: var(--mark-y);
+  width: 0.875rem;
+  height: 0.875rem;
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background: var(--accent-500);
+  box-shadow: 0 0 0 4px rgb(242 183 5 / 0.28), 0 0 0 1px rgb(6 16 42 / 0.5);
+}
+
+.hero-mark::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgb(242 183 5 / 0.8);
+  animation: markPulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s 3 both;
+}
+
+.hero-leader {
+  position: absolute;
+  left: var(--mark-x);
+  top: var(--mark-y);
+  width: calc(var(--note-x) + var(--note-w) / 2 - var(--mark-x));
+  height: calc(var(--note-y) - var(--mark-y));
+  border-top: 1px solid rgb(255 255 255 / 0.75);
+  border-right: 1px solid rgb(255 255 255 / 0.75);
+  border-top-right-radius: 1rem;
+}
+
+.hero-note {
+  position: absolute;
+  left: var(--note-x);
+  top: var(--note-y);
+  width: var(--note-w);
+}
+
+@keyframes markPulse {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(2.6); }
+}
+
 /* --- Motion (existing keyframes preserved) --- */
 @keyframes floatLogo {
   0% { transform: translateY(0px); }
@@ -294,7 +452,8 @@ html {
   .gallery-image-enter,
   .gallery-progress,
   .animate-fade-up,
-  .animate-rule-grow { animation: none; }
+  .animate-rule-grow,
+  .hero-mark::after { animation: none; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }

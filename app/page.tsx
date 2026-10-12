@@ -1,4 +1,5 @@
-import { CapacidadeOperacional } from "@/components/home/CapacidadeOperacional";
+import { CadeiaIntegrada } from "@/components/home/CadeiaIntegrada";
+import { Credibilidade } from "@/components/home/Credibilidade";
 import { EmpresasCarousel } from "@/components/home/EmpresasCarousel";
 import { GaleriaOperacoes } from "@/components/home/GaleriaOperacoes";
 import { HomeHero } from "@/components/home/HomeHero";
@@ -11,7 +12,9 @@ export default function Home() {
     <main id="conteudo" className="min-h-screen bg-white text-foreground">
       <HomeHero />
 
-      <CapacidadeOperacional />
+      <Credibilidade />
+
+      <CadeiaIntegrada />
 
       <GaleriaOperacoes />
 

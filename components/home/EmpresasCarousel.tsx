@@ -14,7 +14,7 @@ const empresasLoop = [
 ];
 
 const seta =
-  "grid h-11 w-11 place-items-center rounded-control border border-border-strong bg-white text-brand transition-colors hover:border-brand hover:bg-surface-subtle";
+  "grid h-11 w-11 place-items-center rounded-full border border-border-strong bg-white text-ink transition-colors hover:border-ink";
 
 export function EmpresasCarousel() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
@@ -161,9 +161,9 @@ export function EmpresasCarousel() {
                 key={empresa.nome + "-" + index}
                 data-empresa-card
                 aria-hidden={copia || undefined}
-                className="flex min-w-[272px] snap-start flex-col rounded-card border border-border bg-white p-5 sm:min-w-[320px] lg:min-w-[340px]"
+                className="flex min-w-[272px] snap-start flex-col rounded-card bg-white p-5 sm:min-w-[320px] lg:min-w-[340px]"
               >
-                <div className="flex h-28 shrink-0 items-center justify-center rounded-control bg-neutral-50 p-6">
+                <div className="flex h-28 shrink-0 items-center justify-center border-b border-border p-6">
                   <Image
                     src={empresa.imagem}
                     alt={"Logo " + empresa.nome}

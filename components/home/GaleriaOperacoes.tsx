@@ -10,7 +10,7 @@ import { galeriaImagens } from "./data";
 const INTERVALO_GALERIA = 5200;
 
 const controle =
-  "inline-flex h-11 items-center justify-center rounded-control border border-on-dark-border bg-white/5 text-white transition-colors hover:border-white/40 hover:bg-white/10";
+  "inline-flex h-11 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10";
 
 export function GaleriaOperacoes() {
   const [indiceAtivo, setIndiceAtivo] = useState(0);
@@ -51,10 +51,8 @@ export function GaleriaOperacoes() {
   return (
     <section
       aria-labelledby="galeria-titulo"
-      className="on-dark relative isolate overflow-hidden bg-surface-navy py-16 text-white md:py-24"
+      className="on-dark relative isolate overflow-hidden bg-ink py-20 text-white md:py-28"
     >
-      <div aria-hidden="true" className="bg-survey-grid absolute inset-0 -z-10 opacity-70" />
-
       <Container>
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading
@@ -83,7 +81,7 @@ export function GaleriaOperacoes() {
                   ? "Continuar troca automática das imagens"
                   : "Pausar troca automática das imagens"
               }
-              className="inline-flex h-11 min-w-32 items-center justify-center gap-2 rounded-control bg-white px-4 text-sm font-semibold text-brand transition-colors hover:bg-blue-50"
+              className="inline-flex h-11 min-w-32 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-ink transition-colors hover:bg-brita-100"
             >
               {pausado ? (
                 <Play className="h-4 w-4 fill-current" aria-hidden="true" />
@@ -105,7 +103,7 @@ export function GaleriaOperacoes() {
         </div>
 
         <div className="mt-10 grid gap-4 md:mt-12 lg:grid-cols-[minmax(0,1.75fr)_minmax(280px,0.65fr)]">
-          <figure className="relative aspect-[4/3] overflow-hidden rounded-panel border border-on-dark-border bg-neutral-900 sm:aspect-[16/10] lg:aspect-auto lg:min-h-[600px]">
+          <figure className="relative aspect-[4/3] overflow-hidden rounded-card bg-ink-deep sm:aspect-[16/10] lg:aspect-auto lg:min-h-[600px]">
             <Image
               key={imagemAtiva.id}
               src={imagemAtiva.imagem}
@@ -116,7 +114,7 @@ export function GaleriaOperacoes() {
               className="gallery-image-enter object-cover object-center"
             />
 
-            <figcaption className="absolute left-4 top-4 rounded-control bg-neutral-950/70 px-3 py-1.5 text-sm font-semibold tabular-nums text-white backdrop-blur">
+            <figcaption className="absolute left-4 top-4 rounded-full bg-ink-deep/70 px-3.5 py-1.5 text-sm font-semibold tabular-nums text-white backdrop-blur">
               {String(indiceAtivo + 1).padStart(2, "0")} / {galeriaImagens.length}
             </figcaption>
 
@@ -140,7 +138,7 @@ export function GaleriaOperacoes() {
                   key={imagem.id}
                   type="button"
                   onClick={() => setIndiceAtivo(indice)}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-card border border-on-dark-border bg-neutral-900 transition-colors hover:border-accent lg:aspect-auto"
+                  className="group relative aspect-[4/3] overflow-hidden rounded-card bg-ink-deep ring-accent transition-shadow hover:ring-2 lg:aspect-auto"
                   aria-label={`Mostrar foto ${indice + 1}`}
                 >
                   <Image

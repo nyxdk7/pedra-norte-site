@@ -1,13 +1,3 @@
-import {
-  Building2,
-  Factory,
-  Hammer,
-  type LucideIcon,
-  Mountain,
-  Route,
-  Truck,
-} from "lucide-react";
-
 // Home page content (moved verbatim from app/page.tsx during componentization).
 
 export const empresasGrupo = [
@@ -82,7 +72,6 @@ export const servicosPrincipais: Array<{
   detalhe: string;
   empresa: string;
   operacional: string;
-  icone: LucideIcon;
 }> = [
   {
     titulo: "Pavimentação asfáltica",
@@ -91,7 +80,6 @@ export const servicosPrincipais: Array<{
     detalhe: "Infraestrutura rodoviária",
     empresa: "MSM Industrial",
     operacional: "Obras urbanas e rodoviárias",
-    icone: Route,
   },
   {
     titulo: "Concreto usinado",
@@ -100,7 +88,6 @@ export const servicosPrincipais: Array<{
     detalhe: "Fornecimento técnico",
     empresa: "MSM Industrial",
     operacional: "Controle de produção e entrega",
-    icone: Building2,
   },
   {
     titulo: "Britas e agregados",
@@ -109,7 +96,6 @@ export const servicosPrincipais: Array<{
     detalhe: "Produção própria",
     empresa: "Pedra Norte",
     operacional: "Insumos para grandes obras",
-    icone: Mountain,
   },
   {
     titulo: "Usinagem de asfalto",
@@ -118,7 +104,6 @@ export const servicosPrincipais: Array<{
     detalhe: "Produção industrial",
     empresa: "MSM Industrial",
     operacional: "Apoio direto à pavimentação",
-    icone: Factory,
   },
   {
     titulo: "Pré-moldados",
@@ -127,7 +112,6 @@ export const servicosPrincipais: Array<{
     detalhe: "Peças de concreto",
     empresa: "Pré Molde",
     operacional: "Drenagem e urbanização",
-    icone: Hammer,
   },
   {
     titulo: "Locação de máquinas",
@@ -136,8 +120,23 @@ export const servicosPrincipais: Array<{
     detalhe: "Frota pesada",
     empresa: "Tratorron",
     operacional: "Máquinas para operação em campo",
-    icone: Truck,
   },
+];
+
+// Documented figures only (sources: master app/page.tsx hero and app/obras/page.tsx).
+export const indicadoresGrupo = [
+  { valor: "+40", rotulo: "Anos de atuação" },
+  { valor: "+50", rotulo: "Projetos atendidos" },
+  { valor: "AC/RO", rotulo: "Presença regional" },
+];
+
+// Same list as "Casos de sucesso" in app/obras/page.tsx (kept in sync by hand until Wave 3).
+export const casosSucesso = [
+  { nome: "Prefeitura de Rio Branco", imagem: "/images/casos-sucesso/prefeitura-rio-branco.png" },
+  { nome: "7º BEC", imagem: "/images/casos-sucesso/bec.png" },
+  { nome: "DEPASA", imagem: "/images/casos-sucesso/depasa.png" },
+  { nome: "DERACRE", imagem: "/images/casos-sucesso/deracre.png" },
+  { nome: "DNIT", imagem: "/images/casos-sucesso/dnit.png" },
 ];
 
 export const galeriaImagens = [

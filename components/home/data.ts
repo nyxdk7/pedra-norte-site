@@ -130,6 +130,38 @@ export const indicadoresGrupo = [
   { valor: "AC/RO", rotulo: "Presença regional" },
 ];
 
+// Hero glass card: three real operations. Copy is verbatim from app/atuacoes/page.tsx
+// (subtitulo / titulo / resumo); links land on each front's anchor there.
+export const operacoesHero = [
+  {
+    rotulo: "Produção de agregados minerais",
+    titulo: "Extração de minérios",
+    texto:
+      "Operação de pedreira e produção de agregados minerais para obras, pavimentação, drenagem e concreto.",
+    foto: "/images/atuacoes/extracao-minerios/pedreira (9).jpeg",
+    alt: "Escavadeira em frente de lavra da pedreira",
+    href: "/atuacoes#frente-extracao-de-minerios",
+  },
+  {
+    rotulo: "Infraestrutura urbana e rodoviária",
+    titulo: "Pavimentação",
+    texto:
+      "Execução de obras de pavimentação asfáltica com estrutura operacional, equipe técnica e suporte em campo.",
+    foto: "/images/atuacoes/pavimentacao/pavimentacao4.jpg",
+    alt: "Rolo compactador sobre asfalto recém-aplicado",
+    href: "/atuacoes#frente-pavimentacao",
+  },
+  {
+    rotulo: "Peças de concreto para obras",
+    titulo: "Pré-moldados",
+    texto:
+      "Produção de peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
+    foto: "/images/atuacoes/pre-moldados/pre-moldados2.png",
+    alt: "Pátio de peças pré-moldadas de concreto",
+    href: "/atuacoes#frente-pre-moldados",
+  },
+];
+
 // Same list as "Casos de sucesso" in app/obras/page.tsx (kept in sync by hand until Wave 3).
 export const casosSucesso = [
   { nome: "Prefeitura de Rio Branco", imagem: "/images/casos-sucesso/prefeitura-rio-branco.png" },

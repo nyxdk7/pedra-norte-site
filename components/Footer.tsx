@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, MessageCircle } from "lucide-react";
 import { siteContact } from "@/lib/site-config";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { buttonClasses } from "@/components/ui/Button";
 
 const linksRapidos = [
@@ -55,19 +55,9 @@ export function Footer() {
 
       <div className="container-msm grid gap-12 py-14 md:py-20 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
         <div>
-          {/* The logo's blue lettering needs a light plate to stay legible on navy. */}
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-card bg-white px-5 py-3"
-            aria-label="MSM Industrial — página inicial"
-          >
-            <Image
-              src="/images/logo-letras-pretas.png"
-              alt="Logo MSM Industrial LTDA"
-              width={260}
-              height={100}
-              className="h-auto w-[160px] object-contain"
-            />
+          {/* Clean white rendition of the official logo on the night-blue footer */}
+          <Link href="/" className="inline-flex items-center" aria-label="MSM Industrial — página inicial">
+            <BrandLogo tom="claro" className="[--logo-h:2.75rem]" />
           </Link>
 
           <p className="mt-6 max-w-sm leading-relaxed text-on-dark-muted">

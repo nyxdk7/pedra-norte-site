@@ -1,17 +1,22 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
+import { HeroOperacoes } from "./HeroOperacoes";
+import { indicadoresGrupo } from "./data";
 
 const FOTO_HERO = "/images/atuacoes/extracao-minerios/pedreira (5).jpeg";
 
+/**
+ * Full-screen glass hero: real photograph, headline on the left, a glass card with
+ * the group's operations on the right and the documented figures on the photo's base.
+ */
 export function HomeHero() {
   return (
     <section
       aria-labelledby="hero-titulo"
-      className="on-dark relative isolate flex min-h-[calc(100svh-3rem)] flex-col overflow-hidden bg-ink text-white md:min-h-[min(calc(100svh-5rem),52rem)] lg:min-h-[max(36rem,min(92svh,950px))]"
+      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white lg:min-h-[max(44rem,100svh)]"
     >
-      {/* Photograph: manual cover frame shared with the annotation layer (see .hero-stage) */}
+      {/* Photograph: manual cover frame keeps the focal point stable (see .hero-stage) */}
       <div className="hero-stage absolute inset-0 -z-10">
         <div className="hero-frame">
           <Image
@@ -27,67 +32,71 @@ export function HomeHero() {
         <div aria-hidden="true" className="hero-scrim absolute inset-0" />
       </div>
 
-      {/* Phones: headline on the sky, lead + actions on the toned base. Tablets: one block
-          on the base, leaving the structure clear above. Desktop: block on the left third. */}
-      <div className="hero-content container-msm flex flex-1 flex-col justify-between gap-12 pb-10 pt-[calc(var(--header-h)+2.5rem)] sm:justify-end sm:gap-7 md:pb-14 lg:justify-center lg:gap-0 lg:pb-20 lg:pt-[calc(var(--header-h)+3rem)]">
-        <h1
-          id="hero-titulo"
-          className="hero-title animate-fade-up max-w-[46rem] text-[length:var(--type-hero)] font-bold leading-[1.02] tracking-[-0.03em]"
-        >
-          Engenharia, pavimentação, mineração e obras para grandes estruturas
-        </h1>
+      <div className="hero-content container-msm flex flex-1 flex-col pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+3.5rem)]">
+        <div className="grid flex-1 items-center gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="animate-fade-up flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              <span aria-hidden="true" className="h-px w-10 bg-white/70" />
+              MSM Industrial / Pedra Norte
+            </p>
 
-        <div className="lg:mt-7">
-          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-[length:var(--type-lead)] leading-[1.55] text-white sm:text-white/90">
-            O Grupo Soster reúne empresas especializadas em infraestrutura,
-            pavimentação, mineração, concreto usinado, pré-moldados e locação
-            de máquinas, com atuação integrada para obras públicas e privadas
-            no Acre.
-          </p>
+            <h1
+              id="hero-titulo"
+              className="hero-title animate-fade-up anim-delay-1 mt-6 max-w-[44rem] text-[clamp(2.25rem,1.3rem+3vw,4rem)] font-semibold leading-[1.02] tracking-[-0.035em]"
+            >
+              Engenharia, pavimentação, mineração e obras para grandes estruturas
+            </h1>
 
-          <div className="animate-fade-up anim-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/sobre" variant="signal" size="lg">
-              Conheça o grupo
-            </ButtonLink>
-            <ButtonLink href="/atuacoes" variant="glass" size="lg">
-              Ver áreas de atuação
-            </ButtonLink>
+            <p className="hero-lead animate-fade-up anim-delay-2 mt-6 max-w-[32rem] text-[length:var(--type-lead)] leading-[1.55] text-white">
+              O Grupo Soster reúne empresas especializadas em infraestrutura,
+              pavimentação, mineração, concreto usinado, pré-moldados e locação
+              de máquinas, com atuação integrada para obras públicas e privadas
+              no Acre.
+            </p>
+
+            <div className="animate-fade-up anim-delay-3 mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/sobre" variant="light" size="lg" className="group/cta">
+                Conheça o grupo
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
+              </ButtonLink>
+              <ButtonLink href="/atuacoes" variant="glass" size="lg">
+                Ver áreas de atuação
+              </ButtonLink>
+            </div>
+          </div>
+
+          <div className="animate-fade-up anim-delay-4 hidden lg:col-span-5 lg:flex lg:justify-end">
+            <HeroOperacoes />
           </div>
         </div>
-      </div>
 
-      {/* Annotation (xl+): names what the photograph shows and links to it */}
-      <div className="hero-stage pointer-events-none absolute inset-0 hidden xl:block">
-        <div className="hero-frame hero-annotation">
-          <span aria-hidden="true" className="hero-mark" />
-          <span aria-hidden="true" className="hero-leader animate-fade-up anim-delay-3" />
-          <Link
-            href="/atuacoes"
-            className="hero-note animate-fade-up anim-delay-4 group pointer-events-auto overflow-hidden rounded-[0.625rem] bg-white text-ink shadow-[0_24px_48px_-24px_rgb(6_16_42/0.6)]"
+        {/* Documented figures on the base of the photograph */}
+        <div className="mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-8 pt-6 md:pb-10 lg:mt-10">
+          <dl className="grid flex-1 grid-cols-3">
+            {indicadoresGrupo.map((item) => (
+              <div
+                key={item.rotulo}
+                className="flex flex-col-reverse gap-1 border-l border-white/25 pl-4 first:border-l-0 first:pl-0 md:pl-8"
+              >
+                <dt className="text-xs font-semibold text-white md:text-sm">{item.rotulo}</dt>
+                <dd className="text-[1.75rem] font-light leading-none tracking-[-0.02em] tabular-nums md:text-[2.5rem] lg:text-[3rem]">
+                  {item.valor}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <a
+            href="#credibilidade"
+            className="hero-rolar group hidden shrink-0 items-center gap-4 text-sm font-semibold leading-tight text-white md:flex"
           >
-            <span className="block px-4 pb-3 pt-3.5">
-              <span className="flex items-start justify-between gap-3">
-                <span className="text-base font-bold leading-tight">Extração de minérios</span>
-                <ArrowUpRight
-                  className="h-4 w-4 shrink-0 text-steel transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
-                  aria-hidden="true"
-                />
-              </span>
-              <span className="mt-1 block font-serif text-[0.9375rem] leading-snug text-steel">
-                Operação de pedreira e produção de agregados minerais.
-              </span>
+            <span className="grid h-14 w-14 place-items-center rounded-full border border-white/40 transition-colors duration-200 group-hover:border-white group-hover:bg-white/10">
+              <ArrowDown className="h-5 w-5" aria-hidden="true" />
             </span>
-            <span className="relative block aspect-[16/7]">
-              <Image
-                src="/images/atuacoes/extracao-minerios/pedreira (9).jpeg"
-                alt=""
-                fill
-                sizes="272px"
-                className="object-cover"
-              />
-            </span>
-            <span className="sr-only">Ver áreas de atuação</span>
-          </Link>
+            Role para
+            <br />
+            explorar
+          </a>
         </div>
       </div>
     </section>

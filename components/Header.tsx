@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Menu, MessageCircle, X } from "lucide-react";
+import { ArrowRight, Mail, Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { buttonClasses } from "@/components/ui/Button";
@@ -133,9 +133,10 @@ export function Header() {
             href="/"
             onClick={fecharMenu}
             aria-label="MSM Industrial, página inicial"
-            className="focus-media flex h-full shrink-0 items-center rounded-full bg-white px-4 md:px-5"
+            className="focus-media flex h-full shrink-0 items-center rounded-full px-3 md:px-4"
           >
-            <BrandLogo priority className="[--logo-h:2rem] md:[--logo-h:2.5rem]" />
+            {/* Clean white on glass, original colours once the capsule turns solid */}
+            <BrandLogo priority tom={solido ? "original" : "claro"} className="[--logo-h:2rem] md:[--logo-h:2.5rem]" />
           </Link>
 
           {/* Restrained glass: links sit on the capsule itself; the current page is marked
@@ -175,9 +176,10 @@ export function Header() {
                 href="/contato"
                 onClick={fecharMenu}
                 aria-current={pathname.startsWith("/contato") ? "page" : undefined}
-                className={buttonClasses(solido ? "primary" : "light", "md", "focus-media h-full px-6")}
+                className={buttonClasses(solido ? "primary" : "light", "md", "group/cta focus-media h-full px-6")}
               >
                 Fale conosco
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
               </Link>
             </div>
 

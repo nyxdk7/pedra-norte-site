@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "dna-9";
+  --css-build: "glass-3";
 
   color-scheme: light;
 }
@@ -276,6 +276,12 @@ html {
   width: calc(var(--logo-h, 2rem) * 3.4388);
   left: calc(var(--logo-h, 2rem) * -0.3724);
   top: calc(var(--logo-h, 2rem) * -0.3878);
+  transition: filter 300ms ease;
+}
+
+/* Clean white rendition for glass and dark surfaces: same file, colour by filter. */
+.brand-logo--claro > img {
+  filter: brightness(0) invert(1);
 }
 
 /* --- Floating header capsule --- */
@@ -283,9 +289,11 @@ html {
   transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
 }
 
+/* Glass over photography: light frost, hairline edge and a top highlight. */
 .header-capsule[data-tone="media"] {
-  background-color: rgb(11 25 43 / 0.32);
-  border-color: rgb(255 255 255 / 0.2);
+  background-color: rgb(11 25 43 / 0.26);
+  border-color: rgb(255 255 255 / 0.24);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
 }
 
 /* Controls whose focus ring sits on the photo-backed glass get a two-tone ring;
@@ -331,7 +339,7 @@ html {
 .hero-scrim {
   background:
     linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, rgb(11 25 43 / 0.35) 30%, rgb(11 25 43 / 0.12) 42%, transparent 50%),
-    linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.6) 38%, rgb(11 25 43 / 0.45) 48%, rgb(11 25 43 / 0.08) 60%, transparent 70%);
+    linear-gradient(0deg, rgb(11 25 43 / 0.88) 0%, rgb(11 25 43 / 0.72) 40%, rgb(11 25 43 / 0.58) 54%, rgb(11 25 43 / 0.3) 66%, transparent 78%);
 }
 
 /* Tablets: the whole text block sits on the base; only a light strip under the header. */
@@ -346,13 +354,13 @@ html {
 @media (min-width: 1024px) {
   .hero-frame { --fx: 50%; --fy: 22%; }
 
-  /* The lit ridge of the stockpile runs behind the lead text: tone that corner only. */
+  /* Left third for the headline, base for the figures; the centre of the photograph stays clean. */
   .hero-scrim {
     background:
       linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 20%),
-      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
+      radial-gradient(ellipse 48% 62% at 12% 60%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
       linear-gradient(90deg, rgb(11 25 43 / 0.62) 0%, rgb(11 25 43 / 0.36) 40%, transparent 66%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.15) 36%, transparent 52%);
+      linear-gradient(0deg, rgb(11 25 43 / 0.78) 0%, rgb(11 25 43 / 0.45) 20%, rgb(11 25 43 / 0.12) 40%, transparent 55%);
   }
 }
 
@@ -370,7 +378,7 @@ html {
 /* Short laptop screens (1280×720, 1366×768): tighter type and padding so the
    credentials band still shows under the hero. Unlayered, so it beats utilities. */
 @media (min-width: 1024px) and (max-height: 820px) {
-  .hero-content { padding-top: calc(var(--header-h) + 1.75rem); padding-bottom: 3rem; }
+  .hero-content { padding-top: calc(var(--header-h) + 1.75rem); }
   .hero-title { font-size: 3.25rem; }
   .hero-lead { font-size: 1.125rem; }
   .hero-lead + div { margin-top: 1.5rem; }
@@ -405,59 +413,18 @@ html {
   }
 }
 
-/* Annotation: marker on the conveyor truss, leader line, caption card.
-   All positions are fractions of the 4:3 photograph. */
-.hero-annotation {
-  --mark-x: 65.5%;
-  --mark-y: 29%;
-  --note-y: 43%;
-  --note-w: 17rem;
-  /* Card sits right of the marker but never past the content column (DNA grid). */
-  --note-x: min(74%, calc(100% - var(--gutter) - var(--note-w)), calc(50% + 45rem - var(--gutter) - var(--note-w)));
+/* "Scroll to explore" sits clear of the fixed WhatsApp button (56px, 20–24px from the edge). */
+.hero-rolar {
+  margin-right: max(0px, calc(6rem - var(--gutter)));
 }
 
-.hero-mark {
-  position: absolute;
-  left: var(--mark-x);
-  top: var(--mark-y);
-  width: 0.875rem;
-  height: 0.875rem;
-  translate: -50% -50%;
-  border-radius: 9999px;
-  background: var(--accent-500);
-  box-shadow: 0 0 0 4px rgb(214 170 70 / 0.3), 0 0 0 1px rgb(11 25 43 / 0.5);
-}
-
-.hero-mark::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: inherit;
-  border: 1px solid rgb(214 170 70 / 0.85);
-  animation: markPulse 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s 2 both;
-}
-
-.hero-leader {
-  position: absolute;
-  left: var(--mark-x);
-  top: var(--mark-y);
-  width: calc(var(--note-x) + var(--note-w) / 2 - var(--mark-x));
-  height: calc(var(--note-y) - var(--mark-y));
-  border-top: 1px solid rgb(255 255 255 / 0.75);
-  border-right: 1px solid rgb(255 255 255 / 0.75);
-  border-top-right-radius: 1rem;
-}
-
-.hero-note {
-  position: absolute;
-  left: var(--note-x);
-  top: var(--note-y);
-  width: var(--note-w);
-}
-
-@keyframes markPulse {
-  from { opacity: 0.9; transform: scale(1); }
-  to { opacity: 0; transform: scale(2.6); }
+/* Glass card over the hero photograph (dark frost so its text stays legible on any area). */
+.hero-vidro {
+  background-color: rgb(11 25 43 / 0.46);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 30px 60px -30px rgb(0 0 0 / 0.6);
 }
 
 /* --- Motion (existing keyframes preserved) --- */
@@ -494,8 +461,7 @@ html {
   html { scroll-behavior: auto; }
   .gallery-image-enter,
   .gallery-progress,
-  .animate-fade-up,
-  .hero-mark::after { animation: none; }
+  .animate-fade-up { animation: none; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }

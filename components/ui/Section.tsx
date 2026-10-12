@@ -72,7 +72,7 @@ export function SectionHeading({
       <Tag
         id={id}
         className={
-          "mt-4 text-3xl font-bold leading-[1.1] md:text-[2.75rem] " +
+          "mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] " +
           (onDark ? "text-white" : "text-heading")
         }
       >

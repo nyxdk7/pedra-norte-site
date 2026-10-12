@@ -22,7 +22,7 @@ export function CtaBanner({
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div className="max-w-3xl">
               {eyebrow ? <Eyebrow onDark>{eyebrow}</Eyebrow> : null}
-              <h2 className="mt-4 text-3xl font-bold leading-[1.1] md:text-[2.75rem]">{title}</h2>
+              <h2 className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06]">{title}</h2>
               {description ? (
                 <p className="mt-4 font-serif text-lg leading-relaxed text-blue-100 md:text-xl md:leading-[1.55]">{description}</p>
               ) : null}

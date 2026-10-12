@@ -18,7 +18,7 @@ export function Credibilidade() {
             {indicadoresGrupo.map((item) => (
               <div
                 key={item.rotulo}
-                className="flex items-baseline justify-between gap-6 border-b border-border py-5 last:border-b-0 md:flex-col-reverse md:items-start md:justify-end md:gap-2 md:border-b-0 md:border-l md:px-8 md:py-10 md:first:border-l-0 md:first:pl-0 lg:py-12"
+                className="flex items-baseline justify-between gap-6 border-b border-border py-5 last:border-b-0 md:flex-col-reverse md:items-start md:justify-end md:gap-2 md:border-b-0 md:border-l md:px-8 md:py-10 md:first:border-l-0 md:first:pl-0 lg:flex-col lg:gap-5 lg:pb-12 lg:pt-8"
               >
                 <dt className="text-[0.9375rem] font-semibold text-muted-strong">{item.rotulo}</dt>
                 <dd className="font-serif text-[length:var(--type-figure)] leading-none tracking-[-0.02em] text-heading tabular-nums">
@@ -28,7 +28,7 @@ export function Credibilidade() {
             ))}
           </dl>
 
-          <div className="hidden border-l border-border px-8 py-12 lg:flex lg:flex-col lg:justify-between">
+          <div className="hidden border-l border-border px-8 pb-12 pt-8 lg:flex lg:flex-col lg:justify-between">
             <p className="font-serif text-lg leading-snug text-heading">
               Confiança de instituições e parceiros estratégicos.
             </p>

@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "dna-3";
+  --css-build: "dna-4";
 
   color-scheme: light;
 }
@@ -311,10 +311,14 @@ html {
   border-color: rgb(255 255 255 / 0.2);
 }
 
-/* Controls whose focus ring sits on the dark glass get the yellow ring;
-   links inside the white nav pill keep the blue one. */
+/* Controls whose focus ring sits on the photo-backed glass get a two-tone ring;
+   on the white (solid) capsule every control keeps the blue ring. */
 .header-capsule[data-tone="media"] .focus-media:focus-visible {
-  outline-color: var(--accent-400);
+  /* Two-tone ring: the navy band contrasts with bright sky, the ochre band with
+     dark glass, so the indicator stays >= 3:1 whatever the photo behind it. */
+  outline: 2px solid var(--accent-400);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ink-900);
 }
 
 .header-capsule[data-tone="solid"] {
@@ -424,7 +428,7 @@ html {
   inset: -4px;
   border-radius: inherit;
   border: 1px solid rgb(214 170 70 / 0.85);
-  animation: markPulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s 3 both;
+  animation: markPulse 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s 2 both;
 }
 
 .hero-leader {
@@ -472,7 +476,7 @@ html {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.gallery-image-enter { animation: galleryImageEnter 900ms ease-out both; }
+.gallery-image-enter { animation: galleryImageEnter 480ms ease-out both; }
 .gallery-progress { animation-name: galleryProgress; animation-timing-function: linear; animation-fill-mode: forwards; }
 .animate-fade-up { animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .anim-delay-1 { animation-delay: 80ms; }

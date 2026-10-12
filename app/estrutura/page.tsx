@@ -43,12 +43,12 @@ export default function EstruturaPage() {
       >
         <ul
           aria-label="Recursos da estrutura"
-          className="mt-12 grid grid-cols-2 border-t border-white/20 sm:grid-cols-3 lg:grid-cols-9"
+          className="mt-12 grid grid-cols-2 border-t border-white/20 sm:grid-cols-3 xl:grid-cols-9"
         >
           {recursos.map((item) => (
             <li
               key={item}
-              className="border-b border-white/15 py-4 pr-4 text-sm font-semibold text-white lg:border-b-0 lg:border-r lg:px-3 lg:first:pl-0 lg:last:border-r-0"
+              className="border-b border-white/15 py-4 pr-4 text-sm font-semibold text-white xl:border-b-0 xl:border-r xl:px-3 xl:first:pl-0 xl:last:border-r-0"
             >
               {item}
             </li>

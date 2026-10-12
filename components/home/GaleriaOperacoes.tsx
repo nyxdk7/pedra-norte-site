@@ -146,7 +146,7 @@ export function GaleriaOperacoes() {
                     alt=""
                     fill
                     sizes="(max-width: 1024px) 33vw, 24vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </button>
               );

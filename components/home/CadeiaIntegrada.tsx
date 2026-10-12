@@ -113,7 +113,7 @@ export function CadeiaIntegrada() {
                 alt="Caminhão betoneira abastecendo obra de edificação"
                 fill
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 58vw, 36vw"
-                className="object-cover object-[40%_center]"
+                className="object-cover object-[0%_center]"
               />
             </div>
             <div className="relative mt-12 aspect-[3/4] overflow-hidden rounded-card bg-ink/10 md:col-span-5 md:mt-24 lg:col-span-3 lg:mt-40">
@@ -142,13 +142,14 @@ export function CadeiaIntegrada() {
                   className="object-cover object-[45%_70%]"
                 />
               </div>
-              <div className="relative -mt-16 ml-auto w-[62%] overflow-hidden rounded-card border-4 border-brita-100 sm:w-[46%] lg:absolute lg:-bottom-16 lg:-left-[22%] lg:mt-0 lg:ml-0 lg:w-[34%]">
+              {/* lg: the photo column starts at grid line 3, so -(20% + 0.2 × gap) lands exactly on the content edge */}
+              <div className="relative -mt-10 ml-auto w-[48%] overflow-hidden rounded-card border-4 border-brita-100 sm:-mt-16 sm:w-[46%] lg:absolute lg:-bottom-16 lg:left-[calc(-20%-0.5rem)] lg:mt-0 lg:ml-0 lg:w-[34%]">
                 <div className="relative aspect-[4/3]">
                   <Image
                     src="/images/atuacoes/pavimentacao/pavimentacao3.jpg"
                     alt="Equipe da obra espalhando asfalto atrás da vibroacabadora"
                     fill
-                    sizes="(max-width: 640px) 62vw, (max-width: 1024px) 46vw, 28vw"
+                    sizes="(max-width: 640px) 48vw, (max-width: 1024px) 46vw, 28vw"
                     className="object-cover"
                   />
                 </div>

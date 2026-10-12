@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./IntegrityPopup.module.css";
 
@@ -8,6 +8,7 @@ const STORAGE_KEY = "msm-integrity-popup-seen";
 
 export default function IntegrityPopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const popupSeen = sessionStorage.getItem(STORAGE_KEY);
@@ -33,6 +34,7 @@ export default function IntegrityPopup() {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
+      closeRef.current?.focus(); // move focus into the dialog on open
     }
 
     return () => {
@@ -45,19 +47,22 @@ export default function IntegrityPopup() {
   }
 
   return (
-    <div
-      className={styles.overlay}
-      onClick={closePopup}
-      role="presentation"
-    >
+    <div className={styles.overlay} role="presentation">
+      <button
+        type="button"
+        className={styles.backdrop}
+        aria-label="Fechar aviso"
+        tabIndex={-1}
+        onClick={closePopup}
+      />
       <section
         className={styles.popup}
         role="dialog"
         aria-modal="true"
         aria-labelledby="integrity-popup-title"
-        onClick={(event) => event.stopPropagation()}
       >
         <button
+          ref={closeRef}
           className={styles.closeButton}
           type="button"
           onClick={closePopup}

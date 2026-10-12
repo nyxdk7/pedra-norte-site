@@ -1,24 +1,112 @@
 @import "tailwindcss";
 
+/* ===========================================================================
+   MSM Industrial — Design tokens (3 layers: primitive -> semantic -> component)
+   Brand anchor preserved: institutional blue #143987.
+   =========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- Layer 1: primitives --- */
+  /* Brand blue scale (anchored on #143987 = brand-700) */
+  --blue-50: #f3f7ff;
+  --blue-100: #e3ecff;
+  --blue-200: #c7d8ff;
+  --blue-300: #9bb6ff;
+  --blue-400: #6a8ef4;
+  --blue-500: #3f66e0;
+  --blue-600: #244bc0;
+  --blue-700: #143987; /* institutional anchor */
+  --blue-800: #0f2c6a;
+  --blue-900: #0b1f4d;
+  --blue-950: #070f28;
+
+  /* Neutral (cool slate, engineered feel) */
+  --neutral-0: #ffffff;
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --neutral-950: #060b18;
+
+  /* Accent (controlled warm signal for CTAs/credibility highlights) */
+  --accent-400: #ffc24d;
+  --accent-500: #f5a623;
+
+  /* --- Layer 2: semantic (light) --- */
+  --background: var(--neutral-0);
+  --surface: var(--neutral-0);
+  --surface-subtle: var(--blue-50);
+  --surface-strong: var(--blue-950);
+  --foreground: var(--neutral-900);
+  --heading: var(--neutral-950);
+  --muted: var(--neutral-500);
+  --muted-strong: var(--neutral-600);
+  --border: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --brand: var(--blue-700);
+  --brand-hover: var(--blue-800);
+  --brand-contrast: #ffffff;
+  --on-dark: #ffffff;
+  --on-dark-muted: #c7d8ff;
+  --ring: var(--blue-500);
+  --shadow-color: 16 32 72; /* blue-900-ish rgb for soft brand shadows */
+
   color-scheme: light;
 }
 
+/* --- Tailwind theme bridge: exposes tokens as utilities (bg-brand, text-heading, ...) --- */
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-strong: var(--surface-strong);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-on-dark: var(--on-dark);
+  --color-accent: var(--accent-500);
+
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 html {
@@ -26,63 +114,70 @@ html {
 }
 
 ::selection {
-  background: #143987;
-  color: #ffffff;
+  background: var(--brand);
+  color: var(--brand-contrast);
 }
 
+/* Premium, consistent focus ring (accessibility + polish) */
+:where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* --- Component utilities --- */
+.container-msm {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.text-gradient-brand {
+  background: linear-gradient(120deg, var(--blue-300), #ffffff 55%, var(--blue-200));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.shadow-brand-soft {
+  box-shadow: 0 1px 2px rgb(var(--shadow-color) / 0.06),
+    0 12px 32px -12px rgb(var(--shadow-color) / 0.25);
+}
+
+.ring-hairline {
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+/* --- Motion (existing keyframes preserved) --- */
 @keyframes floatLogo {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
 
 @keyframes galleryImageEnter {
-  from {
-    opacity: 0;
-    transform: scale(1.04);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes galleryProgress {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 100%;
-  }
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
-.gallery-image-enter {
-  animation: galleryImageEnter 900ms ease-out both;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.gallery-progress {
-  animation-name: galleryProgress;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
+.gallery-image-enter { animation: galleryImageEnter 900ms ease-out both; }
+.gallery-progress { animation-name: galleryProgress; animation-timing-function: linear; animation-fill-mode: forwards; }
+.animate-fade-up { animation: fadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
+  html { scroll-behavior: auto; }
   .gallery-image-enter,
-  .gallery-progress {
-    animation: none;
-  }
+  .gallery-progress,
+  .animate-fade-up { animation: none; }
 }

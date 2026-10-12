@@ -10,6 +10,17 @@
   backdrop-filter: blur(4px);
 }
 
+/* Accessible backdrop: a real button (keyboard-focusable) instead of a click-only <div>. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: default;
+}
+
 .popup {
   position: relative;
   width: 100%;

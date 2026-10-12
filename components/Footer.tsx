@@ -4,10 +4,10 @@ import Link from "next/link";
 const linksRapidos = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Sobre" },
-  { href: "/empresas", label: "Empresas" },
   { href: "/servicos", label: "Serviços" },
-  { href: "/obras", label: "Obras" },
-  { href: "/galeria", label: "Galeria" },
+  { href: "/atuacoes", label: "Áreas de atuações" },
+  { href: "/obras", label: "Atuações" },
+  { href: "/integridade", label: "Integridade" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -140,20 +140,30 @@ export function Footer() {
 
               <div className="mt-4 space-y-4 text-sm text-slate-300">
                 <p>
+                  <strong className="block text-white">WhatsApp comercial</strong>
+                  <a
+                    href="https://wa.me/5568999851248"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-white"
+                  >
+                    (68) 99985-1248
+                  </a>
+                </p>
+                <p>
+                  <strong className="block text-white">E-mail comercial</strong>
+                  <a
+                    href="mailto:pedranorte@msmind.com.br"
+                    className="break-all transition hover:text-white"
+                  >
+                    pedranorte@msmind.com.br
+                  </a>
+                </p>
+                <p>
                   <strong className="block text-white">
                     Sede administrativa
                   </strong>
                   Rio Branco - Acre
-                </p>
-
-                <p>
-                  <strong className="block text-white">Telefone</strong>
-                  (68) 99999-9999
-                </p>
-
-                <p>
-                  <strong className="block text-white">E-mail</strong>
-                  contato@empresa.com.br
                 </p>
               </div>
 

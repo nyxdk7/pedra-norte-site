@@ -1,0 +1,221 @@
+/* Signature Motion — MSM Industrial + Pedra Norte.
+   Logos permanecem fixos. Uma entrada discreta ocorre uma vez; o reflexo
+   percorre os desenhos de cada marca sequencialmente a cada 12 segundos. */
+.brandSwap {
+  --msm-width: 172px;
+  --pedra-width: 72px;
+  --marcas-gap: -39px;
+  position: relative;
+  display: block;
+  flex: none;
+  isolation: isolate;
+  width: calc(var(--msm-width) + var(--pedra-width) + var(--marcas-gap));
+  height: 60px;
+}
+
+.brandSwap.compact {
+  --msm-width: 162px;
+  --pedra-width: 68px;
+  --marcas-gap: -38px;
+  height: 56px;
+}
+
+.msmLogo,
+.pedraLogo {
+  position: absolute;
+  top: 0;
+  display: block;
+  height: 100%;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+.msmLogo {
+  left: 0;
+  z-index: 2;
+  width: var(--msm-width);
+  animation: entradaMsm 800ms cubic-bezier(.18, .86, .24, 1) both;
+}
+
+.pedraLogo {
+  left: calc(var(--msm-width) + var(--marcas-gap));
+  z-index: 3;
+  width: var(--pedra-width);
+  animation: entradaPedra 1050ms cubic-bezier(.18, .86, .24, 1) 260ms both;
+}
+
+/* Mesma proporcao de marcas aprovada antes, sem giros nem deslocamentos. */
+.msmLogo img {
+  transform: scale(1.15);
+  transform-origin: center;
+}
+
+.pedraLogo img {
+  transform: scale(.90);
+  transform-origin: center;
+}
+
+/* A luz e recortada pelo alfa das proprias logos: sem faixa retangular
+   no fundo branco da navbar, mesmo com PNGs transparentes. */
+.msmLogo::after,
+.pedraLogo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background-image: linear-gradient(
+    105deg,
+    transparent 32%,
+    rgba(77, 149, 244, .10) 42%,
+    rgba(100, 178, 255, .83) 50%,
+    rgba(77, 149, 244, .12) 58%,
+    transparent 68%
+  );
+  background-repeat: no-repeat;
+  background-size: 220% 100%;
+  background-position: 130% 50%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.msmLogo::after {
+  -webkit-mask-image: url("/images/logo-letras-pretas.png");
+  mask-image: url("/images/logo-letras-pretas.png");
+  animation: reflexoMsm 12s ease-in-out 1.5s infinite;
+}
+
+.pedraLogo::after {
+  -webkit-mask-image: url("/images/grupo/pedra-norte-logo.png");
+  mask-image: url("/images/grupo/pedra-norte-logo.png");
+  animation: reflexoPedra 12s ease-in-out 1.5s infinite;
+}
+
+@keyframes entradaMsm {
+  0% {
+    opacity: 0;
+    transform: translate3d(-22px, 0, 0) scale(.96);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes entradaPedra {
+  0% {
+    opacity: 0;
+    transform: translate3d(-17px, 0, 0) scale(.86);
+    filter: blur(3px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate3d(2px, 0, 0) scale(1.025);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* O brilho aparece primeiro na MSM e em seguida na Pedra Norte.
+   Depois as marcas repousam ate reiniciar o ciclo de 12 segundos. */
+@keyframes reflexoMsm {
+  0%, 6% {
+    opacity: 0;
+    background-position: 130% 50%;
+  }
+  8% {
+    opacity: 1;
+    background-position: 130% 50%;
+  }
+  18% {
+    opacity: 1;
+    background-position: -30% 50%;
+  }
+  20%, 100% {
+    opacity: 0;
+    background-position: -30% 50%;
+  }
+}
+
+@keyframes reflexoPedra {
+  0%, 21% {
+    opacity: 0;
+    background-position: 130% 50%;
+  }
+  23% {
+    opacity: 1;
+    background-position: 130% 50%;
+  }
+  33% {
+    opacity: 1;
+    background-position: -30% 50%;
+  }
+  35%, 100% {
+    opacity: 0;
+    background-position: -30% 50%;
+  }
+}
+
+@media (min-width: 640px) {
+  .brandSwap {
+    --msm-width: 185px;
+    --pedra-width: 76px;
+    --marcas-gap: -42px;
+    height: 65px;
+  }
+
+  .brandSwap.compact {
+    --msm-width: 172px;
+    --pedra-width: 72px;
+    --marcas-gap: -41px;
+    height: 59px;
+  }
+}
+
+@media (min-width: 768px) {
+  .brandSwap {
+    --msm-width: 196px;
+    --pedra-width: 80px;
+    --marcas-gap: -45px;
+    height: 69px;
+  }
+
+  .brandSwap.compact {
+    --msm-width: 184px;
+    --pedra-width: 76px;
+    --marcas-gap: -43px;
+    height: 63px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .msmLogo,
+  .pedraLogo,
+  .msmLogo::after,
+  .pedraLogo::after {
+    animation: none;
+    transform: none;
+    filter: none;
+  }
+
+  .msmLogo,
+  .pedraLogo {
+    opacity: 1;
+  }
+
+  .msmLogo::after,
+  .pedraLogo::after {
+    opacity: 0;
+  }
+}

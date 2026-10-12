@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Backups e scripts locais de manutencao
+*.bak
+*.bak-*
+*.backup
+*.backup-*
+/corrigir-carousel.cjs

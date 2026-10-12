@@ -1,3 +1,35 @@
+"use client";
+
+import type { FormEvent } from "react";
+
+const whatsappNumero = "5568999851248";
+
+function enviarPeloWhatsApp(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  const formulario = new FormData(event.currentTarget);
+  const nome = String(formulario.get("nome") ?? "").trim();
+  const telefone = String(formulario.get("telefone") ?? "").trim();
+  const email = String(formulario.get("email") ?? "").trim();
+  const assunto = String(formulario.get("assunto") ?? "").trim();
+  const mensagem = String(formulario.get("mensagem") ?? "").trim();
+
+  if (!nome || !telefone || !assunto || !mensagem) return;
+
+  const texto = [
+    "Olá! Gostaria de entrar em contato com a MSM Industrial / Pedra Norte.",
+    "",
+    `Nome: ${nome}`,
+    `Telefone: ${telefone}`,
+    ...(email ? [`E-mail: ${email}`] : []),
+    `Assunto: ${assunto}`,
+    `Mensagem: ${mensagem}`,
+  ].join("\n");
+
+  // O envio é confirmado pelo usuário dentro do WhatsApp.
+  window.location.assign(`https://wa.me/${whatsappNumero}?text=${encodeURIComponent(texto)}`);
+}
+
 export default function ContatoPage() {
   return (
     <main className="min-h-screen bg-white pt-32 text-slate-950">
@@ -37,7 +69,7 @@ export default function ContatoPage() {
                 </p>
 
                 <a
-                  href="https://wa.me/5568999999999"
+                  href="https://wa.me/5568999851248"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 inline-flex rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
@@ -48,8 +80,8 @@ export default function ContatoPage() {
 
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
                 {[
-                  ["Telefone", "(68) 99999-9999", "Atendimento em horário comercial."],
-                  ["E-mail", "contato@empresa.com.br", "Envie sua solicitação ou proposta comercial."],
+                  ["WhatsApp", "(68) 99985-1248", "Atendimento comercial pelo WhatsApp."],
+                  ["E-mail", "pedranorte@msmind.com.br", "Envie sua solicitação ou proposta comercial."],
                   ["Sede administrativa", "Rio Branco - Acre", "Atendimento administrativo e comercial."],
                   ["Atuação", "Região Norte", "Soluções para obras, engenharia e infraestrutura."],
                 ].map(([titulo, valor, descricao], index) => (
@@ -77,10 +109,10 @@ export default function ContatoPage() {
               </h2>
 
               <p className="mt-3 leading-7 text-slate-600">
-                Preencha os dados abaixo e nossa equipe entrará em contato.
+                Preencha os dados abaixo para preparar sua mensagem de atendimento pelo WhatsApp.
               </p>
 
-              <form className="mt-8 space-y-5">
+              <form onSubmit={enviarPeloWhatsApp} className="mt-8 space-y-5">
                 <div>
                   <label
                     htmlFor="nome"
@@ -90,6 +122,8 @@ export default function ContatoPage() {
                   </label>
                   <input
                     id="nome"
+                    name="nome"
+                    required
                     type="text"
                     placeholder="Digite seu nome"
                     className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
@@ -106,6 +140,8 @@ export default function ContatoPage() {
                     </label>
                     <input
                       id="telefone"
+                      name="telefone"
+                      required
                       type="text"
                       placeholder="(00) 00000-0000"
                       className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
@@ -121,6 +157,7 @@ export default function ContatoPage() {
                     </label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="seuemail@exemplo.com"
                       className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
@@ -137,17 +174,19 @@ export default function ContatoPage() {
                   </label>
                   <select
                     id="assunto"
+                    name="assunto"
+                    required
                     className="w-full rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
                     defaultValue=""
                   >
                     <option value="" disabled>
                       Selecione uma opção
                     </option>
-                    <option value="orcamento">Solicitar orçamento</option>
-                    <option value="produtos">Produtos e agregados</option>
-                    <option value="concreto">Concreto usinado</option>
-                    <option value="pavimentacao">Pavimentação</option>
-                    <option value="outro">Outro assunto</option>
+                    <option value="Solicitar orçamento">Solicitar orçamento</option>
+                    <option value="Produtos e agregados">Produtos e agregados</option>
+                    <option value="Concreto usinado">Concreto usinado</option>
+                    <option value="Pavimentação">Pavimentação</option>
+                    <option value="Outro assunto">Outro assunto</option>
                   </select>
                 </div>
 
@@ -160,6 +199,8 @@ export default function ContatoPage() {
                   </label>
                   <textarea
                     id="mensagem"
+                    name="mensagem"
+                    required
                     rows={6}
                     placeholder="Descreva sua solicitação..."
                     className="w-full resize-none rounded-xl border border-[#dbe5ff] bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#143987] focus:ring-4 focus:ring-[#eaf0ff]"
@@ -170,12 +211,12 @@ export default function ContatoPage() {
                   type="submit"
                   className="w-full rounded-xl bg-[#143987] px-6 py-3 font-bold text-white shadow-lg shadow-[#143987]/20 transition hover:-translate-y-0.5 hover:bg-[#0f2c6a]"
                 >
-                  Enviar mensagem
+                  Continuar pelo WhatsApp
                 </button>
 
                 <p className="text-center text-sm text-slate-500">
-                  No momento, este formulário é visual. Depois podemos conectar
-                  com e-mail, WhatsApp ou banco de dados.
+                  Ao continuar, o WhatsApp abrirá com a mensagem preenchida.
+                  Confira os dados e toque em enviar para concluir o contato.
                 </p>
               </form>
             </div>

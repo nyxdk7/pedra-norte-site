@@ -1,0 +1,69 @@
+.hero {
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+  --scroll-y: 0px;
+  background-color: #0c2450;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  inset: -4%;
+  background-image: url("/images/obras/hero-engenharia-rodoviaria.webp");
+  background-position: center 54%;
+  background-size: cover;
+  transform: translate3d(var(--mouse-x), calc(var(--mouse-y) + var(--scroll-y)), 0) scale(1.02);
+  transition: transform 450ms ease-out;
+  will-change: transform;
+}
+
+.blueOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(4, 20, 48, 0.90) 0%,
+    rgba(8, 31, 73, 0.76) 38%,
+    rgba(15, 57, 130, 0.32) 78%,
+    rgba(17, 61, 134, 0.27) 100%
+  );
+}
+
+.subtleShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 19, 43, .20), transparent 33%, rgba(6, 18, 41, .18));
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 999px;
+  background: #82ccff;
+}
+
+@media (max-width: 640px) {
+  .photo {
+    background-position: 60% center;
+  }
+
+  .blueOverlay {
+    background: linear-gradient(90deg, rgba(4, 20, 48, .91), rgba(8, 31, 73, .78) 65%, rgba(15, 57, 130, .48));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}

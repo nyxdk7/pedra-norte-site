@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Building2,
-  ChevronLeft,
-  ChevronRight,
   Factory,
   Hammer,
   LucideIcon,
@@ -276,98 +274,75 @@ const empresasCarousel = [
 
 function EmpresasCarousel() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const ajustandoScrollRef = useRef(false);
   const empresasLoop = [
     ...empresasCarousel,
     ...empresasCarousel,
     ...empresasCarousel,
   ];
 
-  function calcularLarguraBloco() {
-    const carousel = carouselRef.current;
-
-    if (!carousel) return 0;
-
-    const cards = Array.from(
-      carousel.querySelectorAll<HTMLElement>("[data-empresa-card]")
-    ).slice(0, empresasCarousel.length);
-
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-
-    return cards.reduce((total, card) => total + card.offsetWidth, 0) + gap * empresasCarousel.length;
-  }
-
-  function ajustarLoopInfinito() {
-    const carousel = carouselRef.current;
-
-    if (!carousel || ajustandoScrollRef.current) return;
-
-    const larguraBloco = calcularLarguraBloco();
-
-    if (!larguraBloco) return;
-
-    const limiteInicio = larguraBloco * 0.35;
-    const limiteFim = larguraBloco * 1.65;
-
-    if (carousel.scrollLeft < limiteInicio) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft += larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-
-    if (carousel.scrollLeft > limiteFim) {
-      ajustandoScrollRef.current = true;
-      carousel.scrollLeft -= larguraBloco;
-
-      window.requestAnimationFrame(() => {
-        ajustandoScrollRef.current = false;
-      });
-    }
-  }
-
-  function rolarCarousel(direcao: "esquerda" | "direita") {
-    const carousel = carouselRef.current;
-
-    if (!carousel) return;
-
-    const primeiroCard = carousel.querySelector<HTMLElement>(
-      "[data-empresa-card]"
-    );
-
-    const estilos = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(estilos.columnGap || estilos.gap || "20");
-    const larguraCard = primeiroCard?.offsetWidth ?? 320;
-    const distancia = larguraCard + gap;
-
-    carousel.scrollBy({
-      left: direcao === "esquerda" ? -distancia : distancia,
-      behavior: "smooth",
-    });
-  }
-
   useEffect(() => {
     const carousel = carouselRef.current;
-
     if (!carousel) return;
 
-    const posicionarNoMeio = () => {
-      const larguraBloco = calcularLarguraBloco();
+    // Tres copias permitem rolagem automatica continua sem saltos visiveis.
+    let larguraCiclo = 0;
+    let posicaoExata = 0;
+    let ultimoFrame = 0;
+    let frameId = 0;
 
-      if (!larguraBloco) return;
+    function medir() {
+      const cards = carousel!.querySelectorAll<HTMLElement>("[data-empresa-card]");
+      if (cards.length <= empresasCarousel.length) return;
 
-      carousel.scrollLeft = larguraBloco;
-    };
+      const novaLargura =
+        cards[empresasCarousel.length].offsetLeft - cards[0].offsetLeft;
+      if (novaLargura <= 0) return;
 
-    const frame = window.requestAnimationFrame(posicionarNoMeio);
-    window.addEventListener("resize", posicionarNoMeio);
+      if (larguraCiclo === 0) {
+        posicaoExata = novaLargura;
+      } else if (Math.abs(novaLargura - larguraCiclo) > 0.5) {
+        const progresso = (posicaoExata - larguraCiclo) / larguraCiclo;
+        posicaoExata = novaLargura * (1 + progresso);
+      } else {
+        return;
+      }
 
+      larguraCiclo = novaLargura;
+      carousel!.scrollLeft = posicaoExata;
+    }
+
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(carousel);
+    const primeiroCard = carousel.querySelector<HTMLElement>("[data-empresa-card]");
+    if (primeiroCard) observador.observe(primeiroCard);
+
+    function animar(tempo: number) {
+      const delta = ultimoFrame ? Math.min(tempo - ultimoFrame, 60) : 0;
+      ultimoFrame = tempo;
+
+      if (!larguraCiclo) medir();
+
+      if (larguraCiclo && !document.hidden) {
+        // Mantem os pixels fracionarios para uma passagem suave e ininterrupta.
+        posicaoExata += (delta / 1000) * 55; // 55 px/segundo
+
+        if (posicaoExata >= larguraCiclo * 2) {
+          posicaoExata -= larguraCiclo;
+        } else if (posicaoExata < larguraCiclo) {
+          posicaoExata += larguraCiclo;
+        }
+
+        carousel!.scrollLeft = posicaoExata;
+      }
+
+      frameId = window.requestAnimationFrame(animar);
+    }
+
+    frameId = window.requestAnimationFrame(animar);
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", posicionarNoMeio);
+      window.cancelAnimationFrame(frameId);
+      observador.disconnect();
     };
   }, []);
 
@@ -395,38 +370,19 @@ function EmpresasCarousel() {
             </p>
           </div>
 
-          <div className="flex gap-3">
-            <button
-              type="button"
-              aria-label="Ver empresas anteriores"
-              onClick={() => rolarCarousel("esquerda")}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
-            >
-              <ChevronLeft size={21} />
-            </button>
-
-            <button
-              type="button"
-              aria-label="Ver próximas empresas"
-              onClick={() => rolarCarousel("direita")}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#dbe5ff] bg-white text-[#0b3b91] shadow-sm transition hover:-translate-y-0.5 hover:border-[#8fb1ff] hover:shadow-md"
-            >
-              <ChevronRight size={21} />
-            </button>
-          </div>
         </div>
 
         <div className="relative mt-10">
           <div
             ref={carouselRef}
-            onScroll={ajustarLoopInfinito}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain scroll-smooth scroll-px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            aria-label="Empresas e parceiros do Grupo Soster em movimento automatico"
+            className="pointer-events-none flex touch-pan-y gap-5 overflow-x-hidden pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {empresasLoop.map((empresa, index) => (
               <article
                 key={empresa.nome + "-" + index}
                 data-empresa-card
-                className="group flex h-[315px] min-w-[280px] snap-start flex-col overflow-hidden rounded-[1.75rem] border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[325px] lg:min-w-[350px]"
+                className="group flex h-[315px] min-w-[280px] flex-col overflow-hidden rounded-[1.75rem] border border-[#dbe5ff] bg-white p-5 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#8fb1ff] hover:shadow-xl sm:min-w-[325px] lg:min-w-[350px]"
               >
                 <div className="flex h-28 shrink-0 items-center justify-center rounded-[1.35rem] bg-[#f7faff] p-6">
                   <Image
@@ -662,353 +618,119 @@ function GaleriaOperacoes() {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <section className="relative min-h-screen overflow-hidden pt-28">
+      <section className="relative overflow-hidden pt-24 md:pt-28">
         <Image
           src="/images/home/hero-obras-acre.png"
           alt="Obra de infraestrutura do Grupo Soster"
           fill
           priority
           quality={100}
+          sizes="100vw"
           className="object-cover"
         />
 
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-[#143987]/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
 
-        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-7rem)] max-w-7xl items-center px-6 py-20">
+        <div className="relative z-10 mx-auto flex min-h-[340px] max-w-7xl items-center px-6 py-12 md:min-h-[390px] md:py-14">
           <div className="max-w-4xl">
-            <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-              MSM Industrial / Pedra Norte
-            </span>
-
-            <h1 className="mt-6 max-w-5xl text-4xl font-bold tracking-tight text-white md:text-7xl">
+            <h1 className="max-w-5xl text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
               Engenharia, pavimentação, mineração e obras para grandes estruturas
-
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200 md:text-xl">
+            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-200 md:text-lg md:leading-8">
               O Grupo Soster reúne empresas especializadas em infraestrutura,
               pavimentação, mineração, concreto usinado, pré-moldados e locação
-              de máquinas, com atuação integrada para obras públicas e privadas
-              no Acre.
+              de máquinas, com atuação integrada para obras públicas e privadas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Nossa história */}
+      <section
+        aria-labelledby="nossa-historia"
+        className="relative overflow-hidden bg-[#f8fafc] px-6 py-20 md:py-28"
+      >
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-y-0 right-0 w-[62%] bg-[radial-gradient(circle_at_top_right,rgba(20,57,135,0.08),transparent_55%)]" />
+          <div className="absolute inset-y-0 right-0 hidden w-[62%] opacity-50 md:block [background-image:linear-gradient(rgba(20,57,135,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(20,57,135,0.06)_1px,transparent_1px)] [background-size:40px_40px]" />
+          <div className="absolute right-[-6%] top-10 hidden h-[420px] w-[420px] rounded-full border border-[#143987]/10 md:block" />
+          <div className="absolute right-[18%] top-20 hidden h-40 w-40 rounded-full border border-[#143987]/10 md:block" />
+          <div className="absolute right-[14%] bottom-16 hidden h-24 w-72 rounded-[28px] border border-[#143987]/10 md:block" />
+          <div className="absolute right-[10%] top-[24%] hidden h-px w-56 rotate-[-18deg] bg-[#143987]/10 md:block" />
+          <div className="absolute right-[8%] bottom-[26%] hidden h-px w-64 rotate-[12deg] bg-[#143987]/10 md:block" />
+          <div className="absolute right-[26%] top-[38%] hidden h-24 w-24 rounded-full border border-[#143987]/10 md:block" />
+        </div>
+
+        <div className="relative mx-auto max-w-4xl">
+          <div className="flex items-center gap-4">
+            <span className="h-12 w-[3px] rounded-full bg-[#143987] md:h-14" />
+            <h2
+              id="nossa-historia"
+              className="text-3xl font-bold uppercase tracking-[0.1em] text-[#0b3b91] md:text-4xl"
+            >
+              NOSSA HISTÓRIA
+            </h2>
+          </div>
+
+          <div className="mt-10 max-w-3xl space-y-6 text-[17px] leading-8 text-slate-700 md:text-lg md:leading-9">
+            <p>
+              Uma das maiores empresas de mineração da região amazônica, a Pedra
+              Norte nasceu da determinação e da força de vontade de uma família
+              catarinense que escolheu, há mais de 40 anos, o Acre para viver,
+              gerar empregos e contribuir com a economia local.
             </p>
 
-            <div className="mt-12 grid max-w-2xl gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                <strong className="block text-3xl font-bold text-white">
-                  +40
-                </strong>
-                <span className="mt-1 block text-sm text-slate-200">
-                  Anos de atuação
-                </span>
-              </div>
+            <p>
+              Inspirada pela visão de Waldomiro Soster, patriarca da família, a
+              empresa iniciou suas atividades em 1986, ainda sob outra proposta
+              de atuação, mas com o mesmo compromisso de fortalecer o
+              desenvolvimento do Acre.
+            </p>
 
-              <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                <Image
-                  src="/images/home/bandeira-acre.png"
-                  alt="Bandeira do Acre"
-                  fill
-                  quality={100}
-                  className="object-cover opacity-25"
-                />
+            <p>
+              Naquela primeira iniciativa já estava a origem do que hoje é a
+              Pedra Norte. Mais do que uma mineradora que fornece produtos, a
+              empresa agrega valor por meio de uma ampla gama de serviços, reúne
+              centenas de colaboradores e atende clientes de diferentes regiões
+              do país.
+            </p>
 
-                <div className="absolute inset-0 bg-slate-950/25" />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/45 via-slate-950/25 to-transparent" />
+            <p>
+              Com uma atuação diversificada, a Pedra Norte mantém sua unidade
+              de mineração em Rondônia e sua sede administrativa em Rio Branco,
+              capital do Acre.
+            </p>
 
-                <div className="relative z-10">
-                  <strong className="block text-3xl font-bold text-white">
-                    AC
-                  </strong>
-                  <span className="mt-1 block text-sm text-slate-100">
-                    Forte atuação regional
-                  </span>
-                </div>
-              </div>
-            </div>
+            <p>
+              Além da mineração, sua principal atividade, a empresa também
+              fornece produtos e insumos para a construção civil e a
+              infraestrutura, como concreto usinado, pó de brita e outros
+              materiais derivados de sua produção mineral.
+            </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/sobre"
-                className="rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-              >
-                Conheça o grupo
-              </Link>
-
-              <Link
-                href="/atuacoes"
-                className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
-              >
-                Ver áreas de atuação
-              </Link>
-            </div>
+            <p>
+              Conduzida por um grupo familiar tão sólido quanto sua trajetória,
+              a Pedra Norte conta em sua gestão com o idealizador Waldomiro
+              Soster, seus filhos e netos. Do patriarca, aos 72 anos, ao
+              integrante mais jovem, de 18, diferentes gerações participam da
+              continuidade dessa história.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Capacidade operacional */}
-      <section className="relative overflow-hidden bg-white px-6 py-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#eaf0ff,transparent_34%),radial-gradient(circle_at_bottom_right,#f8fbff,transparent_35%)]" />
-
-        <div className="mx-auto max-w-7xl">
-          <div className="overflow-hidden rounded-[2rem] border border-[#dbe5ff] bg-white shadow-sm shadow-[#dbe5ff]">
-            <div className="grid gap-8 border-b border-[#dbe5ff] bg-gradient-to-br from-white via-[#f8fbff] to-[#eaf0ff] p-8 md:p-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-              <div>
-                <span className="rounded-full border border-[#dbe5ff] bg-white px-4 py-2 text-sm font-semibold text-[#143987] shadow-sm">
-                  Capacidade operacional
-                </span>
-
-                <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
-                  Da extração à execução, uma estrutura completa para grandes
-                  obras.
-                </h2>
-              </div>
-
-              <div>
-                <p className="text-lg leading-8 text-slate-600">
-                  A MSM Industrial, Pedra Norte e empresas integradas do Grupo
-                  Soster conectam produção de insumos, frota pesada, equipe
-                  técnica e execução em campo para atender obras públicas e
-                  privadas com mais controle, agilidade e capacidade operacional.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {[
-                    "Insumos próprios",
-                    "Frota operacional",
-                    "Equipe técnica",
-                    "Execução em campo",
-                  ].map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-[#dbe5ff] bg-white px-4 py-2 text-sm font-bold text-[#143987] shadow-sm"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-5 p-5 md:grid-cols-2 md:p-6 lg:grid-cols-3">
-              {servicosPrincipais.map((servico, index) => {
-                const Icone = servico.icone;
-
-                return (
-                  <article
-                    key={servico.titulo}
-                    className="group relative min-h-[360px] overflow-hidden rounded-3xl border border-[#dbe5ff] bg-white p-6 shadow-sm shadow-[#dbe5ff] transition duration-300 hover:-translate-y-1 hover:border-[#143987]/30 hover:bg-[#143987] hover:shadow-xl hover:shadow-[#dbe5ff]"
-                  >
-                    <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#eaf0ff] transition duration-500 group-hover:bg-white/10" />
-
-                    <div className="absolute bottom-0 right-0 translate-x-8 translate-y-8 text-[#eaf0ff] opacity-60 transition duration-500 group-hover:text-white/10 group-hover:opacity-100">
-                      <Icone size={190} strokeWidth={1.1} />
-                    </div>
-
-                    <div className="relative z-10 flex h-full flex-col">
-                      <div className="flex items-start justify-between gap-5">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#143987] text-white shadow-lg shadow-[#143987]/20 transition duration-300 group-hover:bg-white group-hover:text-[#143987]">
-                          <Icone size={28} strokeWidth={2.2} />
-                        </div>
-
-                        <span className="text-5xl font-black text-[#eaf0ff] transition duration-300 group-hover:text-white/15">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-
-                      <div className="mt-8 flex flex-wrap gap-2">
-                        <span className="inline-flex w-fit rounded-full bg-[#eaf0ff] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:bg-white/15 group-hover:text-white">
-                          {servico.empresa}
-                        </span>
-
-                        <span className="inline-flex w-fit rounded-full border border-[#dbe5ff] bg-white px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-500 transition duration-300 group-hover:border-white/20 group-hover:bg-white/10 group-hover:text-white/80">
-                          {servico.detalhe}
-                        </span>
-                      </div>
-
-                      <h3 className="mt-5 text-2xl font-bold text-slate-950 transition duration-300 group-hover:text-white">
-                        {servico.titulo}
-                      </h3>
-
-                      <p className="mt-4 leading-7 text-slate-600 transition duration-300 group-hover:text-white/85">
-                        {servico.descricao}
-                      </p>
-
-                      <div className="mt-auto pt-7">
-                        <div className="rounded-2xl border border-[#dbe5ff] bg-slate-50 p-4 transition duration-300 group-hover:border-white/15 group-hover:bg-white/10">
-                          <p className="text-xs font-bold uppercase tracking-wide text-[#143987] transition duration-300 group-hover:text-white/70">
-                            Aplicação operacional
-                          </p>
-
-                          <p className="mt-1 text-sm font-semibold text-slate-700 transition duration-300 group-hover:text-white">
-                            {servico.operacional}
-                          </p>
-                        </div>
-
-                        <div className="mt-6 h-1 w-14 rounded-full bg-[#143987] transition-all duration-300 group-hover:w-24 group-hover:bg-white" />
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-
-            <div className="border-t border-[#dbe5ff] bg-[#143987] p-8 text-white md:p-10">
-              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-                <div>
-                  <span className="text-sm font-bold uppercase tracking-wide text-white/65">
-                    Estrutura integrada
-                  </span>
-
-                  <h3 className="mt-3 text-2xl font-bold md:text-3xl">
-                    Materiais, máquinas, equipe e execução trabalhando de forma
-                    conectada.
-                  </h3>
-
-                  <p className="mt-3 max-w-3xl leading-7 text-white/85">
-                    Do fornecimento de materiais à atuação em campo, o grupo
-                    conta com empresas, equipamentos e equipes que fortalecem a
-                    capacidade operacional em infraestrutura.
-                  </p>
-                </div>
-
-                <Link
-                  href="/estrutura"
-                  className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-                >
-                  Conhecer estrutura
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <GaleriaOperacoes />
-
-        {/* Grupo Soster */}
-        <EmpresasCarousel />
+      {/* Grupo Soster */}
+      <EmpresasCarousel />
 
 
 
 
 
-      {/* Pedra Norte em operação */}
-      <section className="bg-white px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative min-h-[560px] overflow-hidden rounded-[2rem] border border-[#dbe5ff] shadow-2xl shadow-[#dbe5ff]">
-            <Image
-              src="/images/home/grupo-estrutura.png"
-              alt="Escavadeira carregando caminhão na operação da Pedra Norte"
-              fill
-              quality={100}
-              className="object-cover transition duration-700 hover:scale-105"
-            />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
 
-            <div className="relative z-10 flex min-h-[560px] items-end px-6 py-8 md:items-center md:px-12 lg:px-16">
-              <div className="max-w-2xl">
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-                  Pedra Norte em operação
-                </span>
 
-                <h2 className="mt-6 text-3xl font-bold tracking-tight text-white md:text-5xl">
-                  Materiais pétros produzidos com estrutura própria para abastecer
-                  grandes obras.
-                </h2>
-
-                <p className="mt-5 text-lg leading-8 text-slate-200">
-                  Com operação de pedreira, máquinas pesadas e controle de
-                  produção, a Pedra Norte fornece materiais essenciais para
-                  pavimentação, drenagem, concreto e infraestrutura.
-                </p>
-
-                <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                  {[
-                    {
-                      titulo: "Britas e agregados",
-                      texto: "Produção mineral",
-                    },
-                    {
-                      titulo: "Apoio à pavimentação",
-                      texto: "Base para obras rodoviárias",
-                    },
-                    {
-                      titulo: "Fornecimento técnico",
-                      texto: "Materiais para infraestrutura",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.titulo}
-                      className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur"
-                    >
-                      <strong className="block text-lg font-bold">
-                        {item.titulo}
-                      </strong>
-
-                      <span className="mt-1 block text-sm text-slate-200">
-                        {item.texto}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  href="/atuacoes"
-                  className="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-                >
-                  Ver áreas de atuação
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section className="bg-white px-6 pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#143987] p-8 text-white shadow-2xl shadow-[#dbe5ff] md:p-12">
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-            <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#8fb1ff]/20 blur-3xl" />
-
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <span className="text-sm font-bold uppercase tracking-wide text-white/70">
-                  Atendimento institucional
-                </span>
-
-                <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
-                  Precisa de estrutura para sua obra?
-                </h2>
-
-                <p className="mt-4 max-w-3xl text-lg leading-8 text-white/85">
-                  Fale com o Grupo Soster e conheça as soluções da MSM
-                  Industrial, Pedra Norte e empresas integradas para
-                  infraestrutura, fornecimento de materiais e execução em campo.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link
-                  href="/contato"
-                  className="inline-flex justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#143987] shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-[#eaf0ff]"
-                >
-                  Fale conosco
-                </Link>
-
-                <Link
-                  href="/atuacoes"
-                  className="inline-flex justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
-                >
-                  Ver atuações
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

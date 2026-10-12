@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsappButton } from "@/components/WhatsappButton";
 import "./globals.css";
+import IntegrityPopup from "@/components/IntegrityPopup";
 
 export const metadata: Metadata = {
   title: {
@@ -77,6 +78,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <IntegrityPopup />
         <Header />
         {children}
         <Footer />

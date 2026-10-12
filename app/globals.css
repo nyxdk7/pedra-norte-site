@@ -262,24 +262,26 @@ html {
 }
 
 /* --- Official logo, cropped to its drawn area ---
-   The PNG (674×370) carries transparent padding; the mark occupies 528×195 from
-   (73, 76). The file is untouched: the box below only hides the empty margin.
+   The PNG (674×370) carries transparent padding; the mark occupies 529×196 from
+   (73, 76). The file is untouched: the box below only hides the empty margin
+   (overflow hidden also keeps the transparent margin from catching clicks).
    Size it with --logo-h (height of the drawn mark). */
 .brand-logo {
   position: relative;
   display: block;
   flex-shrink: 0;
+  overflow: hidden;
   height: var(--logo-h, 2rem);
-  width: calc(var(--logo-h, 2rem) * 2.7077);
+  width: calc(var(--logo-h, 2rem) * 2.699);
 }
 
 .brand-logo > img {
   position: absolute;
   max-width: none;
-  height: calc(var(--logo-h, 2rem) * 1.8974);
-  width: calc(var(--logo-h, 2rem) * 3.4564);
-  left: calc(var(--logo-h, 2rem) * -0.3744);
-  top: calc(var(--logo-h, 2rem) * -0.3897);
+  height: calc(var(--logo-h, 2rem) * 1.8878);
+  width: calc(var(--logo-h, 2rem) * 3.4388);
+  left: calc(var(--logo-h, 2rem) * -0.3724);
+  top: calc(var(--logo-h, 2rem) * -0.3878);
 }
 
 /* --- Floating header capsule --- */

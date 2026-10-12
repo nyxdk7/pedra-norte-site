@@ -25,10 +25,29 @@ export function Header() {
   const [sobreConteudo, setSobreConteudo] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const botaoMenuRef = useRef<HTMLButtonElement>(null);
+  const [rotaDoMenu, setRotaDoMenu] = useState(pathname);
+
+  // Any route change (menu link, back button) closes the menu.
+  if (rotaDoMenu !== pathname) {
+    setRotaDoMenu(pathname);
+    setMenuAberto(false);
+  }
 
   function fecharMenu() {
     setMenuAberto(false);
   }
+
+  useEffect(() => {
+    // The menu UI is hidden from 1280px up; close it so the page is not left inert.
+    const desktop = window.matchMedia("(min-width: 1280px)");
+
+    function fecharNoDesktop(event: MediaQueryListEvent) {
+      if (event.matches) setMenuAberto(false);
+    }
+
+    desktop.addEventListener("change", fecharNoDesktop);
+    return () => desktop.removeEventListener("change", fecharNoDesktop);
+  }, []);
 
   useEffect(() => {
     // Every page opens with a dark band (home hero or PageHero): stay frosted until it
@@ -182,7 +201,10 @@ export function Header() {
         type="button"
         aria-label="Fechar menu"
         tabIndex={-1}
-        onClick={fecharMenu}
+        onClick={() => {
+          fecharMenu();
+          botaoMenuRef.current?.focus();
+        }}
         className={`fixed inset-0 z-0 bg-ink-deep/50 transition-opacity duration-300 xl:hidden ${
           menuAberto ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}

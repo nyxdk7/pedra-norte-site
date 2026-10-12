@@ -38,7 +38,7 @@ export function HomeHero() {
         </h1>
 
         <div className="lg:mt-7">
-          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-lg leading-relaxed text-white/90 md:text-xl md:leading-[1.55]">
+          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-lg leading-relaxed text-white sm:text-white/90 md:text-xl md:leading-[1.55]">
             O Grupo Soster reúne empresas especializadas em infraestrutura,
             pavimentação, mineração, concreto usinado, pré-moldados e locação
             de máquinas, com atuação integrada para obras públicas e privadas

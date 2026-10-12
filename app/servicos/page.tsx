@@ -94,9 +94,10 @@ export default function ServicosPage() {
         variante="dividido"
         eyebrow="Serviços e produtos"
         title="Soluções em engenharia civil, concreto e pavimentação."
-        image="/images/atuacoes/edificacoes/edificacoes.png"
-        imageAlt="Caminhão betoneira e bomba de concreto abastecendo obra de edificação"
-        imagePosition="object-[62%_center]"
+        image="/images/galeria/home10.png"
+        imageAlt="Retroescavadeira com a caçamba carregada de massa asfáltica em obra de pavimentação"
+        imagePosition="object-[66%_center]"
+        imageSizes="(max-width: 1024px) 100vw, 160vh"
         description={
           <p>
             A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento
@@ -112,12 +113,17 @@ export default function ServicosPage() {
           <SectionHeading id="servicos-titulo" title="Serviços" />
 
           <ul className="mt-12 border-b border-border md:mt-16">
-            {servicos.map((servico) => (
+            {servicos.map((servico, indice) => (
               <li
                 key={servico.titulo}
-                className="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-5 gap-y-4 border-t border-border py-6 md:grid-cols-12 md:items-center md:gap-x-10 md:py-8"
+                className="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-5 gap-y-4 border-t border-border py-6 md:grid-cols-12 md:items-center md:gap-x-10 md:py-10"
               >
-                <div className="relative aspect-square overflow-hidden rounded-card bg-brita-100 md:col-span-3 md:max-w-[17rem]">
+                {/* Alternating sides; the photo never exceeds its 337px source */}
+                <div
+                  className={`relative aspect-square overflow-hidden rounded-card bg-brita-100 md:col-span-3 md:w-full md:max-w-[17rem] ${
+                    indice % 2 ? "md:order-3 md:col-start-10 md:justify-self-end" : ""
+                  }`}
+                >
                   <Image
                     src={servico.imagem}
                     alt={servico.titulo}
@@ -126,10 +132,14 @@ export default function ServicosPage() {
                     className="object-cover"
                   />
                 </div>
-                <h3 className="self-center text-xl font-bold leading-snug text-heading md:col-span-4 md:text-[1.75rem] md:leading-tight">
+                <h3
+                  className={`self-center text-xl font-bold leading-snug text-heading md:col-span-4 md:text-[1.75rem] md:leading-tight ${
+                    indice % 2 ? "md:order-1 md:col-start-1" : ""
+                  }`}
+                >
                   {servico.titulo}
                 </h3>
-                <div className="col-span-2 md:col-span-5">
+                <div className={`col-span-2 md:col-span-5 ${indice % 2 ? "md:order-2 md:col-start-5" : ""}`}>
                   <p className="font-serif text-lg leading-relaxed text-muted-strong">{servico.descricao}</p>
                   <Link href="/contato" className={`${linkAcao} mt-3`}>
                     Solicitar informações
@@ -139,6 +149,11 @@ export default function ServicosPage() {
               </li>
             ))}
           </ul>
+
+          <Link href="/obras" className={`${linkAcao} mt-8`}>
+            Ver obras e projetos
+            <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" aria-hidden="true" />
+          </Link>
         </Container>
       </section>
 

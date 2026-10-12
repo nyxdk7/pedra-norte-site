@@ -26,7 +26,11 @@ export default function ContatoPage() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <PageHero
-        variante="sereno"
+        variante="dividido"
+        image="/images/galeria/home12.jpeg"
+        imageAlt="Caminhão fora de estrada em estrada interna da pedreira"
+        imagePosition="object-[30%_center]"
+        imageSizes="(max-width: 1024px) 100vw, 120vh"
         eyebrow="Canais oficiais"
         title="Vamos conversar?"
         description={

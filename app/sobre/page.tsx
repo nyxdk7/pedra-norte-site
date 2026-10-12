@@ -31,7 +31,8 @@ export default function SobrePage() {
         title="Soluções em engenharia civil com compromisso, qualidade e responsabilidade."
         image="/images/home/hero-obras-acre.png"
         imageAlt="Escavadeira e equipe em obra de infraestrutura do Grupo Soster"
-        imagePosition="object-[58%_center]"
+        imagePosition="object-[30%_center]"
+        imageSizes="(max-width: 1024px) 100vw, 150vh"
         description={
           <p>
             A MSM Industrial LTDA atua no setor de engenharia civil oferecendo
@@ -85,8 +86,11 @@ export default function SobrePage() {
       </section>
 
       {/* Commitment, scope and values as a ruled triptych on stone */}
-      <section aria-label="Compromisso, atuação e valores" className="bg-brita-100 py-16 md:py-24">
+      <section aria-labelledby="pilares-titulo" className="bg-brita-100 py-16 md:py-24">
         <Container>
+          <h2 id="pilares-titulo" className="sr-only">
+            Compromisso, atuação e valores
+          </h2>
           <ul className="grid gap-x-10 md:grid-cols-3">
             {pilares.map((pilar) => (
               <li key={pilar.rotulo} className="border-t-2 border-ink py-8 md:py-10">

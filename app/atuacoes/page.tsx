@@ -77,9 +77,13 @@ const atuacoes = [
   },
 ];
 
-function idDaAtuacao(titulo: string) {
+function slugDaAtuacao(titulo: string) {
   const semAcentos = titulo.normalize("NFD").replace(/\p{Diacritic}/gu, "");
-  return "atuacao-" + semAcentos.replace(/[^a-zA-Z]+/g, "-").toLowerCase();
+  return semAcentos.replace(/[^a-zA-Z]+/g, "-").toLowerCase();
+}
+
+function idDaAtuacao(titulo: string) {
+  return "atuacao-" + slugDaAtuacao(titulo);
 }
 
 export default function AtuacoesPage() {
@@ -159,7 +163,24 @@ export default function AtuacoesPage() {
             </ButtonLink>
           </>
         }
-      />
+      >
+        {/* Page-specific base strip: an index that jumps to each front below */}
+        <nav aria-label="Frentes de atuação" className="mt-12 hidden max-w-[52rem] border-t border-white/25 md:block">
+          <ul className="grid grid-cols-2 md:grid-cols-4">
+            {atuacoes.map((atuacao) => (
+              <li key={atuacao.titulo}>
+                <a
+                  href={`#frente-${slugDaAtuacao(atuacao.titulo)}`}
+                  className="group flex min-h-12 items-center gap-2 py-3 pr-4 text-[0.9375rem] font-semibold text-white"
+                >
+                  <span aria-hidden="true" className="h-px w-4 bg-accent transition-[width] duration-200 group-hover:w-6" />
+                  {atuacao.titulo}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </PageHero>
 
       <section aria-labelledby="frentes-titulo" className="py-20 md:py-28">
         <Container>
@@ -193,6 +214,7 @@ export default function AtuacoesPage() {
               return (
                 <article
                   key={atuacao.titulo}
+                  id={`frente-${slugDaAtuacao(atuacao.titulo)}`}
                   className="grid gap-8 border-t border-border pt-10 md:grid-cols-12 md:items-center md:gap-8 md:border-t-0 md:pt-0 lg:gap-10"
                 >
                   <button

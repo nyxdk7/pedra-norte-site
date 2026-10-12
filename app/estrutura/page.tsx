@@ -19,34 +19,39 @@ const recursos = [
 // Real photographs of the group's equipment and facilities (DNA: immersive, photo-led).
 const fotos = [
   {
-    src: "/images/galeria/home11.jpeg",
-    alt: "Carregadeira diante da planta de britagem",
+    src: "/images/atuacoes/extracao-minerios/pedreira (3).jpeg",
+    alt: "Correias transportadoras e estruturas da planta de britagem",
     classe: "aspect-[4/3] md:col-span-7 md:row-span-2 md:aspect-auto",
     sizes: "(max-width: 768px) 100vw, 58vw",
+    posicao: "object-center",
   },
   {
     src: "/images/atuacoes/pre-moldados/pre-moldados2.png",
     alt: "Pátio de peças pré-moldadas de concreto com tubos de drenagem",
     classe: "aspect-[16/10] md:col-span-5",
     sizes: "(max-width: 768px) 100vw, 42vw",
+    posicao: "object-center",
   },
   {
     src: "/images/atuacoes/edificacoes/edificacoes3.png",
     alt: "Caminhão betoneira e bomba de concreto em obra de edificação",
     classe: "aspect-[16/10] md:col-span-5",
     sizes: "(max-width: 768px) 100vw, 42vw",
+    posicao: "object-center",
   },
   {
     src: "/images/galeria/home14.jpeg",
     alt: "Vista da planta de britagem com correias transportadoras e pilhas de agregado",
     classe: "aspect-[16/9] md:col-span-8",
     sizes: "(max-width: 768px) 100vw, 66vw",
+    posicao: "object-center",
   },
   {
     src: "/images/galeria/home2.png",
-    alt: "Caminhão-pipa e motoniveladora em obra de terraplenagem",
+    alt: "Caminhão-pipa ligado por mangueira a uma recicladora de solo, com rolo compactador ao fundo",
     classe: "aspect-[4/3] md:col-span-4 md:aspect-auto",
     sizes: "(max-width: 768px) 100vw, 34vw",
+    posicao: "object-[45%_80%]",
   },
 ];
 
@@ -56,10 +61,10 @@ export default function EstruturaPage() {
       <PageHero
         eyebrow="Estrutura operacional"
         title="Capacidade própria para produzir, transportar, manter e executar."
-        image="/images/atuacoes/extracao-minerios/pedreira (3).jpeg"
-        imageAlt="Correias transportadoras e estruturas da pedreira"
-        imagePosition="object-[60%_center]"
-        legenda="Correias transportadoras e estruturas da pedreira"
+        image="/images/atuacoes/extracao-minerios/pedreira (7).jpeg"
+        imageAlt="Pá carregadeira diante da planta de britagem"
+        imagePosition="object-[45%_center]"
+        legenda="Pá carregadeira diante da planta de britagem"
         description={
           <p>
             A estrutura do grupo conecta frota, máquinas, produção de
@@ -114,7 +119,7 @@ export default function EstruturaPage() {
           <ul className="grid gap-4 md:grid-cols-12 md:gap-5">
             {fotos.map((foto) => (
               <li key={foto.src} className={`relative overflow-hidden rounded-card bg-ink/10 ${foto.classe}`}>
-                <Image src={foto.src} alt={foto.alt} fill sizes={foto.sizes} className="object-cover" />
+                <Image src={foto.src} alt={foto.alt} fill sizes={foto.sizes} className={`object-cover ${foto.posicao}`} />
               </li>
             ))}
           </ul>

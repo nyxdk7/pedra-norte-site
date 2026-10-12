@@ -65,12 +65,15 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-[var(--header-h)] border-b bg-white/95 backdrop-blur-xl transition-[box-shadow,border-color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 h-[var(--header-h)] border-b transition-[box-shadow,border-color] duration-300 ${
         rolouPagina || menuAberto
           ? "border-border shadow-brand-soft"
           : "border-transparent"
       }`}
     >
+      {/* Blur lives on a child layer: backdrop-filter on <header> itself would make it the
+          containing block of the fixed menu backdrop below and collapse it to 0px. */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/95 backdrop-blur-xl" />
       <div className="container-msm relative z-20 flex h-full items-center justify-between gap-6">
         <Link
           href="/"

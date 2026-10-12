@@ -85,7 +85,7 @@ const produtos = [
 ];
 
 const linkCartao =
-  "mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-brand transition-colors hover:text-brand-hover";
+  "mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-3 text-sm font-semibold text-brand transition-colors hover:text-brand-hover";
 
 export default function ServicosPage() {
   return (

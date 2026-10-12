@@ -9,6 +9,7 @@ const STORAGE_KEY = "msm-integrity-popup-seen";
 export default function IntegrityPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const popupSeen = sessionStorage.getItem(STORAGE_KEY);
@@ -26,19 +27,41 @@ export default function IntegrityPopup() {
   }
 
   useEffect(() => {
-    function handleEscape(event: KeyboardEvent) {
+    if (!isOpen) return;
+
+    // Remember where focus was so it can be restored when the dialog closes.
+    const previousFocus = document.activeElement as HTMLElement | null;
+
+    function handleKeydown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         closePopup();
+        return;
+      }
+
+      // aria-modal="true": keep Tab / Shift+Tab cycling inside the dialog.
+      if (event.key === "Tab" && dialogRef.current) {
+        const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])'
+        );
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     }
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      closeRef.current?.focus(); // move focus into the dialog on open
-    }
+    document.addEventListener("keydown", handleKeydown);
+    closeRef.current?.focus(); // move focus into the dialog on open
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("keydown", handleKeydown);
+      previousFocus?.focus?.();
     };
   }, [isOpen]);
 
@@ -56,6 +79,7 @@ export default function IntegrityPopup() {
         onClick={closePopup}
       />
       <section
+        ref={dialogRef}
         className={styles.popup}
         role="dialog"
         aria-modal="true"

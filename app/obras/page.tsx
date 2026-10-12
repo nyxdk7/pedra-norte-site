@@ -92,10 +92,9 @@ export default function ObrasPage() {
       >
         <dl className="mt-12 grid grid-cols-2 gap-y-6 border-t border-white/20 pt-6 md:grid-cols-4">
           {indicadores.map(([numero, texto]) => (
-            <div key={texto} className="pr-4">
-              <dt className="sr-only">{texto}</dt>
+            <div key={texto} className="flex flex-col-reverse pr-4">
+              <dt className="mt-1 text-sm text-on-dark-muted">{texto}</dt>
               <dd className="font-display text-3xl font-bold md:text-4xl">{numero}</dd>
-              <dd className="mt-1 text-sm text-on-dark-muted">{texto}</dd>
             </div>
           ))}
         </dl>

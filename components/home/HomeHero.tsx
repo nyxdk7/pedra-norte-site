@@ -28,19 +28,19 @@ export function HomeHero() {
 
           <h1
             id="hero-titulo"
-            className="animate-fade-up delay-1 mt-5 text-[2.5rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
+            className="animate-fade-up anim-delay-1 mt-5 text-[2.5rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
           >
             Engenharia, pavimentação, mineração e obras para grandes estruturas
           </h1>
 
-          <p className="animate-fade-up delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-on-dark-muted md:text-xl">
+          <p className="animate-fade-up anim-delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-white md:text-xl">
             O Grupo Soster reúne empresas especializadas em infraestrutura,
             pavimentação, mineração, concreto usinado, pré-moldados e locação
             de máquinas, com atuação integrada para obras públicas e privadas
             no Acre.
           </p>
 
-          <div className="animate-fade-up delay-3 mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="animate-fade-up anim-delay-3 mt-8 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/sobre" variant="light" size="lg">
               Conheça o grupo
             </ButtonLink>
@@ -53,8 +53,8 @@ export function HomeHero() {
 
       {/* Spec strip: the group's credentials as a ruled data row */}
       <Container className="pb-6 md:pb-8">
-        <div aria-hidden="true" className="animate-rule-grow delay-4 h-px bg-white/25" />
-        <dl className="animate-fade-up delay-4 grid grid-cols-2 gap-6 pt-5 sm:max-w-xl">
+        <div aria-hidden="true" className="animate-rule-grow anim-delay-4 h-px bg-white/25" />
+        <dl className="animate-fade-up anim-delay-4 grid grid-cols-2 gap-6 pt-5 sm:max-w-xl">
           <div>
             <dt className="sr-only">Tempo de atuação</dt>
             <dd className="font-display text-3xl font-bold md:text-4xl">+40</dd>
@@ -69,8 +69,7 @@ export function HomeHero() {
                 alt="Bandeira do Acre"
                 width={42}
                 height={28}
-                style={{ width: "auto" }}
-                className="h-6 rounded-[3px] object-cover ring-1 ring-white/30 md:h-7"
+                className="h-6 w-9 rounded-[3px] object-cover ring-1 ring-white/30 md:h-7 md:w-[2.625rem]"
               />
             </dd>
             <dd className="mt-1 text-sm text-on-dark-muted">Forte atuação regional</dd>

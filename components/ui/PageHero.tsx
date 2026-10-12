@@ -51,7 +51,13 @@ export function PageHero({
           {eyebrow ? <Eyebrow onDark>{eyebrow}</Eyebrow> : null}
           <h1 className="mt-5 text-4xl font-bold leading-[1.08] md:text-[3.5rem]">{title}</h1>
           {description ? (
-            <div className="mt-6 max-w-2xl text-lg leading-relaxed text-on-dark-muted">{description}</div>
+            <div
+              className={`mt-6 max-w-2xl text-lg leading-relaxed ${
+                image ? "text-white" : "text-on-dark-muted"
+              }`}
+            >
+              {description}
+            </div>
           ) : null}
           {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row">{actions}</div> : null}
         </div>

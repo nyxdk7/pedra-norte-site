@@ -220,7 +220,7 @@ export default function AtuacoesPage() {
                       <div aria-hidden="true" className="scrim-bottom absolute inset-0" />
 
                       <div aria-hidden="true" className="absolute inset-x-6 bottom-6">
-                        <p className="text-sm font-semibold text-on-dark-muted">
+                        <p className="text-sm font-semibold text-white">
                           {atuacao.subtitulo}
                         </p>
                         <p className="mt-1 font-display text-3xl font-bold tracking-tight text-white md:text-4xl">

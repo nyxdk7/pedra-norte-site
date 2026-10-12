@@ -59,6 +59,17 @@ export function Credibilidade() {
             ))}
           </ul>
         </div>
+
+        {/* Below lg the side column is hidden; keep its way into the projects page. */}
+        <div className="pb-8 lg:hidden">
+          <Link
+            href="/obras"
+            className="group inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand"
+          >
+            Ver obras e projetos
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+          </Link>
+        </div>
       </Container>
     </section>
   );

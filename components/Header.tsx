@@ -23,6 +23,7 @@ export function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
   // "media" while the capsule floats over the dark opening band, "solid" over content.
   const [sobreConteudo, setSobreConteudo] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const botaoMenuRef = useRef<HTMLButtonElement>(null);
 
   function fecharMenu() {
@@ -30,23 +31,46 @@ export function Header() {
   }
 
   useEffect(() => {
+    // Every page opens with a dark band (home hero or PageHero): stay frosted until it
+    // scrolls away. Its height is measured on resize only, never inside the scroll handler.
+    const abertura = document.querySelector<HTMLElement>("main > section:first-of-type");
+    let limite = 8;
+
     function verificarScroll() {
-      // Every page opens with a dark band (home hero or PageHero): stay frosted until it scrolls away.
-      const abertura = document.querySelector<HTMLElement>("main > section:first-of-type");
-      const limite = abertura ? abertura.offsetHeight - 88 : 8;
-      setSobreConteudo(window.scrollY > Math.max(limite, 8));
+      setSobreConteudo(window.scrollY > limite);
     }
 
-    verificarScroll();
+    function medirAbertura() {
+      limite = Math.max(abertura ? abertura.offsetHeight - 88 : 8, 8);
+      verificarScroll();
+    }
+
+    const observador = abertura ? new ResizeObserver(medirAbertura) : null;
+    if (abertura) observador?.observe(abertura);
+    medirAbertura();
 
     window.addEventListener("scroll", verificarScroll, { passive: true });
-    window.addEventListener("resize", verificarScroll);
 
     return () => {
+      observador?.disconnect();
       window.removeEventListener("scroll", verificarScroll);
-      window.removeEventListener("resize", verificarScroll);
     };
   }, [pathname]);
+
+  useEffect(() => {
+    if (!menuAberto) return;
+
+    // While the menu is open, everything outside the header is inert: focus cannot
+    // wander into the page hidden behind the backdrop.
+    const foraDoHeader = Array.from(document.body.children).filter(
+      (elemento) => elemento !== headerRef.current
+    );
+    foraDoHeader.forEach((elemento) => elemento.setAttribute("inert", ""));
+
+    return () => {
+      foraDoHeader.forEach((elemento) => elemento.removeAttribute("inert"));
+    };
+  }, [menuAberto]);
 
   useEffect(() => {
     document.body.style.overflow = menuAberto ? "hidden" : "";
@@ -73,11 +97,13 @@ export function Header() {
   const solido = sobreConteudo || menuAberto;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-2 md:pt-3">
+    // The header box itself lets clicks through; only the capsule, the open menu and its
+    // backdrop take pointer events.
+    <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-2 md:pt-3">
       <div className="container-msm relative z-20">
         <div
           data-tone={solido ? "solid" : "media"}
-          className="header-capsule relative -mx-2 flex h-14 items-center justify-between gap-3 rounded-full border p-1.5 md:-mx-3 md:h-16 md:p-2"
+          className="header-capsule pointer-events-auto relative -mx-2 flex h-14 items-center justify-between gap-3 rounded-full border p-1.5 md:-mx-3 md:h-[4.25rem] md:p-2"
         >
           {/* Blur lives on a child layer: backdrop-filter on an ancestor would become the
               containing block of the fixed menu backdrop below and collapse it. */}
@@ -87,9 +113,9 @@ export function Header() {
             href="/"
             onClick={fecharMenu}
             aria-label="MSM Industrial, página inicial"
-            className="flex h-full shrink-0 items-center rounded-full bg-white px-4 md:px-5"
+            className="focus-media flex h-full shrink-0 items-center rounded-full bg-white px-4 md:px-5"
           >
-            <BrandLogo priority className="[--logo-h:1.875rem] md:[--logo-h:2.25rem]" />
+            <BrandLogo priority className="[--logo-h:2rem] md:[--logo-h:2.5rem]" />
           </Link>
 
           <nav className="hidden xl:block" aria-label="Navegação principal">
@@ -127,7 +153,7 @@ export function Header() {
                 href="/contato"
                 onClick={fecharMenu}
                 aria-current={pathname.startsWith("/contato") ? "page" : undefined}
-                className={buttonClasses("signal", "md", "h-full px-6")}
+                className={buttonClasses("signal", "md", "focus-media h-full px-6")}
               >
                 Fale conosco
               </Link>
@@ -140,7 +166,7 @@ export function Header() {
               aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuAberto}
               aria-controls="menu-mobile"
-              className="grid aspect-square h-full place-items-center rounded-full bg-white text-ink transition-colors hover:bg-brita-100 xl:hidden"
+              className="focus-media grid aspect-square h-full place-items-center rounded-full bg-white text-ink transition-colors hover:bg-brita-100 xl:hidden"
             >
               {menuAberto ? (
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -164,8 +190,10 @@ export function Header() {
 
       <div
         id="menu-mobile"
-        className={`container-msm relative z-10 mt-2 transition-[opacity,transform,visibility] duration-300 xl:hidden ${
-          menuAberto ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
+        className={`container-msm absolute inset-x-0 top-full z-10 mt-2 transition-[opacity,transform,visibility] duration-300 xl:hidden ${
+          menuAberto
+            ? "pointer-events-auto visible translate-y-0 opacity-100"
+            : "invisible -translate-y-2 opacity-0"
         }`}
       >
         <nav

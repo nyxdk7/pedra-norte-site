@@ -29,16 +29,16 @@ export function HomeHero() {
 
       {/* Phones: headline on the sky, lead + actions on the toned base. Tablets: one block
           on the base, leaving the structure clear above. Desktop: block on the left third. */}
-      <div className="container-msm flex flex-1 flex-col justify-between gap-12 pb-10 pt-[calc(var(--header-h)+2.5rem)] sm:justify-end sm:gap-7 md:pb-14 lg:justify-center lg:gap-0 lg:pb-20 lg:pt-[calc(var(--header-h)+3rem)]">
+      <div className="hero-content container-msm flex flex-1 flex-col justify-between gap-12 pb-10 pt-[calc(var(--header-h)+2.5rem)] sm:justify-end sm:gap-7 md:pb-14 lg:justify-center lg:gap-0 lg:pb-20 lg:pt-[calc(var(--header-h)+3rem)]">
         <h1
           id="hero-titulo"
-          className="animate-fade-up max-w-[40rem] text-[2.5rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-[3.5rem] lg:max-w-[47rem] lg:text-[3.75rem] xl:text-[4rem]"
+          className="hero-title animate-fade-up max-w-[40rem] text-[2.25rem] font-bold leading-[1.02] tracking-[-0.03em] min-[390px]:text-[2.5rem] sm:text-[3.5rem] lg:max-w-[44rem]"
         >
           Engenharia, pavimentação, mineração e obras para grandes estruturas
         </h1>
 
         <div className="lg:mt-7">
-          <p className="animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-lg leading-relaxed text-white/90 md:text-xl md:leading-[1.55]">
+          <p className="hero-lead animate-fade-up anim-delay-1 max-w-[34rem] font-serif text-lg leading-relaxed text-white/90 md:text-xl md:leading-[1.55]">
             O Grupo Soster reúne empresas especializadas em infraestrutura,
             pavimentação, mineração, concreto usinado, pré-moldados e locação
             de máquinas, com atuação integrada para obras públicas e privadas
@@ -67,7 +67,7 @@ export function HomeHero() {
           >
             <span className="block px-4 pb-3 pt-3.5">
               <span className="flex items-start justify-between gap-3">
-                <span className="text-base font-bold leading-tight">Pedra Norte</span>
+                <span className="text-base font-bold leading-tight">Extração de minérios</span>
                 <ArrowUpRight
                   className="h-4 w-4 shrink-0 text-steel transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
                   aria-hidden="true"

@@ -1,7 +1,56 @@
 import Image from "next/image";
+import { HeroObras } from "@/components/obras/HeroObras";
+import type { FrenteDaRoda } from "@/components/obras/RodaObras";
 import { ButtonLink } from "@/components/ui/Button";
-import { PageHero } from "@/components/ui/PageHero";
 import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
+
+// Rotor blades, clockwise from the top. Names and categories come from the fronts below.
+const frentesDaRoda: FrenteDaRoda[] = [
+  {
+    titulo: "Pavimentação asfáltica",
+    categoria: "Infraestrutura urbana",
+    foto: "/images/atuacoes/pavimentacao/pavimentacao3.jpg",
+    alt: "Equipe e vibroacabadora aplicando asfalto em via urbana",
+    alternativa: "/images/galeria/operacao-9.png",
+  },
+  {
+    titulo: "Fornecimento de agregados",
+    categoria: "Infraestrutura urbana",
+    foto: "/images/atuacoes/extracao-minerios/pedreira (2).jpeg",
+    alt: "Caminhão basculante com identificação MSM em frente de obra",
+    posicao: "object-[60%_50%]",
+    alternativa: "/images/atuacoes/extracao-minerios/pedreira (6).jpeg",
+  },
+  {
+    titulo: "Concreto usinado",
+    categoria: "Soluções para obras",
+    foto: "/images/atuacoes/edificacoes/edificacoes4.png",
+    alt: "Caminhão betoneira descarregando concreto em obra de edificação",
+    posicao: "object-[40%_50%]",
+    alternativa: "/images/atuacoes/edificacoes/edificacoes3.png",
+  },
+  {
+    titulo: "Infraestrutura",
+    categoria: "Setor público",
+    foto: "/images/galeria/operacao-18.png",
+    alt: "Escavadeira executando contenção com pedras às margens de rodovia",
+    alternativa: "/images/galeria/operacao-12.png",
+  },
+  {
+    titulo: "Base e sub-base",
+    categoria: "Infraestrutura urbana",
+    foto: "/images/galeria/home5.png",
+    alt: "Rolos compactadores preparando a base de uma estrada",
+    alternativa: "/images/galeria/operacao-6.png",
+  },
+  {
+    titulo: "Desenvolvimento regional",
+    categoria: "Setor público",
+    foto: "/images/galeria/operacao-14.png",
+    alt: "Pá carregadeira e equipe em obra de rodovia sinalizada",
+    alternativa: "/images/galeria/operacao-17.png",
+  },
+];
 
 const obras = [
   {
@@ -78,13 +127,10 @@ const frentes = [
 export default function ObrasPage() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
-      <PageHero
+      <HeroObras
         eyebrow="Obras e projetos"
         title="Presença em obras que movimentam o desenvolvimento da região."
-        image="/images/atuacoes/extracao-minerios/pedreira (2).jpeg"
-        imageAlt="Caminhão basculante com identificação MSM em frente de obra"
-        imagePosition="object-[68%_40%]"
-        legenda="Caminhão basculante com identificação MSM"
+        frentes={frentesDaRoda}
         description={
           <p>
             A MSM Industrial LTDA participa de projetos de infraestrutura,
@@ -93,15 +139,15 @@ export default function ObrasPage() {
           </p>
         }
       >
-        <dl className="mt-12 grid max-w-[52rem] grid-cols-2 gap-y-6 border-t border-white/25 pt-6 md:grid-cols-4">
+        <dl className="mt-10 grid max-w-[34rem] grid-cols-2 gap-y-6 border-t border-white/20 pt-6 sm:grid-cols-4 lg:mt-12 lg:grid-cols-2 xl:grid-cols-4">
           {indicadores.map(([numero, texto]) => (
             <div key={texto} className="flex flex-col-reverse pr-4">
               <dt className="mt-2 text-sm font-semibold text-on-dark-muted">{texto}</dt>
-              <dd className="font-serif text-[2rem] leading-none tracking-[-0.02em] tabular-nums md:text-[2.5rem]">{numero}</dd>
+              <dd className="font-serif text-[2rem] leading-none tracking-[-0.02em] tabular-nums md:text-[2.25rem] xl:text-[1.875rem] min-[1440px]:text-[2.25rem]">{numero}</dd>
             </div>
           ))}
         </dl>
-      </PageHero>
+      </HeroObras>
 
       {/* Case-study index: category, scope and deliverables on one ruled row each */}
       <section aria-labelledby="areas-titulo" className="py-20 md:py-28">

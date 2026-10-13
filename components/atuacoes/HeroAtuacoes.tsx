@@ -33,7 +33,7 @@ export function HeroAtuacoes({
   return (
     // The dark band behind the glass header is only the top of the photographs: the
     // header turns solid as soon as the page scrolls (data-header-limite, in px).
-    <section aria-labelledby="atuacoes-titulo" data-header-limite="24" className="relative overflow-hidden bg-background">
+    <section aria-labelledby="atuacoes-titulo" data-header-limite="8" className="relative overflow-hidden bg-background">
       <nav aria-label="Frentes de atuação" className="atu-area">
         <ul className="atu-paineis">
           {frentes.map((frente) => (

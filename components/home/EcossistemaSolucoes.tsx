@@ -179,7 +179,7 @@ export function EcossistemaSolucoes() {
                       {solucao.titulo}
                     </Link>
                   ) : (
-                    <span className={classe}>
+                    <span className={classe.replace("anel-duplo group ", "")}>
                       <Selo Icone={Icone} />
                       {solucao.titulo}
                     </span>

@@ -1,4 +1,4 @@
-const whatsappNumber = "556899851248";
+const whatsappNumber = "5568999851248";
 const whatsappMessage = encodeURIComponent(
   "Olá! Gostaria de falar com a equipe da MSM Industrial.",
 );

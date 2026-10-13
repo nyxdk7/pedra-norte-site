@@ -8,6 +8,8 @@ export type Poster = {
   /** Heavy line first (a large word over a small ochre line). */
   forteAntes?: boolean;
   alinhamento: "esquerda" | "centro" | "direita";
+  /** Headline at the base (default) or right under the chip row. */
+  posicao?: "base" | "topo";
   /** Glass chip at the top: the front's category, or the front a detail belongs to. */
   rotulo: string;
   descricao?: string;
@@ -27,14 +29,20 @@ export function PosterObra({ poster }: { poster: Poster }) {
   const linhaForte = <span className="poster-forte">{poster.forte}</span>;
 
   return (
-    <article className="poster" data-alinhamento={poster.alinhamento} data-forte-antes={poster.forteAntes || undefined}>
+    <article
+      className="poster"
+      data-alinhamento={poster.alinhamento}
+      data-posicao={poster.posicao ?? "base"}
+      data-forte-antes={poster.forteAntes || undefined}
+    >
       <div className="poster-foto">
         <Image
           src={poster.foto}
           alt={poster.alt}
           fill
-          // Portrait boxes crop landscape photographs by height: they need ~1.7x the box width.
-          sizes="(max-width: 767px) 170vw, (max-width: 1023px) 85vw, 58vw"
+          // Portrait boxes crop landscape photographs (up to ~2:1) by height: the drawn
+          // width is ~2.4x the box width.
+          sizes="(max-width: 767px) 235vw, (max-width: 1023px) 115vw, 72vw"
           className={`object-cover ${poster.enquadramento ?? "object-center"}`}
         />
       </div>
@@ -43,7 +51,7 @@ export function PosterObra({ poster }: { poster: Poster }) {
       <div className="poster-topo">
         <p className="poster-chip">{poster.rotulo}</p>
         <span aria-hidden="true">
-          <BrandLogo tom="claro" className="[--logo-h:1.05rem]" />
+          <BrandLogo tom="claro" className="[--logo-h:1.4rem]" />
         </span>
       </div>
 

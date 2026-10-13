@@ -117,7 +117,7 @@ const posteres: Poster[] = [
   {
     acento: "Apoio a",
     forte: "obras públicas",
-    alinhamento: "esquerda",
+    alinhamento: "centro",
     rotulo: publicas.categoria,
     descricao: publicas.descricao,
     detalhes: publicas.detalhes,
@@ -128,7 +128,7 @@ const posteres: Poster[] = [
   {
     acento: "Pavimentação",
     forte: "asfáltica",
-    alinhamento: "centro",
+    alinhamento: "direita",
     rotulo: pavimentacao.titulo,
     foto: "/images/atuacoes/pavimentacao/pavimentacao4.jpg",
     alt: "Rolo compactador sobre asfalto novo em via",
@@ -138,7 +138,8 @@ const posteres: Poster[] = [
     acento: "rachão",
     forte: "Pedra",
     forteAntes: true,
-    alinhamento: "direita",
+    alinhamento: "esquerda",
+    posicao: "topo",
     rotulo: construcao.titulo,
     foto: "/images/atuacoes/extracao-minerios/pedreira (9).jpeg",
     alt: "Escavadeira entre blocos de rocha em pedreira",
@@ -147,7 +148,7 @@ const posteres: Poster[] = [
   {
     acento: "Entrega",
     forte: "programada",
-    alinhamento: "esquerda",
+    alinhamento: "direita",
     rotulo: concreto.titulo,
     foto: "/images/atuacoes/edificacoes/edificacoes.png",
     alt: "Bomba de concreto e caminhão betoneira em obra de edificação",
@@ -156,7 +157,7 @@ const posteres: Poster[] = [
   {
     acento: "Base e",
     forte: "sub-base",
-    alinhamento: "centro",
+    alinhamento: "esquerda",
     rotulo: pavimentacao.titulo,
     foto: "/images/galeria/home4.png",
     alt: "Motoniveladora trabalhando em estrada de terra",
@@ -165,7 +166,7 @@ const posteres: Poster[] = [
   {
     acento: "Desenvolvimento",
     forte: "regional",
-    alinhamento: "direita",
+    alinhamento: "centro",
     rotulo: publicas.titulo,
     foto: "/images/galeria/home7.png",
     alt: "Escavadeira sobre aterro de pedras com caminhão ao fundo",
@@ -190,14 +191,14 @@ export default function ObrasPage() {
         <div aria-hidden="true" className="obras-abertura-tom absolute inset-0 -z-10" />
 
         <div className="container-msm grid items-end gap-8 pb-10 pt-[calc(var(--header-h)+2.5rem)] md:pb-14 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-h)+4rem)]">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <p className="obras-chip">Obras e projetos</p>
             <h1 id="obras-titulo" className="obras-titulo animate-fade-up mt-5">
               <span className="text-accent-soft">Presença em obras</span> que movimentam o desenvolvimento da região.
             </h1>
           </div>
 
-          <div className="obras-vidro animate-fade-up anim-delay-1 lg:col-span-5">
+          <div className="obras-vidro animate-fade-up anim-delay-1 min-w-0 lg:col-span-5">
             <p className="font-serif text-[length:var(--type-lead)] leading-[1.55] text-white">
               A MSM Industrial LTDA participa de projetos de infraestrutura,
               construção civil, pavimentação e fornecimento de insumos para
@@ -217,9 +218,11 @@ export default function ObrasPage() {
 
       {/* Portfolio wall: one poster per front and detail */}
       <section aria-labelledby="areas-titulo" className="bg-ink pb-16 md:pb-24">
-        <h2 id="areas-titulo" className="sr-only">
-          Áreas de atuação
-        </h2>
+        <div className="container-msm">
+          <h2 id="areas-titulo" className="obras-parede-titulo pb-5 pt-2 md:pb-6">
+            Áreas de atuação
+          </h2>
+        </div>
         <div className="container-msm grid gap-2.5 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
           {posteres.map((poster) => (
             <PosterObra key={poster.acento + poster.forte} poster={poster} />

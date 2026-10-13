@@ -173,7 +173,8 @@ export const solucoesEcossistema = [
   { id: "maquinas", titulo: "Locação de máquinas", href: "/estrutura" },
   { id: "construcao", titulo: "Construção civil", href: "/atuacoes#frente-edificacoes" },
   { id: "apoio", titulo: "Apoio operacional", href: "/estrutura" },
-  { id: "materiais", titulo: "Materiais de construção", href: "#grupo-titulo" },
+  // No dedicated page: shown as text, not as a link.
+  { id: "materiais", titulo: "Materiais de construção", href: null },
 ];
 
 // Which solutions each company delivers, taken from servicosPrincipais.empresa and from the

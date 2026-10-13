@@ -179,14 +179,21 @@ export function MapaEcossistema() {
 
                       return (
                         <li key={solucao.id} className="py-4">
-                          <Link
-                            href={solucao.href}
-                            className="group inline-flex items-center gap-2 text-[0.9375rem] font-bold text-heading hover:text-brand"
-                          >
-                            <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-accent" />
-                            {solucao.titulo}
-                            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
-                          </Link>
+                          {solucao.href ? (
+                            <Link
+                              href={solucao.href}
+                              className="group inline-flex items-center gap-2 text-[0.9375rem] font-bold text-heading hover:text-brand"
+                            >
+                              <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-accent" />
+                              {solucao.titulo}
+                              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+                            </Link>
+                          ) : (
+                            <p className="inline-flex items-center gap-2 text-[0.9375rem] font-bold text-heading">
+                              <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-accent" />
+                              {solucao.titulo}
+                            </p>
+                          )}
                           {descricao ? (
                             <p className="mt-1.5 pl-3.5 text-sm leading-relaxed text-muted-strong">{descricao}</p>
                           ) : null}

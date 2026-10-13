@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "atu-5";
+  --css-build: "atu-7";
 
   color-scheme: light;
 }
@@ -579,7 +579,12 @@ html {
 /* --- Atuações opening: slanted photographic panels, one per front ---
    Panels are skewed; photographs are counter-skewed and oversized so they stay upright
    and cover the slanted box. The outer panels run past the screen edges. */
-.atu-area { position: relative; height: min(66svh, 42rem); }
+.atu-area { position: relative; height: min(58svh, 38rem); }
+
+/* Short laptop screens: a slightly shorter photo band keeps the call to action in the fold. */
+@media (min-width: 1024px) and (max-height: 760px) {
+  .atu-area { height: 52svh; }
+}
 
 .atu-paineis {
   position: absolute;
@@ -607,13 +612,16 @@ html {
   content: "";
   position: absolute;
   inset: 8px;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  border: 3px solid transparent;
 }
 .atu-link:focus-visible::after {
-  border-color: var(--accent-400);
+  border: 3px solid var(--accent-400);
   box-shadow: 0 0 0 3px var(--ink-900), inset 0 0 0 3px var(--ink-900);
+}
+
+@media (forced-colors: active) {
+  .atu-link:focus-visible::after { border-color: Highlight; }
 }
 
 .atu-foto {
@@ -621,6 +629,22 @@ html {
   inset: 0 -30%;
   transform: skewX(10deg);
   transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 1024px) {
+  /* The photograph itself fades into the page, so labels and the focus ring stay on top. */
+  .atu-foto {
+    -webkit-mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.35) 76%, transparent 94%);
+    mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.35) 76%, transparent 94%);
+  }
+}
+
+/* Dark band at the top of the photographs, behind the glass header */
+.atu-foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, transparent 26%);
 }
 
 /* Glass label, upright, centred on the visible part of the panel */
@@ -636,23 +660,21 @@ html {
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   padding: 0.55rem 0.9rem;
+  z-index: 1;
 }
 
-/* Outer panels are partly off-screen: pull their labels toward the visible side. */
-.atu-painel:first-child .atu-rotulo { left: 58%; }
-.atu-painel:last-child .atu-rotulo { left: 42%; }
+/* Outer panels run past the screen: anchor their labels inside the visible screen. */
+.atu-painel:first-child .atu-rotulo { left: calc(4vw + var(--gutter) * 0.5); transform: skewX(10deg); }
+.atu-painel:last-child .atu-rotulo { left: auto; right: calc(4vw + var(--gutter) * 0.5); transform: skewX(10deg); }
 
 @media (min-width: 1024px) {
   .atu-painel:hover,
-  .atu-painel:focus-within { flex-grow: 1.75; }
+  .atu-painel:focus-within { flex-grow: 1.4; }
   .atu-painel:hover .atu-foto { transform: skewX(10deg) scale(1.04); }
 }
 
-/* Header legibility over the top of the photographs; fade into the page below. */
-.atu-topo { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, transparent 26%); }
-.atu-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 46%, rgb(250 250 247 / 0.7) 70%, var(--background) 86%); }
 
-.atu-texto { position: relative; margin-top: -5.5rem; padding-bottom: 5rem; text-align: center; }
+.atu-texto { position: relative; margin-top: -3.5rem; padding-bottom: 5rem; text-align: center; }
 
 .atu-eyebrow {
   display: inline-flex;
@@ -682,13 +704,16 @@ html {
 @media (max-width: 1023px) {
   .atu-area { height: auto; }
   .atu-paineis { position: relative; inset: auto; flex-direction: column; gap: 6px; margin: 0 -8%; }
-  .atu-painel { flex: none; height: 6.75rem; transform: skewY(-4deg); }
+  .atu-painel { flex: none; height: 7.25rem; transform: skewY(-4deg); }
+  /* Only the first stratum sits under the header */
+  .atu-painel:not(:first-child) .atu-foto::after { display: none; }
   .atu-painel:first-child { height: calc(var(--header-h) + 8rem); }
   .atu-foto { inset: -30% 0; transform: skewY(4deg); }
   .atu-rotulo,
   .atu-painel:first-child .atu-rotulo,
   .atu-painel:last-child .atu-rotulo {
     left: calc(8% + var(--gutter));
+    right: auto;
     bottom: 1.1rem;
     max-width: calc(84% - 2 * var(--gutter));
     transform: skewY(4deg);

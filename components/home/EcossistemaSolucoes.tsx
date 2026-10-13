@@ -168,15 +168,22 @@ export function EcossistemaSolucoes() {
             {solucoesEcossistema.map((solucao) => {
               const Icone = icones[solucao.id];
 
+              const classe =
+                "anel-duplo group flex flex-col items-center gap-3 rounded-xl px-1 py-2 text-center text-xs font-semibold uppercase leading-snug tracking-[0.06em] text-white";
+
               return (
                 <li key={solucao.id}>
-                  <Link
-                    href={solucao.href}
-                    className="anel-duplo group flex flex-col items-center gap-3 rounded-xl px-1 py-2 text-center text-xs font-semibold uppercase leading-snug tracking-[0.06em] text-white"
-                  >
-                    <Selo Icone={Icone} />
-                    {solucao.titulo}
-                  </Link>
+                  {solucao.href ? (
+                    <Link href={solucao.href} className={classe}>
+                      <Selo Icone={Icone} />
+                      {solucao.titulo}
+                    </Link>
+                  ) : (
+                    <span className={classe}>
+                      <Selo Icone={Icone} />
+                      {solucao.titulo}
+                    </span>
+                  )}
                 </li>
               );
             })}

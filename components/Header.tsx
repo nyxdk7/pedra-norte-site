@@ -70,7 +70,14 @@ export function Header() {
 
     function medirAbertura() {
       // Light openings (inner pages with data-header="claro") keep the solid capsule.
-      limite = abertura?.dataset.header === "claro" ? -1 : Math.max(abertura ? abertura.offsetHeight - 88 : 8, 8);
+      // data-header-limite: openings whose dark area is shorter than the section (Atuações).
+      const declarado = abertura?.dataset.headerLimite;
+      limite =
+        abertura?.dataset.header === "claro"
+          ? -1
+          : declarado !== undefined
+            ? Number(declarado)
+            : Math.max(abertura ? abertura.offsetHeight - 88 : 8, 8);
       verificarScroll();
     }
 

@@ -1,7 +1,9 @@
+import { siteContact } from "@/lib/site-config";
+
 export function WhatsappButton() {
   return (
     <a
-      href="https://wa.me/556899851248"
+      href={siteContact.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com a Pedra Norte pelo WhatsApp"

@@ -1,56 +1,7 @@
 import Image from "next/image";
-import { HeroObras } from "@/components/obras/HeroObras";
-import type { FrenteDaRoda } from "@/components/obras/RodaObras";
+import { PosterObra, type Poster } from "@/components/obras/PosterObra";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
-
-// Rotor blades, clockwise from the top. Names and categories come from the fronts below.
-const frentesDaRoda: FrenteDaRoda[] = [
-  {
-    titulo: "Pavimentação asfáltica",
-    categoria: "Infraestrutura urbana",
-    foto: "/images/atuacoes/pavimentacao/pavimentacao3.jpg",
-    alt: "Equipe e vibroacabadora aplicando asfalto em via urbana",
-    alternativa: "/images/galeria/operacao-9.png",
-  },
-  {
-    titulo: "Fornecimento de agregados",
-    categoria: "Infraestrutura urbana",
-    foto: "/images/atuacoes/extracao-minerios/pedreira (2).jpeg",
-    alt: "Caminhão basculante com identificação MSM em frente de obra",
-    posicao: "object-[60%_50%]",
-    alternativa: "/images/atuacoes/extracao-minerios/pedreira (6).jpeg",
-  },
-  {
-    titulo: "Concreto usinado",
-    categoria: "Soluções para obras",
-    foto: "/images/atuacoes/edificacoes/edificacoes4.png",
-    alt: "Caminhão betoneira descarregando concreto em obra de edificação",
-    posicao: "object-[40%_50%]",
-    alternativa: "/images/atuacoes/edificacoes/edificacoes3.png",
-  },
-  {
-    titulo: "Infraestrutura",
-    categoria: "Setor público",
-    foto: "/images/galeria/operacao-18.png",
-    alt: "Escavadeira executando contenção com pedras às margens de rodovia",
-    alternativa: "/images/galeria/operacao-12.png",
-  },
-  {
-    titulo: "Base e sub-base",
-    categoria: "Infraestrutura urbana",
-    foto: "/images/galeria/home5.png",
-    alt: "Rolos compactadores preparando a base de uma estrada",
-    alternativa: "/images/galeria/operacao-6.png",
-  },
-  {
-    titulo: "Desenvolvimento regional",
-    categoria: "Setor público",
-    foto: "/images/galeria/operacao-14.png",
-    alt: "Pá carregadeira e equipe em obra de rodovia sinalizada",
-    alternativa: "/images/galeria/operacao-17.png",
-  },
-];
 
 const obras = [
   {
@@ -124,65 +75,156 @@ const frentes = [
   ["Agregados", "Britas, pó de brita, rachão e brita corrida."],
 ];
 
+// Portfolio wall, read left to right. The four fronts carry their description and
+// details; the other posters are details of those fronts. All text comes from `obras`.
+const [pavimentacao, construcao, concreto, publicas] = obras;
+
+const posteres: Poster[] = [
+  {
+    acento: "Obras de",
+    forte: "pavimentação",
+    alinhamento: "esquerda",
+    rotulo: pavimentacao.categoria,
+    descricao: pavimentacao.descricao,
+    detalhes: pavimentacao.detalhes,
+    foto: "/images/atuacoes/pavimentacao/pavimentacao3.jpg",
+    alt: "Equipe e vibroacabadora aplicando asfalto em via",
+    enquadramento: "object-[42%_50%]",
+  },
+  {
+    acento: "Fornecimento para",
+    forte: "construção civil",
+    alinhamento: "centro",
+    rotulo: construcao.categoria,
+    descricao: construcao.descricao,
+    detalhes: construcao.detalhes,
+    foto: "/images/atuacoes/extracao-minerios/pedreira (5).jpeg",
+    alt: "Correia transportadora sobre pilha de brita em pedreira, contra o sol",
+    enquadramento: "object-[62%_50%]",
+  },
+  {
+    acento: "usinado",
+    forte: "Concreto",
+    forteAntes: true,
+    alinhamento: "direita",
+    rotulo: concreto.categoria,
+    descricao: concreto.descricao,
+    detalhes: concreto.detalhes,
+    foto: "/images/atuacoes/edificacoes/edificacoes4.png",
+    alt: "Caminhão betoneira em obra de edificação",
+    enquadramento: "object-[30%_50%]",
+  },
+  {
+    acento: "Apoio a",
+    forte: "obras públicas",
+    alinhamento: "esquerda",
+    rotulo: publicas.categoria,
+    descricao: publicas.descricao,
+    detalhes: publicas.detalhes,
+    foto: "/images/home/hero-obras-acre.png",
+    alt: "Escavadeira e operário em obra às margens de rodovia",
+    enquadramento: "object-[40%_50%]",
+  },
+  {
+    acento: "Pavimentação",
+    forte: "asfáltica",
+    alinhamento: "centro",
+    rotulo: pavimentacao.titulo,
+    foto: "/images/atuacoes/pavimentacao/pavimentacao4.jpg",
+    alt: "Rolo compactador sobre asfalto novo em via",
+    enquadramento: "object-[45%_50%]",
+  },
+  {
+    acento: "rachão",
+    forte: "Pedra",
+    forteAntes: true,
+    alinhamento: "direita",
+    rotulo: construcao.titulo,
+    foto: "/images/atuacoes/extracao-minerios/pedreira (9).jpeg",
+    alt: "Escavadeira entre blocos de rocha em pedreira",
+    enquadramento: "object-[62%_50%]",
+  },
+  {
+    acento: "Entrega",
+    forte: "programada",
+    alinhamento: "esquerda",
+    rotulo: concreto.titulo,
+    foto: "/images/atuacoes/edificacoes/edificacoes.png",
+    alt: "Bomba de concreto e caminhão betoneira em obra de edificação",
+    enquadramento: "object-[55%_50%]",
+  },
+  {
+    acento: "Base e",
+    forte: "sub-base",
+    alinhamento: "centro",
+    rotulo: pavimentacao.titulo,
+    foto: "/images/galeria/home4.png",
+    alt: "Motoniveladora trabalhando em estrada de terra",
+    enquadramento: "object-[62%_50%]",
+  },
+  {
+    acento: "Desenvolvimento",
+    forte: "regional",
+    alinhamento: "direita",
+    rotulo: publicas.titulo,
+    foto: "/images/galeria/home7.png",
+    alt: "Escavadeira sobre aterro de pedras com caminhão ao fundo",
+    enquadramento: "object-[45%_50%]",
+  },
+];
+
 export default function ObrasPage() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
-      <HeroObras
-        eyebrow="Obras e projetos"
-        title="Presença em obras que movimentam o desenvolvimento da região."
-        frentes={frentesDaRoda}
-        description={
-          <p>
-            A MSM Industrial LTDA participa de projetos de infraestrutura,
-            construção civil, pavimentação e fornecimento de insumos para
-            empresas, parceiros e órgãos públicos.
-          </p>
-        }
-      >
-        <dl className="mt-10 grid max-w-[34rem] grid-cols-2 gap-y-6 border-t border-white/20 pt-6 sm:grid-cols-4 lg:mt-12 lg:grid-cols-2 xl:grid-cols-4">
-          {indicadores.map(([numero, texto]) => (
-            <div key={texto} className="flex flex-col-reverse pr-4">
-              <dt className="mt-2 text-sm font-semibold text-on-dark-muted">{texto}</dt>
-              <dd className="font-serif text-[2rem] leading-none tracking-[-0.02em] tabular-nums md:text-[2.25rem] xl:text-[1.875rem] min-[1440px]:text-[2.25rem]">{numero}</dd>
-            </div>
-          ))}
-        </dl>
-      </HeroObras>
+      {/* Opening: two-tone headline beside a glass panel, over the MSM truck photograph */}
+      <section aria-labelledby="obras-titulo" className="obras-abertura on-dark relative isolate overflow-hidden bg-ink text-white">
+        <Image
+          src="/images/atuacoes/extracao-minerios/pedreira (2).jpeg"
+          alt="Caminhão basculante com identificação MSM em frente de obra"
+          fill
+          loading="eager"
+          fetchPriority="high"
+          sizes="100vw"
+          className="-z-20 object-cover object-[70%_45%]"
+        />
+        <div aria-hidden="true" className="obras-abertura-tom absolute inset-0 -z-10" />
 
-      {/* Case-study index: category, scope and deliverables on one ruled row each */}
-      <section aria-labelledby="areas-titulo" className="py-20 md:py-28">
-        <Container>
-          <SectionHeading id="areas-titulo" title="Áreas de atuação" />
+        <div className="container-msm grid items-end gap-8 pb-10 pt-[calc(var(--header-h)+2.5rem)] md:pb-14 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-h)+4rem)]">
+          <div className="lg:col-span-7">
+            <p className="obras-chip">Obras e projetos</p>
+            <h1 id="obras-titulo" className="obras-titulo animate-fade-up mt-5">
+              <span className="text-accent-soft">Presença em obras</span> que movimentam o desenvolvimento da região.
+            </h1>
+          </div>
 
-          <ul className="mt-12 border-b border-border md:mt-16">
-            {obras.map((obra) => (
-              <li
-                key={obra.titulo}
-                className="grid gap-4 border-t border-border py-8 md:grid-cols-12 md:gap-10 md:py-10"
-              >
-                <p className="flex items-center gap-3 text-[0.9375rem] font-semibold text-brand md:col-span-3 md:items-start md:pt-2">
-                  <span aria-hidden="true" className="h-px w-8 shrink-0 bg-accent md:mt-2.5" />
-                  {obra.categoria}
-                </p>
-                <div className="md:col-span-5">
-                  <h3 className="text-2xl font-bold leading-tight text-heading md:text-[1.75rem]">{obra.titulo}</h3>
-                  <p className="mt-3 font-serif text-lg leading-relaxed text-muted-strong">{obra.descricao}</p>
+          <div className="obras-vidro animate-fade-up anim-delay-1 lg:col-span-5">
+            <p className="font-serif text-[length:var(--type-lead)] leading-[1.55] text-white">
+              A MSM Industrial LTDA participa de projetos de infraestrutura,
+              construção civil, pavimentação e fornecimento de insumos para
+              empresas, parceiros e órgãos públicos.
+            </p>
+            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/20 pt-5 sm:grid-cols-4 lg:grid-cols-2">
+              {indicadores.map(([numero, texto]) => (
+                <div key={texto} className="flex flex-col-reverse">
+                  <dt className="mt-1.5 text-sm font-semibold text-on-dark-muted">{texto}</dt>
+                  <dd className="font-serif text-[2rem] leading-none tracking-[-0.02em] tabular-nums">{numero}</dd>
                 </div>
-                <ul className="md:col-span-4 md:pt-1">
-                  {obra.detalhes.map((detalhe) => (
-                    <li
-                      key={detalhe}
-                      className="flex items-center gap-3 border-b border-border py-2.5 text-[0.9375rem] font-semibold text-heading last:border-b-0"
-                    >
-                      <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand" />
-                      {detalhe}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </Container>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio wall: one poster per front and detail */}
+      <section aria-labelledby="areas-titulo" className="bg-ink pb-16 md:pb-24">
+        <h2 id="areas-titulo" className="sr-only">
+          Áreas de atuação
+        </h2>
+        <div className="container-msm grid gap-2.5 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
+          {posteres.map((poster) => (
+            <PosterObra key={poster.acento + poster.forte} poster={poster} />
+          ))}
+        </div>
       </section>
 
       <section aria-labelledby="casos-titulo" className="bg-brita-100 py-20 md:py-28">

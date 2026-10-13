@@ -1,0 +1,157 @@
+/* Rodape Clean v3: movimentos automaticos, suaves e escalonados. */
+.footerShell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.lightRail {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lightBeam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(150px, 24vw, 340px);
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(44, 117, 255, 0.22) 22%,
+    rgba(103, 190, 255, 0.87) 50%,
+    rgba(44, 117, 255, 0.22) 78%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(66, 145, 255, 0.24);
+  animation: footerLightSweep 12s linear infinite;
+  will-change: transform;
+}
+
+@keyframes footerLightSweep {
+  0%, 5% {
+    transform: translateX(-110%);
+    opacity: 0;
+  }
+
+  10% { opacity: 0.8; }
+
+  58% {
+    transform: translateX(calc(100vw + 100%));
+    opacity: 0.8;
+  }
+
+  63%, 100% {
+    transform: translateX(calc(100vw + 100%));
+    opacity: 0;
+  }
+}
+
+.brandLink {
+  position: relative;
+  isolation: isolate;
+  border-radius: 4px;
+}
+
+.brandLink::before {
+  position: absolute;
+  z-index: -1;
+  inset: -16px -24px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(55, 132, 255, 0.30),
+    rgba(55, 132, 255, 0.10) 45%,
+    transparent 74%
+  );
+  filter: blur(14px);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  animation: footerBrandHalo 12s ease-in-out infinite;
+}
+
+.brandLogo {
+  animation: footerBrandGlow 12s ease-in-out infinite;
+}
+
+/* Halo discreto na logo, uma vez por ciclo, sem interacao. */
+@keyframes footerBrandHalo {
+  0%, 12%, 46%, 100% { opacity: 0; }
+  23%, 34% { opacity: 0.64; }
+}
+
+@keyframes footerBrandGlow {
+  0%, 12%, 46%, 100% { filter: none; }
+  23%, 34% { filter: drop-shadow(0 0 9px rgba(115, 179, 255, 0.34)); }
+}
+
+.contactLink {
+  position: relative;
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+
+.contactLink::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #3376da, #8bcaff);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: footerFirstUnderline 12s ease-in-out infinite;
+}
+
+/* WhatsApp e e-mail recebem o sublinhado em momentos diferentes. */
+.contactLink:nth-of-type(2)::after {
+  animation-name: footerSecondUnderline;
+}
+
+@keyframes footerFirstUnderline {
+  0%, 50%, 74%, 100% { transform: scaleX(0); }
+  56%, 67% { transform: scaleX(1); }
+}
+
+@keyframes footerSecondUnderline {
+  0%, 68%, 93%, 100% { transform: scaleX(0); }
+  74%, 86% { transform: scaleX(1); }
+}
+
+/* Interacoes adicionais permanecem, mas nao sao necessarias. */
+@media (hover: hover) {
+  .contactLink:hover { color: white; }
+}
+
+.brandLink:focus-visible,
+.contactLink:focus-visible {
+  outline: 2px solid #8bcaff;
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightBeam,
+  .brandLink::before,
+  .brandLogo,
+  .contactLink::after {
+    animation: none;
+  }
+
+  .lightBeam {
+    opacity: 0;
+    will-change: auto;
+  }
+
+  .brandLink::before { opacity: 0; }
+  .brandLogo { filter: none; }
+  .contactLink::after { transform: scaleX(0); }
+}

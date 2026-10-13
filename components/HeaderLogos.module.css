@@ -1,6 +1,6 @@
 /* Signature Motion — MSM Industrial + Pedra Norte.
    Logos permanecem fixos. Uma entrada discreta ocorre uma vez; o reflexo
-   percorre os desenhos de cada marca sequencialmente a cada 12 segundos. */
+   percorre os desenhos de cada marca sequencialmente a cada 7 segundos. */
 .brandSwap {
   --msm-width: 172px;
   --pedra-width: 72px;
@@ -40,6 +40,7 @@
 .pedraLogo {
   left: calc(var(--msm-width) + var(--marcas-gap));
   z-index: 3;
+  top: -2px; /* ajuste fino: logo Pedra Norte 2px acima da MSM */
   width: var(--pedra-width);
   animation: entradaPedra 1050ms cubic-bezier(.18, .86, .24, 1) 260ms both;
 }
@@ -67,11 +68,13 @@
   opacity: 0;
   background-image: linear-gradient(
     105deg,
-    transparent 32%,
-    rgba(77, 149, 244, .10) 42%,
-    rgba(100, 178, 255, .83) 50%,
-    rgba(77, 149, 244, .12) 58%,
-    transparent 68%
+    transparent 29%,
+    rgba(65, 139, 255, .25) 40%,
+    rgba(139, 206, 255, .92) 46%,
+    rgba(238, 249, 255, 1) 50%,
+    rgba(139, 206, 255, .92) 54%,
+    rgba(65, 139, 255, .25) 60%,
+    transparent 71%
   );
   background-repeat: no-repeat;
   background-size: 220% 100%;
@@ -87,13 +90,13 @@
 .msmLogo::after {
   -webkit-mask-image: url("/images/logo-letras-pretas.png");
   mask-image: url("/images/logo-letras-pretas.png");
-  animation: reflexoMsm 12s ease-in-out 1.5s infinite;
+  animation: reflexoMsm 7s ease-in-out 1.5s infinite;
 }
 
 .pedraLogo::after {
   -webkit-mask-image: url("/images/grupo/pedra-norte-logo.png");
   mask-image: url("/images/grupo/pedra-norte-logo.png");
-  animation: reflexoPedra 12s ease-in-out 1.5s infinite;
+  animation: reflexoPedra 7s ease-in-out 1.5s infinite;
 }
 
 @keyframes entradaMsm {
@@ -128,7 +131,7 @@
 }
 
 /* O brilho aparece primeiro na MSM e em seguida na Pedra Norte.
-   Depois as marcas repousam ate reiniciar o ciclo de 12 segundos. */
+   Depois as marcas repousam ate reiniciar o ciclo de 7 segundos. */
 @keyframes reflexoMsm {
   0%, 6% {
     opacity: 0;

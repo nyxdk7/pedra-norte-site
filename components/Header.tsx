@@ -110,9 +110,9 @@ export function Header() {
                 <Link
                   href="/obras"
                   aria-current={linkAtivo(link.href) ? "page" : undefined}
-                  className={`flex items-center gap-1.5 border-b-2 border-transparent px-1 py-3 text-[14px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#143987]/20 ${
+                  className={`relative flex items-center gap-1.5 px-1 py-3 text-[15px] font-semibold transition-colors duration-200 after:absolute after:bottom-1 after:left-1 after:right-1 after:h-[2px] after:origin-left after:scale-x-0 after:bg-[#143987] after:content-[''] after:transition-transform after:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#143987]/20 group-hover:after:scale-x-100 group-focus-within:after:scale-x-100 ${
                     linkAtivo(link.href)
-                      ? "border-[#143987] text-[#143987]"
+                      ? "text-[#143987] after:scale-x-100"
                       : "text-slate-600 hover:text-[#143987]"
                   }`}
                 >
@@ -124,11 +124,11 @@ export function Header() {
                 </Link>
 
                 <div className="pointer-events-none invisible absolute left-0 top-full z-50 w-[315px] translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <div className="rounded-xl border border-slate-200 bg-white p-2 shadow-xl shadow-slate-950/10">
+                  <div className="rounded-sm border border-slate-200 bg-white p-2 shadow-lg shadow-slate-950/10">
                     <Link
                       href="/obras/engenharia-rodoviaria"
                       aria-current={pathname === "/obras/engenharia-rodoviaria" ? "page" : undefined}
-                      className="block rounded-lg px-4 py-3 text-sm font-semibold leading-6 text-slate-700 transition-colors hover:bg-[#f1f5ff] hover:text-[#143987] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#143987]/25"
+                      className="block border-l-2 border-transparent px-4 py-3 text-sm font-semibold leading-6 text-slate-700 transition-colors duration-200 hover:border-[#143987] hover:bg-slate-50 hover:text-[#143987] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#143987]/25"
                     >
                       Engenharia rodoviária / Pavimentação
                     </Link>
@@ -140,10 +140,10 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={linkAtivo(link.href) ? "page" : undefined}
-                className={`rounded-xl px-3.5 py-2 text-[13px] font-bold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#143987]/15 ${
+                className={`relative inline-flex items-center px-1 py-3 text-[15px] font-semibold transition-colors duration-200 after:absolute after:bottom-1 after:left-1 after:right-1 after:h-[2px] after:origin-left after:scale-x-0 after:bg-[#143987] after:content-[''] after:transition-transform after:duration-200 hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#143987]/20 focus-visible:after:scale-x-100 ${
                   linkAtivo(link.href)
-                    ? "bg-[#143987] text-white shadow-md shadow-[#143987]/20"
-                    : "text-slate-600 hover:bg-white hover:text-[#143987] hover:shadow-sm"
+                    ? "text-[#143987] after:scale-x-100"
+                    : "text-slate-600 hover:text-[#143987]"
                 }`}
               >
                 {link.label}
@@ -211,10 +211,10 @@ export function Header() {
                   aria-expanded={obrasMenuAberto}
                   aria-controls="categorias-obras-mobile"
                   onClick={() => setObrasMenuAberto((atual) => !atual)}
-                  className={`flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left text-[15px] font-bold transition ${
+                  className={`flex w-full items-center justify-between border-l-2 px-4 py-3.5 text-left text-[16px] font-semibold transition-colors duration-200 ${
                     linkAtivo(link.href)
-                      ? "bg-[#edf3ff] text-[#143987]"
-                      : "text-slate-700 hover:bg-slate-50 hover:text-[#143987]"
+                      ? "border-[#143987] text-[#143987]"
+                      : "border-transparent text-slate-700 hover:border-[#9db9ec] hover:text-[#143987]"
                   }`}
                 >
                   Atuações
@@ -241,16 +241,13 @@ export function Header() {
                 href={link.href}
                 onClick={fecharMenu}
                 aria-current={linkAtivo(link.href) ? "page" : undefined}
-                className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-bold transition ${
+                className={`flex items-center justify-between border-l-2 px-4 py-3.5 text-[16px] font-semibold transition-colors duration-200 ${
                   linkAtivo(link.href)
-                    ? "bg-[#edf3ff] text-[#143987]"
-                    : "text-slate-700 hover:bg-slate-50 hover:text-[#143987]"
+                    ? "border-[#143987] text-[#143987]"
+                    : "border-transparent text-slate-700 hover:border-[#9db9ec] hover:text-[#143987]"
                 }`}
               >
                 {link.label}
-                {linkAtivo(link.href) && (
-                  <span className="h-2 w-2 rounded-full bg-[#143987]" />
-                )}
               </Link>
             ),
           )}

@@ -30,8 +30,6 @@ export const obrasRodoviarias: ObraPortfolio[] = [
       `${pastaKm246}/16-base-petrea.webp`,
       `${pastaKm246}/10-pavimentacao-execucao.webp`,
       `${pastaKm246}/04-material-petreo.webp`,
-      `${pastaKm246}/05-preenchimento-equipamento.webp`,
-      `${pastaKm246}/06-area-intervencao.webp`,
       `${pastaKm246}/09-trecho-recuperado.webp`,
     ],
   },

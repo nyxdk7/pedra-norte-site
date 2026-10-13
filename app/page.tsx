@@ -1,14 +1,13 @@
-import { CadeiaIntegrada } from "@/components/home/CadeiaIntegrada";
 import { Credibilidade } from "@/components/home/Credibilidade";
+import { EcossistemaSolucoes } from "@/components/home/EcossistemaSolucoes";
 import { GaleriaOperacoes } from "@/components/home/GaleriaOperacoes";
-import { GrupoSosterIndice } from "@/components/home/GrupoSosterIndice";
 import { HomeHero } from "@/components/home/HomeHero";
 import { PedraNorteDestaque } from "@/components/home/PedraNorteDestaque";
 import { ButtonLink } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 
-// DNA home sequence: cinematic full-bleed → bright verified metrics → asymmetric
-// operations narrative → Pedra Norte showcase, alternating dark and light surfaces.
+// Home sequence: glass hero → success-case ticker → solutions ecosystem (montage + map of
+// companies, solutions and cases) → Pedra Norte showcase → gallery → CTA.
 export default function Home() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
@@ -16,11 +15,9 @@ export default function Home() {
 
       <Credibilidade />
 
-      <CadeiaIntegrada />
+      <EcossistemaSolucoes />
 
       <PedraNorteDestaque />
-
-      <GrupoSosterIndice />
 
       <GaleriaOperacoes />
 

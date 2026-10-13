@@ -162,6 +162,34 @@ export const operacoesHero = [
   },
 ];
 
+// Ecosystem: the solutions the group delivers (titles from servicosPrincipais and from each
+// company's own "atuacao"). Links land on existing pages/anchors.
+export const solucoesEcossistema = [
+  { id: "pavimentacao", titulo: "Pavimentação asfáltica", href: "/atuacoes#frente-pavimentacao" },
+  { id: "usinagem", titulo: "Usinagem de asfalto", href: "/servicos" },
+  { id: "concreto", titulo: "Concreto usinado", href: "/servicos" },
+  { id: "agregados", titulo: "Britas e agregados", href: "/atuacoes#frente-extracao-de-minerios" },
+  { id: "pre-moldados", titulo: "Pré-moldados", href: "/atuacoes#frente-pre-moldados" },
+  { id: "maquinas", titulo: "Locação de máquinas", href: "/estrutura" },
+  { id: "construcao", titulo: "Construção civil", href: "/atuacoes#frente-edificacoes" },
+  { id: "apoio", titulo: "Apoio operacional e materiais", href: "/estrutura" },
+];
+
+// Which solutions each company delivers, taken from servicosPrincipais.empresa and from the
+// company's own atuacao/descricao. No company–client pairing is documented in the project,
+// so success cases are linked to the group as a whole.
+export const solucoesPorEmpresa: Record<string, string[]> = {
+  "MSM Industrial": ["pavimentacao", "usinagem", "concreto"],
+  "Pedra Norte": ["agregados"],
+  "Construtora Santa Maria": ["construcao"],
+  "Auto Posto Correntão": ["apoio"],
+  "Pré Molde": ["pre-moldados"],
+  Tratorron: ["maquinas"],
+  "Comercial da Construção": ["apoio"],
+  "MW Materiais": ["apoio"],
+  "Santa Maria": ["apoio"],
+};
+
 // Same list as "Casos de sucesso" in app/obras/page.tsx (kept in sync by hand until Wave 3).
 export const casosSucesso = [
   { nome: "Prefeitura de Rio Branco", imagem: "/images/casos-sucesso/prefeitura-rio-branco.png" },

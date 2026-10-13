@@ -49,7 +49,7 @@ export function TickerCasos() {
 
       <div
         aria-hidden="true"
-        className="overflow-hidden border-y border-white/10 bg-white/[0.03] [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
+        className="ticker-janela overflow-hidden border-y border-white/10 bg-white/[0.03] [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
       >
         <div className="ticker-track flex w-max">
           {[0, 1].map((copia) => (

@@ -9,8 +9,9 @@ import { galeriaImagens } from "./data";
 
 const INTERVALO_GALERIA = 5200;
 
+// Light surface: the gallery separates the dark Pedra Norte showcase from the closing CTA.
 const controle =
-  "inline-flex h-11 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10";
+  "inline-flex h-11 items-center justify-center rounded-full border border-border-strong text-ink transition-colors hover:border-ink";
 
 export function GaleriaOperacoes() {
   const [indiceAtivo, setIndiceAtivo] = useState(0);
@@ -51,12 +52,11 @@ export function GaleriaOperacoes() {
   return (
     <section
       aria-labelledby="galeria-titulo"
-      className="on-dark relative isolate overflow-hidden bg-ink py-20 text-white md:py-28"
+      className="relative isolate overflow-hidden bg-brita-100 py-20 md:py-28"
     >
       <Container>
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading
-            onDark
             id="galeria-titulo"
             eyebrow="Nossa operação em imagens"
             title="Estrutura que transforma planejamento em grandes obras."
@@ -81,7 +81,7 @@ export function GaleriaOperacoes() {
                   ? "Continuar troca automática das imagens"
                   : "Pausar troca automática das imagens"
               }
-              className="inline-flex h-11 min-w-32 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-ink transition-colors hover:bg-brita-100"
+              className="inline-flex h-11 min-w-32 items-center justify-center gap-2 rounded-full bg-ink px-5 text-sm font-semibold text-white transition-colors hover:bg-midnight"
             >
               {pausado ? (
                 <Play className="h-4 w-4 fill-current" aria-hidden="true" />
@@ -118,7 +118,7 @@ export function GaleriaOperacoes() {
               {String(indiceAtivo + 1).padStart(2, "0")} / {galeriaImagens.length}
             </figcaption>
 
-            <div className="absolute inset-x-0 bottom-0 h-1 bg-white/15">
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-white/25">
               {!pausado && (
                 <span
                   key={indiceAtivo}

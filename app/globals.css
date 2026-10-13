@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "glass-5";
+  --css-build: "glass-6";
 
   color-scheme: light;
 }
@@ -411,7 +411,7 @@ html {
   .page-hero-scrim {
     background:
       linear-gradient(180deg, rgb(11 25 43 / 0.4) 0%, transparent 20%),
-      linear-gradient(90deg, rgb(11 25 43 / 0.8) 0%, rgb(11 25 43 / 0.6) 44%, rgb(11 25 43 / 0.24) 64%, transparent 78%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.82) 0%, rgb(11 25 43 / 0.66) 44%, rgb(11 25 43 / 0.32) 64%, transparent 80%),
       linear-gradient(0deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.28) 40%, transparent 62%);
   }
 }
@@ -436,6 +436,153 @@ html {
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   backdrop-filter: blur(18px) saturate(140%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 30px 60px -30px rgb(0 0 0 / 0.6);
+}
+
+/* --- Ecosystem montage (Home): real photographs under one colour grade ---
+   Two photographs meet at a light seam over a sky gradient; the plant is the horizon. */
+.eco-palco {
+  background: linear-gradient(180deg, #b9cfe6 0%, #6f97c9 32%, #2b4f86 62%, var(--ink-900) 100%);
+}
+
+.eco-horizonte {
+  opacity: 0.38;
+  mix-blend-mode: luminosity;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+}
+
+.eco-metade {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+
+@media (min-width: 768px) {
+  .eco-esq {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  .eco-dir {
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+
+.eco-foto { filter: saturate(0.92) contrast(1.08) brightness(0.96); }
+
+/* One grade across every photograph: cool steel-blue cast, atmospheric top, night base. */
+.eco-tom {
+  mix-blend-mode: color;
+  background: linear-gradient(180deg, rgb(60 104 170 / 0.55) 0%, rgb(43 79 134 / 0.28) 45%, rgb(11 25 43 / 0.2) 100%);
+}
+
+.eco-ar { background: linear-gradient(180deg, rgb(200 218 238 / 0.75) 0%, rgb(160 190 225 / 0.35) 16%, transparent 34%); }
+
+.eco-base {
+  background:
+    linear-gradient(180deg, transparent 45%, rgb(11 25 43 / 0.55) 78%, var(--ink-900) 100%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(255 255 255 / 0.18), transparent 70%);
+}
+
+.eco-costura {
+  background: linear-gradient(180deg, transparent, rgb(255 255 255 / 0.95) 30%, rgb(255 255 255 / 0.95) 70%, transparent);
+  box-shadow: 0 0 18px 4px rgb(255 255 255 / 0.55), 0 0 60px 12px rgb(180 210 255 / 0.35);
+}
+
+/* --- Ecosystem map: a drawing sheet with circuit-style connectors --- */
+.eco-prancha {
+  background-image:
+    linear-gradient(rgb(11 25 43 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(11 25 43 / 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.eco-etapa {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel-600);
+}
+
+/* Flowing dashes on the active path (static under reduced motion). */
+.eco-fluxo {
+  background: repeating-linear-gradient(90deg, var(--brand) 0 6px, transparent 6px 10px);
+  animation: ecoFluxo 900ms linear infinite;
+}
+
+@keyframes ecoFluxo {
+  from { background-position: 0 0; }
+  to { background-position: 10px 0; }
+}
+
+@media (min-width: 1024px) {
+  /* Bus line between the companies and the middle column */
+  .eco-coluna-meio { position: relative; }
+  .eco-coluna-meio::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2.75rem;
+    bottom: 0;
+    border-left: 1px dashed rgb(11 25 43 / 0.25);
+  }
+
+  /* Active company → bus */
+  .eco-aba[data-ativa]::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 2.5rem;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--brand) 0 6px, transparent 6px 10px);
+    animation: ecoFluxo 900ms linear infinite;
+  }
+
+  /* Bus → panel, and panel → group hub (aligned on the hub's centre line) */
+  .eco-painel { position: relative; }
+  .eco-painel::before,
+  .eco-painel::after {
+    content: "";
+    position: absolute;
+    top: 2.375rem;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--brand) 0 6px, transparent 6px 10px);
+    animation: ecoFluxo 900ms linear infinite;
+  }
+  .eco-painel::before { right: 100%; width: 2.5rem; }
+  .eco-painel::after { left: 100%; width: 5rem; }
+}
+
+/* Group hub → cases: a spine with one stub per case */
+.eco-casos::before {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  top: -0.75rem;
+  bottom: 1.4rem;
+  border-left: 2px solid var(--brand);
+}
+
+.eco-caso::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 0.75rem;
+  border-top: 2px solid var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-fluxo,
+  .eco-aba[data-ativa]::after,
+  .eco-painel::before,
+  .eco-painel::after { animation: none; }
 }
 
 /* --- Ticker of institutions (Home trust band) ---
@@ -497,11 +644,13 @@ html {
   .gallery-image-enter,
   .gallery-progress,
   .animate-fade-up { animation: none; }
-  /* Ticker stands still: one copy, wrapped */
-  .ticker-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  /* Ticker stands still: one copy, as a centred grid without the edge fade */
+  .ticker-janela { -webkit-mask-image: none; mask-image: none; }
+  .ticker-track { animation: none; width: 100%; }
   .ticker-grupo + .ticker-grupo { display: none; }
-  .ticker-grupo { flex-wrap: wrap; justify-content: center; }
+  .ticker-grupo { display: grid; width: 100%; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
   .ticker-grupo > [data-repete] { display: none; }
+  .ticker-grupo > div { border-right: 0; justify-content: center; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }

@@ -8,12 +8,13 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 import { buttonClasses } from "@/components/ui/Button";
 import { siteContact } from "@/lib/site-config";
 
-// Routes whose opening band is light (PageHero "dividido" or "sereno"): the capsule is
-// solid from the first render. Keep in sync with the PageHero variant used by each page.
-const rotasClaras = ["/sobre", "/servicos", "/contato", "/integridade"];
+// Routes that open on a dark photograph (Home hero, PageHero "foto"): only these start with
+// the glass capsule and white logo. Every other route — light openings, 404, future pages —
+// renders the solid capsule from the server on. Keep in sync with the pages' hero variants.
+const rotasEscuras = ["/", "/estrutura", "/atuacoes", "/obras"];
 
-function rotaClara(pathname: string) {
-  return rotasClaras.some((rota) => pathname === rota || pathname.startsWith(rota + "/"));
+function rotaEscura(pathname: string) {
+  return rotasEscuras.includes(pathname);
 }
 
 const links = [
@@ -122,7 +123,7 @@ export function Header() {
     return href === "/" ? pathname === href : pathname.startsWith(href);
   }
 
-  const solido = sobreConteudo || menuAberto || rotaClara(pathname);
+  const solido = sobreConteudo || menuAberto || !rotaEscura(pathname);
 
   return (
     // The header box itself lets clicks through; only the capsule, the open menu and its

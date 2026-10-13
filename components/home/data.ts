@@ -162,8 +162,8 @@ export const operacoesHero = [
   },
 ];
 
-// Ecosystem: the solutions the group delivers (titles from servicosPrincipais and from each
-// company's own "atuacao"). Links land on existing pages/anchors.
+// Ecosystem: the solutions the group delivers. Titles are servicosPrincipais titles or a
+// company's own "atuacao" label, verbatim. Links land on existing pages/anchors.
 export const solucoesEcossistema = [
   { id: "pavimentacao", titulo: "Pavimentação asfáltica", href: "/atuacoes#frente-pavimentacao" },
   { id: "usinagem", titulo: "Usinagem de asfalto", href: "/servicos" },
@@ -172,11 +172,13 @@ export const solucoesEcossistema = [
   { id: "pre-moldados", titulo: "Pré-moldados", href: "/atuacoes#frente-pre-moldados" },
   { id: "maquinas", titulo: "Locação de máquinas", href: "/estrutura" },
   { id: "construcao", titulo: "Construção civil", href: "/atuacoes#frente-edificacoes" },
-  { id: "apoio", titulo: "Apoio operacional e materiais", href: "/estrutura" },
+  { id: "apoio", titulo: "Apoio operacional", href: "/estrutura" },
+  { id: "materiais", titulo: "Materiais de construção", href: "#grupo-titulo" },
 ];
 
 // Which solutions each company delivers, taken from servicosPrincipais.empresa and from the
-// company's own atuacao/descricao. No company–client pairing is documented in the project,
+// company's own atuacao. Santa Maria is listed only as "Parceiro estratégico", so no
+// solution is attributed to it. No company–client pairing is documented in the project,
 // so success cases are linked to the group as a whole.
 export const solucoesPorEmpresa: Record<string, string[]> = {
   "MSM Industrial": ["pavimentacao", "usinagem", "concreto"],
@@ -185,9 +187,9 @@ export const solucoesPorEmpresa: Record<string, string[]> = {
   "Auto Posto Correntão": ["apoio"],
   "Pré Molde": ["pre-moldados"],
   Tratorron: ["maquinas"],
-  "Comercial da Construção": ["apoio"],
-  "MW Materiais": ["apoio"],
-  "Santa Maria": ["apoio"],
+  "Comercial da Construção": ["materiais"],
+  "MW Materiais": ["materiais"],
+  "Santa Maria": [],
 };
 
 // Same list as "Casos de sucesso" in app/obras/page.tsx (kept in sync by hand until Wave 3).

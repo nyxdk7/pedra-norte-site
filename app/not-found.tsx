@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
+
+export const metadata: Metadata = {
+  title: "Página não encontrada",
+};
 
 export default function PaginaNaoEncontrada() {
   return (

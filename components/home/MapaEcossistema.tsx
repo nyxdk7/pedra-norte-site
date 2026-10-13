@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import {
@@ -13,6 +13,14 @@ import {
   solucoesEcossistema,
   solucoesPorEmpresa,
 } from "./data";
+
+const consultaVertical = "(min-width: 1024px)";
+
+function assinarVertical(aoMudar: () => void) {
+  const media = window.matchMedia(consultaVertical);
+  media.addEventListener("change", aoMudar);
+  return () => media.removeEventListener("change", aoMudar);
+}
 
 function slug(texto: string) {
   return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "").replace(/[^a-zA-Z]+/g, "-").toLowerCase();
@@ -30,6 +38,22 @@ function descricaoDaSolucao(titulo: string) {
 export function MapaEcossistema() {
   const [ativa, setAtiva] = useState(0);
   const abasRef = useRef<Array<HTMLButtonElement | null>>([]);
+  // The tab list is a column from 1024px and a horizontal scroller below.
+  const vertical = useSyncExternalStore(
+    assinarVertical,
+    () => window.matchMedia(consultaVertical).matches,
+    () => true,
+  );
+
+  function selecionar(indice: number) {
+    setAtiva(indice);
+    const aba = abasRef.current[indice];
+    const lista = aba?.parentElement;
+    if (aba && lista && lista.scrollWidth > lista.clientWidth) {
+      const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      lista.scrollTo({ left: aba.offsetLeft - lista.offsetLeft - 16, behavior: reduzir ? "auto" : "smooth" });
+    }
+  }
 
   function navegar(evento: KeyboardEvent<HTMLButtonElement>, indice: number) {
     const total = empresasCarousel.length;
@@ -44,8 +68,8 @@ export function MapaEcossistema() {
 
     if (destino === undefined) return;
     evento.preventDefault();
-    setAtiva(destino);
-    abasRef.current[destino]?.focus();
+    selecionar(destino);
+    abasRef.current[destino]?.focus({ preventScroll: true });
   }
 
   return (
@@ -79,7 +103,7 @@ export function MapaEcossistema() {
             <div
               role="tablist"
               aria-label="Empresas do Grupo Soster"
-              aria-orientation="vertical"
+              aria-orientation={vertical ? "vertical" : "horizontal"}
               className="mt-4 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
             >
               {empresasCarousel.map((empresa, indice) => {
@@ -97,7 +121,7 @@ export function MapaEcossistema() {
                     aria-selected={selecionada}
                     aria-controls={`painel-${slug(empresa.nome)}`}
                     tabIndex={selecionada ? 0 : -1}
-                    onClick={() => setAtiva(indice)}
+                    onClick={() => selecionar(indice)}
                     onKeyDown={(evento) => navegar(evento, indice)}
                     className={`eco-aba relative flex min-h-14 shrink-0 items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors duration-200 ${
                       selecionada
@@ -148,6 +172,7 @@ export function MapaEcossistema() {
                   </div>
                   <p className="mt-4 font-serif text-[0.9375rem] leading-relaxed text-muted-strong">{empresa.descricao}</p>
 
+                  {solucoes.length ? (
                   <ul className="mt-6 divide-y divide-border border-t border-border">
                     {solucoes.map((solucao) => {
                       const descricao = descricaoDaSolucao(solucao.titulo);
@@ -169,6 +194,7 @@ export function MapaEcossistema() {
                       );
                     })}
                   </ul>
+                  ) : null}
                 </div>
               );
             })}
@@ -178,8 +204,8 @@ export function MapaEcossistema() {
           <div className="lg:col-span-3 lg:pl-10">
             <p className="eco-etapa">Casos de sucesso</p>
             <div className="eco-hub mt-4 rounded-2xl bg-ink p-5 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/85">Atendidos pelo</p>
-              <p className="mt-1 text-lg font-bold">Grupo Soster</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/85">Projetos e fornecimentos para</p>
+              <p className="mt-1 text-lg font-bold">Órgãos e instituições</p>
             </div>
             <ul className="eco-casos relative mt-3 space-y-2 pl-6">
               {casosSucesso.map((caso) => (

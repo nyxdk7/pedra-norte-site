@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ButtonLink, buttonClasses } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
-import { PageHero } from "@/components/ui/PageHero";
+import { HeroAtuacoes } from "@/components/atuacoes/HeroAtuacoes";
 import { Container, Eyebrow } from "@/components/ui/Section";
 import { useReducedMotion } from "@/components/ui/useReducedMotion";
 
@@ -77,6 +77,14 @@ const atuacoes = [
   },
 ];
 
+// Opening panels: the strongest high-resolution photograph of each front (real archive).
+const fotosDoTopo: Record<string, { foto: string; posicao?: string }> = {
+  "Pavimentação": { foto: "/images/galeria/home10.png", posicao: "60% 78%" },
+  "Extração de minérios": { foto: "/images/galeria/home13.jpeg", posicao: "50% 40%" },
+  "Pré-moldados": { foto: "/images/atuacoes/pre-moldados/pre-moldados2.png", posicao: "40% 50%" },
+  "Edificações": { foto: "/images/atuacoes/edificacoes/edificacoes.png", posicao: "55% 40%" },
+};
+
 function slugDaAtuacao(titulo: string) {
   const semAcentos = titulo.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   return semAcentos.replace(/[^a-zA-Z]+/g, "-").toLowerCase();
@@ -138,49 +146,28 @@ export default function AtuacoesPage() {
 
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
-      <PageHero
+      <HeroAtuacoes
         eyebrow="Principais atuações"
-        title="Áreas de atuação com estrutura para atender obras e operações de diferentes portes."
-        image="/images/galeria/home13.jpeg"
-        imageAlt="Escavadeira carregando caminhão basculante da Pedra Norte"
-        imagePosition="object-[50%_35%]"
-        legenda="Escavadeira carregando caminhão da Pedra Norte"
-        description={
-          <p>
-            O Grupo Soster reúne frentes de atuação em pavimentação, extração
-            de minérios, pré-moldados e edificações, conectando estrutura
-            própria, experiência operacional e execução em campo.
-          </p>
-        }
-        actions={
+        titulo="Áreas de atuação com estrutura para atender obras e operações de diferentes portes."
+        descricao="O Grupo Soster reúne frentes de atuação em pavimentação, extração de minérios, pré-moldados e edificações, conectando estrutura própria, experiência operacional e execução em campo."
+        frentes={atuacoes.map((atuacao) => ({
+          titulo: atuacao.titulo,
+          subtitulo: atuacao.subtitulo,
+          href: `#frente-${slugDaAtuacao(atuacao.titulo)}`,
+          ...fotosDoTopo[atuacao.titulo],
+        }))}
+        acoes={
           <>
-            <ButtonLink href="/contato" variant="signal" size="lg">
+            <ButtonLink href="/contato" variant="primary" size="lg" className="group/cta">
               Solicitar orçamento
-              <ArrowRight size={18} aria-hidden="true" />
+              <ArrowRight size={18} className="transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href="/estrutura" variant="glass" size="lg">
+            <ButtonLink href="/estrutura" variant="secondary" size="lg">
               Ver estrutura
             </ButtonLink>
           </>
         }
-      >
-        {/* Page-specific base strip: an index that jumps to each front below */}
-        <nav aria-label="Frentes de atuação" className="mt-12 hidden max-w-[52rem] border-t border-white/25 md:block">
-          <ul className="grid grid-cols-2 md:grid-cols-4">
-            {atuacoes.map((atuacao) => (
-              <li key={atuacao.titulo}>
-                <a
-                  href={`#frente-${slugDaAtuacao(atuacao.titulo)}`}
-                  className="group flex min-h-12 items-center gap-2 py-3 pr-4 text-[0.9375rem] font-semibold text-white"
-                >
-                  <span aria-hidden="true" className="h-px w-4 bg-accent transition-[width] duration-200 group-hover:w-6" />
-                  {atuacao.titulo}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </PageHero>
+      />
 
       <section aria-labelledby="frentes-titulo" className="py-20 md:py-28">
         <Container>

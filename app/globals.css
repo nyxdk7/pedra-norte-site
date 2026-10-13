@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "glass-6";
+  --css-build: "atu-5";
 
   color-scheme: light;
 }
@@ -444,32 +444,18 @@ html {
   background: linear-gradient(180deg, #b9cfe6 0%, #6f97c9 32%, #2b4f86 62%, var(--ink-900) 100%);
 }
 
-.eco-horizonte {
-  opacity: 0.38;
-  mix-blend-mode: luminosity;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+.eco-esq {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
+    mask-composite: intersect;
 }
 
-.eco-metade {
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-}
-
-@media (min-width: 768px) {
-  .eco-esq {
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+.eco-dir {
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
     -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
     mask-composite: intersect;
-  }
-
-  .eco-dir {
-    -webkit-mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    mask-composite: intersect;
-  }
 }
 
 .eco-foto { filter: saturate(0.92) contrast(1.08) brightness(0.96); }
@@ -480,7 +466,7 @@ html {
   background: linear-gradient(180deg, rgb(60 104 170 / 0.55) 0%, rgb(43 79 134 / 0.28) 45%, rgb(11 25 43 / 0.2) 100%);
 }
 
-.eco-ar { background: linear-gradient(180deg, rgb(200 218 238 / 0.75) 0%, rgb(160 190 225 / 0.35) 16%, transparent 34%); }
+.eco-ar { background: linear-gradient(180deg, rgb(200 218 238 / 0.85) 0%, rgb(160 190 225 / 0.45) 22%, transparent 40%); }
 
 .eco-base {
   background:
@@ -556,7 +542,12 @@ html {
     animation: ecoFluxo 900ms linear infinite;
   }
   .eco-painel::before { right: 100%; width: 2.5rem; }
-  .eco-painel::after { left: 100%; width: 5rem; }
+  .eco-painel::after {
+    left: 100%;
+    width: 5rem;
+    animation: none;
+    background: repeating-linear-gradient(90deg, rgb(11 25 43 / 0.35) 0 6px, transparent 6px 10px);
+  }
 }
 
 /* Group hub → cases: a spine with one stub per case */
@@ -583,6 +574,127 @@ html {
   .eco-aba[data-ativa]::after,
   .eco-painel::before,
   .eco-painel::after { animation: none; }
+}
+
+/* --- Atuações opening: slanted photographic panels, one per front ---
+   Panels are skewed; photographs are counter-skewed and oversized so they stay upright
+   and cover the slanted box. The outer panels run past the screen edges. */
+.atu-area { position: relative; height: min(66svh, 42rem); }
+
+.atu-paineis {
+  position: absolute;
+  inset: 0 -4%;
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atu-painel {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+  transform: skewX(-10deg);
+  transition: flex-grow 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.atu-link { position: absolute; inset: 0; display: block; color: #fff; }
+
+/* Focus ring drawn ABOVE the photograph (an outline on the link would sit under it). */
+.atu-link:focus-visible { outline: none; }
+.atu-link::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: 1;
+  pointer-events: none;
+  border: 3px solid transparent;
+}
+.atu-link:focus-visible::after {
+  border-color: var(--accent-400);
+  box-shadow: 0 0 0 3px var(--ink-900), inset 0 0 0 3px var(--ink-900);
+}
+
+.atu-foto {
+  position: absolute;
+  inset: 0 -30%;
+  transform: skewX(10deg);
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Glass label, upright, centred on the visible part of the panel */
+.atu-rotulo {
+  position: absolute;
+  left: 50%;
+  bottom: 40%;
+  width: max-content;
+  max-width: min(78%, 16rem);
+  transform: translateX(-50%) skewX(10deg);
+  border-radius: 0.75rem;
+  background: rgb(11 25 43 / 0.9);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 0.55rem 0.9rem;
+}
+
+/* Outer panels are partly off-screen: pull their labels toward the visible side. */
+.atu-painel:first-child .atu-rotulo { left: 58%; }
+.atu-painel:last-child .atu-rotulo { left: 42%; }
+
+@media (min-width: 1024px) {
+  .atu-painel:hover,
+  .atu-painel:focus-within { flex-grow: 1.75; }
+  .atu-painel:hover .atu-foto { transform: skewX(10deg) scale(1.04); }
+}
+
+/* Header legibility over the top of the photographs; fade into the page below. */
+.atu-topo { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, transparent 26%); }
+.atu-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 46%, rgb(250 250 247 / 0.7) 70%, var(--background) 86%); }
+
+.atu-texto { position: relative; margin-top: -5.5rem; padding-bottom: 5rem; text-align: center; }
+
+.atu-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.atu-eyebrow::before,
+.atu-eyebrow::after { content: ""; width: 2.5rem; height: 1px; background: var(--accent-500); }
+
+/* Brand-blue highlight that follows the lines of the lead */
+.atu-destaque {
+  background: var(--brand);
+  color: #fff;
+  padding: 0.18em 0.55em;
+  border-radius: 0.25rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Phones and tablets: the panels become slanted horizontal strata under the header. */
+@media (max-width: 1023px) {
+  .atu-area { height: auto; }
+  .atu-paineis { position: relative; inset: auto; flex-direction: column; gap: 6px; margin: 0 -8%; }
+  .atu-painel { flex: none; height: 6.75rem; transform: skewY(-4deg); }
+  .atu-painel:first-child { height: calc(var(--header-h) + 8rem); }
+  .atu-foto { inset: -30% 0; transform: skewY(4deg); }
+  .atu-rotulo,
+  .atu-painel:first-child .atu-rotulo,
+  .atu-painel:last-child .atu-rotulo {
+    left: calc(8% + var(--gutter));
+    bottom: 1.1rem;
+    max-width: calc(84% - 2 * var(--gutter));
+    transform: skewY(4deg);
+  }
+  .atu-fade { display: none; }
+  .atu-texto { margin-top: 2.5rem; padding-bottom: 4rem; }
 }
 
 /* --- Ticker of institutions (Home trust band) ---
@@ -644,13 +756,13 @@ html {
   .gallery-image-enter,
   .gallery-progress,
   .animate-fade-up { animation: none; }
-  /* Ticker stands still: one copy, as a centred grid without the edge fade */
+  /* Ticker stands still: one copy, wrapped in centred rows without the edge fade */
   .ticker-janela { -webkit-mask-image: none; mask-image: none; }
   .ticker-track { animation: none; width: 100%; }
   .ticker-grupo + .ticker-grupo { display: none; }
-  .ticker-grupo { display: grid; width: 100%; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .ticker-grupo { width: 100%; flex-wrap: wrap; justify-content: center; column-gap: 0.5rem; }
   .ticker-grupo > [data-repete] { display: none; }
-  .ticker-grupo > div { border-right: 0; justify-content: center; }
+  .ticker-grupo > div { flex: 0 0 auto; border-right: 0; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }

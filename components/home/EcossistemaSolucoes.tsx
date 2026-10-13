@@ -5,6 +5,7 @@ import {
   Building2,
   Cylinder,
   Factory,
+  Fuel,
   type LucideIcon,
   Mountain,
   Package,
@@ -30,7 +31,8 @@ const icones: Record<string, LucideIcon> = {
   "pre-moldados": Blocks,
   maquinas: Truck,
   construcao: Building2,
-  apoio: Package,
+  apoio: Fuel,
+  materiais: Package,
 };
 
 // Real operations in the foreground of the montage (no generated imagery).
@@ -49,8 +51,8 @@ const destaques = [
   },
   {
     rotulo: "Pré-moldados",
-    foto: "/images/atuacoes/pre-moldados/pre-moldados2.png",
-    alt: "Pátio de peças pré-moldadas de concreto",
+    foto: "/images/atuacoes/pre-moldados/pre-moldados.png",
+    alt: "Peças pré-moldadas de concreto prontas para obra",
     href: "/atuacoes#frente-pre-moldados",
   },
 ];
@@ -82,34 +84,35 @@ export function EcossistemaSolucoes() {
       <section aria-labelledby="ecossistema-titulo" className="on-dark bg-ink pb-16 text-white md:pb-24">
         <Container>
           {/* Montage */}
-          <div className="eco-palco relative isolate h-[22rem] overflow-hidden rounded-[1.375rem] sm:h-[28rem] lg:h-[38rem]">
-            <div className="eco-horizonte absolute inset-x-0 top-0 h-[70%]">
-              <Image src="/images/galeria/home14.jpeg" alt="" fill sizes="(max-width: 1440px) 100vw, 1264px" className="object-cover" />
-            </div>
-            <div className="eco-metade eco-esq absolute bottom-0 left-0 top-[10%] w-full md:w-1/2">
+          <div className="relative">
+          <div className="eco-palco relative isolate h-[20rem] overflow-hidden rounded-[1.375rem] sm:h-[26rem] lg:h-[38rem]">
+            {/* Both photographs at every width; the top third is one shared painted sky */}
+            <div className="eco-metade eco-esq absolute bottom-0 left-0 top-0 w-1/2">
               <Image
-                src="/images/galeria/home13.jpeg"
-                alt="Escavadeira carregando caminhão basculante da Pedra Norte"
+                src="/images/atuacoes/extracao-minerios/pedreira (6).jpeg"
+                alt="Pá carregadeira em meio à poeira entre as correias transportadoras da pedreira"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="eco-foto object-cover object-[50%_40%]"
+                sizes="(max-width: 767px) 125vw, (max-width: 1279px) 72vw, 760px"
+                className="eco-foto object-cover object-[55%_60%]"
               />
             </div>
-            <div className="eco-metade eco-dir absolute bottom-0 right-0 top-[10%] hidden w-1/2 md:block">
+            <div className="eco-metade eco-dir absolute bottom-0 right-0 top-0 w-1/2">
               <Image
                 src="/images/atuacoes/edificacoes/edificacoes.png"
                 alt="Caminhão betoneira e bomba de concreto abastecendo obra de edificação"
                 fill
-                sizes="50vw"
-                className="eco-foto object-cover object-[60%_30%]"
+                sizes="(max-width: 767px) 125vw, (max-width: 1279px) 72vw, 760px"
+                className="eco-foto object-cover object-[62%_60%]"
               />
             </div>
             <div aria-hidden="true" className="eco-tom absolute inset-0" />
             <div aria-hidden="true" className="eco-ar absolute inset-0" />
             <div aria-hidden="true" className="eco-base absolute inset-0" />
-            <div aria-hidden="true" className="eco-costura absolute bottom-[20%] left-1/2 top-[6%] hidden w-0.5 -translate-x-1/2 md:block" />
+            <div aria-hidden="true" className="eco-costura absolute bottom-[18%] left-1/2 top-[8%] w-0.5 -translate-x-1/2" />
+          </div>
 
-            <ul className="absolute inset-x-4 bottom-4 flex gap-3 overflow-x-auto [scrollbar-width:none] md:inset-x-auto md:bottom-[7%] md:left-1/2 md:-translate-x-1/2 md:overflow-visible">
+            {/* Below lg the cards sit under the photograph instead of covering it */}
+            <ul className="mt-4 flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] lg:absolute lg:bottom-[7%] lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:overflow-visible lg:pb-0">
               {destaques.map((item) => (
                 <li key={item.rotulo} className="w-44 shrink-0 md:w-52">
                   <Link
@@ -161,7 +164,7 @@ export function EcossistemaSolucoes() {
           </div>
 
           {/* Solutions as engineering badges */}
-          <ul className="mt-14 grid grid-cols-2 gap-x-4 gap-y-8 border-t border-white/15 pt-10 sm:grid-cols-4 lg:grid-cols-8">
+          <ul className="mt-14 grid grid-cols-3 gap-x-3 gap-y-8 border-t border-white/15 pt-10 sm:grid-cols-5 xl:grid-cols-9">
             {solucoesEcossistema.map((solucao) => {
               const Icone = icones[solucao.id];
 
@@ -169,7 +172,7 @@ export function EcossistemaSolucoes() {
                 <li key={solucao.id}>
                   <Link
                     href={solucao.href}
-                    className="anel-duplo group flex flex-col items-center gap-3 rounded-xl px-1 py-2 text-center text-[0.8125rem] font-semibold uppercase leading-snug tracking-[0.08em] text-white"
+                    className="anel-duplo group flex flex-col items-center gap-3 rounded-xl px-1 py-2 text-center text-xs font-semibold uppercase leading-snug tracking-[0.06em] text-white"
                   >
                     <Selo Icone={Icone} />
                     {solucao.titulo}

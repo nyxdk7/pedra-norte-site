@@ -97,7 +97,7 @@ export default function ServicosPage() {
         image="/images/galeria/home10.png"
         imageAlt="Retroescavadeira com a caçamba carregada de massa asfáltica em obra de pavimentação"
         imagePosition="object-[66%_center]"
-        imageSizes="(max-width: 1024px) 100vw, 160vh"
+        imageSizes="(max-width: 1023px) 100vw, 160vh"
         description={
           <p>
             A MSM Industrial LTDA reúne estrutura e qualidade no fornecimento

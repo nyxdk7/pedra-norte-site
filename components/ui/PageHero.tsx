@@ -83,7 +83,7 @@ export function PageHero({
         {legenda ? (
           <p
             aria-hidden="true"
-            className="absolute bottom-6 right-[var(--gutter)] hidden max-w-[19rem] items-start gap-3 rounded-2xl bg-ink/60 px-4 py-2.5 text-sm font-semibold leading-snug text-white backdrop-blur-sm lg:flex"
+            className="absolute right-[var(--gutter)] top-[calc(var(--header-h)+1.5rem)] hidden max-w-[19rem] items-start gap-3 rounded-2xl bg-ink/60 px-4 py-2.5 text-sm font-semibold leading-snug text-white backdrop-blur-sm lg:flex"
           >
             <span className="mt-2.5 h-px w-6 shrink-0 bg-accent" />
             {legenda}
@@ -103,7 +103,7 @@ export function PageHero({
             fill
             loading="eager"
             fetchPriority="high"
-            sizes={imageSizes ?? "(max-width: 1024px) 100vw, 46vw"}
+            sizes={imageSizes ?? "(max-width: 1023px) 100vw, 46vw"}
             className={`object-cover ${imagePosition}`}
           />
         </div>

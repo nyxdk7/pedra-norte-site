@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "glass-4";
+  --css-build: "glass-5";
 
   color-scheme: light;
 }
@@ -291,7 +291,7 @@ html {
 
 /* Glass over photography: light frost, hairline edge and a top highlight. */
 .header-capsule[data-tone="media"] {
-  background-color: rgb(11 25 43 / 0.26);
+  background-color: rgb(11 25 43 / 0.3);
   border-color: rgb(255 255 255 / 0.24);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
 }
@@ -375,11 +375,14 @@ html {
   }
 }
 
-/* Short laptop screens (1280×720, 1366×768): tighter type and padding so the
-   credentials band still shows under the hero. Unlayered, so it beats utilities. */
+/* Short laptop screens (1280×720, 1366×768): tighter type, figures and card so the whole
+   full-screen hero, figures included, fits the fold. Unlayered, so it beats utilities. */
 @media (min-width: 1024px) and (max-height: 820px) {
   .hero-content { padding-top: calc(var(--header-h) + 1.75rem); }
   .hero-title { font-size: 3.25rem; }
+  .hero-numeros { margin-top: 1.25rem; padding-top: 1rem; padding-bottom: 1.25rem; }
+  .hero-numeros dd { font-size: 2.5rem; }
+  .hero-vidro-foto { aspect-ratio: 16 / 8; }
   .hero-lead { font-size: 1.125rem; }
   .hero-lead + div { margin-top: 1.5rem; }
 }
@@ -407,9 +410,9 @@ html {
 @media (min-width: 1280px) {
   .page-hero-scrim {
     background:
-      linear-gradient(180deg, rgb(11 25 43 / 0.45) 0%, transparent 22%),
-      linear-gradient(90deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.68) 44%, rgb(11 25 43 / 0.3) 66%, transparent 82%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.75) 0%, rgb(11 25 43 / 0.32) 40%, transparent 64%);
+      linear-gradient(180deg, rgb(11 25 43 / 0.4) 0%, transparent 20%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.8) 0%, rgb(11 25 43 / 0.6) 44%, rgb(11 25 43 / 0.24) 64%, transparent 78%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.28) 40%, transparent 62%);
   }
 }
 
@@ -418,9 +421,17 @@ html {
   margin-right: max(0px, calc(6rem - var(--gutter)));
 }
 
+/* Two-tone focus ring for controls on glass or photographs: the navy band contrasts with
+   light areas, the ochre band with dark ones. */
+.anel-duplo:focus-visible {
+  outline: 2px solid var(--accent-400);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ink-900);
+}
+
 /* Glass card over the hero photograph (dark frost so its text stays legible on any area). */
 .hero-vidro {
-  background-color: rgb(11 25 43 / 0.46);
+  background-color: rgb(11 25 43 / 0.56);
   border: 1px solid rgb(255 255 255 / 0.18);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   backdrop-filter: blur(18px) saturate(140%);

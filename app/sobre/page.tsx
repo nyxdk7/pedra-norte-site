@@ -32,7 +32,7 @@ export default function SobrePage() {
         image="/images/home/hero-obras-acre.png"
         imageAlt="Escavadeira e equipe em obra de infraestrutura do Grupo Soster"
         imagePosition="object-[30%_center]"
-        imageSizes="(max-width: 1024px) 100vw, 150vh"
+        imageSizes="(max-width: 1023px) 100vw, 170vh"
         description={
           <p>
             A MSM Industrial LTDA atua no setor de engenharia civil oferecendo

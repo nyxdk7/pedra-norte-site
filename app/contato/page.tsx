@@ -30,7 +30,7 @@ export default function ContatoPage() {
         image="/images/galeria/home12.jpeg"
         imageAlt="Caminhão fora de estrada em estrada interna da pedreira"
         imagePosition="object-[30%_center]"
-        imageSizes="(max-width: 1024px) 100vw, 120vh"
+        imageSizes="(max-width: 1023px) 100vw, 120vh"
         eyebrow="Canais oficiais"
         title="Vamos conversar?"
         description={

@@ -8,6 +8,14 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 import { buttonClasses } from "@/components/ui/Button";
 import { siteContact } from "@/lib/site-config";
 
+// Routes whose opening band is light (PageHero "dividido" or "sereno"): the capsule is
+// solid from the first render. Keep in sync with the PageHero variant used by each page.
+const rotasClaras = ["/sobre", "/servicos", "/contato", "/integridade"];
+
+function rotaClara(pathname: string) {
+  return rotasClaras.some((rota) => pathname === rota || pathname.startsWith(rota + "/"));
+}
+
 const links = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Sobre" },
@@ -114,7 +122,7 @@ export function Header() {
     return href === "/" ? pathname === href : pathname.startsWith(href);
   }
 
-  const solido = sobreConteudo || menuAberto;
+  const solido = sobreConteudo || menuAberto || rotaClara(pathname);
 
   return (
     // The header box itself lets clicks through; only the capsule, the open menu and its
@@ -158,7 +166,7 @@ export function Header() {
                             : "text-steel after:bg-transparent hover:bg-ink/[0.05] hover:text-ink"
                           : ativo
                             ? "text-white after:bg-accent"
-                            : "text-on-dark-muted after:bg-transparent hover:bg-white/10 hover:text-white"
+                            : "text-white after:bg-transparent hover:bg-white/10"
                       }`}
                     >
                       {link.label}

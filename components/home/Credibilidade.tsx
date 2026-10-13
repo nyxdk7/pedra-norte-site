@@ -12,7 +12,7 @@ export function Credibilidade() {
     <section
       id="credibilidade"
       aria-labelledby="credibilidade-titulo"
-      className="on-dark bg-ink pb-14 pt-14 text-white md:pb-20 md:pt-20"
+      className="on-dark scroll-mt-[calc((var(--header-h)+1rem)*-1)] bg-ink pb-14 pt-[calc(var(--header-h)+2rem)] text-white md:pb-20 md:pt-[calc(var(--header-h)+2.5rem)]"
     >
       <Container>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

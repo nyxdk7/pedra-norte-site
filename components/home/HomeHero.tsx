@@ -71,12 +71,13 @@ export function HomeHero() {
         </div>
 
         {/* Documented figures on the base of the photograph */}
-        <div className="mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-8 pt-6 md:pb-10 lg:mt-10">
-          <dl className="grid flex-1 grid-cols-3">
+        <div className="hero-numeros mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-10 pt-6 lg:mt-10">
+          {/* Phones: the third figure stays clear of the fixed WhatsApp button */}
+          <dl className="mr-16 grid flex-1 grid-cols-3 md:mr-0">
             {indicadoresGrupo.map((item) => (
               <div
                 key={item.rotulo}
-                className="flex flex-col-reverse gap-1 border-l border-white/25 pl-4 first:border-l-0 first:pl-0 md:pl-8"
+                className="flex flex-col-reverse justify-end gap-1 border-l border-white/25 pl-4 first:border-l-0 first:pl-0 md:pl-8"
               >
                 <dt className="text-xs font-semibold text-white md:text-sm">{item.rotulo}</dt>
                 <dd className="text-[1.75rem] font-light leading-none tracking-[-0.02em] tabular-nums md:text-[2.5rem] lg:text-[3rem]">

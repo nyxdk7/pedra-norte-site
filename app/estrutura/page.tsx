@@ -40,18 +40,18 @@ const fotos = [
     posicao: "object-center",
   },
   {
-    src: "/images/galeria/home14.jpeg",
-    alt: "Vista da planta de britagem com correias transportadoras e pilhas de agregado",
-    classe: "aspect-[16/9] md:col-span-8",
-    sizes: "(max-width: 768px) 100vw, 66vw",
-    posicao: "object-center",
-  },
-  {
     src: "/images/galeria/home2.png",
     alt: "Caminhão-pipa ligado por mangueira a uma recicladora de solo, com rolo compactador ao fundo",
+    classe: "aspect-[16/9] md:col-span-8",
+    sizes: "(max-width: 768px) 100vw, 66vw",
+    posicao: "object-[50%_75%]",
+  },
+  {
+    src: "/images/galeria/home14.jpeg",
+    alt: "Vista da planta de britagem com correias transportadoras e pilhas de agregado",
     classe: "aspect-[4/3] md:col-span-4 md:aspect-auto",
-    sizes: "(max-width: 768px) 100vw, 34vw",
-    posicao: "object-[45%_80%]",
+    sizes: "(max-width: 768px) 100vw, 46vw",
+    posicao: "object-[40%_center]",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function EstruturaPage() {
         image="/images/atuacoes/extracao-minerios/pedreira (7).jpeg"
         imageAlt="Pá carregadeira diante da planta de britagem"
         imagePosition="object-[45%_center]"
-        legenda="Pá carregadeira diante da planta de britagem"
+        legenda="Planta de britagem da pedreira"
         description={
           <p>
             A estrutura do grupo conecta frota, máquinas, produção de

@@ -43,14 +43,11 @@ export function GaleriaAtuacoes({ fotos, titulo }: GaleriaAtuacoesProps) {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between gap-3">
+      <div className="mb-4 flex items-center gap-3">
         <h2 className="flex items-center gap-2 text-sm font-bold text-slate-800">
           <Images aria-hidden="true" className="h-4 w-4 text-[#143987]" />
-          Registros da atuação
+          Registros
         </h2>
-        <span className="text-xs font-medium text-slate-500">
-          {fotos.length} fotografias
-        </span>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">

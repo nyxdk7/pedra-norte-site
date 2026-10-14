@@ -7,6 +7,7 @@ export type ObraPortfolio = {
 };
 
 const pastaKm246 = "/images/obras/erosao-km-246";
+const pastaKm273 = "/images/obras/erosao-km-273";
 
 // Adicione novas obras neste array; cada uma será exibida em um bloco separado.
 export const obrasRodoviarias: ObraPortfolio[] = [
@@ -31,6 +32,25 @@ export const obrasRodoviarias: ObraPortfolio[] = [
       `${pastaKm246}/10-pavimentacao-execucao.webp`,
       `${pastaKm246}/04-material-petreo.webp`,
       `${pastaKm246}/09-trecho-recuperado.webp`,
+    ],
+  },
+  {
+    id: "erosao-km-273",
+    titulo: "Recuperação de erosão no km 273",
+    trecho: "Km 273 — Estrada de Sena Madureira, Acre",
+    descricao:
+      "Frente de recuperação dedicada à recomposição do trecho afetado pela erosão, com movimentação e aplicação de material pétreo, regularização da base e compactação do terreno. Os registros destacam o avanço dos serviços e a atuação de escavadeiras, caminhões e equipamentos de nivelamento.",
+    fotos: [
+      `${pastaKm273}/01-vista-trecho-recomposto.webp`,
+      `${pastaKm273}/02-regularizacao-plataforma.webp`,
+      `${pastaKm273}/03-escavacao-material-petreo.webp`,
+      `${pastaKm273}/04-compactacao-base.webp`,
+      `${pastaKm273}/05-motoniveladora.webp`,
+      `${pastaKm273}/06-escavadeira-reforco-base.webp`,
+      `${pastaKm273}/07-descarga-material.webp`,
+      `${pastaKm273}/08-vista-geral-intervencao.webp`,
+      `${pastaKm273}/09-regularizacao-compactacao.webp`,
+      `${pastaKm273}/10-movimentacao-agregados.webp`,
     ],
   },
 ];

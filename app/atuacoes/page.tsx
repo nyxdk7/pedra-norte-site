@@ -3,12 +3,13 @@ import Image from "next/image";
 import { GaleriaAtuacoes } from "@/components/GaleriaAtuacoes";
 
 export const metadata: Metadata = {
-  title: "Pavimentação asfáltica | Atuações",
+  title: "Áreas de atuação | MSM Industrial | Pedra Norte",
   description:
-    "Conheça a atuação em pavimentação asfáltica, com estrutura operacional, equipe técnica e registros fotográficos de obras rodoviárias.",
+    "Conheça as áreas de atuação da MSM Industrial e Pedra Norte, com destaque para pavimentação asfáltica, concreto usinado e edificações.",
 };
 
 const frentes = [
+
   {
     id: "pavimentacao-asfaltica",
     titulo: "Pavimentação asfáltica",
@@ -18,6 +19,17 @@ const frentes = [
       "/images/atuacoes/pavimentacao/pavimentacao-1.jpg",
       "/images/atuacoes/pavimentacao/pavimentacao-2.jpg",
       "/images/atuacoes/pavimentacao/pavimentacao-3.jpg",
+    ],
+  },
+  {
+    id: "concreto-usinado-edificacoes",
+    titulo: "Concreto usinado / edificações",
+    descricao:
+      "O fornecimento de concreto usinado e o apoio a edificações unem central produtiva, logística própria e acompanhamento técnico para atender obras com agilidade, controle de qualidade e eficiência na entrega. A atuação contempla desde o abastecimento em campo até aplicações estruturais, fundações e serviços construtivos que exigem regularidade no traço, produtividade e confiabilidade operacional.",
+    fotos: [
+      "/images/atuacoes/concreto-usinado/concreto-1.jpg",
+      "/images/atuacoes/concreto-usinado/concreto-2.jpg",
+      "/images/atuacoes/concreto-usinado/concreto-3.jpg",
     ],
   },
 ];
@@ -60,7 +72,7 @@ export default function AtuacoesPage() {
             key={frente.id}
             id={frente.id}
             aria-labelledby={`${frente.id}-titulo`}
-            className="scroll-mt-32 border-b border-slate-200 pb-14 last:border-b-0 last:pb-0 md:pb-20"
+            className="scroll-mt-32 mb-14 border-b border-slate-200 pb-14 last:mb-0 last:border-b-0 last:pb-0 md:mb-20 md:last:mb-0 md:pb-20"
           >
             <div className="max-w-4xl">
               <h2

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ObraDestaque } from "@/components/obras/ObraDestaque";
 import { PosterObra, type Poster } from "@/components/obras/PosterObra";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
@@ -215,6 +216,37 @@ export default function ObrasPage() {
           </div>
         </div>
       </section>
+
+      {/* Featured work: photographs supplied by the owner */}
+      <ObraDestaque
+        id="variante"
+        rotulo="Obra em destaque"
+        categoria={pavimentacao.titulo}
+        acento="Estrada da"
+        forte="Variante"
+        capa={{
+          src: "/images/obras/estrada-da-variante/variante-reta-horizonte.jpg",
+          alt: "Estrada da Variante vista ao nível da pista, com faixa dupla amarela seguindo até o horizonte",
+          enquadramento: "object-[50%_62%]",
+        }}
+        galeria={[
+          {
+            src: "/images/obras/estrada-da-variante/variante-intersecao-aerea.jpg",
+            alt: "Vista aérea da interseção da Estrada da Variante, com ilhas canalizadoras e pista recém-pavimentada",
+            legenda: "Interseção",
+          },
+          {
+            src: "/images/obras/estrada-da-variante/variante-curva-aerea.jpg",
+            alt: "Vista aérea de trecho em curva da Estrada da Variante, com faixa dupla amarela e meio-fio",
+            legenda: "Trecho em curva",
+          },
+          {
+            src: "/images/obras/estrada-da-variante/variante-tangente-aerea.jpg",
+            alt: "Vista aérea de longo trecho em reta da Estrada da Variante entre pastagens",
+            legenda: "Trecho em reta",
+          },
+        ]}
+      />
 
       {/* Portfolio wall: one poster per front and detail */}
       <section aria-labelledby="areas-titulo" className="bg-ink pb-16 md:pb-24">

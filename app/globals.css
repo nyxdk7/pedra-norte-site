@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "port-6";
+  --css-build: "var-1";
 
   color-scheme: light;
 }
@@ -1014,6 +1014,129 @@ html {
 
 @keyframes obrasAssentar { from { transform: scale(1.08); } to { transform: scale(1); } }
 @keyframes posterFoto { from { transform: scale(1.16); } to { transform: scale(1); } }
+
+/* --- Obras: featured work (Estrada da Variante) ---
+   Full-bleed ground-level photograph with a two-tone title over the asphalt, then a
+   mosaic of aerial views. The photographs settle as they scroll into view. */
+.destaque-capa {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(78svh, 44rem);
+}
+
+@media (min-width: 1024px) {
+  .destaque-capa { min-height: min(90svh, 58rem); }
+}
+
+.destaque-capa-foto { position: absolute; inset: 0; z-index: -2; }
+.destaque-capa-foto img,
+.destaque-foto-imagem img { filter: saturate(1.08) contrast(1.05); }
+
+/* Blends out of the opening above; deep at the base and left, where the title sits */
+.destaque-capa-tom {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 16%, transparent 46%, rgb(11 25 43 / 0.6) 70%, rgb(11 25 43 / 0.94) 100%),
+    linear-gradient(90deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.25) 45%, transparent 70%);
+}
+
+.destaque-chip,
+.destaque-legenda {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  background:
+    linear-gradient(rgb(20 57 135 / 0.3), rgb(20 57 135 / 0.3)),
+    rgb(11 25 43 / 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.destaque-titulo {
+  display: flex;
+  flex-direction: column;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 30px rgb(7 17 30 / 0.5);
+}
+.destaque-acento {
+  font-size: clamp(1.5rem, 1rem + 2.2vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--accent-400);
+}
+.destaque-forte {
+  font-size: clamp(3.25rem, 1.2rem + 9.4vw, 10.5rem);
+  font-weight: 900;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+@media (forced-colors: active) {
+  .destaque-acento,
+  .destaque-forte { line-height: 1.12; }
+}
+
+.destaque-galeria {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destaque-foto {
+  position: relative;
+  overflow: clip;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-card);
+  background: var(--midnight);
+}
+
+.destaque-foto-imagem { position: absolute; inset: 0; }
+
+.destaque-legenda {
+  position: absolute;
+  left: 0.875rem;
+  bottom: 0.875rem;
+}
+
+/* Tablet: the junction spans the row, the two other views share the next one */
+@media (min-width: 768px) {
+  .destaque-galeria { grid-template-columns: 1fr 1fr; }
+  .destaque-foto:first-child { grid-column: span 2; aspect-ratio: 16 / 8; }
+}
+
+/* Desktop: the junction on the left, the two other views stacked on the right */
+@media (min-width: 1024px) {
+  .destaque-galeria { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+  .destaque-foto:first-child { grid-column: 1; grid-row: span 2; aspect-ratio: 16 / 10; }
+  .destaque-foto:not(:first-child) { aspect-ratio: auto; }
+  .destaque-legenda { left: 1.125rem; bottom: 1.125rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .destaque-capa-foto,
+    .destaque-foto-imagem {
+      animation: posterFoto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 50%;
+    }
+  }
+}
 
 /* --- Motion (existing keyframes preserved) --- */
 @keyframes floatLogo {

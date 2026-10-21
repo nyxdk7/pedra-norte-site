@@ -221,13 +221,12 @@ export default function ObrasPage() {
       <ObraDestaque
         id="variante"
         rotulo="Obra em destaque"
-        categoria={pavimentacao.titulo}
         acento="Estrada da"
         forte="Variante"
         capa={{
           src: "/images/obras/estrada-da-variante/variante-reta-horizonte.jpg",
           alt: "Estrada da Variante vista ao nível da pista, com faixa dupla amarela seguindo até o horizonte",
-          enquadramento: "object-[50%_62%]",
+          enquadramento: "object-[50%_62%] lg:object-[50%_54%]",
         }}
         galeria={[
           {
@@ -237,8 +236,8 @@ export default function ObrasPage() {
           },
           {
             src: "/images/obras/estrada-da-variante/variante-curva-aerea.jpg",
-            alt: "Vista aérea de trecho em curva da Estrada da Variante, com faixa dupla amarela e meio-fio",
-            legenda: "Trecho em curva",
+            alt: "Vista aérea de trecho largo da Estrada da Variante, com faixa dupla amarela, meio-fio e curva ao fundo",
+            legenda: "Pista com meio-fio",
           },
           {
             src: "/images/obras/estrada-da-variante/variante-tangente-aerea.jpg",

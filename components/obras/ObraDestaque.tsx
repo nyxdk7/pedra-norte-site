@@ -10,13 +10,12 @@ export type FotoDestaque = {
 
 /**
  * Featured work: a full-bleed cinematic band (ground-level photograph, two-tone title)
- * followed by a mosaic of aerial photographs. Only the work's name and category are
- * stated; no figures are added.
+ * followed by a mosaic of aerial photographs. Only the work's name, as given by the
+ * owner, is stated; no figures or scope are added.
  */
 export function ObraDestaque({
   id,
   rotulo,
-  categoria,
   acento,
   forte,
   capa,
@@ -24,32 +23,28 @@ export function ObraDestaque({
 }: {
   id: string;
   rotulo: string;
-  categoria: string;
   acento: string;
   forte: string;
   capa: Omit<FotoDestaque, "legenda">;
   galeria: FotoDestaque[];
 }) {
   return (
-    <section aria-labelledby={`${id}-titulo`} className="on-dark bg-ink pb-16 text-white md:pb-24">
+    <section id={id} aria-labelledby={`${id}-titulo`} className="on-dark bg-ink pb-16 text-white md:pb-24">
       <div className="destaque-capa">
         <div className="destaque-capa-foto">
           <Image
             src={capa.src}
             alt={capa.alt}
             fill
-            // Phones crop the 3:2 photograph by height (~2.4x the screen width).
-            sizes="(max-width: 1023px) 240vw, 100vw"
+            // Portrait screens crop the 3:2 photograph by height (phones ~2.5x, tablets ~1.4x).
+            sizes="(max-width: 767px) 260vw, (max-width: 1023px) 140vw, 100vw"
             className={`object-cover ${capa.enquadramento ?? "object-center"}`}
           />
         </div>
         <div aria-hidden="true" className="destaque-capa-tom" />
 
         <div className="container-msm w-full pb-10 md:pb-14 lg:pb-16">
-          <p className="flex flex-wrap gap-2">
-            <span className="destaque-chip">{rotulo}</span>
-            <span className="destaque-chip">{categoria}</span>
-          </p>
+          <p className="destaque-chip">{rotulo}</p>
           <h2 id={`${id}-titulo`} className="destaque-titulo mt-5">
             <span className="destaque-acento">{acento}</span> <span className="destaque-forte">{forte}</span>
           </h2>
@@ -68,8 +63,8 @@ export function ObraDestaque({
                     fill
                     sizes={
                       indice === 0
-                        ? "(max-width: 1023px) 100vw, 62vw"
-                        : "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 34vw"
+                        ? "(max-width: 1023px) 100vw, (max-width: 1440px) 58vw, 840px"
+                        : "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, (max-width: 1440px) 29vw, 420px"
                     }
                     className={`object-cover ${foto.enquadramento ?? "object-center"}`}
                   />

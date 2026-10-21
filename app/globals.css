@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "var-1";
+  --css-build: "var-2";
 
   color-scheme: light;
 }
@@ -1078,7 +1078,7 @@ html {
   color: var(--accent-400);
 }
 .destaque-forte {
-  font-size: clamp(3.25rem, 1.2rem + 9.4vw, 10.5rem);
+  font-size: clamp(2.75rem, 1.2rem + 9.4vw, 10.5rem);
   font-weight: 900;
   line-height: 0.86;
   text-transform: uppercase;

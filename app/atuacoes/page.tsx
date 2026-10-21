@@ -5,10 +5,11 @@ import { GaleriaAtuacoes } from "@/components/GaleriaAtuacoes";
 export const metadata: Metadata = {
   title: "Áreas de atuação | MSM Industrial | Pedra Norte",
   description:
-    "Conheça as áreas de atuação da MSM Industrial e Pedra Norte, com destaque para pavimentação asfáltica, concreto usinado e edificações.",
+    "Conheça as áreas de atuação da MSM Industrial e Pedra Norte, com destaque para pavimentação asfáltica, concreto usinado, edificações e produção de asfalto.",
 };
 
 const frentes = [
+
 
   {
     id: "pavimentacao-asfaltica",
@@ -30,6 +31,17 @@ const frentes = [
       "/images/atuacoes/concreto-usinado/concreto-1.jpg",
       "/images/atuacoes/concreto-usinado/concreto-2.jpg",
       "/images/atuacoes/concreto-usinado/concreto-3.jpg",
+    ],
+  },
+  {
+    id: "producao-de-asfalto",
+    titulo: "Produção de asfalto",
+    descricao:
+      "A produção de asfalto reúne tecnologia industrial, controle de dosagem e estrutura operacional para atender obras com regularidade, desempenho e qualidade. Com usina própria, logística integrada e suporte técnico, a operação garante fornecimento eficiente de massa asfáltica para frentes de pavimentação e infraestrutura em diferentes escalas.",
+    fotos: [
+      "/images/atuacoes/producao-asfalto/producao-asfalto-1.jpg",
+      "/images/atuacoes/producao-asfalto/producao-asfalto-2.jpg",
+      "/images/atuacoes/producao-asfalto/producao-asfalto-3.jpg",
     ],
   },
 ];

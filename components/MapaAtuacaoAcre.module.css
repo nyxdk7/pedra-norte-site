@@ -1,0 +1,308 @@
+.secao {
+  position: relative;
+  overflow: hidden;
+  padding-block: 48px;
+  color: #173f75;
+  background: #f7f9fc;
+}
+
+.conteudo {
+  position: relative;
+  max-width: 1680px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.frase {
+  margin: 0 0 10px;
+  font-size: clamp(1.4rem, 2.3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.subtitulo {
+  margin: 0 auto 28px;
+  max-width: 36rem;
+  color: #60728d;
+  font-size: clamp(0.875rem, 1.1vw, 1.0625rem);
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.painel {
+  width: 85%;
+  margin-inline: auto;
+  overflow: hidden;
+  border-top: 1px solid #dbe5f2;
+  border-bottom: 1px solid #dbe5f2;
+  background:
+    radial-gradient(circle at 78% 26%, rgba(61, 136, 240, 0.06), transparent 24%),
+    linear-gradient(180deg, #fbfdff 0%, #f4f8fd 100%);
+  isolation: isolate;
+}
+
+.mapa {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.nomeMunicipio {
+  fill: #173f75;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 500;
+  paint-order: stroke;
+  stroke: #f7faff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  user-select: none;
+}
+
+.rotaHalo,
+.rotaPrincipal,
+.rotaNucleo {
+  opacity: 0;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: desenharPercurso 14s linear infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+
+.rotaHalo {
+  stroke-opacity: 0.55;
+}
+
+.pulsoHalo,
+.pulsoNucleo {
+  opacity: 0;
+  stroke-dasharray: 1.2 100;
+  stroke-dashoffset: 1.2;
+  animation: viajarLuz 14s linear infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+
+.municipio {
+  opacity: 0;
+  animation-duration: 14s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+.origem {
+  animation-name: acenderOrigem;
+}
+
+.rioBranco {
+  animation-name: acenderRio;
+}
+
+.senaMadureira {
+  animation-name: acenderSena;
+}
+
+.manoelUrbano {
+  animation-name: acenderManoel;
+}
+
+.feijo {
+  animation-name: acenderFeijo;
+}
+
+.anel {
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none;
+  animation: pulsar 2.8s ease-out infinite;
+  animation-play-state: paused;
+}
+
+.ativo .rotaHalo,
+.ativo .rotaPrincipal,
+.ativo .rotaNucleo,
+.ativo .pulsoHalo,
+.ativo .pulsoNucleo,
+.ativo .municipio,
+.ativo .anel {
+  animation-play-state: running;
+}
+
+.interativo {
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.areaToque {
+  pointer-events: all;
+}
+
+.realce {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.7);
+  transition: opacity 180ms ease, transform 220ms ease;
+  pointer-events: none;
+}
+
+.interativo[data-selecionado="true"],
+.interativo:focus-visible {
+  opacity: 1 !important;
+}
+
+.interativo[data-selecionado="true"] .realce,
+.interativo:focus-visible .realce {
+  opacity: 0.2;
+  transform: scale(1.35);
+}
+
+.interativo[data-selecionado="true"] .nomeMunicipio,
+.interativo:focus-visible .nomeMunicipio {
+  fill: #0e4d9e;
+  font-weight: 650;
+}
+
+.interativo:focus-visible .areaToque {
+  stroke: #2b67c3;
+  stroke-width: 1.8px;
+  stroke-dasharray: 3 4;
+}
+
+@media (hover: hover) {
+  .interativo:hover {
+    opacity: 1 !important;
+  }
+
+  .interativo:hover .realce {
+    opacity: 0.17;
+    transform: scale(1.2);
+  }
+
+  .interativo:hover .nomeMunicipio {
+    fill: #0e4d9e;
+    font-weight: 650;
+  }
+}
+
+@keyframes desenharPercurso {
+  0%, 5% { opacity: 0; stroke-dashoffset: 100; }
+  6% { opacity: 1; }
+  72%, 88% { opacity: 1; stroke-dashoffset: 0; }
+  97%, 100% { opacity: 0; stroke-dashoffset: 0; }
+}
+
+@keyframes viajarLuz {
+  0%, 5% { opacity: 0; stroke-dashoffset: 1.2; }
+  7% { opacity: 1; }
+  72% { opacity: 1; stroke-dashoffset: -98.8; }
+  84%, 100% { opacity: 0; stroke-dashoffset: -98.8; }
+}
+
+@keyframes acenderOrigem {
+  0% { opacity: 0.4; }
+  5%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0.4; }
+}
+
+/* Chegadas calculadas pelo comprimento da rota; o fade acompanha a luz. */
+@keyframes acenderRio {
+  0%, 30.6% { opacity: 0; }
+  33%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+@keyframes acenderSena {
+  0%, 46.7% { opacity: 0; }
+  49.1%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+@keyframes acenderManoel {
+  0%, 55.3% { opacity: 0; }
+  57.7%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+@keyframes acenderFeijo {
+  0%, 71.6% { opacity: 0; }
+  74%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+@keyframes pulsar {
+  0% { opacity: 0.5; transform: scale(0.62); }
+  80%, 100% { opacity: 0; transform: scale(1.5); }
+}
+
+@media (max-width: 900px) {
+  .painel {
+    width: 100%;
+  }
+
+  .nomeMunicipio {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 600px) {
+  .secao {
+    padding-block: 36px;
+  }
+
+  .conteudo {
+    padding-inline: 16px;
+  }
+
+  .subtitulo {
+    max-width: 24rem;
+    margin-bottom: 24px;
+  }
+
+  .nomeMunicipio {
+    font-size: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .secao .rotaHalo,
+  .secao .rotaPrincipal,
+  .secao .rotaNucleo,
+  .secao .pulsoHalo,
+  .secao .pulsoNucleo,
+  .secao .municipio,
+  .secao .anel {
+    animation: none;
+  }
+
+  .rotaHalo,
+  .rotaPrincipal,
+  .rotaNucleo {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .pulsoHalo,
+  .pulsoNucleo {
+    opacity: 0;
+  }
+
+  .municipio {
+    opacity: 1;
+  }
+
+  .anel {
+    opacity: 0.18;
+  }
+
+  .realce {
+    transition: none;
+  }
+}

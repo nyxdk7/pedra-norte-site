@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { MapaAtuacaoAcre } from "@/components/MapaAtuacaoAcre";
 import {
   Building2,
   Factory,
@@ -619,20 +620,34 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <section className="relative overflow-hidden pt-24 md:pt-28">
+        {/* O poster aparece enquanto o video carrega e em dispositivos com movimento reduzido. */}
         <Image
-          src="/images/home/hero-obras-acre.png"
-          alt="Obra de infraestrutura do Grupo Soster"
+          src="/images/home/hero-pedreira-poster.webp"
+          alt=""
           fill
           priority
-          quality={100}
           sizes="100vw"
           className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-[#143987]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/home/hero-pedreira-poster.webp"
+          aria-hidden="true"
+          tabIndex={-1}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+        >
+          <source src="/videos/hero-pedreira.mp4" type="video/mp4" />
+        </video>
 
-        <div className="relative z-10 mx-auto flex min-h-[340px] max-w-7xl items-center px-6 py-12 md:min-h-[390px] md:py-14">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/61 via-slate-950/44 to-[#143987]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/48 via-transparent to-transparent" />
+
+        <div className="relative z-10 mx-auto flex min-h-[400px] max-w-7xl items-center px-6 py-12 md:min-h-[390px] md:py-14">
           <div className="max-w-4xl">
             <h1 className="max-w-5xl text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
               Engenharia, pavimentação, mineração e obras para grandes estruturas
@@ -720,6 +735,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Mapa animado do corredor de atuação no Acre */}
+      <MapaAtuacaoAcre />
 
       {/* Grupo Soster */}
       <EmpresasCarousel />

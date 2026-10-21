@@ -11,7 +11,7 @@ import { siteContact } from "@/lib/site-config";
 // Routes that open on a dark photograph (Home hero, PageHero "foto"): only these start with
 // the glass capsule and white logo. Every other route — light openings, 404, future pages —
 // renders the solid capsule from the server on. Keep in sync with the pages' hero variants.
-const rotasEscuras = ["/", "/estrutura", "/atuacoes", "/obras"];
+const rotasEscuras = ["/", "/estrutura", "/atuacoes"];
 
 function rotaEscura(pathname: string) {
   return rotasEscuras.includes(pathname);

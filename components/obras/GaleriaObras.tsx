@@ -45,7 +45,16 @@ function vizinha(obras: ObraGaleria[], { obra, foto }: Posicao, passo: 1 | -1): 
  * after the last one, the next work comes in. Pauses with the button, on hover, while
  * focus is inside, off screen and in a hidden tab; starts paused under reduced motion.
  */
-export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]; intervalo?: number }) {
+export function GaleriaObras({
+  obras,
+  intervalo = 5000,
+  abertura = false,
+}: {
+  obras: ObraGaleria[];
+  intervalo?: number;
+  /** The module opens the page: its eyebrow is the page's H1 and the header starts solid. */
+  abertura?: boolean;
+}) {
   const raiz = useRef<HTMLElement>(null);
   const reduzirMovimento = useReducedMotion();
   const [posicao, setPosicao] = useState<Posicao>({ obra: 0, foto: 0 });
@@ -116,6 +125,8 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
     }
   };
 
+  const Eyebrow = abertura ? "h1" : "p";
+
   // The other photographs, in the order they will come in.
   const fila = Array.from({ length: total - 1 }, (_, k) => (posicao.foto + 1 + k) % total);
 
@@ -136,6 +147,8 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
       id="obras-galeria"
       aria-labelledby="works-project-title"
       className={`galeria-obras ${fonteObras.variable}`}
+      data-abertura={abertura || undefined}
+      data-header={abertura ? "claro" : undefined}
       onKeyDown={aoTeclar}
       // Keyboard focus inside holds the rotation; a mouse click on a control does not.
       onFocus={(evento) => setComFoco(evento.target.matches(":focus-visible"))}
@@ -146,10 +159,10 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
       <div className="galeria-obras-interno">
         <div className="galeria-obras-topo">
           <div className="min-w-0">
-            <p id="works-eyebrow" className="galeria-obras-eyebrow">
+            <Eyebrow id="works-eyebrow" className="galeria-obras-eyebrow">
               <span aria-hidden="true" className="galeria-obras-barra" />
               Obras e infraestrutura
-            </p>
+            </Eyebrow>
             <h2 key={obra.id} id="works-project-title" className="galeria-obras-titulo">
               {obra.titulo}
             </h2>

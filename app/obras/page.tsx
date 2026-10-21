@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ObraDestaque } from "@/components/obras/ObraDestaque";
+import { GaleriaObras, type ObraGaleria } from "@/components/obras/GaleriaObras";
 import { PosterObra, type Poster } from "@/components/obras/PosterObra";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
@@ -74,6 +74,37 @@ const frentes = [
   ["Pavimentação", "Apoio a obras viárias e urbanas."],
   ["Concreto", "Soluções com concreto usinado."],
   ["Agregados", "Britas, pó de brita, rachão e brita corrida."],
+];
+
+// Works module: titles exactly as registered by the owner; photographs supplied by the owner.
+const obrasGaleria: ObraGaleria[] = [
+  {
+    id: "deracre-ct-10012-ac-380",
+    orgao: "Deracre",
+    contrato: "CT 10012",
+    titulo: "Deracre - CT 10012, implantação da Rodovia AC-380, Xapuri-AC.",
+    local: "Xapuri/AC",
+    fotos: [
+      {
+        src: "/images/obras/deracre-ct-10012-ac-380/variante-intersecao-aerea.jpg",
+        alt: "Vista aérea do entroncamento rodoviário asfaltado na região de Xapuri, Acre",
+      },
+      {
+        src: "/images/obras/deracre-ct-10012-ac-380/variante-curva-aerea.jpg",
+        alt: "Trecho sinuoso de rodovia asfaltada em paisagem rural",
+        foco: "object-[70%_18%]",
+      },
+      {
+        src: "/images/obras/deracre-ct-10012-ac-380/variante-reta-horizonte.jpg",
+        alt: "Rodovia asfaltada vista a partir de uma elevação",
+        foco: "object-[50%_58%]",
+      },
+      {
+        src: "/images/obras/deracre-ct-10012-ac-380/variante-tangente-aerea.jpg",
+        alt: "Trecho reto de rodovia asfaltada com acostamento",
+      },
+    ],
+  },
 ];
 
 // Portfolio wall, read left to right. The four fronts carry their description and
@@ -217,35 +248,8 @@ export default function ObrasPage() {
         </div>
       </section>
 
-      {/* Featured work: photographs supplied by the owner */}
-      <ObraDestaque
-        id="variante"
-        rotulo="Obra em destaque"
-        acento="Estrada da"
-        forte="Variante"
-        capa={{
-          src: "/images/obras/estrada-da-variante/variante-reta-horizonte.jpg",
-          alt: "Estrada da Variante vista ao nível da pista, com faixa dupla amarela seguindo até o horizonte",
-          enquadramento: "object-[50%_62%] lg:object-[50%_54%]",
-        }}
-        galeria={[
-          {
-            src: "/images/obras/estrada-da-variante/variante-intersecao-aerea.jpg",
-            alt: "Vista aérea da interseção da Estrada da Variante, com ilhas canalizadoras e pista recém-pavimentada",
-            legenda: "Interseção",
-          },
-          {
-            src: "/images/obras/estrada-da-variante/variante-curva-aerea.jpg",
-            alt: "Vista aérea de trecho largo da Estrada da Variante, com faixa dupla amarela, meio-fio e curva ao fundo",
-            legenda: "Pista com meio-fio",
-          },
-          {
-            src: "/images/obras/estrada-da-variante/variante-tangente-aerea.jpg",
-            alt: "Vista aérea de longo trecho em reta da Estrada da Variante entre pastagens",
-            legenda: "Trecho em reta",
-          },
-        ]}
-      />
+      {/* Works module: each work's photographs alternate, then the next work comes in */}
+      <GaleriaObras obras={obrasGaleria} />
 
       {/* Portfolio wall: one poster per front and detail */}
       <section aria-labelledby="areas-titulo" className="bg-ink pb-16 md:pb-24">

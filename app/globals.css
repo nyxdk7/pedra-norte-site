@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "var-2";
+  --css-build: "gal-2";
 
   color-scheme: light;
 }
@@ -1015,127 +1015,234 @@ html {
 @keyframes obrasAssentar { from { transform: scale(1.08); } to { transform: scale(1); } }
 @keyframes posterFoto { from { transform: scale(1.16); } to { transform: scale(1); } }
 
-/* --- Obras: featured work (Estrada da Variante) ---
-   Full-bleed ground-level photograph with a two-tone title over the asphalt, then a
-   mosaic of aerial views. The photographs settle as they scroll into view. */
-.destaque-capa {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-  display: flex;
-  align-items: flex-end;
-  min-height: min(78svh, 44rem);
+/* --- Obras: works module (MSM_Obras_Design_DNA_v1) ---
+   White surface, dark navy type, small yellow marker, large documentary photographs,
+   discreet rounded controls. No glass, gradients, glow, shadows or photo filters. */
+.galeria-obras {
+  --go-heading: #091a33;
+  --go-body: #405574;
+  --go-accent: #ffbd08;
+  --go-outline: #b8c4d2;
+  --go-control: #071a34;
+  --go-counter: #0c2848;
+  --go-focus: #2463ac;
+  background: #ffffff;
+  color: var(--go-heading);
+  font-family: var(--font-obras), Inter, Arial, sans-serif;
+}
+
+.galeria-obras-interno {
+  max-width: 1672px;
+  margin-inline: auto;
+  padding: 3.5rem 16px 4rem;
+}
+
+@media (min-width: 768px) {
+  .galeria-obras-interno { padding: 4.5rem 24px 5rem; }
 }
 
 @media (min-width: 1024px) {
-  .destaque-capa { min-height: min(90svh, 58rem); }
+  .galeria-obras-interno { padding: 5rem 36px 6rem; }
 }
 
-.destaque-capa-foto { position: absolute; inset: 0; z-index: -2; }
-.destaque-capa-foto img,
-.destaque-foto-imagem img { filter: saturate(1.08) contrast(1.05); }
-
-/* Blends out of the opening above; deep at the base and left, where the title sits */
-.destaque-capa-tom {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 16%, transparent 46%, rgb(11 25 43 / 0.6) 70%, rgb(11 25 43 / 0.94) 100%),
-    linear-gradient(90deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.25) 45%, transparent 70%);
-}
-
-.destaque-chip,
-.destaque-legenda {
-  display: inline-flex;
-  border-radius: 999px;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  background:
-    linear-gradient(rgb(20 57 135 / 0.3), rgb(20 57 135 / 0.3)),
-    rgb(11 25 43 / 0.55);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-}
-
-.destaque-titulo {
+/* Heading on the left; on desktop the controls sit right, aligned to its base */
+.galeria-obras-topo {
   display: flex;
   flex-direction: column;
-  letter-spacing: -0.03em;
-  text-shadow: 0 2px 30px rgb(7 17 30 / 0.5);
-}
-.destaque-acento {
-  font-size: clamp(1.5rem, 1rem + 2.2vw, 3.25rem);
-  font-weight: 800;
-  line-height: 1.05;
-  color: var(--accent-400);
-}
-.destaque-forte {
-  font-size: clamp(2.75rem, 1.2rem + 9.4vw, 10.5rem);
-  font-weight: 900;
-  line-height: 0.86;
-  text-transform: uppercase;
+  gap: 1.5rem;
+  margin-bottom: 28px;
 }
 
-@media (forced-colors: active) {
-  .destaque-acento,
-  .destaque-forte { line-height: 1.12; }
-}
-
-.destaque-galeria {
-  display: grid;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.destaque-foto {
-  position: relative;
-  overflow: clip;
-  aspect-ratio: 16 / 10;
-  border-radius: var(--radius-card);
-  background: var(--midnight);
-}
-
-.destaque-foto-imagem { position: absolute; inset: 0; }
-
-.destaque-legenda {
-  position: absolute;
-  left: 0.875rem;
-  bottom: 0.875rem;
-}
-
-/* Tablet: the junction spans the row, the two other views share the next one */
-@media (min-width: 768px) {
-  .destaque-galeria { grid-template-columns: 1fr 1fr; }
-  .destaque-foto:first-child { grid-column: span 2; aspect-ratio: 16 / 8; }
-}
-
-/* Desktop: the junction on the left, the two other views stacked on the right */
 @media (min-width: 1024px) {
-  .destaque-galeria { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
-  .destaque-foto:first-child { grid-column: 1; grid-row: span 2; aspect-ratio: 16 / 10; }
-  .destaque-foto:not(:first-child) { aspect-ratio: auto; }
-  .destaque-legenda { left: 1.125rem; bottom: 1.125rem; }
+  .galeria-obras-topo {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-bottom: 76px;
+  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .destaque-capa-foto,
-    .destaque-foto-imagem {
-      animation: posterFoto linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 50%;
-    }
+.galeria-obras-eyebrow {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--go-heading);
+}
+.galeria-obras-barra {
+  flex: none;
+  width: 50px;
+  height: 10px;
+  margin-right: 14px;
+  background: var(--go-accent);
+}
+
+.galeria-obras-titulo {
+  margin-top: 1rem;
+  max-width: 36ch;
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--go-heading);
+  /* Natural wrap, as in the reference: the first line runs long */
+  text-wrap: pretty;
+  animation: galeriaTitulo 500ms ease both;
+}
+
+@media (min-width: 768px) {
+  .galeria-obras-titulo { font-size: 44px; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-titulo { font-size: clamp(44px, 1.6rem + 2.6vw, 64px); }
+}
+
+.galeria-obras-controles {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 14px;
+}
+
+.galeria-obras-seta,
+.galeria-obras-pausa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 650;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.galeria-obras-seta {
+  width: 54px;
+  border: 1px solid var(--go-outline);
+  background: #ffffff;
+  color: var(--go-heading);
+}
+.galeria-obras-seta:hover { border-color: var(--go-heading); }
+.galeria-obras-pausa {
+  min-width: 150px;
+  gap: 0.625rem;
+  padding-inline: 1.5rem;
+  background: var(--go-control);
+  color: #ffffff;
+}
+.galeria-obras-pausa:hover { background: #12305a; }
+
+.galeria-obras :where(button):focus-visible {
+  outline: 3px solid var(--go-focus);
+  outline-offset: 3px;
+}
+
+/* Phones: main photograph, then a horizontal strip of the other photographs */
+.galeria-obras-grade {
+  display: grid;
+  gap: 10px;
+}
+
+.galeria-obras-principal {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.38;
+  border-radius: 9px;
+  background: #e9eef4;
+}
+
+.galeria-obras-camada {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.galeria-obras-camada[data-ativa] { opacity: 1; }
+
+.galeria-obras-contador {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  background: var(--go-counter);
+}
+
+.galeria-obras-miniaturas {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 4px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: max(4px, env(safe-area-inset-bottom));
+}
+.galeria-obras-miniaturas > li { flex: 0 0 150px; scroll-snap-align: start; }
+
+.galeria-obras-miniatura {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #e9eef4;
+}
+.galeria-obras-miniatura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px transparent;
+  transition: box-shadow 200ms ease;
+}
+.galeria-obras-miniatura:hover::after { box-shadow: inset 0 0 0 2px var(--go-accent); }
+
+/* Tablet and desktop: main photograph on the left, the next three stacked on the right */
+@media (min-width: 768px) {
+  .galeria-obras-grade {
+    grid-template-columns: 0.67fr 0.33fr;
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 12px;
+    aspect-ratio: 2.1;
   }
+  .galeria-obras-principal { aspect-ratio: auto; height: 100%; }
+  .galeria-obras-miniaturas {
+    display: grid;
+    grid-auto-rows: minmax(0, 1fr);
+    row-gap: 10px;
+    height: 100%;
+    padding: 0;
+    overflow: visible;
+  }
+  .galeria-obras-miniaturas > li:nth-child(n + 4) { display: none; }
+  .galeria-obras-miniatura { height: 100%; aspect-ratio: auto; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-grade {
+    grid-template-columns: 0.706fr 0.294fr;
+    column-gap: 18px;
+    aspect-ratio: 2.78;
+  }
+  .galeria-obras-miniaturas { row-gap: 12px; }
+}
+
+@keyframes galeriaTitulo { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria-obras-titulo { animation: none; }
 }
 
 /* --- Motion (existing keyframes preserved) --- */

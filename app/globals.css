@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "gal-2";
+  --css-build: "gal-3";
 
   color-scheme: light;
 }
@@ -1099,7 +1099,7 @@ html {
 }
 
 @media (min-width: 1024px) {
-  .galeria-obras-titulo { font-size: clamp(44px, 1.6rem + 2.6vw, 64px); }
+  .galeria-obras-titulo { font-size: clamp(44px, calc((100vw - 398px) / 16.4), 64px); }
 }
 
 .galeria-obras-controles {
@@ -1128,7 +1128,7 @@ html {
 }
 .galeria-obras-seta:hover { border-color: var(--go-heading); }
 .galeria-obras-pausa {
-  min-width: 150px;
+  min-width: 164px;
   gap: 0.625rem;
   padding-inline: 1.5rem;
   background: var(--go-control);
@@ -1181,12 +1181,14 @@ html {
 .galeria-obras-miniaturas {
   display: flex;
   gap: 10px;
-  margin: 0;
-  padding: 0 0 4px;
+  /* 6px of room keeps the focus ring visible inside the scrolling strip */
+  margin: -6px;
+  padding: 6px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
   list-style: none;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: max(4px, env(safe-area-inset-bottom));
+  scroll-padding-inline: 6px;
+  scroll-snap-type: x proximity;
 }
 .galeria-obras-miniaturas > li { flex: 0 0 150px; scroll-snap-align: start; }
 
@@ -1212,17 +1214,20 @@ html {
 /* Tablet and desktop: main photograph on the left, the next three stacked on the right */
 @media (min-width: 768px) {
   .galeria-obras-grade {
-    grid-template-columns: 0.67fr 0.33fr;
+    grid-template-columns: 67% minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     column-gap: 12px;
     aspect-ratio: 2.1;
   }
+  /* A single photograph takes the whole width */
+  .galeria-obras-grade[data-unica] { grid-template-columns: minmax(0, 1fr); }
   .galeria-obras-principal { aspect-ratio: auto; height: 100%; }
   .galeria-obras-miniaturas {
     display: grid;
-    grid-auto-rows: minmax(0, 1fr);
+    grid-template-rows: repeat(3, minmax(0, 1fr));
     row-gap: 10px;
     height: 100%;
+    margin: 0;
     padding: 0;
     overflow: visible;
   }
@@ -1232,7 +1237,7 @@ html {
 
 @media (min-width: 1024px) {
   .galeria-obras-grade {
-    grid-template-columns: 0.706fr 0.294fr;
+    grid-template-columns: 70.6% minmax(0, 1fr);
     column-gap: 18px;
     aspect-ratio: 2.78;
   }

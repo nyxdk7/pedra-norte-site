@@ -64,7 +64,10 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
   const tocando = (escolha ?? !reduzirMovimento) && temNavegacao;
   const rodando = tocando && !sobre && !comFoco && visivel && !abaOculta;
 
-  const avancar = useCallback(() => setPosicao((atual) => vizinha(obras, atual, 1)), [obras]);
+  const avancar = useCallback(() => {
+    setAviso("");
+    setPosicao((atual) => vizinha(obras, atual, 1));
+  }, [obras]);
 
   useEffect(() => {
     const elemento = raiz.current;
@@ -80,28 +83,27 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
     };
   }, []);
 
+  // One shot per photograph: any change (manual or automatic) restarts the full interval.
   useEffect(() => {
     if (!rodando) return;
-    const temporizador = window.setInterval(avancar, intervalo);
-    return () => window.clearInterval(temporizador);
-  }, [rodando, intervalo, avancar]);
+    const temporizador = window.setTimeout(avancar, intervalo);
+    return () => window.clearTimeout(temporizador);
+  }, [rodando, intervalo, avancar, posicao]);
 
   // Announced only after the visitor's own actions, never during autoplay.
-  const anunciar = (o: number, f: number) => {
-    const alvo = obras[o];
-    setAviso(`Foto ${f + 1} de ${alvo.fotos.length}: ${alvo.fotos[f].alt}`);
-  };
-
-  const navegar = (passo: 1 | -1) => {
-    const nova = vizinha(obras, posicao, passo);
+  const ir = (nova: Posicao) => {
+    const alvo = obras[nova.obra];
+    const foto = `Foto ${nova.foto + 1} de ${alvo.fotos.length}: ${alvo.fotos[nova.foto].alt}`;
+    setAviso(nova.obra !== posicao.obra ? `${alvo.titulo} ${foto}` : foto);
     setPosicao(nova);
-    anunciar(nova.obra, nova.foto);
+    // If the focused control left the page (a shorter queue), release the focus hold.
+    window.setTimeout(() => {
+      if (!raiz.current?.contains(document.activeElement)) setComFoco(false);
+    }, 0);
   };
 
-  const mostrar = (f: number) => {
-    setPosicao({ obra: posicao.obra, foto: f });
-    anunciar(posicao.obra, f);
-  };
+  const navegar = (passo: 1 | -1) => ir(vizinha(obras, posicao, passo));
+  const mostrar = (f: number) => ir({ obra: posicao.obra, foto: f });
 
   const aoTeclar = (evento: KeyboardEvent<HTMLElement>) => {
     if (!temNavegacao) return;
@@ -116,6 +118,17 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
 
   // The other photographs, in the order they will come in.
   const fila = Array.from({ length: total - 1 }, (_, k) => (posicao.foto + 1 + k) % total);
+
+  // Main frame layers: this work's photographs plus the neighbouring works' first and last
+  // ones, already loaded and mounted, so a change of work crossfades like any other.
+  const camadas = new Map<string, Posicao>();
+  const adicionar = (o: number, f: number) => camadas.set(`${obras[o].id}-${obras[o].fotos[f].src}`, { obra: o, foto: f });
+  if (obras.length > 1) {
+    const anterior = (posicao.obra - 1 + obras.length) % obras.length;
+    adicionar(anterior, obras[anterior].fotos.length - 1);
+  }
+  obra.fotos.forEach((_, f) => adicionar(posicao.obra, f));
+  if (obras.length > 1) adicionar((posicao.obra + 1) % obras.length, 0);
 
   return (
     <section
@@ -162,30 +175,29 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
           ) : null}
         </div>
 
-        <div className="galeria-obras-grade">
+        <div className="galeria-obras-grade" data-unica={total === 1 || undefined}>
           <div
             className="galeria-obras-principal"
             onPointerEnter={(evento) => evento.pointerType === "mouse" && setSobre(true)}
             onPointerLeave={() => setSobre(false)}
           >
-            {obra.fotos.map((foto, indice) => (
-              <div
-                key={`${obra.id}-${foto.src}`}
-                className="galeria-obras-camada"
-                data-ativa={indice === posicao.foto || undefined}
-                aria-hidden={indice !== posicao.foto || undefined}
-              >
-                <Image
-                  src={foto.src}
-                  alt={foto.alt}
-                  fill
-                  loading={indice === 0 ? "eager" : undefined}
-                  fetchPriority={indice === 0 ? "high" : undefined}
-                  sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 64vw, min(66vw, 1140px)"
-                  className={`object-cover ${foto.foco ?? "object-center"}`}
-                />
-              </div>
-            ))}
+            {[...camadas].map(([chave, camada]) => {
+              const foto = obras[camada.obra].fotos[camada.foto];
+              const ativa = camada.obra === posicao.obra && camada.foto === posicao.foto;
+              return (
+                <div key={chave} className="galeria-obras-camada" data-ativa={ativa || undefined} aria-hidden={!ativa || undefined}>
+                  {/* Lazy (deviation from the spec's eager/high): the module never opens the
+                      page, and the opening photograph is the page's priority image. */}
+                  <Image
+                    src={foto.src}
+                    alt={foto.alt}
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 64vw, min(66vw, 1140px)"
+                    className={`object-cover ${foto.foco ?? "object-center"}`}
+                  />
+                </div>
+              );
+            })}
             {total > 1 ? (
               <p className="galeria-obras-contador">
                 <span aria-hidden="true">
@@ -205,15 +217,17 @@ export function GaleriaObras({ obras, intervalo = 5000 }: { obras: ObraGaleria[]
               onPointerEnter={(evento) => evento.pointerType === "mouse" && setSobre(true)}
               onPointerLeave={() => setSobre(false)}
             >
-              {fila.map((indice) => {
+              {fila.map((indice, vaga) => {
                 const foto = obra.fotos[indice];
                 return (
-                  <li key={`${obra.id}-${foto.src}`}>
+                  // Keyed by slot: the buttons stay put (and keep focus) while the queue turns.
+                  <li key={vaga}>
                     <button
                       type="button"
                       className="galeria-obras-miniatura"
                       aria-label={`Mostrar foto ${indice + 1} de ${total}: ${foto.alt}`}
                       onClick={() => mostrar(indice)}
+                      onFocus={(evento) => evento.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" })}
                     >
                       <Image
                         src={foto.src}

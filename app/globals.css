@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "gal-6";
+  --css-build: "gal-7";
 
   color-scheme: light;
 }
@@ -781,6 +781,8 @@ html {
 }
 
 .galeria-obras-interno {
+  /* Slides travel one container width, so title and gallery move as one block */
+  container-type: inline-size;
   max-width: 1672px;
   margin-inline: auto;
   padding: 3.5rem 16px 4rem;
@@ -820,6 +822,14 @@ html {
 }
 
 .galeria-obras-cabeca { flex: 1 1 auto; min-width: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .galeria-obras[data-inicio] .galeria-obras-titulos .galeria-obras-quadro[data-papel="ativa"] {
+    animation: galeriaTitulo 500ms ease both;
+  }
+}
+
+@keyframes galeriaTitulo { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .galeria-obras-eyebrow {
   display: flex;
@@ -869,11 +879,12 @@ html {
   .galeria-obras-titulo { font-size: clamp(44px, calc((100vw - 398px) / 16.4), 64px); }
 }
 
-/* Long titles (more than ~70 characters) in a compact size: same height as a short one */
-.galeria-obras-titulo[data-longo] { max-width: 48ch; font-size: 22px; line-height: 1.08; }
+/* Long titles (more than ~70 characters) in a compact size, never taller than a short one,
+   so the first work keeps its exact position */
+.galeria-obras-titulo[data-longo] { max-width: 48ch; font-size: clamp(18px, 5.4vw, 22px); line-height: 1.05; }
 
 @media (min-width: 768px) {
-  .galeria-obras-titulo[data-longo] { font-size: 30px; }
+  .galeria-obras-titulo[data-longo] { font-size: 30px; line-height: 1; }
 }
 
 @media (min-width: 1024px) {
@@ -932,6 +943,7 @@ html {
    going back); the one sliding out; the others, hidden. Without motion it simply swaps. */
 .galeria-obras-quadro[data-papel="oculta"],
 .galeria-obras-quadro[data-papel^="sai"] { visibility: hidden; }
+.galeria-obras-quadro[data-papel^="entra"] .galeria-obras-camada { transition: none; }
 
 @media (prefers-reduced-motion: no-preference) {
   .galeria-obras-quadro[data-papel="entra-dir"] { animation: obraEntraDir 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
@@ -940,15 +952,15 @@ html {
   .galeria-obras-quadro[data-papel="sai-dir"] { animation: obraSaiDir 800ms cubic-bezier(0.65, 0, 0.35, 1); }
 }
 
-@keyframes obraEntraDir { from { transform: translateX(calc(100% + 48px)); } to { transform: none; } }
-@keyframes obraEntraEsq { from { transform: translateX(calc(-100% - 48px)); } to { transform: none; } }
+@keyframes obraEntraDir { from { transform: translateX(calc(100cqw + 48px)); } to { transform: none; } }
+@keyframes obraEntraEsq { from { transform: translateX(calc(-100cqw - 48px)); } to { transform: none; } }
 @keyframes obraSaiEsq {
   from { visibility: visible; transform: none; }
-  to { visibility: visible; transform: translateX(calc(-100% - 48px)); }
+  to { visibility: visible; transform: translateX(calc(-100cqw - 48px)); }
 }
 @keyframes obraSaiDir {
   from { visibility: visible; transform: none; }
-  to { visibility: visible; transform: translateX(calc(100% + 48px)); }
+  to { visibility: visible; transform: translateX(calc(100cqw + 48px)); }
 }
 
 /* Phones: main photograph, then a horizontal strip of the other photographs */

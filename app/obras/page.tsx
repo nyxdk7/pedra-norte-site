@@ -70,7 +70,7 @@ const obrasGaleria: ObraGaleria[] = [
       {
         src: "/images/obras/dnit-br-364-cabeceira-ponte/cabeceira-enrocamento-lateral.jpg",
         alt: "Enrocamento de pedras na cabeceira de ponte de concreto, com escavadeira, rolo compactador e equipe ao fundo",
-        foco: "object-[50%_58%]",
+        foco: "object-[50%_50%]",
       },
       {
         src: "/images/obras/dnit-br-364-cabeceira-ponte/escavadeira-msm-enrocamento.jpg",

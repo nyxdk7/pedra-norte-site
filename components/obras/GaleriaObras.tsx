@@ -52,7 +52,7 @@ function TituloSemQuebra({ texto }: { texto: string }) {
 type Posicao = { obra: number; foto: number };
 /** The work that slides out, the photo it was showing and the direction of travel. */
 type Saida = Posicao & { direcao: 1 | -1 };
-type Estado = Posicao & { saida: Saida | null };
+type Estado = Posicao & { saida: Saida | null; inicio: boolean };
 
 /** Circular through the photographs; past the last (or before the first) one of a work,
  *  the next (or previous) work comes in. */
@@ -69,8 +69,11 @@ function vizinha(obras: ObraGaleria[], { obra, foto }: Posicao, passo: 1 | -1): 
 /** Next state; a change of work records the outgoing one so both can slide. */
 function mover(atual: Estado, nova: Posicao, direcao: 1 | -1): Estado {
   if (nova.obra === atual.obra) return { ...atual, foto: nova.foto };
-  return { ...nova, saida: { obra: atual.obra, foto: atual.foto, direcao } };
+  return { ...nova, saida: { obra: atual.obra, foto: atual.foto, direcao }, inicio: false };
 }
+
+/** Duration of the horizontal slide (keep in sync with globals.css). */
+const DESLIZE_MS = 800;
 
 type Papel = "ativa" | "entra-dir" | "entra-esq" | "sai-esq" | "sai-dir" | "oculta";
 
@@ -97,7 +100,9 @@ export function GaleriaObras({
   const botaoAnterior = useRef<HTMLButtonElement>(null);
   const botaoProximo = useRef<HTMLButtonElement>(null);
   const reduzirMovimento = useReducedMotion();
-  const [estado, setEstado] = useState<Estado>({ obra: 0, foto: 0, saida: null });
+  const [estado, setEstado] = useState<Estado>({ obra: 0, foto: 0, saida: null, inicio: true });
+  // Last element focused inside the module (to hand focus over when a work leaves).
+  const ultimoFoco = useRef<Element | null>(null);
   // null = default (plays unless the visitor asked the OS to reduce motion)
   const [escolha, setEscolha] = useState<boolean | null>(null);
   const [sobre, setSobre] = useState(false);
@@ -131,6 +136,28 @@ export function GaleriaObras({
     };
   }, []);
 
+  // Once the slide is over the incoming work is simply the current one again, and the
+  // outgoing one goes back to being a neighbour (showing the photo it will open with).
+  useEffect(() => {
+    if (!estado.saida) return;
+    const temporizador = window.setTimeout(
+      () => setEstado((atual) => (atual.saida ? { ...atual, saida: null } : atual)),
+      reduzirMovimento ? 0 : DESLIZE_MS + 50,
+    );
+    return () => window.clearTimeout(temporizador);
+  }, [estado.saida, reduzirMovimento]);
+
+  // Focus inside the outgoing work would be lost (it becomes inert): hand it to the
+  // matching control, whatever caused the change (visitor or autoplay).
+  const direcaoAtual = estado.saida?.direcao;
+  useEffect(() => {
+    if (!direcaoAtual) return;
+    const foco = ultimoFoco.current;
+    if (!foco || !trilho.current?.contains(foco)) return;
+    if (raiz.current?.contains(document.activeElement) && document.activeElement !== foco) return;
+    (direcaoAtual > 0 ? botaoProximo : botaoAnterior).current?.focus({ preventScroll: true });
+  }, [estado.obra, direcaoAtual]);
+
   // One shot per photograph: any change (manual or automatic) restarts the full interval.
   useEffect(() => {
     if (!rodando) return;
@@ -143,13 +170,9 @@ export function GaleriaObras({
     const alvo = obras[nova.obra];
     const foto = `Foto ${nova.foto + 1} de ${alvo.fotos.length}: ${alvo.fotos[nova.foto].alt}`;
     const titulo = /[.!?]$/.test(alvo.titulo) ? alvo.titulo : `${alvo.titulo}.`;
-    const trocaObra = nova.obra !== estado.obra;
-    const focoNoTrilho = trilho.current?.contains(document.activeElement) ?? false;
-    setAviso(trocaObra ? `${titulo} ${foto}` : foto);
+    setAviso(nova.obra !== estado.obra ? `${titulo} ${foto}` : foto);
     setEstado((atual) => mover(atual, nova, direcao));
     window.setTimeout(() => {
-      // Focus inside the outgoing work would be lost: hand it to the matching control.
-      if (trocaObra && focoNoTrilho) (direcao > 0 ? botaoProximo : botaoAnterior).current?.focus();
       // If the focused control left the page, release the focus hold.
       if (!raiz.current?.contains(document.activeElement)) setComFoco(false);
     }, 0);
@@ -199,9 +222,13 @@ export function GaleriaObras({
       className={`galeria-obras ${fonteObras.variable}`}
       data-abertura={abertura || undefined}
       data-header={abertura ? "claro" : undefined}
+      data-inicio={estado.inicio || undefined}
       onKeyDown={aoTeclar}
       // Keyboard focus inside holds the rotation; a mouse click on a control does not.
-      onFocus={(evento) => setComFoco(evento.target.matches(":focus-visible"))}
+      onFocus={(evento) => {
+        ultimoFoco.current = evento.target;
+        setComFoco(evento.target.matches(":focus-visible"));
+      }}
       onBlur={(evento) => {
         if (!evento.currentTarget.contains(evento.relatedTarget)) setComFoco(false);
       }}
@@ -273,7 +300,8 @@ export function GaleriaObras({
             const fila = Array.from({ length: total - 1 }, (_, k) => (atual + 1 + k) % total);
             // The current work keeps every photo mounted (they crossfade); the others keep the
             // one they show plus their first and last, so they open loaded in either direction.
-            const camadas = ativa ? item.fotos.map((_, f) => f) : [...new Set([atual, 0, total - 1])];
+            // Always in photo order, so React never moves (and resets) the visible layer.
+            const camadas = item.fotos.map((_, f) => f).filter((f) => ativa || f === atual || f === 0 || f === total - 1);
 
             return (
               <div

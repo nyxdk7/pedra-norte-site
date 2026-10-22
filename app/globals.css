@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "vid-2";
+  --css-build: "vid-3";
 
   color-scheme: light;
 }
@@ -364,47 +364,44 @@ html {
 }
 .hero-video-botao:hover { border-color: #fff; background: rgb(255 255 255 / 0.12); }
 
-/* Minimum tint for contrast: deep sky already carries the headline; only the
-   bright aggregate under the lead text and the strip under the header are toned. */
-/* Phones: headline sits on the sky (top tone), lead + actions on the aggregate (base
-   tone); the middle of the photograph stays clean. */
+/* Hero tone: neutral graphite (no blue cast on the footage), only where text sits; the
+   brand navy stays in the interface (header, glass card) and in a thin band at the base
+   that blends into the next section. The footage itself is lightly graded (it is dusty
+   and low-contrast), and the copy has a soft shadow. */
+.hero-frame--video > img,
+.hero-frame--video > video { filter: contrast(1.12) saturate(1.2) brightness(0.9); }
+
+.hero-title,
+.hero-lead,
+.hero-marcador { text-shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 18px rgb(0 0 0 / 0.3); }
+
+/* Phones: the text spans the whole width, from below the header to the figures */
 .hero-scrim {
   background:
-    linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, rgb(11 25 43 / 0.35) 30%, rgb(11 25 43 / 0.12) 42%, transparent 50%),
-    linear-gradient(0deg, rgb(11 25 43 / 0.88) 0%, rgb(11 25 43 / 0.72) 40%, rgb(11 25 43 / 0.58) 54%, rgb(11 25 43 / 0.3) 66%, transparent 78%);
+    linear-gradient(0deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 7%),
+    linear-gradient(180deg, rgb(6 10 16 / 0.5) 0%, rgb(6 10 16 / 0.42) 26%, rgb(6 10 16 / 0.52) 55%, rgb(6 10 16 / 0.72) 82%, rgb(6 10 16 / 0.84) 100%);
 }
 
-/* Tablets: the whole text block (from about 28% of the height down) sits over the bright
-   gravel of the background video, so the tone covers it evenly. */
+/* Tablets: the text block sits from about a third of the height down */
 @media (min-width: 640px) {
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(11 25 43 / 0.45) 0%, transparent 18%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.68) 40%, rgb(11 25 43 / 0.56) 62%, rgb(11 25 43 / 0.52) 78%, rgb(11 25 43 / 0.36) 100%);
+      linear-gradient(0deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 6%),
+      linear-gradient(180deg, rgb(6 10 16 / 0.45) 0%, rgb(6 10 16 / 0.25) 16%, rgb(6 10 16 / 0.5) 34%, rgb(6 10 16 / 0.55) 66%, rgb(6 10 16 / 0.8) 100%);
   }
 }
 
+/* Desktop: left column for the copy, base for the figures; the plant on the right stays clear */
 @media (min-width: 1024px) {
   .hero-frame { --fx: 50%; --fy: 22%; }
 
-  /* Left third for the headline, base for the figures; the centre of the photograph stays clean. */
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 20%),
-      radial-gradient(ellipse 48% 62% at 12% 60%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
-      linear-gradient(90deg, rgb(11 25 43 / 0.66) 0%, rgb(11 25 43 / 0.5) 38%, rgb(11 25 43 / 0.3) 56%, rgb(11 25 43 / 0.12) 66%, transparent 76%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.78) 0%, rgb(11 25 43 / 0.45) 20%, rgb(11 25 43 / 0.12) 40%, transparent 55%);
-  }
-}
-
-/* 1024–1279: the headline reaches the bright sky near the sun; carry the side tone further. */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .hero-scrim {
-    background:
-      linear-gradient(180deg, rgb(11 25 43 / 0.55) 0%, rgb(11 25 43 / 0.25) 30%, transparent 46%),
-      radial-gradient(ellipse 48% 62% at 12% 66%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
-      linear-gradient(90deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.55) 50%, rgb(11 25 43 / 0.25) 70%, transparent 86%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.6) 0%, rgb(11 25 43 / 0.15) 36%, transparent 52%);
+      linear-gradient(0deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 6%),
+      linear-gradient(180deg, rgb(6 10 16 / 0.42) 0%, transparent 17%),
+      radial-gradient(ellipse 46% 40% at 20% 62%, rgb(6 10 16 / 0.3) 0%, transparent 100%),
+      linear-gradient(90deg, rgb(6 10 16 / 0.7) 0%, rgb(6 10 16 / 0.56) 34%, rgb(6 10 16 / 0.26) 56%, transparent 72%),
+      linear-gradient(0deg, rgb(6 10 16 / 0.7) 0%, rgb(6 10 16 / 0.32) 18%, transparent 34%);
   }
 }
 

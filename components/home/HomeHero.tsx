@@ -40,7 +40,7 @@ export function HomeHero() {
       <div className="hero-content container-msm flex flex-1 flex-col pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+3.5rem)]">
         <div className="grid flex-1 items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="animate-fade-up flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+            <p className="hero-marcador animate-fade-up flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-white">
               <span aria-hidden="true" className="h-px w-10 bg-white/70" />
               MSM Industrial / Pedra Norte
             </p>

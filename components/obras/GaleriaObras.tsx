@@ -25,6 +25,24 @@ export type ObraGaleria = {
 
 const dois = (n: number) => String(n).padStart(2, "0");
 
+/**
+ * The registered title, unchanged, with line breaks only between words: hyphenated codes
+ * ("AC-380", "Xapuri-AC") never split, and a free-standing dash stays with the word before.
+ */
+function TituloSemQuebra({ texto }: { texto: string }) {
+  const grupos: string[] = [];
+  for (const palavra of texto.split(" ")) {
+    if (grupos.length && /^[-–—]$/.test(palavra)) grupos[grupos.length - 1] += ` ${palavra}`;
+    else grupos.push(palavra);
+  }
+  return grupos.map((grupo, indice) => (
+    <span key={indice}>
+      {indice > 0 ? " " : null}
+      <span className="whitespace-nowrap">{grupo}</span>
+    </span>
+  ));
+}
+
 type Posicao = { obra: number; foto: number };
 
 /** Circular through the photographs; past the last (or before the first) one of a work,
@@ -164,7 +182,7 @@ export function GaleriaObras({
               Obras e infraestrutura
             </Eyebrow>
             <h2 key={obra.id} id="works-project-title" className="galeria-obras-titulo">
-              {obra.titulo}
+              <TituloSemQuebra texto={obra.titulo} />
             </h2>
           </div>
 

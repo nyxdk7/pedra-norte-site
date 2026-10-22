@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "gal-4";
+  --css-build: "gal-5";
 
   color-scheme: light;
 }
@@ -846,8 +846,8 @@ html {
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: var(--go-heading);
-  /* Natural wrap, as in the reference: the first line runs long */
-  text-wrap: pretty;
+  /* Balanced lines: no word left alone on the last line */
+  text-wrap: balance;
   animation: galeriaTitulo 500ms ease both;
 }
 

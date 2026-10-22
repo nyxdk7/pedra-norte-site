@@ -39,7 +39,7 @@ const obrasGaleria: ObraGaleria[] = [
     id: "deracre-ct-10012-ac-380",
     orgao: "Deracre",
     contrato: "CT 10012",
-    titulo: "Deracre - CT 10012, implantação da Rodovia AC-380, Xapuri-AC.",
+    titulo: "Deracre - implantação da Rod. AC-380, Xapuri-AC.",
     local: "Xapuri/AC",
     fotos: [
       {

@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "gal-7";
+  --css-build: "vid-2";
 
   color-scheme: light;
 }
@@ -332,6 +332,38 @@ html {
   translate: calc(var(--fx) * -1) calc(var(--fy) * -1);
 }
 
+/* Background video: 16:9 cover box over the same stage, centred on the plant. */
+.hero-frame.hero-frame--video {
+  --fx: 50%;
+  --fy: 50%;
+  aspect-ratio: 16 / 9;
+  width: max(100cqw, 177.778cqh);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+.hero-video[data-pronto] { opacity: 1; }
+
+/* Pause / play for the background video: glass circle like the scroll cue
+   (display and size come from utilities, so responsive visibility keeps working) */
+.hero-video-botao {
+  border-radius: 999px;
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  background: rgb(11 25 43 / 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+.hero-video-botao:hover { border-color: #fff; background: rgb(255 255 255 / 0.12); }
+
 /* Minimum tint for contrast: deep sky already carries the headline; only the
    bright aggregate under the lead text and the strip under the header are toned. */
 /* Phones: headline sits on the sky (top tone), lead + actions on the aggregate (base
@@ -342,12 +374,13 @@ html {
     linear-gradient(0deg, rgb(11 25 43 / 0.88) 0%, rgb(11 25 43 / 0.72) 40%, rgb(11 25 43 / 0.58) 54%, rgb(11 25 43 / 0.3) 66%, transparent 78%);
 }
 
-/* Tablets: the whole text block sits on the base; only a light strip under the header. */
+/* Tablets: the whole text block (from about 28% of the height down) sits over the bright
+   gravel of the background video, so the tone covers it evenly. */
 @media (min-width: 640px) {
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 18%),
-      linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.6) 44%, rgb(11 25 43 / 0.45) 58%, rgb(11 25 43 / 0.1) 70%, transparent 80%);
+      linear-gradient(180deg, rgb(11 25 43 / 0.45) 0%, transparent 18%),
+      linear-gradient(0deg, rgb(11 25 43 / 0.86) 0%, rgb(11 25 43 / 0.68) 40%, rgb(11 25 43 / 0.56) 62%, rgb(11 25 43 / 0.52) 78%, rgb(11 25 43 / 0.36) 100%);
   }
 }
 
@@ -359,7 +392,7 @@ html {
     background:
       linear-gradient(180deg, rgb(11 25 43 / 0.35) 0%, transparent 20%),
       radial-gradient(ellipse 48% 62% at 12% 60%, rgb(11 25 43 / 0.5) 0%, rgb(11 25 43 / 0.3) 55%, transparent 100%),
-      linear-gradient(90deg, rgb(11 25 43 / 0.62) 0%, rgb(11 25 43 / 0.36) 40%, transparent 66%),
+      linear-gradient(90deg, rgb(11 25 43 / 0.66) 0%, rgb(11 25 43 / 0.5) 38%, rgb(11 25 43 / 0.3) 56%, rgb(11 25 43 / 0.12) 66%, transparent 76%),
       linear-gradient(0deg, rgb(11 25 43 / 0.78) 0%, rgb(11 25 43 / 0.45) 20%, rgb(11 25 43 / 0.12) 40%, transparent 55%);
   }
 }

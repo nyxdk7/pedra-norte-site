@@ -2,13 +2,16 @@ import Image from "next/image";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { HeroOperacoes } from "./HeroOperacoes";
+import { HeroVideoBotao, HeroVideoFundo, HeroVideoProvider } from "./HeroVideo";
 import { indicadoresGrupo } from "./data";
 
-const FOTO_HERO = "/images/atuacoes/extracao-minerios/pedreira (5).jpeg";
+// First frame of the background video: shown at once, and kept when the video does not play.
+const CAPA_HERO = "/videos/home/usina-britagem-aerea-capa.jpg";
 
 /**
- * Full-screen glass hero: real photograph, headline on the left, a glass card with
- * the group's operations on the right and the documented figures on the photo's base.
+ * Full-screen glass hero: aerial video of the crushing plant (seamless 12 s loop, muted),
+ * headline on the left, a glass card with the group's operations on the right and the
+ * documented figures on the base.
  */
 export function HomeHero() {
   return (
@@ -16,18 +19,20 @@ export function HomeHero() {
       aria-labelledby="hero-titulo"
       className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white lg:min-h-[max(44rem,100svh)]"
     >
-      {/* Photograph: manual cover frame keeps the focal point stable (see .hero-stage) */}
+      <HeroVideoProvider>
+      {/* Video over its cover frame, in a manual 16:9 cover box (see .hero-stage) */}
       <div className="hero-stage absolute inset-0 -z-10">
-        <div className="hero-frame">
+        <div className="hero-frame hero-frame--video">
           <Image
-            src={FOTO_HERO}
-            alt="Correia transportadora sobre pilha de agregados na operação de pedreira do grupo"
+            src={CAPA_HERO}
+            alt="Vista aérea de usina de britagem, com correias transportadoras e pilhas de brita"
             fill
             loading="eager"
             fetchPriority="high"
-            sizes="(max-aspect-ratio: 4/3) 134vh, 100vw"
+            sizes="(max-aspect-ratio: 16/9) 178vh, 100vw"
             className="object-cover"
           />
+          <HeroVideoFundo />
         </div>
         <div aria-hidden="true" className="hero-scrim absolute inset-0" />
       </div>
@@ -71,7 +76,9 @@ export function HomeHero() {
         </div>
 
         {/* Documented figures on the base of the photograph */}
-        <div className="hero-numeros mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-10 pt-6 lg:mt-10">
+        <div className="hero-numeros relative mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-10 pt-6 lg:mt-10">
+          {/* Phones: the pause control sits just above the figures, clear of the WhatsApp button */}
+          <HeroVideoBotao className="absolute bottom-[calc(100%+0.25rem)] right-0 md:hidden" />
           {/* Phones: the third figure stays clear of the fixed WhatsApp button */}
           <dl className="mr-16 grid flex-1 grid-cols-3 md:mr-0">
             {indicadoresGrupo.map((item) => (
@@ -87,9 +94,11 @@ export function HomeHero() {
             ))}
           </dl>
 
+          <div className="hidden shrink-0 items-center gap-5 md:flex">
+          <HeroVideoBotao grande />
           <a
             href="#credibilidade"
-            className="hero-rolar group hidden shrink-0 items-center gap-4 text-sm font-semibold leading-tight text-white md:flex"
+            className="hero-rolar group flex shrink-0 items-center gap-4 text-sm font-semibold leading-tight text-white"
           >
             <span className="grid h-14 w-14 place-items-center rounded-full border border-white/40 transition-colors duration-200 group-hover:border-white group-hover:bg-white/10">
               <ArrowDown className="h-5 w-5" aria-hidden="true" />
@@ -98,8 +107,10 @@ export function HomeHero() {
             <br />
             explorar
           </a>
+          </div>
         </div>
       </div>
+      </HeroVideoProvider>
     </section>
   );
 }

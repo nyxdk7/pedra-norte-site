@@ -65,8 +65,7 @@ const obrasGaleria: ObraGaleria[] = [
   {
     id: "dnit-br-364-cabeceira-ponte",
     orgao: "DNIT",
-    titulo:
-      "DNIT - Manutenção em cabeceira de obra de arte especial (ponte) com enrocamento e argamassa de concreto. BR-364, km.",
+    titulo: "DNIT - Reconstrução em cabeceira de ponte com enrocamento e argamassa de concreto. BR-364, KM 202.",
     fotos: [
       {
         src: "/images/obras/dnit-br-364-cabeceira-ponte/cabeceira-enrocamento-lateral.jpg",

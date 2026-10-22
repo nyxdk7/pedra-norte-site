@@ -30,12 +30,15 @@ const TITULO_LONGO = 70;
 
 /**
  * The registered title, unchanged, with line breaks only between words: hyphenated codes
- * ("AC-380", "Xapuri-AC") never split, and a free-standing dash stays with the word before.
+ * ("AC-380", "Xapuri-AC") never split, a free-standing dash stays with the word before and
+ * a kilometre mark stays with its number ("KM 202").
  */
 function TituloSemQuebra({ texto }: { texto: string }) {
   const grupos: string[] = [];
   for (const palavra of texto.split(" ")) {
-    if (grupos.length && /^[-–—]$/.test(palavra)) grupos[grupos.length - 1] += ` ${palavra}`;
+    const anteriorGrupo = grupos[grupos.length - 1];
+    const juntar = anteriorGrupo !== undefined && (/^[-–—]$/.test(palavra) || (/(^|\s)km\.?$/i.test(anteriorGrupo) && /^\d/.test(palavra)));
+    if (juntar) grupos[grupos.length - 1] += ` ${palavra}`;
     else grupos.push(palavra);
   }
   return grupos.map((grupo, indice) => (

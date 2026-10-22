@@ -99,8 +99,15 @@ function VideoFundo({ tocando, ativo, recusado }: Estado) {
   useEffect(() => {
     const elemento = video.current;
     if (!elemento) return;
-    if (tocando && ativo) elemento.play().catch(recusado);
-    else elemento.pause();
+    if (tocando && ativo) {
+      elemento.play().catch((erro: unknown) => {
+        // Only a real refusal (autoplay blocked, e.g. low-power mode) switches to the play
+        // button; an AbortError just means pause() interrupted a pending play().
+        if (erro instanceof DOMException && erro.name === "NotAllowedError") recusado();
+      });
+    } else {
+      elemento.pause();
+    }
     // `recusado` is recreated on every render; only the playback inputs matter here
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tocando, ativo]);
@@ -115,14 +122,16 @@ function VideoFundo({ tocando, ativo, recusado }: Estado) {
       muted
       loop
       playsInline
-      preload="auto"
+      // play() fetches what it needs; a refused autoplay then downloads only the header
+      preload="metadata"
       disablePictureInPicture
       onPlaying={() => setPronto(true)}
     >
-      <source src={`${BASE}-1280.webm`} type="video/webm" media="(max-width: 767px)" />
-      <source src={`${BASE}-1280.mp4`} type="video/mp4" media="(max-width: 767px)" />
-      <source src={`${BASE}-1920.webm`} type="video/webm" />
-      <source src={`${BASE}-1920.mp4`} type="video/mp4" />
+      {/* Codecs declared so browsers without VP9 fall straight back to H.264 */}
+      <source src={`${BASE}-1280.webm`} type='video/webm; codecs="vp9"' media="(max-width: 767px)" />
+      <source src={`${BASE}-1280.mp4`} type='video/mp4; codecs="avc1.64001F"' media="(max-width: 767px)" />
+      <source src={`${BASE}-1920.webm`} type='video/webm; codecs="vp9"' />
+      <source src={`${BASE}-1920.mp4`} type='video/mp4; codecs="avc1.640032"' />
     </video>
   );
 }

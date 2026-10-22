@@ -76,7 +76,7 @@ export function HomeHero() {
         </div>
 
         {/* Documented figures on the base of the photograph */}
-        <div className="hero-numeros relative mt-12 flex items-end justify-between gap-8 border-t border-white/20 pb-10 pt-6 lg:mt-10">
+        <div className="hero-numeros relative mt-16 flex items-end justify-between gap-8 border-t border-white/20 pb-10 pt-6 md:mt-12 lg:mt-10">
           {/* Phones: the pause control sits just above the figures, clear of the WhatsApp button */}
           <HeroVideoBotao className="absolute bottom-[calc(100%+0.25rem)] right-0 md:hidden" />
           {/* Phones: the third figure stays clear of the fixed WhatsApp button */}

@@ -62,6 +62,34 @@ const obrasGaleria: ObraGaleria[] = [
       },
     ],
   },
+  {
+    id: "dnit-br-364-cabeceira-ponte",
+    orgao: "DNIT",
+    titulo:
+      "DNIT - Manutenção em cabeceira de obra de arte especial (ponte) com enrocamento e argamassa de concreto. BR-364, km.",
+    fotos: [
+      {
+        src: "/images/obras/dnit-br-364-cabeceira-ponte/cabeceira-enrocamento-lateral.jpg",
+        alt: "Enrocamento de pedras na cabeceira de ponte de concreto, com escavadeira, rolo compactador e equipe ao fundo",
+        foco: "object-[50%_58%]",
+      },
+      {
+        src: "/images/obras/dnit-br-364-cabeceira-ponte/escavadeira-msm-enrocamento.jpg",
+        alt: "Escavadeira com identificação MSM espalhando as pedras do enrocamento junto à ponte",
+        foco: "object-[50%_42%]",
+      },
+      {
+        src: "/images/obras/dnit-br-364-cabeceira-ponte/ponte-vista-aerea.jpg",
+        alt: "Vista aérea da ponte sobre o curso d'água, com caminhões na pista e a cabeceira em obra",
+        foco: "object-[50%_52%]",
+      },
+      {
+        src: "/images/obras/dnit-br-364-cabeceira-ponte/cabeceira-escavacao-aerea.jpg",
+        alt: "Vista aérea da escavação na cabeceira da ponte, com pá carregadeira, caminhão com pedras e equipe na pista",
+        foco: "object-[50%_50%]",
+      },
+    ],
+  },
 ];
 
 export default function ObrasPage() {

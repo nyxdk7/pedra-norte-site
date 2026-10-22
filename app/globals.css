@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "gal-5";
+  --css-build: "gal-6";
 
   color-scheme: light;
 }
@@ -819,6 +819,8 @@ html {
   }
 }
 
+.galeria-obras-cabeca { flex: 1 1 auto; min-width: 0; }
+
 .galeria-obras-eyebrow {
   display: flex;
   align-items: center;
@@ -837,8 +839,17 @@ html {
   background: var(--go-accent);
 }
 
-.galeria-obras-titulo {
+/* Works slide horizontally: every title (and every gallery) shares one grid cell, so the
+   module keeps the height of the tallest one and the page below never moves. Titles sit on
+   the cell's base, next to the controls. */
+.galeria-obras-titulos {
+  display: grid;
   margin-top: 1rem;
+  overflow-x: clip;
+}
+.galeria-obras-titulos > .galeria-obras-quadro { grid-area: 1 / 1; align-self: end; min-width: 0; }
+
+.galeria-obras-titulo {
   max-width: 36ch;
   font-family: inherit;
   font-size: 30px;
@@ -848,7 +859,6 @@ html {
   color: var(--go-heading);
   /* Balanced lines: no word left alone on the last line */
   text-wrap: balance;
-  animation: galeriaTitulo 500ms ease both;
 }
 
 @media (min-width: 768px) {
@@ -857,6 +867,17 @@ html {
 
 @media (min-width: 1024px) {
   .galeria-obras-titulo { font-size: clamp(44px, calc((100vw - 398px) / 16.4), 64px); }
+}
+
+/* Long titles (more than ~70 characters) in a compact size: same height as a short one */
+.galeria-obras-titulo[data-longo] { max-width: 48ch; font-size: 22px; line-height: 1.08; }
+
+@media (min-width: 768px) {
+  .galeria-obras-titulo[data-longo] { font-size: 30px; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-titulo[data-longo] { font-size: clamp(30px, calc((100vw - 398px) / 23.7), 44px); }
 }
 
 .galeria-obras-controles {
@@ -896,6 +917,38 @@ html {
 .galeria-obras :where(button):focus-visible {
   outline: 3px solid var(--go-focus);
   outline-offset: 3px;
+}
+
+.galeria-obras-trilho {
+  display: grid;
+  /* 8px of room keeps the thumbnails' focus ring inside the clipped area */
+  margin-inline: -8px;
+  padding-inline: 8px;
+  overflow-x: clip;
+}
+.galeria-obras-trilho > .galeria-obras-quadro { grid-area: 1 / 1; min-width: 0; }
+
+/* Roles: the current work; the one sliding in (from the right going forward, from the left
+   going back); the one sliding out; the others, hidden. Without motion it simply swaps. */
+.galeria-obras-quadro[data-papel="oculta"],
+.galeria-obras-quadro[data-papel^="sai"] { visibility: hidden; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .galeria-obras-quadro[data-papel="entra-dir"] { animation: obraEntraDir 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+  .galeria-obras-quadro[data-papel="entra-esq"] { animation: obraEntraEsq 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+  .galeria-obras-quadro[data-papel="sai-esq"] { animation: obraSaiEsq 800ms cubic-bezier(0.65, 0, 0.35, 1); }
+  .galeria-obras-quadro[data-papel="sai-dir"] { animation: obraSaiDir 800ms cubic-bezier(0.65, 0, 0.35, 1); }
+}
+
+@keyframes obraEntraDir { from { transform: translateX(calc(100% + 48px)); } to { transform: none; } }
+@keyframes obraEntraEsq { from { transform: translateX(calc(-100% - 48px)); } to { transform: none; } }
+@keyframes obraSaiEsq {
+  from { visibility: visible; transform: none; }
+  to { visibility: visible; transform: translateX(calc(-100% - 48px)); }
+}
+@keyframes obraSaiDir {
+  from { visibility: visible; transform: none; }
+  to { visibility: visible; transform: translateX(calc(100% + 48px)); }
 }
 
 /* Phones: main photograph, then a horizontal strip of the other photographs */
@@ -1001,11 +1054,6 @@ html {
   .galeria-obras-miniaturas { row-gap: 12px; }
 }
 
-@keyframes galeriaTitulo { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .galeria-obras-titulo { animation: none; }
-}
 
 /* --- Motion (existing keyframes preserved) --- */
 @keyframes floatLogo {

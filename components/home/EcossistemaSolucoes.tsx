@@ -1,20 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Blocks,
-  Building2,
-  Cylinder,
-  Factory,
-  Fuel,
-  type LucideIcon,
-  Mountain,
-  Package,
-  Route,
-  Truck,
-} from "lucide-react";
 import { Container } from "@/components/ui/Section";
 import { MapaEcossistema } from "./MapaEcossistema";
-import { solucoesEcossistema } from "./data";
 
 const pilares = [
   "Insumos próprios",
@@ -22,18 +9,6 @@ const pilares = [
   "Equipe técnica",
   "Execução em campo",
 ];
-
-const icones: Record<string, LucideIcon> = {
-  pavimentacao: Route,
-  usinagem: Factory,
-  concreto: Cylinder,
-  agregados: Mountain,
-  "pre-moldados": Blocks,
-  maquinas: Truck,
-  construcao: Building2,
-  apoio: Fuel,
-  materiais: Package,
-};
 
 // Real operations in the foreground of the montage (no generated imagery).
 const destaques = [
@@ -57,31 +32,15 @@ const destaques = [
   },
 ];
 
-/** Hexagonal engineering badge (outline + glass fill) holding a solution icon. */
-function Selo({ Icone }: { Icone: LucideIcon }) {
-  return (
-    <span className="relative grid h-16 w-[3.7rem] place-items-center">
-      <svg viewBox="0 0 60 66" aria-hidden="true" className="absolute inset-0 h-full w-full">
-        <path
-          d="M30 2 57 17.5v31L30 64 3 48.5v-31Z"
-          className="fill-white/[0.07] stroke-white/35 transition-colors duration-200 group-hover:fill-white/15 group-hover:stroke-accent"
-          strokeWidth="1.5"
-        />
-      </svg>
-      <Icone className="relative h-6 w-6 text-white" strokeWidth={1.6} aria-hidden="true" />
-    </span>
-  );
-}
-
 /**
  * "Ecossistema de soluções": a photomontage of real operations (two photographs meeting
- * at a light seam under one colour grade), the group's statement, the solutions as
- * engineering badges, then the map linking companies, solutions and success cases.
+ * at a light seam under one colour grade), the group's statement, then the map linking
+ * companies, solutions and success cases.
  */
 export function EcossistemaSolucoes() {
   return (
     <>
-      <section aria-labelledby="ecossistema-titulo" className="on-dark bg-ink pb-16 text-white md:pb-24">
+      <section id="ecossistema" aria-labelledby="ecossistema-titulo" className="on-dark bg-ink pb-16 pt-12 text-white md:pb-24 md:pt-16">
         <Container>
           {/* Montage */}
           <div className="relative">
@@ -163,31 +122,6 @@ export function EcossistemaSolucoes() {
             </div>
           </div>
 
-          {/* Solutions as engineering badges */}
-          <ul className="mt-14 grid grid-cols-3 gap-x-3 gap-y-8 border-t border-white/15 pt-10 sm:grid-cols-5 xl:grid-cols-9">
-            {solucoesEcossistema.map((solucao) => {
-              const Icone = icones[solucao.id];
-
-              const classe =
-                "anel-duplo group flex flex-col items-center gap-3 rounded-xl px-1 py-2 text-center text-xs font-semibold uppercase leading-snug tracking-[0.06em] text-white";
-
-              return (
-                <li key={solucao.id}>
-                  {solucao.href ? (
-                    <Link href={solucao.href} className={classe}>
-                      <Selo Icone={Icone} />
-                      {solucao.titulo}
-                    </Link>
-                  ) : (
-                    <span className={classe.replace("anel-duplo group ", "")}>
-                      <Selo Icone={Icone} />
-                      {solucao.titulo}
-                    </span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
         </Container>
       </section>
 

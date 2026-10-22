@@ -130,38 +130,6 @@ export const indicadoresGrupo = [
   { valor: "AC/RO", rotulo: "Presença regional" },
 ];
 
-// Hero glass card: three real operations. Copy is verbatim from app/atuacoes/page.tsx
-// (subtitulo / titulo / resumo); links land on each front's anchor there.
-export const operacoesHero = [
-  {
-    rotulo: "Produção de agregados minerais",
-    titulo: "Extração de minérios",
-    texto:
-      "Operação de pedreira e produção de agregados minerais para obras, pavimentação, drenagem e concreto.",
-    foto: "/images/atuacoes/extracao-minerios/pedreira (9).jpeg",
-    alt: "Escavadeira em frente de lavra da pedreira",
-    href: "/atuacoes#frente-extracao-de-minerios",
-  },
-  {
-    rotulo: "Infraestrutura urbana e rodoviária",
-    titulo: "Pavimentação",
-    texto:
-      "Execução de obras de pavimentação asfáltica com estrutura operacional, equipe técnica e suporte em campo.",
-    foto: "/images/atuacoes/pavimentacao/pavimentacao4.jpg",
-    alt: "Rolo compactador sobre asfalto recém-aplicado",
-    href: "/atuacoes#frente-pavimentacao",
-  },
-  {
-    rotulo: "Peças de concreto para obras",
-    titulo: "Pré-moldados",
-    texto:
-      "Produção de peças pré-moldadas de concreto para drenagem, urbanização e infraestrutura.",
-    foto: "/images/atuacoes/pre-moldados/pre-moldados2.png",
-    alt: "Pátio de peças pré-moldadas de concreto",
-    href: "/atuacoes#frente-pre-moldados",
-  },
-];
-
 // Ecosystem: the solutions the group delivers. Titles are servicosPrincipais titles or a
 // company's own "atuacao" label, verbatim. Links land on existing pages/anchors.
 export const solucoesEcossistema = [
@@ -200,43 +168,6 @@ export const casosSucesso = [
   { nome: "DEPASA", imagem: "/images/casos-sucesso/depasa.png" },
   { nome: "DERACRE", imagem: "/images/casos-sucesso/deracre.png" },
   { nome: "DNIT", imagem: "/images/casos-sucesso/dnit.png" },
-];
-
-export const galeriaImagens = [
-  { id: 1, imagem: "/images/galeria/home.png" },
-  { id: 2, imagem: "/images/galeria/home2.png" },
-  { id: 3, imagem: "/images/galeria/home3.png" },
-  { id: 4, imagem: "/images/galeria/home4.png" },
-  { id: 5, imagem: "/images/galeria/home5.png" },
-  { id: 6, imagem: "/images/galeria/home6.png" },
-  { id: 7, imagem: "/images/galeria/home7.png" },
-  { id: 8, imagem: "/images/galeria/home8.png" },
-  { id: 9, imagem: "/images/galeria/home9.png" },
-  { id: 10, imagem: "/images/galeria/home10.png" },
-  { id: 11, imagem: "/images/galeria/home11.jpeg" },
-  { id: 12, imagem: "/images/galeria/home12.jpeg" },
-  { id: 13, imagem: "/images/galeria/home13.jpeg" },
-  { id: 14, imagem: "/images/galeria/home14.jpeg" },
-  { id: 15, imagem: "/images/galeria/operacao-1.png" },
-  { id: 16, imagem: "/images/galeria/operacao-2.png" },
-  { id: 17, imagem: "/images/galeria/operacao-3.png" },
-  { id: 18, imagem: "/images/galeria/operacao-4.png" },
-  { id: 19, imagem: "/images/galeria/operacao-5.png" },
-  { id: 20, imagem: "/images/galeria/operacao-6.png" },
-  { id: 21, imagem: "/images/galeria/operacao-7.png" },
-  { id: 22, imagem: "/images/galeria/operacao-8.png" },
-  { id: 23, imagem: "/images/galeria/operacao-9.png" },
-  { id: 24, imagem: "/images/galeria/operacao-10.png" },
-  { id: 25, imagem: "/images/galeria/operacao-11.png" },
-  { id: 26, imagem: "/images/galeria/operacao-12.png" },
-  { id: 27, imagem: "/images/galeria/operacao-13.png" },
-  { id: 28, imagem: "/images/galeria/operacao-14.png" },
-  { id: 29, imagem: "/images/galeria/operacao-15.png" },
-  { id: 30, imagem: "/images/galeria/operacao-16.png" },
-  { id: 31, imagem: "/images/galeria/operacao-17.png" },
-  { id: 32, imagem: "/images/galeria/operacao-18.png" },
-  { id: 33, imagem: "/images/galeria/operacao-19.png" },
-  { id: 34, imagem: "/images/galeria/operacao-20.png" },
 ];
 
 export const empresasCarousel = [

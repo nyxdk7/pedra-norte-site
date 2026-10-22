@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
-import { HeroOperacoes } from "./HeroOperacoes";
 import { HeroVideoBotao, HeroVideoFundo, HeroVideoProvider } from "./HeroVideo";
 import { indicadoresGrupo } from "./data";
 
@@ -9,9 +8,8 @@ import { indicadoresGrupo } from "./data";
 const CAPA_HERO = "/videos/home/usina-britagem-aerea-capa.jpg";
 
 /**
- * Full-screen glass hero: aerial video of the crushing plant (seamless 12 s loop, muted),
- * headline on the left, a glass card with the group's operations on the right and the
- * documented figures on the base.
+ * Full-screen hero: aerial video of the crushing plant (seamless 12 s loop, muted),
+ * headline on the left and the documented figures on the base.
  */
 export function HomeHero() {
   return (
@@ -70,9 +68,6 @@ export function HomeHero() {
             </div>
           </div>
 
-          <div className="animate-fade-up anim-delay-4 hidden lg:col-span-5 lg:flex lg:justify-end">
-            <HeroOperacoes />
-          </div>
         </div>
 
         {/* Documented figures on the base of the photograph */}
@@ -97,7 +92,7 @@ export function HomeHero() {
           <div className="hidden shrink-0 items-center gap-5 md:flex">
           <HeroVideoBotao grande />
           <a
-            href="#credibilidade"
+            href="#ecossistema"
             className="hero-rolar group flex shrink-0 items-center gap-4 text-sm font-semibold leading-tight text-white"
           >
             <span className="grid h-14 w-14 place-items-center rounded-full border border-white/40 transition-colors duration-200 group-hover:border-white group-hover:bg-white/10">

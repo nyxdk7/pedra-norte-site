@@ -1,25 +1,19 @@
-import { Credibilidade } from "@/components/home/Credibilidade";
 import { EcossistemaSolucoes } from "@/components/home/EcossistemaSolucoes";
-import { GaleriaOperacoes } from "@/components/home/GaleriaOperacoes";
 import { HomeHero } from "@/components/home/HomeHero";
 import { PedraNorteDestaque } from "@/components/home/PedraNorteDestaque";
 import { ButtonLink } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 
-// Home sequence: glass hero → success-case ticker → solutions ecosystem (montage + map of
-// companies, solutions and cases) → Pedra Norte showcase → gallery → CTA.
+// Home sequence: video hero → solutions ecosystem (montage + map of companies, solutions
+// and cases) → Pedra Norte showcase → CTA.
 export default function Home() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <HomeHero />
 
-      <Credibilidade />
-
       <EcossistemaSolucoes />
 
       <PedraNorteDestaque />
-
-      <GaleriaOperacoes />
 
       <CtaBanner
         className="pt-16 md:pt-24"

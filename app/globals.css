@@ -93,7 +93,7 @@
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
-  --css-build: "vid-3";
+  --css-build: "home-1";
 
   color-scheme: light;
 }
@@ -412,7 +412,6 @@ html {
   .hero-title { font-size: 3.25rem; }
   .hero-numeros { margin-top: 1.25rem; padding-top: 1rem; padding-bottom: 1.25rem; }
   .hero-numeros dd { font-size: 2.5rem; }
-  .hero-vidro-foto { aspect-ratio: 16 / 8; }
   .hero-lead { font-size: 1.125rem; }
   .hero-lead + div { margin-top: 1.5rem; }
 }
@@ -770,30 +769,6 @@ html {
   .atu-texto { margin-top: 2.5rem; padding-bottom: 4rem; }
 }
 
-/* --- Ticker of institutions (Home trust band) ---
-   Two identical groups move by exactly one group width, so the loop is seamless. */
-.ticker-track {
-  animation: ticker 48s linear infinite;
-}
-
-.ticker:hover .ticker-track,
-.ticker[data-pausado] .ticker-track {
-  animation-play-state: paused;
-}
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* Engineering scale above the strip: minor ticks every 12px, major every 60px. */
-.ticker-escala {
-  height: 10px;
-  background:
-    linear-gradient(90deg, rgb(255 255 255 / 0.3) 1px, transparent 1px) 0 0 / 60px 10px repeat-x,
-    linear-gradient(90deg, rgb(255 255 255 / 0.14) 1px, transparent 1px) 0 4px / 12px 6px repeat-x;
-}
-
 /* --- Obras: works module (MSM_Obras_Design_DNA_v1) ---
    White surface, dark navy type, small yellow marker, large documentary photographs,
    discreet rounded controls. No glass, gradients, glow, shadows or photo filters. */
@@ -1109,18 +1084,12 @@ html {
   to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes galleryProgress {
-  from { width: 0%; }
-  to { width: 100%; }
-}
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .gallery-image-enter { animation: galleryImageEnter 480ms ease-out both; }
-.gallery-progress { animation-name: galleryProgress; animation-timing-function: linear; animation-fill-mode: forwards; }
 .animate-fade-up { animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .anim-delay-1 { animation-delay: 80ms; }
 .anim-delay-2 { animation-delay: 160ms; }
@@ -1130,15 +1099,7 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .gallery-image-enter,
-  .gallery-progress,
   .animate-fade-up { animation: none; }
-  /* Ticker stands still: one copy, wrapped in centred rows without the edge fade */
-  .ticker-janela { -webkit-mask-image: none; mask-image: none; }
-  .ticker-track { animation: none; width: 100%; }
-  .ticker-grupo + .ticker-grupo { display: none; }
-  .ticker-grupo { width: 100%; flex-wrap: wrap; justify-content: center; column-gap: 0.5rem; }
-  .ticker-grupo > [data-repete] { display: none; }
-  .ticker-grupo > div { flex: 0 0 auto; border-right: 0; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }

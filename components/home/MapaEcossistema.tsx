@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
-import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import {
   casosSucesso,
@@ -234,23 +233,6 @@ export function MapaEcossistema() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-ink/15 pt-10 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-3xl">
-            <h3 className="text-2xl font-bold leading-tight text-heading md:text-[1.75rem]">
-              Materiais, máquinas, equipe e execução trabalhando de forma
-              conectada.
-            </h3>
-            <p className="mt-3 font-serif text-lg leading-relaxed text-muted-strong">
-              Do fornecimento de materiais à atuação em campo, o grupo
-              conta com empresas, equipamentos e equipes que fortalecem a
-              capacidade operacional em infraestrutura.
-            </p>
-          </div>
-
-          <ButtonLink href="/estrutura" variant="primary" size="lg" className="shrink-0 self-start lg:self-auto">
-            Conhecer estrutura
-          </ButtonLink>
-        </div>
       </Container>
     </section>
   );

@@ -89,6 +89,63 @@ const obrasGaleria: ObraGaleria[] = [
       },
     ],
   },
+  {
+    id: "dnit-br-364-aeroporto-macadame",
+    orgao: "DNIT",
+    titulo: "DNIT - Reconstrução trecho do Aeroporto de RB-AC, BR-364, base em macadame hidráulico.",
+    local: "Rio Branco/AC",
+    fotos: [
+      {
+        // The flight opens the work: it gives the stretch before the photographs detail it.
+        src: "/videos/obras/dnit-br-364-aeroporto-macadame/voo-br-364-aeroporto-capa.jpg",
+        alt: "Voo sobre o trecho da BR-364, com a pista já asfaltada ao lado da pista em base de macadame hidráulico",
+        video: { base: "/videos/obras/dnit-br-364-aeroporto-macadame/voo-br-364-aeroporto", duracao: 8 },
+      },
+      {
+        src: "/images/obras/dnit-br-364-aeroporto-macadame/caminhoes-terraplenagem-aerea.jpg",
+        alt: "Vista aérea da fila de caminhões basculantes na terraplenagem da nova pista, ao lado do trecho antigo da rodovia",
+        foco: "object-[50%_55%]",
+      },
+      {
+        src: "/images/obras/dnit-br-364-aeroporto-macadame/pista-dupla-base-macadame-aerea.jpg",
+        alt: "Vista aérea das duas pistas executadas em base de macadame hidráulico, com o canteiro de britas ao fundo",
+        foco: "object-[50%_50%]",
+      },
+      {
+        src: "/images/obras/dnit-br-364-aeroporto-macadame/base-macadame-curva-aerea.jpg",
+        alt: "Vista aérea da curva do trecho em base de macadame hidráulico, seguindo em direção ao povoado",
+        foco: "object-[50%_50%]",
+      },
+    ],
+  },
+  {
+    id: "dnit-br-317-lote-2",
+    orgao: "DNIT",
+    titulo: "DNIT - Manutenção e conservação da BR 317, Lote 2.",
+    fotos: [
+      {
+        // The flight opens the work: it gives the stretch before the photographs detail it.
+        src: "/videos/obras/dnit-br-317-lote-2/voo-br-317-rotatoria-capa.jpg",
+        alt: "Voo sobre a rotatória da BR-317 em pavimentação, com rolo compactador e caminhões na frente de serviço",
+        video: { base: "/videos/obras/dnit-br-317-lote-2/voo-br-317-rotatoria", duracao: 8 },
+      },
+      {
+        src: "/images/obras/dnit-br-317-lote-2/rotatoria-posto-fiscalizacao-aerea.jpg",
+        alt: "Vista aérea da rotatória recém-pavimentada junto ao posto de fiscalização, com a rodovia seguindo ao horizonte",
+        foco: "object-[50%_50%]",
+      },
+      {
+        src: "/images/obras/dnit-br-317-lote-2/frente-pavimentacao-equipe-aerea.jpg",
+        alt: "Vista aérea da frente de pavimentação com vibroacabadora, rolos compactadores, caminhões e equipe sobre a faixa nova",
+        foco: "object-[50%_50%]",
+      },
+      {
+        src: "/images/obras/dnit-br-317-lote-2/pista-nova-asfalto-aerea.jpg",
+        alt: "Vista aérea da pista com o asfalto novo já aplicado e sinalização horizontal provisória, com a equipe ao fundo",
+        foco: "object-[50%_50%]",
+      },
+    ],
+  },
 ];
 
 export default function ObrasPage() {

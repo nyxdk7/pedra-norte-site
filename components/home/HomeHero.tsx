@@ -37,27 +37,17 @@ export function HomeHero() {
 
       <div className="hero-content container-msm flex flex-1 flex-col pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+3.5rem)]">
         <div className="grid flex-1 items-center gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-9">
             <p className="hero-marcador animate-fade-up flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-white">
               <span aria-hidden="true" className="h-px w-10 bg-white/70" />
               MSM Industrial / Pedra Norte
             </p>
 
-            <h1
-              id="hero-titulo"
-              className="hero-title animate-fade-up anim-delay-1 mt-6 max-w-[44rem] text-[clamp(2.25rem,1.3rem+3vw,4rem)] font-semibold leading-[1.02] tracking-[-0.035em]"
-            >
+            <h1 id="hero-titulo" className="hero-title animate-fade-up anim-delay-1 mt-6">
               Engenharia, pavimentação, mineração e obras para grandes estruturas
             </h1>
 
-            <p className="hero-lead animate-fade-up anim-delay-2 mt-6 max-w-[32rem] text-[length:var(--type-lead)] leading-[1.55] text-white">
-              O Grupo Soster reúne empresas especializadas em infraestrutura,
-              pavimentação, mineração, concreto usinado, pré-moldados e locação
-              de máquinas, com atuação integrada para obras públicas e privadas
-              no Acre.
-            </p>
-
-            <div className="animate-fade-up anim-delay-3 mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="animate-fade-up anim-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/sobre" variant="light" size="lg" className="group/cta">
                 Conheça o grupo
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />

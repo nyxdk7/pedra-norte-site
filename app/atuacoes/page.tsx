@@ -1,22 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ButtonLink, buttonClasses } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
+import { DetalheFrente } from "@/components/atuacoes/DetalheFrente";
 import { HeroAtuacoes } from "@/components/atuacoes/HeroAtuacoes";
-import { Container, Eyebrow } from "@/components/ui/Section";
-import { useReducedMotion } from "@/components/ui/useReducedMotion";
 
 const atuacoes = [
   {
     titulo: "Pavimentação",
     subtitulo: "Infraestrutura urbana e rodoviária",
-    imagem: "/images/atuacoes/pavimentacao/pavimentacao.png",
+    imagem: "/images/atuacoes/pavimentacao/pavimentacao.webp",
     imagensDetalhes: [
-      "/images/atuacoes/pavimentacao/pavimentacao.png",
-      "/images/atuacoes/pavimentacao/pavimentacao2.png",
+      "/images/atuacoes/pavimentacao/pavimentacao.webp",
+      "/images/atuacoes/pavimentacao/pavimentacao2.webp",
       "/images/atuacoes/pavimentacao/pavimentacao3.jpg",
       "/images/atuacoes/pavimentacao/pavimentacao4.jpg",
     ],
@@ -90,211 +87,71 @@ function slugDaAtuacao(titulo: string) {
   return semAcentos.replace(/[^a-zA-Z]+/g, "-").toLowerCase();
 }
 
-function idDaAtuacao(titulo: string) {
-  return "atuacao-" + slugDaAtuacao(titulo);
-}
+const frentes = atuacoes.map((atuacao) => ({
+  ...atuacao,
+  slug: slugDaAtuacao(atuacao.titulo),
+  ...fotosDoTopo[atuacao.titulo],
+  fotos: atuacao.imagensDetalhes.map((src) => ({
+    src,
+    alt: `${atuacao.titulo}: ${atuacao.subtitulo.toLowerCase()}`,
+  })),
+}));
 
 export default function AtuacoesPage() {
-  const [cardAberto, setCardAberto] = useState<string | null>(null);
-  const reduzirMovimento = useReducedMotion();
+  const [ativa, setAtiva] = useState(0);
 
-  const [imagemAtualPorCard, setImagemAtualPorCard] = useState<
-    Record<string, number>
-  >({});
-
-  function alternarCard(titulo: string) {
-    setCardAberto((atual) => (atual === titulo ? null : titulo));
-  }
-
+  // The old per-front anchors (/atuacoes#frente-pavimentacao) still work: they now choose
+  // the panel instead of scrolling to a block of its own.
   useEffect(() => {
-    if (!cardAberto || reduzirMovimento) return;
+    const daHash = () => {
+      const alvo = window.location.hash.replace("#frente-", "");
+      const indice = frentes.findIndex((frente) => frente.slug === alvo);
+      if (indice >= 0) setAtiva(indice);
+    };
+    daHash();
+    window.addEventListener("hashchange", daHash);
+    return () => window.removeEventListener("hashchange", daHash);
+  }, []);
 
-    const atuacaoAberta = atuacoes.find(
-      (atuacao) => atuacao.titulo === cardAberto
-    );
-
-    if (!atuacaoAberta || atuacaoAberta.imagensDetalhes.length <= 1) return;
-
-    const intervalo = setInterval(() => {
-      setImagemAtualPorCard((estadoAtual) => {
-        const indiceAtual = estadoAtual[cardAberto] ?? 0;
-        const proximoIndice =
-          (indiceAtual + 1) % atuacaoAberta.imagensDetalhes.length;
-
-        return {
-          ...estadoAtual,
-          [cardAberto]: proximoIndice,
-        };
+  const selecionar = (indice: number, revelar = false) => {
+    setAtiva(indice);
+    // The address bar follows the choice without the page jumping to the anchor.
+    window.history.replaceState(null, "", `#frente-${frentes[indice].slug}`);
+    // No `behavior` on purpose: the CSS `scroll-behavior` governs, and the reduced-motion
+    // block already turns it to `auto`, so the jump is instant for whoever asked for that.
+    if (revelar) {
+      window.requestAnimationFrame(() => {
+        document.getElementById("frente-detalhe")?.scrollIntoView({ block: "start" });
       });
-    }, 3200);
-
-    return () => clearInterval(intervalo);
-  }, [cardAberto, reduzirMovimento]);
-
-  function obterImagemDoCard(atuacao: (typeof atuacoes)[number]) {
-    const cardEstaAberto = cardAberto === atuacao.titulo;
-
-    if (!cardEstaAberto) {
-      return atuacao.imagem;
     }
-
-    const indiceAtual = imagemAtualPorCard[atuacao.titulo] ?? 0;
-    const imagemAtual = atuacao.imagensDetalhes[indiceAtual] || atuacao.imagem;
-
-    return imagemAtual;
-  }
+  };
 
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <HeroAtuacoes
-        eyebrow="Principais atuações"
         titulo="Áreas de atuação com estrutura para atender obras e operações de diferentes portes."
-        descricao="O Grupo Soster reúne frentes de atuação em pavimentação, extração de minérios, pré-moldados e edificações, conectando estrutura própria, experiência operacional e execução em campo."
-        frentes={atuacoes.map((atuacao) => ({
-          titulo: atuacao.titulo,
-          subtitulo: atuacao.subtitulo,
-          href: `#frente-${slugDaAtuacao(atuacao.titulo)}`,
-          ...fotosDoTopo[atuacao.titulo],
-        }))}
-        acoes={
-          <>
-            <ButtonLink href="/contato" variant="primary" size="lg" className="group/cta">
-              Solicitar orçamento
-              <ArrowRight size={18} className="transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink href="/estrutura" variant="secondary" size="lg">
-              Ver estrutura
-            </ButtonLink>
-          </>
-        }
+        frentes={frentes}
+        ativa={ativa}
+        onSelecionar={selecionar}
       />
 
-      <section aria-labelledby="frentes-titulo" className="py-20 md:py-28">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
-            <div className="lg:col-span-6">
-              <Eyebrow>Onde atuamos</Eyebrow>
-              <h2
-                id="frentes-titulo"
-                className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading"
-              >
-                Frentes de atuação do grupo.
-              </h2>
-            </div>
-
-            <p className="font-serif text-lg leading-relaxed text-muted-strong lg:col-span-5 lg:col-start-8">
-              Clique em uma área para expandir os detalhes. Ao abrir, as
-              imagens começam a alternar automaticamente, destacando
-              melhor cada frente de serviço.
-            </p>
-          </div>
-
-          {/* Landscape photo essays, alternating sides; the photo is also the expand control */}
-          <div className="mt-16 space-y-16 md:mt-20 md:space-y-24">
-            {atuacoes.map((atuacao, index) => {
-              const aberto = cardAberto === atuacao.titulo;
-              const inverter = index % 2 !== 0;
-              const imagemDoCard = obterImagemDoCard(atuacao);
-              const idDetalhes = idDaAtuacao(atuacao.titulo);
-              const indiceImagem = aberto ? (imagemAtualPorCard[atuacao.titulo] ?? 0) : 0;
-
-              return (
-                <article
-                  key={atuacao.titulo}
-                  id={`frente-${slugDaAtuacao(atuacao.titulo)}`}
-                  className="grid gap-8 border-t border-border pt-10 md:grid-cols-12 md:items-center md:gap-8 md:border-t-0 md:pt-0 lg:gap-10"
-                >
-                  <button
-                    type="button"
-                    onClick={() => alternarCard(atuacao.titulo)}
-                    className={`group relative aspect-[16/10] overflow-hidden rounded-card bg-ink text-left md:col-span-6 md:aspect-[4/3] lg:col-span-7 lg:aspect-[16/10] ${
-                      inverter ? "md:order-2 md:col-start-7 lg:col-start-6" : ""
-                    }`}
-                    aria-expanded={aberto}
-                    aria-controls={idDetalhes}
-                    aria-label={`${aberto ? "Ocultar" : "Ver"} detalhes de ${atuacao.titulo}`}
-                  >
-                    <Image
-                      key={imagemDoCard}
-                      src={imagemDoCard}
-                      alt=""
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 58vw"
-                      className={`object-cover object-center ${
-                        aberto ? "gallery-image-enter" : "transition-transform duration-300 group-hover:scale-[1.02]"
-                      }`}
-                    />
-
-                    {/* Technical annotation: which photograph of the series is on screen */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute bottom-4 left-4 flex items-center gap-3 rounded-full bg-ink/75 px-3.5 py-1.5 text-sm font-semibold tabular-nums text-white backdrop-blur"
-                    >
-                      <span className="h-px w-6 bg-accent" />
-                      {String(indiceImagem + 1).padStart(2, "0")} / {String(atuacao.imagensDetalhes.length).padStart(2, "0")}
-                    </span>
-                  </button>
-
-                  <div className={`md:col-span-6 lg:col-span-5 ${inverter ? "md:order-1 md:col-start-1" : ""}`}>
-                    <p className="flex items-center gap-3 text-[0.9375rem] font-semibold text-brand">
-                      <span aria-hidden="true" className="h-px w-8 bg-accent" />
-                      {atuacao.subtitulo}
-                    </p>
-
-                    <h3 className="mt-4 text-[length:var(--type-h2)] font-bold leading-[1.06] text-heading">
-                      {atuacao.titulo}
-                    </h3>
-
-                    <p className="mt-5 font-serif text-[length:var(--type-lead)] leading-[1.55] text-muted-strong">
-                      {atuacao.resumo}
-                    </p>
-
-                    <div
-                      id={idDetalhes}
-                      className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ${
-                        aberto
-                          ? "mt-6 grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
-                      }`}
-                      inert={!aberto}
-                    >
-                      <div className="overflow-hidden">
-                        <p className="border-l-2 border-accent pl-5 font-serif leading-relaxed text-muted-strong">
-                          {atuacao.descricao}
-                        </p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => alternarCard(atuacao.titulo)}
-                      className={buttonClasses(aberto ? "secondary" : "primary", "md", "mt-8")}
-                      aria-expanded={aberto}
-                      aria-controls={idDetalhes}
-                    >
-                      {aberto ? "Ocultar detalhes" : "Ver detalhes"}
-                      <ChevronDown
-                        size={18}
-                        aria-hidden="true"
-                        className={`transition-transform duration-200 ${aberto ? "rotate-180" : ""}`}
-                      />
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
+      {/* Keyed by front: choosing another remounts the region, so its photo queue starts
+          at the first picture without an effect resetting it. */}
+      <DetalheFrente key={frentes[ativa].slug} frente={frentes[ativa]} />
 
       <CtaBanner
         eyebrow="Atendimento institucional"
         title="Precisa de uma solução para sua obra?"
-        description="Fale com o Grupo Soster e conheça as possibilidades de atuação para pavimentação, mineração, pré-moldados e edificações."
+        description="Fale com a equipe do Grupo Soster e conheça as frentes de atuação, a estrutura operacional e os serviços disponíveis para o seu projeto."
         actions={
-          <ButtonLink href="/contato" variant="light" size="lg">
-            Fale conosco
-          </ButtonLink>
+          <>
+            <ButtonLink href="/contato" variant="light" size="lg">
+              Falar com a equipe
+            </ButtonLink>
+            <ButtonLink href="/servicos" variant="outlineLight" size="lg">
+              Ver serviços
+            </ButtonLink>
+          </>
         }
       />
     </main>

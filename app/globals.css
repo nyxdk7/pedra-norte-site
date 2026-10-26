@@ -92,6 +92,10 @@
   --type-figure: clamp(2.75rem, 1.9rem + 2.8vw, 4.5rem);
   --type-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
 
+  /* The one easing in the project: a strong ease-out. Entrances and exits use it, so
+     motion anywhere on the site decelerates the same way. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
   /* Sentinel: proves the browser received this exact stylesheet (OneDrive watcher). */
   --css-build: "home-1";
 
@@ -372,8 +376,22 @@ html {
 .hero-frame--video > video { filter: contrast(1.12) saturate(1.2) brightness(0.9); }
 
 .hero-title,
-.hero-lead,
 .hero-marcador { text-shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 18px rgb(0 0 0 / 0.3); }
+
+/* The headline is set thin and large, with the letters drawn close: at this size a light
+   face needs negative tracking to read as one object rather than a row of parts. Nothing
+   is coloured and nothing is emphasised — the sentence is the whole statement. */
+.hero-title {
+  max-width: 17ch;
+  font-size: clamp(2.25rem, 1rem + 4.3vw, 5.25rem);
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  /* The word gaps come in with the letters: a space drawn for normal tracking reads as a
+     hole once the letters are pulled together. */
+  word-spacing: -0.07em;
+  text-wrap: balance;
+}
 
 /* Phones: the text spans the whole width, from below the header to the figures */
 .hero-scrim {
@@ -391,7 +409,10 @@ html {
   }
 }
 
-/* Desktop: left column for the copy, base for the figures; the plant on the right stays clear */
+/* Desktop: left column for the copy, base for the figures; the plant on the right stays
+   clear. The veil is only as deep as the white type needs — once the gold was dropped the
+   headline had three times the contrast it required, and a heavy wash over a real
+   photograph of the plant reads as processed rather than restrained. */
 @media (min-width: 1024px) {
   .hero-frame { --fx: 50%; --fy: 22%; }
 
@@ -399,8 +420,8 @@ html {
     background:
       linear-gradient(0deg, var(--ink-900) 0%, rgb(11 25 43 / 0) 6%),
       linear-gradient(180deg, rgb(6 10 16 / 0.42) 0%, transparent 17%),
-      radial-gradient(ellipse 46% 40% at 20% 62%, rgb(6 10 16 / 0.3) 0%, transparent 100%),
-      linear-gradient(90deg, rgb(6 10 16 / 0.7) 0%, rgb(6 10 16 / 0.56) 34%, rgb(6 10 16 / 0.26) 56%, transparent 72%),
+      radial-gradient(ellipse 52% 44% at 24% 54%, rgb(6 10 16 / 0.26) 0%, transparent 100%),
+      linear-gradient(90deg, rgb(6 10 16 / 0.6) 0%, rgb(6 10 16 / 0.48) 38%, rgb(6 10 16 / 0.2) 62%, transparent 78%),
       linear-gradient(0deg, rgb(6 10 16 / 0.7) 0%, rgb(6 10 16 / 0.32) 18%, transparent 34%);
   }
 }
@@ -409,11 +430,10 @@ html {
    full-screen hero, figures included, fits the fold. Unlayered, so it beats utilities. */
 @media (min-width: 1024px) and (max-height: 820px) {
   .hero-content { padding-top: calc(var(--header-h) + 1.75rem); }
-  .hero-title { font-size: 3.25rem; }
+  /* Upper case stacks taller, so this ceiling is lower than the old sentence-case one */
+  .hero-title { font-size: 2.875rem; }
   .hero-numeros { margin-top: 1.25rem; padding-top: 1rem; padding-bottom: 1.25rem; }
   .hero-numeros dd { font-size: 2.5rem; }
-  .hero-lead { font-size: 1.125rem; }
-  .hero-lead + div { margin-top: 1.5rem; }
 }
 
 /* Inner-page photo hero: text sits on the base of the photograph. The inner
@@ -465,47 +485,6 @@ html {
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   backdrop-filter: blur(18px) saturate(140%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 30px 60px -30px rgb(0 0 0 / 0.6);
-}
-
-/* --- Ecosystem montage (Home): real photographs under one colour grade ---
-   Two photographs meet at a light seam over a sky gradient; the plant is the horizon. */
-.eco-palco {
-  background: linear-gradient(180deg, #b9cfe6 0%, #6f97c9 32%, #2b4f86 62%, var(--ink-900) 100%);
-}
-
-.eco-esq {
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
-    mask-composite: intersect;
-}
-
-.eco-dir {
-    -webkit-mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(270deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 4%, #000 36%, #000 80%, transparent 100%);
-    mask-composite: intersect;
-}
-
-.eco-foto { filter: saturate(0.92) contrast(1.08) brightness(0.96); }
-
-/* One grade across every photograph: cool steel-blue cast, atmospheric top, night base. */
-.eco-tom {
-  mix-blend-mode: color;
-  background: linear-gradient(180deg, rgb(60 104 170 / 0.55) 0%, rgb(43 79 134 / 0.28) 45%, rgb(11 25 43 / 0.2) 100%);
-}
-
-.eco-ar { background: linear-gradient(180deg, rgb(200 218 238 / 0.85) 0%, rgb(160 190 225 / 0.45) 22%, transparent 40%); }
-
-.eco-base {
-  background:
-    linear-gradient(180deg, transparent 45%, rgb(11 25 43 / 0.55) 78%, var(--ink-900) 100%),
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(255 255 255 / 0.18), transparent 70%);
-}
-
-.eco-costura {
-  background: linear-gradient(180deg, transparent, rgb(255 255 255 / 0.95) 30%, rgb(255 255 255 / 0.95) 70%, transparent);
-  box-shadow: 0 0 18px 4px rgb(255 255 255 / 0.55), 0 0 60px 12px rgb(180 210 255 / 0.35);
 }
 
 /* --- Ecosystem map: a drawing sheet with circuit-style connectors --- */
@@ -608,11 +587,12 @@ html {
 /* --- Atuações opening: slanted photographic panels, one per front ---
    Panels are skewed; photographs are counter-skewed and oversized so they stay upright
    and cover the slanted box. The outer panels run past the screen edges. */
-.atu-area { position: relative; height: min(58svh, 38rem); }
+/* Full screen, the same measure as the Home film: the photographs are the opening of the
+   page, with nothing over them. */
+.atu-area { position: relative; height: 100svh; }
 
-/* Short laptop screens: a slightly shorter photo band keeps the call to action in the fold. */
-@media (min-width: 1024px) and (max-height: 880px) {
-  .atu-area { height: 50svh; }
+@media (min-width: 1024px) {
+  .atu-area { height: max(44rem, 100svh); }
 }
 
 .atu-paineis {
@@ -630,7 +610,7 @@ html {
   flex: 1 1 0;
   overflow: hidden;
   transform: skewX(-10deg);
-  transition: flex-grow 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: flex-grow 480ms var(--ease-out);
 }
 
 .atu-link { position: absolute; inset: 0; display: block; color: #fff; }
@@ -661,14 +641,15 @@ html {
   position: absolute;
   inset: 0 -30%;
   transform: skewX(10deg);
-  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 480ms var(--ease-out);
 }
 
 @media (min-width: 1024px) {
-  /* The photograph itself fades into the page, so labels and the focus ring stay on top. */
+  /* A short fade at the foot only: the panel used to dissolve into the headline below it,
+     and at full height that same fade would eat a third of the photograph. */
   .atu-foto {
-    -webkit-mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.35) 76%, transparent 94%);
-    mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.35) 76%, transparent 94%);
+    -webkit-mask-image: linear-gradient(180deg, #000 86%, rgb(0 0 0 / 0.5) 95%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 86%, rgb(0 0 0 / 0.5) 95%, transparent 100%);
   }
 }
 
@@ -707,42 +688,19 @@ html {
 
 @media (min-width: 1024px) {
   .atu-painel:hover,
-  .atu-painel:focus-within { flex-grow: 1.4; }
+  .atu-painel:focus-within,
+  .atu-painel[data-ativo] { flex-grow: 1.4; }
   .atu-painel:hover .atu-foto { transform: skewX(10deg) scale(1.04); }
 }
 
 
-.atu-texto { position: relative; margin-top: -3.5rem; padding-bottom: 5rem; text-align: center; }
 
-.atu-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.875rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brand);
-}
-
-.atu-eyebrow::before,
-.atu-eyebrow::after { content: ""; width: 2.5rem; height: 1px; background: var(--accent-500); }
-
-/* Brand-blue highlight that follows the lines of the lead */
-.atu-destaque {
-  background: var(--brand);
-  color: #fff;
-  padding: 0.18em 0.55em;
-  border-radius: 0.25rem;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
 
 /* Phones and tablets: the panels become slanted horizontal strata under the header. */
 @media (max-width: 1023px) {
-  .atu-area { height: auto; }
-  .atu-paineis { position: relative; inset: auto; flex-direction: column; gap: 6px; margin: 0 -8%; }
-  .atu-painel { flex: none; height: 7.25rem; transform: skewY(-4deg); }
+  /* The strata share the screen between them, so the opening is full height here too. */
+  .atu-paineis { inset: 0 -8%; flex-direction: column; gap: 6px; }
+  .atu-painel { flex: 1 1 0; transform: skewY(-4deg); }
   /* Only the first stratum sits under the header: its band is drawn on the link, whose
      box is the visible stratum (the photo is oversized vertically on strata). */
   .atu-foto::after { display: none; }
@@ -755,7 +713,8 @@ html {
     pointer-events: none;
     background: linear-gradient(180deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.4) 55%, transparent 100%);
   }
-  .atu-painel:first-child { height: calc(var(--header-h) + 8rem); }
+  /* The first stratum carries the header band, so it takes a larger share. */
+  .atu-painel:first-child { flex-grow: 1.5; }
   .atu-foto { inset: -30% 0; transform: skewY(4deg); }
   .atu-rotulo,
   .atu-painel:first-child .atu-rotulo,
@@ -813,7 +772,9 @@ html {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 28px;
+  /* Stacked works: the title hugs its own photographs, so the larger gap between
+     works is what groups each heading with the pictures it names. */
+  margin-bottom: 20px;
 }
 
 @media (min-width: 1024px) {
@@ -822,19 +783,9 @@ html {
     align-items: flex-end;
     justify-content: space-between;
     gap: 2.5rem;
-    margin-bottom: 76px;
+    margin-bottom: 32px;
   }
 }
-
-.galeria-obras-cabeca { flex: 1 1 auto; min-width: 0; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .galeria-obras[data-inicio] .galeria-obras-titulos .galeria-obras-quadro[data-papel="ativa"] {
-    animation: galeriaTitulo 500ms ease both;
-  }
-}
-
-@keyframes galeriaTitulo { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .galeria-obras-eyebrow {
   display: flex;
@@ -854,20 +805,13 @@ html {
   background: var(--go-accent);
 }
 
-/* Works slide horizontally: every title (and every gallery) shares one grid cell, so the
-   module keeps the height of the tallest one and the page below never moves. Titles sit on
-   the cell's base, next to the controls. */
-.galeria-obras-titulos {
-  display: grid;
-  margin-top: 1rem;
-  overflow-x: clip;
-}
-.galeria-obras-titulos > .galeria-obras-quadro { grid-area: 1 / 1; align-self: end; min-width: 0; }
-
+/* One size for every work's title, whatever its length: the works are read one after the
+   other down the page, so a heading that changed size from work to work would read as a
+   change of rank rather than a change of subject. */
 .galeria-obras-titulo {
-  max-width: 36ch;
+  max-width: 48ch;
   font-family: inherit;
-  font-size: 30px;
+  font-size: clamp(18px, 5.4vw, 22px);
   font-weight: 750;
   line-height: 1.05;
   letter-spacing: -0.035em;
@@ -877,23 +821,11 @@ html {
 }
 
 @media (min-width: 768px) {
-  .galeria-obras-titulo { font-size: 44px; }
+  .galeria-obras-titulo { font-size: 30px; line-height: 1; }
 }
 
 @media (min-width: 1024px) {
-  .galeria-obras-titulo { font-size: clamp(44px, calc((100vw - 398px) / 16.4), 64px); }
-}
-
-/* Long titles (more than ~70 characters) in a compact size, never taller than a short one,
-   so the first work keeps its exact position */
-.galeria-obras-titulo[data-longo] { max-width: 48ch; font-size: clamp(18px, 5.4vw, 22px); line-height: 1.05; }
-
-@media (min-width: 768px) {
-  .galeria-obras-titulo[data-longo] { font-size: 30px; line-height: 1; }
-}
-
-@media (min-width: 1024px) {
-  .galeria-obras-titulo[data-longo] { font-size: clamp(30px, calc((100vw - 398px) / 23.7), 44px); }
+  .galeria-obras-titulo { font-size: clamp(30px, calc((100vw - 398px) / 23.7), 44px); }
 }
 
 .galeria-obras-controles {
@@ -935,37 +867,21 @@ html {
   outline-offset: 3px;
 }
 
-.galeria-obras-trilho {
+/* Works are stacked down the page: reading is scrolling, which is how a phone is held.
+   Each work is a self-contained unit with its own title, controls and photographs. */
+.galeria-obras-lista {
   display: grid;
-  /* 8px of room keeps the thumbnails' focus ring inside the clipped area */
+  /* 8px of room keeps the thumbnails' focus ring from being clipped */
   margin-inline: -8px;
   padding-inline: 8px;
-  overflow-x: clip;
-}
-.galeria-obras-trilho > .galeria-obras-quadro { grid-area: 1 / 1; min-width: 0; }
-
-/* Roles: the current work; the one sliding in (from the right going forward, from the left
-   going back); the one sliding out; the others, hidden. Without motion it simply swaps. */
-.galeria-obras-quadro[data-papel="oculta"],
-.galeria-obras-quadro[data-papel^="sai"] { visibility: hidden; }
-.galeria-obras-quadro[data-papel^="entra"] .galeria-obras-camada { transition: none; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .galeria-obras-quadro[data-papel="entra-dir"] { animation: obraEntraDir 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
-  .galeria-obras-quadro[data-papel="entra-esq"] { animation: obraEntraEsq 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
-  .galeria-obras-quadro[data-papel="sai-esq"] { animation: obraSaiEsq 800ms cubic-bezier(0.65, 0, 0.35, 1); }
-  .galeria-obras-quadro[data-papel="sai-dir"] { animation: obraSaiDir 800ms cubic-bezier(0.65, 0, 0.35, 1); }
+  /* Comfortably more than the space between a title and its own photographs */
+  gap: 6rem;
+  margin-top: 2.5rem;
 }
 
-@keyframes obraEntraDir { from { transform: translateX(calc(100cqw + 48px)); } to { transform: none; } }
-@keyframes obraEntraEsq { from { transform: translateX(calc(-100cqw - 48px)); } to { transform: none; } }
-@keyframes obraSaiEsq {
-  from { visibility: visible; transform: none; }
-  to { visibility: visible; transform: translateX(calc(-100cqw - 48px)); }
-}
-@keyframes obraSaiDir {
-  from { visibility: visible; transform: none; }
-  to { visibility: visible; transform: translateX(calc(100cqw + 48px)); }
+.galeria-obras-obra {
+  display: grid;
+  min-width: 0;
 }
 
 /* Phones: main photograph, then a horizontal strip of the other photographs */
@@ -989,6 +905,14 @@ html {
   transition: opacity 600ms ease;
 }
 .galeria-obras-camada[data-ativa] { opacity: 1; }
+
+/* A film fills its slot exactly as a photograph does */
+.galeria-obras-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .galeria-obras-contador {
   position: absolute;
@@ -1037,6 +961,23 @@ html {
   transition: box-shadow 200ms ease;
 }
 .galeria-obras-miniatura:hover::after { box-shadow: inset 0 0 0 2px var(--go-accent); }
+
+/* Marks the thumbnail whose slot holds a film, not a photograph */
+.galeria-obras-selo-play {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.galeria-obras-selo-play > svg {
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--go-counter);
+}
 
 /* Tablet and desktop: main photograph on the left, the next three stacked on the right */
 @media (min-width: 768px) {
@@ -1090,7 +1031,7 @@ html {
 }
 
 .gallery-image-enter { animation: galleryImageEnter 480ms ease-out both; }
-.animate-fade-up { animation: fadeUp 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-up { animation: fadeUp 480ms var(--ease-out) both; }
 .anim-delay-1 { animation-delay: 80ms; }
 .anim-delay-2 { animation-delay: 160ms; }
 .anim-delay-3 { animation-delay: 240ms; }
@@ -1103,4 +1044,253 @@ html {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===========================================================================
+   "Nossa história": the owner's account set as justified editorial prose.
+   Justification only reads clean with hyphenation — without it Portuguese
+   opens rivers of white between words. The column is marked lang="pt-BR" so
+   the browser hyphenates by the right dictionary.
+   =========================================================================== */
+
+.historia-prosa {
+  max-width: 68ch;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--muted-strong);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  /* Keeps justification from stretching the last short line of a paragraph */
+  text-wrap: pretty;
+}
+
+.historia-prosa > p + p { margin-top: 1.375rem; }
+
+/* Narrow columns justify badly: short measures leave gaps no hyphen can close. */
+@media (max-width: 480px) {
+  .historia-prosa {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+}
+
+/* The lead is justified with the body, so the whole account reads as one block. */
+.historia-abertura {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-wrap: pretty;
+}
+
+@media (max-width: 480px) {
+  .historia-abertura {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+}
+
+/* The company panel swaps when a tab is chosen: without a bridge the logo, the name, the
+   description and the whole solutions list teleport at once.
+   Only the entrance animates. Transitioning the exit would keep the outgoing panel
+   displayed alongside the incoming one for the length of the transition, and the two
+   stacked would push the page below them — a tab panel is replaced, not sent anywhere.
+   `@starting-style` carries no cost where it is unsupported: the panel simply appears,
+   which is exactly today's behaviour. */
+.eco-painel {
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+.eco-painel:not([hidden]) {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .eco-painel:not([hidden]) {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Reduced motion keeps the fade, which aids comprehension, and drops the movement. */
+@media (prefers-reduced-motion: reduce) {
+  @starting-style {
+    .eco-painel:not([hidden]) { transform: none; }
+  }
+}
+
+/* ===========================================================================
+   Atuações: the slanted panels are the page's control surface, and one detail
+   region below shows whichever front they have chosen. The front is named once,
+   in its panel — it is not repeated in a block of its own further down.
+   =========================================================================== */
+
+/* The chosen panel is marked by a filled rule under its label, so the state is
+   read from a shape and not from the panel's width alone. */
+.atu-barra {
+  display: block;
+  height: 2px;
+  width: 0;
+  margin-top: 0.5rem;
+  background: var(--accent-500);
+  transition: width 320ms var(--ease-out);
+}
+.atu-painel[data-ativo] .atu-barra { width: 100%; }
+
+.detalhe-palco {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.5;
+  border-radius: var(--radius-card, 0.875rem);
+  background: var(--brita-100);
+}
+
+.detalhe-camada {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+}
+.detalhe-camada[data-ativa] { opacity: 1; }
+
+.detalhe-contador {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  background: rgb(11 25 43 / 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* The photographs are walked, never advanced on their own: no moving content,
+   so nothing here needs a pause control. */
+.detalhe-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.detalhe-seta {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--border-strong, #c9c9c2);
+  border-radius: 999px;
+  color: var(--heading);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.detalhe-seta:hover { border-color: var(--brand); background: var(--surface-subtle, #f2f2ee); }
+
+.detalhe-tracos {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.detalhe-tracos > li { flex: 1 1 0; }
+
+/* A hairline per photograph: the position in the series is legible at a glance,
+   and each one is a target of its own. */
+.detalhe-traco {
+  display: block;
+  width: 100%;
+  /* 44px of touch target around a 2px rule (WCAG 2.5.8) */
+  height: 44px;
+  background: transparent;
+  position: relative;
+}
+.detalhe-traco::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--border-strong, #c9c9c2);
+  transition: background-color 200ms ease;
+}
+.detalhe-traco:hover::after { background: var(--heading); }
+.detalhe-traco[data-ativo]::after { background: var(--accent-500); }
+
+.detalhe-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+/* One step below the page's h1, so the hierarchy reads as a hierarchy */
+.detalhe-titulo {
+  margin-top: 0.875rem;
+  font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+}
+
+.detalhe-resumo {
+  margin-top: 1.25rem;
+  font-family: var(--font-serif);
+  font-size: var(--type-lead);
+  line-height: 1.55;
+  color: var(--heading);
+}
+
+.detalhe-texto {
+  margin-top: 1rem;
+  max-width: 54ch;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--muted-strong);
+}
+
+.detalhe-frente:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -4px;
+}
+
+@media (min-width: 1024px) {
+  .detalhe-palco { aspect-ratio: 1.45; }
+}
+
+/* The closing movement: set apart by a rule so it reads as the account catching up to
+   today, and placed to sit beside the photograph of the signing. */
+.historia-continua {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.historia-continua-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand);
 }

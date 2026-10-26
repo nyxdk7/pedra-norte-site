@@ -1,36 +1,16 @@
-import { EcossistemaSolucoes } from "@/components/home/EcossistemaSolucoes";
 import { HomeHero } from "@/components/home/HomeHero";
-import { PedraNorteDestaque } from "@/components/home/PedraNorteDestaque";
-import { ButtonLink } from "@/components/ui/Button";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { MapaEcossistema } from "@/components/home/MapaEcossistema";
+import { NossaHistoria } from "@/components/home/NossaHistoria";
 
-// Home sequence: video hero → solutions ecosystem (montage + map of companies, solutions
-// and cases) → Pedra Norte showcase → CTA.
+// Home sequence: video hero → company history → map of companies, solutions and cases.
 export default function Home() {
   return (
     <main id="conteudo" className="min-h-screen bg-background text-foreground">
       <HomeHero />
 
-      <EcossistemaSolucoes />
+      <NossaHistoria />
 
-      <PedraNorteDestaque />
-
-      <CtaBanner
-        className="pt-16 md:pt-24"
-        eyebrow="Atendimento institucional"
-        title="Precisa de estrutura para sua obra?"
-        description="Fale com o Grupo Soster e conheça as soluções da MSM Industrial, Pedra Norte e empresas integradas para infraestrutura, fornecimento de materiais e execução em campo."
-        actions={
-          <>
-            <ButtonLink href="/contato" variant="light" size="lg">
-              Fale conosco
-            </ButtonLink>
-            <ButtonLink href="/atuacoes" variant="outlineLight" size="lg">
-              Ver atuações
-            </ButtonLink>
-          </>
-        }
-      />
+      <MapaEcossistema />
     </main>
   );
 }

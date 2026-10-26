@@ -46,3 +46,9 @@ next-env.d.ts
 
 # Configuracao local da ferramenta de desenvolvimento (nao faz parte do projeto)
 harness.config.json
+
+# Videos brutos de origem (~628 MB). Ficam no disco e sao entregues fora do
+# Git: nao cabem no limite de 100 MB por arquivo e consumiriam a cota de LFS
+# da conta dona do repositorio. Os cortes usados pelo site vivem em
+# public/videos/ e estao versionados normalmente.
+assets/source-videos/

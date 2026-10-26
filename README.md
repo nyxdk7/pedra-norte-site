@@ -4,11 +4,7 @@ Site institucional em Next.js 16 (App Router), React 19 e Tailwind CSS 4.
 
 ## Como rodar localmente
 
-Pré-requisito: **Git LFS**. Sem ele, os vídeos de origem chegam como
-arquivos-ponteiro de texto em vez do conteúdo real.
-
 ```bash
-git lfs install          # uma vez por máquina
 git clone https://github.com/nyxdk7/pedra-norte-site.git
 cd pedra-norte-site
 git switch davi/redesign-msm
@@ -16,12 +12,8 @@ npm ci
 npm run dev              # http://localhost:3000
 ```
 
-Se você já tinha clonado antes de o LFS existir no repositório:
-
-```bash
-git lfs install
-git lfs pull
-```
+Não é preciso Git LFS: todas as mídias que o site usa estão versionadas
+normalmente.
 
 ### Scripts
 
@@ -38,31 +30,24 @@ servidor continuar de pé quando o editor fecha.
 
 ## Onde ficam as mídias
 
-| Pasta | Conteúdo | Armazenamento |
+| Pasta | Conteúdo | No Git? |
 | --- | --- | --- |
-| `public/images/` | Fotografias de obras, logos, documentos | Git normal |
-| `public/videos/` | Cortes de vídeo usados pelo site (MP4 + WebM, 1280 e 1920, com capa) | Git normal |
-| `assets/source-videos/` | Vídeos brutos de drone/câmera, sem recompressão | **Git LFS** |
+| `public/images/` | Fotografias de obras, logos, documentos | Sim |
+| `public/videos/` | Cortes usados pelo site (MP4 + WebM, 1280 e 1920, com capa) | Sim |
+| `assets/source-videos/` | Vídeos brutos de drone/câmera | **Não** — ver abaixo |
 
-**Por que `public/` não está em LFS.** A Vercel não busca objetos Git LFS
-durante o build. Se a mídia servida pelo site estivesse em LFS, o site
-publicado entregaria o arquivo-ponteiro de texto no lugar do vídeo. Por isso
-só os brutos — que o site não referencia — ficam em LFS.
+Tudo que o site serve está no repositório: basta clonar e rodar.
 
-### Vídeos de origem
+### Vídeos brutos de origem
 
-Não são usados pelo site; estão versionados para o acervo e para gerar novos
-cortes. Para obtê-los:
+Os arquivos originais de drone e câmera (~628 MB, três arquivos entre 189 e
+223 MB) **não estão no Git**. Cada um ultrapassa o limite rígido de 100 MB por
+arquivo do GitHub, e colocá-los em Git LFS consumiria a cota de armazenamento
+e de banda da conta dona do repositório.
 
-```bash
-git lfs pull --include="assets/source-videos/*"
-```
-
-São ~628 MB. Para clonar sem baixá-los:
-
-```bash
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/nyxdk7/pedra-norte-site.git
-```
+Eles são entregues fora do Git (OneDrive, Drive ou disco) e devem ser
+colocados em `assets/source-videos/`, que já está no `.gitignore`. O site **não
+depende deles** — os cortes prontos estão em `public/videos/`.
 
 ## Estrutura
 
@@ -74,7 +59,7 @@ components/
   atuacoes/          painéis diagonais e região de detalhe
   ui/                botões, seções, banners compartilhados
 public/              mídias servidas pelo site
-assets/source-videos/  vídeos brutos (Git LFS)
+assets/source-videos/  vídeos brutos (fora do Git)
 ```
 
 O arquivo `MSM_Industrial_Design_DNA_Global_v1.json` guarda a referência de

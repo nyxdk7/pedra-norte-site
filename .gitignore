@@ -43,3 +43,6 @@ next-env.d.ts
 # Arquivos internos de desenvolvimento
 *.bak-*
 *.bak
+
+# Configuracao local da ferramenta de desenvolvimento (nao faz parte do projeto)
+harness.config.json

@@ -1,0 +1,13 @@
+# Normalização de fim de linha (o projeto é editado em Windows e no CI/Linux)
+* text=auto eol=lf
+
+# ---------------------------------------------------------------------------
+# Git LFS — SOMENTE os vídeos de origem (brutos), em assets/source-videos/.
+#
+# Deliberadamente NÃO inclui public/: a Vercel não busca objetos Git LFS no
+# build, então qualquer mídia que o site serve precisa estar no Git normal, ou
+# o site publicado receberia o arquivo-ponteiro de texto no lugar do vídeo.
+# Os cortes web em public/videos somam 32 MB (maior arquivo: 5,3 MB), bem
+# dentro do que o Git comum suporta.
+# ---------------------------------------------------------------------------
+assets/source-videos/** filter=lfs diff=lfs merge=lfs -text

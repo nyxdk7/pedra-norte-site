@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "document_type": "design_dna_and_implementation_contract",
+  "id": "msm-industrial-editorial-future-dna",
+  "version": "1.0.0",
+  "language": "pt-BR",
+  "project": {
+    "name": "SITE MSM",
+    "brands": [
+      "MSM Industrial",
+      "Pedra Norte",
+      "Grupo Soster"
+    ],
+    "project_type": "existing_corporate_website",
+    "stack_detected_from_project_diagnosis": [
+      "Next.js 16 App Router",
+      "React 19",
+      "TypeScript 5",
+      "Tailwind CSS 4"
+    ],
+    "branch": "agent/redesign-premium",
+    "visual_approval": "PENDING_HUMAN_REVIEW",
+    "scope": "All existing pages; shared brand DNA with unique editorial compositions per page",
+    "reference_policy": "Conceptual visual references only. Never treat generated imagery, numbers, example names, locations or copy as corporate facts."
+  },
+  "creative_north_star": {
+    "concept": "Industrial Editorial Futurism",
+    "statement": "Engenharia em escala humana, capacidade operacional real e precisão tecnológica, expressas com composição editorial cinematográfica, máxima clareza e discrição sofisticada.",
+    "perception": [
+      "solidez",
+      "autoridade industrial",
+      "tecnologia aplicada",
+      "governança",
+      "credibilidade",
+      "escala operacional",
+      "modernidade sem artificialidade"
+    ],
+    "reference_dna": [
+      {
+        "name": "Earth",
+        "extract": [
+          "floating capsule navigation",
+          "industrial full-bleed photography",
+          "editorial asymmetrical composition",
+          "restrained glass effect",
+          "image-anchored technical annotation",
+          "light metric band as contrast"
+        ]
+      },
+      {
+        "name": "South32",
+        "extract": [
+          "understated corporate navigation",
+          "landscape storytelling",
+          "large assertive typographic system",
+          "real workers and operations",
+          "embedded operational media",
+          "high executive credibility"
+        ]
+      },
+      {
+        "name": "Concept references generated for MSM direction",
+        "extract": [
+          "cinematic mine panoramas at natural warm light",
+          "selective gold accents",
+          "large refined typography",
+          "real operations inset",
+          "subtle technical lines",
+          "photography-led metrics sections"
+        ],
+        "warning": "Fictional visuals and statistics; use for design principles only."
+      }
+    ],
+    "anti_template_rule": "Do not repeat the same hero, bento grid, overlay or card shape across every route. Distinct art direction, shared design system.",
+    "anti_ai_aesthetic": [
+      "no generic SaaS gradients",
+      "no decorative glass everywhere",
+      "no neon cyan glows",
+      "no meaningless HUD/crosshairs",
+      "no fake machinery or people",
+      "no invented statistics",
+      "no repetitive four-card grids",
+      "no excessive section animations"
+    ]
+  },
+  "brand": {
+    "primary": {
+      "name": "MSM Blue",
+      "hex": "#143987",
+      "status": "locked brand anchor"
+    },
+    "palette_proposals": {
+      "deep_navy": "#0B192B",
+      "midnight": "#101E30",
+      "slate": "#344557",
+      "stone_light": "#F2F2EE",
+      "canvas_white": "#FAFAF7",
+      "warm_ochre": "#D6AA46",
+      "ink": "#17212B",
+      "text_inverse": "#F9FBFE",
+      "muted_inverse": "#D6DEE7"
+    },
+    "palette_note": "All colors except MSM Blue are preliminary design candidates, to be measured for WCAG contrast and validated against official logos and existing material.",
+    "color_usage": {
+      "primary": "institutional links, focus brand elements, selected backgrounds",
+      "dark": "cinematic overlays, premium navigation contexts, high-impact sections",
+      "light": "editorial reading areas, statistics, governance and forms",
+      "accent": "restrained operations-inspired CTA or thin separators; never dominate MSM Blue"
+    },
+    "assets": {
+      "logos": "official repository logos only; never redraw",
+      "photography": "verified original company image library only for implemented website",
+      "conceptual_mocks": "image references for composition, not factual or deployable company assets"
+    }
+  },
+  "visual_system": {
+    "layout": {
+      "strategy": "photographic editorial composition plus rigorous responsive grid",
+      "max_content_width_px": 1440,
+      "reading_width_ch": "55-72",
+      "gutters_px": {
+        "mobile": 20,
+        "tablet": 32,
+        "desktop": 64,
+        "wide": 88
+      },
+      "vertical_rhythm": "Large cinematic compositions alternated with precise, quiet reading surfaces",
+      "hero_height": {
+        "desktop": "min(92svh, 950px) with content safe minimum",
+        "mobile": "content-aware; avoid clipping; height not rigid"
+      },
+      "section_styles": [
+        "full_bleed_landscape",
+        "offset_editorial_split",
+        "light_institutional_reading",
+        "technical_spec_list",
+        "asymmetrical_photo_mosaic",
+        "project_case_study"
+      ]
+    },
+    "typography": {
+      "direction": "Contemporary editorial industrial; ownable, confident, highly readable",
+      "headline": "Strong sans display with selective alternate weights; avoid automatically using monospaced typography for every headline",
+      "body": "Readable editorial sans or restrained serif pairing if empirically validated",
+      "font_candidates": [
+        "Overpass",
+        "Inter",
+        "Source Serif 4"
+      ],
+      "rule": "Prefer currently licensed/installed fonts; validate load performance, Portuguese diacritics and brand coherence.",
+      "fluid_type": "Use clamp() scales tested on 375, 768, 1280, 1440",
+      "max_line_length": "Avoid full-width paragraphs; mobile headings with natural breaks",
+      "metrics": "Editorial numerals with consistent units and verified source"
+    },
+    "navigation": {
+      "desktop": "refined floating capsule OR understated overlay depending on page photography, not repeated blindly",
+      "mobile": "accessible compact bar and menu, focus trapped when modal, ESC closes, clear touch targets",
+      "sticky": "only after visual and interaction testing; never block underlying clicks",
+      "logo": "official brand art with supporting plate only if needed for contrast"
+    },
+    "photography": {
+      "priority": "Real MSM / Pedra Norte / Grupo Soster operations, workers, equipment and infrastructure",
+      "hero_crop": "Choose per viewport with focal point; no mandatory centered crop",
+      "overlay": "local gradient or scrim behind text only as needed for measured contrast",
+      "image_quality": "preserve resolution, use next/image, responsive sizes, avoid stretched assets",
+      "human_presence": "use only authentic approved organizational photography",
+      "media_card": "optional, unique to contextual page; no generic floating card on every route"
+    },
+    "motion": {
+      "style": "subtle, purposeful, performant",
+      "properties": [
+        "opacity",
+        "transform"
+      ],
+      "duration_ms": {
+        "micro": [
+          120,
+          220
+        ],
+        "section": [
+          280,
+          500
+        ]
+      },
+      "reduced_motion": "Disable autoplay and nonessential motion when prefers-reduced-motion is active",
+      "never": "scroll hijacking, mandatory parallax, motion hiding content"
+    },
+    "components": {
+      "global": [
+        "SiteHeader",
+        "SiteFooter",
+        "Container",
+        "Typography",
+        "AccessibleButton",
+        "SectionIntro",
+        "FocusRing",
+        "ResponsiveMedia"
+      ],
+      "specialized": [
+        "EditorialHero",
+        "OperationStory",
+        "TechnicalAnnotation",
+        "MetricStrip",
+        "ProjectFeature",
+        "PhotoEssay",
+        "EthicsDocument",
+        "ContactPanel"
+      ],
+      "rule": "Components should support compositional variety; avoid over-abstracting designs into uniform cards."
+    }
+  },
+  "page_directions": {
+    "home": {
+      "creative_idea": "A operação fala primeiro",
+      "hero": "A compelling real operational photo occupying most of first view, strong headline and sparse CTA; photo remains visible",
+      "layout_signature": "cinematic full-bleed to bright verified metrics to asymmetric service narrative",
+      "signature_elements": [
+        "floating site navigation",
+        "verified credibility metric strip",
+        "editorial operations sequence",
+        "impactful Pedra Norte showcase"
+      ],
+      "avoid": [
+        "fictional project values",
+        "overdarkened image",
+        "card wall"
+      ]
+    },
+    "sobre": {
+      "creative_idea": "Trajetória e confiança",
+      "hero": "Large editorial portrait of actual operation, leadership or landscape with typographic authority",
+      "layout_signature": "alternating timeline-like story and photographic statements; only if chronology is sourced",
+      "signature_elements": [
+        "documented company milestones",
+        "editorial prose",
+        "real people and locations"
+      ],
+      "avoid": [
+        "invented company milestones",
+        "home hero cloned"
+      ]
+    },
+    "servicos": {
+      "creative_idea": "Capacidade demonstrada",
+      "hero": "Precise service photography and assertive technical title",
+      "layout_signature": "alternating service feature sections with content-specific media",
+      "signature_elements": [
+        "service-specific proof",
+        "operational details",
+        "clear navigation to related cases"
+      ],
+      "avoid": [
+        "generic four-card grid on every breakpoint",
+        "unsourced service capabilities"
+      ]
+    },
+    "atuacoes": {
+      "creative_idea": "Operações conectadas",
+      "hero": "Dramatic true operation relevant to the page",
+      "layout_signature": "large landscape photo essays with sectional technical annotations",
+      "signature_elements": [
+        "documented areas of operation",
+        "selective technical overlays",
+        "real workflows"
+      ],
+      "avoid": [
+        "fake maps",
+        "unsourced geographic footprints"
+      ]
+    },
+    "estrutura": {
+      "creative_idea": "Infraestrutura que sustenta entregas",
+      "hero": "Photographic panorama of genuine operational facilities and equipment",
+      "layout_signature": "immersive gallery with clean technical inventory-style compositions",
+      "signature_elements": [
+        "verified equipment and facilities",
+        "photo-led content",
+        "accessible gallery"
+      ],
+      "avoid": [
+        "invented fleet or plant capacity"
+      ]
+    },
+    "obras": {
+      "creative_idea": "Resultados no território",
+      "hero": "Featured documented project photo with editorial overlay",
+      "layout_signature": "case-study index with distinct project narratives and filter only if justified",
+      "signature_elements": [
+        "authentic project images",
+        "verified location and scope",
+        "accessible project navigation"
+      ],
+      "avoid": [
+        "fictional projects",
+        "fake figures"
+      ]
+    },
+    "integridade": {
+      "creative_idea": "Confiança com transparência",
+      "hero": "Calm, serious editorial institutional composition",
+      "layout_signature": "light reading surface plus strong typographic sections and accessible disclosures",
+      "signature_elements": [
+        "ethics and governance content",
+        "clear document links",
+        "accessible interaction"
+      ],
+      "avoid": [
+        "playful effects",
+        "altering compliance wording"
+      ]
+    },
+    "codigo_de_etica": {
+      "creative_idea": "Clareza e responsabilidade",
+      "hero": "Restrained institutional introduction",
+      "layout_signature": "document-first layout with reading navigation and correct semantics",
+      "signature_elements": [
+        "original legal and ethics text",
+        "legible typography",
+        "accessible download or reading controls"
+      ],
+      "avoid": [
+        "rewriting policies",
+        "decorative disruptions"
+      ]
+    },
+    "contato": {
+      "creative_idea": "Proximidade corporativa",
+      "hero": "Concise premium composition with authentic location/operations visual",
+      "layout_signature": "balanced editorial information and actionable contact controls",
+      "signature_elements": [
+        "verified official contact channels",
+        "functional forms",
+        "map only if existing validated integration"
+      ],
+      "avoid": [
+        "fictional addresses",
+        "broken tracking or links"
+      ]
+    }
+  },
+  "implementation_contract": {
+    "environment": {
+      "working_tree": "C:\\Users\\santa\\OneDrive\\Desktop\\SITE MSM.worktrees\\redesign-premium",
+      "branch": "agent/redesign-premium",
+      "harness": "C:\\Users\\santa\\Projetos\\claude-lab\\global-harness",
+      "note": "Paths are user-provided project context; confirm actual paths in runtime before use."
+    },
+    "restrictions": [
+      "No push, deploy, merge, rebase or force-push",
+      "Do not modify master, production, database, domain or third-party integrations",
+      "Preserve original copy, routes, contact information, metadata, robots and sitemap",
+      "Do not use generated reference image as an authentic asset",
+      "No visual approval claimed without owner review"
+    ],
+    "execution_model": "Claude-first Harness Engineering: inventory -> visual matrix -> implement -> render -> screenshot -> inspect -> refine -> tests -> separate-subagent review -> human approval",
+    "approval_gate": "Owner approves home creative direction before large-scale internal-page rollout; per-page individual composition can then be implemented."
+  },
+  "playwright_visual_qa": {
+    "mandatory": true,
+    "tool": "playwright-cli.cmd",
+    "current_preview_candidate": "http://localhost:3000",
+    "verify_server_snapshot": true,
+    "viewports": [
+      {
+        "width": 375,
+        "kind": "mobile"
+      },
+      {
+        "width": 768,
+        "kind": "tablet"
+      },
+      {
+        "width": 1280,
+        "kind": "desktop"
+      },
+      {
+        "width": 1440,
+        "kind": "wide"
+      }
+    ],
+    "required_per_page": [
+      "real screenshot after meaningful change",
+      "verify correct worktree and fresh CSS",
+      "console errors and failed network requests",
+      "text-image contrast",
+      "image focal point and clipping",
+      "keyboard focus and navigation",
+      "horizontal scroll absence",
+      "visible text and CTA correctness",
+      "reduced motion compliance",
+      "before/after visual inspection"
+    ],
+    "artifacts": [
+      "before.png",
+      "after.png",
+      "visual-review.md",
+      "console-network.txt",
+      "gates.json"
+    ],
+    "prohibited_claims": [
+      "Screenshot captured equals visually approved",
+      "Axe zero violations equals perfect design",
+      "Passing build equals premium composition"
+    ]
+  },
+  "quality_gates": {
+    "visual_status": "PENDING_HUMAN_REVIEW",
+    "technical": [
+      "TypeScript",
+      "lint",
+      "production build",
+      "route and link smoke tests",
+      "content/SEO preservation",
+      "accessibility checks",
+      "responsive screenshots",
+      "Playwright interaction and console tests",
+      "snapshot-linked review"
+    ],
+    "visual_rubric": {
+      "composition": 20,
+      "photography": 20,
+      "typography": 15,
+      "brand_authority": 15,
+      "unique_page_identity": 15,
+      "responsive_execution": 15
+    },
+    "visual_rubric_note": "Heuristic evaluation only; cannot be converted automatically into owner approval.",
+    "decision_scale": [
+      "GO",
+      "GO WITH PENDENCIES",
+      "NO-GO"
+    ],
+    "global_guard": "NO-GO; do not install globally"
+  },
+  "traceability": {
+    "reference_image_policy": "All reference images in this conversation depict third-party inspiration or fictional generated mockups; their copy and metrics are not MSM facts.",
+    "verified_from_report": "Site MSM project diagnostics and implementation state were reported by Claude in prior conversation, not independently inspected here.",
+    "assets_to_validate": [
+      "official approved logos",
+      "real photographs",
+      "actual pages and routes",
+      "current institutional texts and claims",
+      "image licenses and consent"
+    ]
+  }
+}

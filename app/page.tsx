@@ -1,5 +1,6 @@
 "use client";
 
+import { NossaHistoriaRedesign } from "@/components/NossaHistoriaRedesign";
 import Image from "next/image";
 import Link from "next/link";
 import { MapaAtuacaoAcre } from "@/components/MapaAtuacaoAcre";
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { HomeHeroRedesign } from "@/components/HomeHeroRedesign";
 const empresasGrupo = [
   {
     nome: "MSM Industrial",
@@ -619,122 +621,11 @@ function GaleriaOperacoes() {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <section className="relative overflow-hidden pt-24 md:pt-28">
-        {/* O poster aparece enquanto o video carrega e em dispositivos com movimento reduzido. */}
-        <Image
-          src="/images/home/hero-pedreira-poster.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+      <HomeHeroRedesign />
 
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/home/hero-pedreira-poster.webp"
-          aria-hidden="true"
-          tabIndex={-1}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
-        >
-          <source src="/videos/hero-pedreira.mp4" type="video/mp4" />
-        </video>
-
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/61 via-slate-950/44 to-[#143987]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/48 via-transparent to-transparent" />
-
-        <div className="relative z-10 mx-auto flex min-h-[400px] max-w-7xl items-center px-6 py-12 md:min-h-[390px] md:py-14">
-          <div className="max-w-4xl">
-            <h1 className="max-w-5xl text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
-              Engenharia, pavimentação, mineração e obras para grandes estruturas
-            </h1>
-
-            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-200 md:text-lg md:leading-8">
-              O Grupo Soster reúne empresas especializadas em infraestrutura,
-              pavimentação, mineração, concreto usinado, pré-moldados e locação
-              de máquinas, com atuação integrada para obras públicas e privadas.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Nossa história */}
-      <section
-        aria-labelledby="nossa-historia"
-        className="relative overflow-hidden bg-[#f8fafc] px-6 py-20 md:py-28"
-      >
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-y-0 right-0 w-[62%] bg-[radial-gradient(circle_at_top_right,rgba(20,57,135,0.08),transparent_55%)]" />
-          <div className="absolute inset-y-0 right-0 hidden w-[62%] opacity-50 md:block [background-image:linear-gradient(rgba(20,57,135,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(20,57,135,0.06)_1px,transparent_1px)] [background-size:40px_40px]" />
-          <div className="absolute right-[-6%] top-10 hidden h-[420px] w-[420px] rounded-full border border-[#143987]/10 md:block" />
-          <div className="absolute right-[18%] top-20 hidden h-40 w-40 rounded-full border border-[#143987]/10 md:block" />
-          <div className="absolute right-[14%] bottom-16 hidden h-24 w-72 rounded-[28px] border border-[#143987]/10 md:block" />
-          <div className="absolute right-[10%] top-[24%] hidden h-px w-56 rotate-[-18deg] bg-[#143987]/10 md:block" />
-          <div className="absolute right-[8%] bottom-[26%] hidden h-px w-64 rotate-[12deg] bg-[#143987]/10 md:block" />
-          <div className="absolute right-[26%] top-[38%] hidden h-24 w-24 rounded-full border border-[#143987]/10 md:block" />
-        </div>
-
-        <div className="relative mx-auto max-w-4xl">
-          <div className="flex items-center gap-4">
-            <span className="h-12 w-[3px] rounded-full bg-[#143987] md:h-14" />
-            <h2
-              id="nossa-historia"
-              className="text-3xl font-bold uppercase tracking-[0.1em] text-[#0b3b91] md:text-4xl"
-            >
-              NOSSA HISTÓRIA
-            </h2>
-          </div>
-
-          <div className="mt-10 max-w-3xl space-y-6 text-[17px] leading-8 text-slate-700 md:text-lg md:leading-9">
-            <p>
-              Uma das maiores empresas de mineração da região amazônica, a Pedra
-              Norte nasceu da determinação e da força de vontade de uma família
-              catarinense que escolheu, há mais de 40 anos, o Acre para viver,
-              gerar empregos e contribuir com a economia local.
-            </p>
-
-            <p>
-              Inspirada pela visão de Waldomiro Soster, patriarca da família, a
-              empresa iniciou suas atividades em 1986, ainda sob outra proposta
-              de atuação, mas com o mesmo compromisso de fortalecer o
-              desenvolvimento do Acre.
-            </p>
-
-            <p>
-              Naquela primeira iniciativa já estava a origem do que hoje é a
-              Pedra Norte. Mais do que uma mineradora que fornece produtos, a
-              empresa agrega valor por meio de uma ampla gama de serviços, reúne
-              centenas de colaboradores e atende clientes de diferentes regiões
-              do país.
-            </p>
-
-            <p>
-              Com uma atuação diversificada, a Pedra Norte mantém sua unidade
-              de mineração em Rondônia e sua sede administrativa em Rio Branco,
-              capital do Acre.
-            </p>
-
-            <p>
-              Além da mineração, sua principal atividade, a empresa também
-              fornece produtos e insumos para a construção civil e a
-              infraestrutura, como concreto usinado, pó de brita e outros
-              materiais derivados de sua produção mineral.
-            </p>
-
-            <p>
-              Conduzida por um grupo familiar tão sólido quanto sua trajetória,
-              a Pedra Norte conta em sua gestão com o idealizador Waldomiro
-              Soster, seus filhos e netos. Do patriarca, aos 72 anos, ao
-              integrante mais jovem, de 18, diferentes gerações participam da
-              continuidade dessa história.
-            </p>
-          </div>
-        </div>
-      </section>
+      <NossaHistoriaRedesign />
 
       {/* Mapa animado do corredor de atuação no Acre */}
       <MapaAtuacaoAcre />

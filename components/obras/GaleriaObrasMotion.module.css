@@ -1,0 +1,61 @@
+/* Scroll Reveal + parallax sutil - somente a galeria de Engenharia Rodoviaria.
+   O layout, os controles e a rotacao de fotos/videos continuam no componente original. */
+.obra {
+  --pn-parallax-y: 0px;
+}
+
+/* Transicoes depois do encontro com o viewport; nenhuma animacao de scroll artificial. */
+.obra :global(.galeria-obras-topo) {
+  transition: opacity 520ms cubic-bezier(.22, 1, .36, 1),
+    transform 700ms cubic-bezier(.22, 1, .36, 1);
+}
+.obra :global(.galeria-obras-principal) {
+  transform-origin: 50% 50%;
+  transition: opacity 700ms cubic-bezier(.22, 1, .36, 1) 90ms,
+    transform 950ms cubic-bezier(.22, 1, .36, 1) 90ms;
+}
+.obra :global(.galeria-obras-miniaturas) > li {
+  transition: opacity 650ms cubic-bezier(.22, 1, .36, 1),
+    transform 760ms cubic-bezier(.22, 1, .36, 1);
+}
+.obra :global(.galeria-obras-miniaturas) > li:nth-child(1) { transition-delay: 210ms; }
+.obra :global(.galeria-obras-miniaturas) > li:nth-child(2) { transition-delay: 330ms; }
+.obra :global(.galeria-obras-miniaturas) > li:nth-child(3) { transition-delay: 450ms; }
+.obra :global(.galeria-obras-miniaturas) > li:nth-child(n + 4) { transition-delay: 510ms; }
+
+/* Escondemos apenas apos a hidratacao registrar o observer.
+   Sem JS, a galeria permanece inteiramente visivel. */
+.obra[data-pn-motion="ready"]:not([data-pn-revealed="true"]) :global(.galeria-obras-topo) {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+.obra[data-pn-motion="ready"]:not([data-pn-revealed="true"]) :global(.galeria-obras-principal) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(1.025);
+}
+.obra[data-pn-motion="ready"]:not([data-pn-revealed="true"]) :global(.galeria-obras-miniaturas) > li {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+
+/* Parallax pequeno e independente do crossfade das fotos.
+   O scale evita bordas vazias quando a foto desloca 8px. */
+.obra :global(.galeria-obras-camada) > img,
+.obra :global(.galeria-obras-video) {
+  transform: translate3d(0, var(--pn-parallax-y), 0) scale(1.045);
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obra :global(.galeria-obras-topo),
+  .obra :global(.galeria-obras-principal),
+  .obra :global(.galeria-obras-miniaturas) > li {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .obra :global(.galeria-obras-camada) > img,
+  .obra :global(.galeria-obras-video) {
+    transform: none !important;
+  }
+}

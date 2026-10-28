@@ -13,7 +13,7 @@ const pastaKm273 = "/images/obras/erosao-km-273";
 export const obrasRodoviarias: ObraPortfolio[] = [
   {
     id: "erosao-km-246",
-    titulo: "Recuperação de erosão no km 246",
+    titulo: "DNIT - Recuperação de erosão na estrada de SENA-MADUREIRA, BR-364, KM 246.",
     trecho: "Km 246 — Estrada de Sena Madureira, Acre",
     descricao:
       "Intervenção em trecho rodoviário afetado por erosão, com trabalhos de preenchimento, recomposição da base e recuperação da via. Os registros apresentam etapas da execução e a mobilização de equipamentos e materiais em campo.",
@@ -36,7 +36,7 @@ export const obrasRodoviarias: ObraPortfolio[] = [
   },
   {
     id: "erosao-km-273",
-    titulo: "Recuperação de erosão no km 273",
+    titulo: "DNIT - Recuperação de erosão na estrada de SENA-MADUREIRA, BR-364, KM 273.",
     trecho: "Km 273 — Estrada de Sena Madureira, Acre",
     descricao:
       "Frente de recuperação dedicada à recomposição do trecho afetado pela erosão, com movimentação e aplicação de material pétreo, regularização da base e compactação do terreno. Os registros destacam o avanço dos serviços e a atuação de escavadeiras, caminhões e equipamentos de nivelamento.",

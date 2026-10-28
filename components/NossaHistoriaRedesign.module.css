@@ -1,0 +1,174 @@
+/*
+  Nossa História com fundo azul-gelo e iluminação suave.
+  Mantém o layout editorial original do redesign do Davi,
+  alterando apenas o acabamento visual da seção.
+*/
+.secao {
+  --gutter: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 5rem 0;
+  background:
+    linear-gradient(180deg, #f7f9fc 0%, #f9fbfe 52%, #fcfdff 100%);
+  color: #17212b;
+  font-family: var(--pn-historia-overpass), ui-sans-serif, system-ui, sans-serif;
+}
+.secao::before,
+.secao::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(42px);
+  opacity: 0.9;
+}
+.secao::before {
+  top: -6rem;
+  left: -4rem;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(20, 57, 135, 0.10) 0%, rgba(20, 57, 135, 0.05) 38%, rgba(20, 57, 135, 0) 74%);
+}
+.secao::after {
+  right: -5rem;
+  bottom: -7rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(104, 158, 255, 0.10) 0%, rgba(104, 158, 255, 0.05) 40%, rgba(104, 158, 255, 0) 76%);
+}
+.secao :where(h2, p, figure, figcaption) { margin: 0; }
+.secao :where(p) { text-wrap: pretty; }
+
+.container {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.introducao { max-width: 48rem; }
+.sobretitulo {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #143987;
+}
+.titulo {
+  margin-top: 1rem !important;
+  font-size: clamp(2rem, calc(1.35rem + 2.1vw), 3.25rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  color: #0b192b;
+  text-wrap: balance;
+}
+.abertura {
+  margin-top: 1.5rem !important;
+  font-family: var(--pn-historia-source-serif), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.125rem, calc(1.04rem + 0.35vw), 1.3125rem);
+  line-height: 1.55;
+  color: #0b192b;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.grade {
+  display: grid;
+  box-sizing: border-box;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  gap: 2.5rem;
+  border-top: 1px solid #dce5f0;
+}
+.fotos {
+  display: grid;
+  align-content: start;
+  gap: 2rem;
+  min-width: 0;
+}
+.moldura {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: #eef3f9;
+}
+.legenda {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-top: 1rem !important;
+  font-size: 0.9375rem;
+  line-height: 1.625;
+  color: #344557;
+}
+.traco {
+  display: block;
+  width: 2rem;
+  height: 1px;
+  flex: 0 0 auto;
+  background: #d6aa46;
+}
+.legenda .traco { margin-top: 0.625rem; }
+.colunaTexto { min-width: 0; }
+.prosa {
+  max-width: 68ch;
+  font-family: var(--pn-historia-source-serif), Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #344557;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-wrap: pretty;
+}
+.prosa > p + p { margin-top: 1.375rem; }
+.continua {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dce5f0;
+}
+.rotuloContinua {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem !important;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #143987;
+}
+
+@media (min-width: 768px) {
+  .secao { --gutter: 2rem; padding-block: 7rem; }
+}
+@media (min-width: 1024px) {
+  .secao { --gutter: 4rem; }
+  .grade { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3rem; }
+  .fotos { grid-column: span 5; }
+  .colunaTexto { grid-column: span 7; }
+}
+@media (min-width: 1440px) {
+  .secao { --gutter: 5.5rem; }
+}
+@media (max-width: 480px) {
+  .abertura, .prosa { text-align: left; hyphens: none; -webkit-hyphens: none; }
+  .secao::before {
+    width: 16rem;
+    height: 16rem;
+    top: -4rem;
+    left: -4rem;
+  }
+  .secao::after {
+    width: 18rem;
+    height: 18rem;
+    right: -5rem;
+    bottom: -6rem;
+  }
+}

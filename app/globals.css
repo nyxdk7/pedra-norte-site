@@ -86,3 +86,292 @@ html {
     animation: none;
   }
 }
+
+/* PN_OBRAS_DAVI_GALERIA_V1_INICIO */
+/* --- Obras: works module (MSM_Obras_Design_DNA_v1) ---
+   White surface, dark navy type, small yellow marker, large documentary photographs,
+   discreet rounded controls. No glass, gradients, glow, shadows or photo filters. */
+.galeria-obras {
+  --go-heading: #091a33;
+  --go-body: #405574;
+  --go-accent: #ffbd08;
+  --go-outline: #b8c4d2;
+  --go-control: #071a34;
+  --go-counter: #0c2848;
+  --go-focus: #2463ac;
+  background: #ffffff;
+  color: var(--go-heading);
+  font-family: var(--font-obras), Inter, Arial, sans-serif;
+}
+
+.galeria-obras-interno {
+  /* Slides travel one container width, so title and gallery move as one block */
+  container-type: inline-size;
+  max-width: 1672px;
+  margin-inline: auto;
+  padding: 3.5rem 16px 4rem;
+}
+
+@media (min-width: 768px) {
+  .galeria-obras-interno { padding: 4.5rem 24px 5rem; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-interno { padding: 5rem 36px 6rem; }
+}
+
+/* Opening the page: clear the floating header */
+.galeria-obras[data-abertura] .galeria-obras-interno { padding-top: calc(var(--header-h) + 2.5rem); }
+
+@media (min-width: 1024px) {
+  .galeria-obras[data-abertura] .galeria-obras-interno { padding-top: calc(var(--header-h) + 3.5rem); }
+}
+
+/* Heading on the left; on desktop the controls sit right, aligned to its base */
+.galeria-obras-topo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* Stacked works: the title hugs its own photographs, so the larger gap between
+     works is what groups each heading with the pictures it names. */
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-topo {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-bottom: 32px;
+  }
+}
+
+.galeria-obras-eyebrow {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--go-heading);
+}
+.galeria-obras-barra {
+  flex: none;
+  width: 50px;
+  height: 10px;
+  margin-right: 14px;
+  background: var(--go-accent);
+}
+
+/* One size for every work's title, whatever its length: the works are read one after the
+   other down the page, so a heading that changed size from work to work would read as a
+   change of rank rather than a change of subject. */
+.galeria-obras-titulo {
+  max-width: 48ch;
+  font-family: inherit;
+  font-size: clamp(18px, 5.4vw, 22px);
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--go-heading);
+  /* Balanced lines: no word left alone on the last line */
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .galeria-obras-titulo { font-size: 30px; line-height: 1; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-titulo { font-size: clamp(30px, calc((100vw - 398px) / 23.7), 44px); }
+}
+
+.galeria-obras-controles {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 14px;
+}
+
+.galeria-obras-seta,
+.galeria-obras-pausa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 650;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.galeria-obras-seta {
+  width: 54px;
+  border: 1px solid var(--go-outline);
+  background: #ffffff;
+  color: var(--go-heading);
+}
+.galeria-obras-seta:hover { border-color: var(--go-heading); }
+.galeria-obras-pausa {
+  min-width: 164px;
+  gap: 0.625rem;
+  padding-inline: 1.5rem;
+  background: var(--go-control);
+  color: #ffffff;
+}
+.galeria-obras-pausa:hover { background: #12305a; }
+
+.galeria-obras :where(button):focus-visible {
+  outline: 3px solid var(--go-focus);
+  outline-offset: 3px;
+}
+
+/* Works are stacked down the page: reading is scrolling, which is how a phone is held.
+   Each work is a self-contained unit with its own title, controls and photographs. */
+.galeria-obras-lista {
+  display: grid;
+  /* 8px of room keeps the thumbnails' focus ring from being clipped */
+  margin-inline: -8px;
+  padding-inline: 8px;
+  /* Comfortably more than the space between a title and its own photographs */
+  gap: 6rem;
+  margin-top: 2.5rem;
+}
+
+.galeria-obras-obra {
+  display: grid;
+  min-width: 0;
+}
+
+/* Phones: main photograph, then a horizontal strip of the other photographs */
+.galeria-obras-grade {
+  display: grid;
+  gap: 10px;
+}
+
+.galeria-obras-principal {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.38;
+  border-radius: 9px;
+  background: #e9eef4;
+}
+
+.galeria-obras-camada {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.galeria-obras-camada[data-ativa] { opacity: 1; }
+
+/* A film fills its slot exactly as a photograph does */
+.galeria-obras-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.galeria-obras-contador {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  background: var(--go-counter);
+}
+
+.galeria-obras-miniaturas {
+  display: flex;
+  gap: 10px;
+  /* 6px of room keeps the focus ring visible inside the scrolling strip */
+  margin: -6px;
+  padding: 6px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
+  list-style: none;
+  overflow-x: auto;
+  scroll-padding-inline: 6px;
+  scroll-snap-type: x proximity;
+}
+.galeria-obras-miniaturas > li { flex: 0 0 150px; scroll-snap-align: start; }
+
+.galeria-obras-miniatura {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #e9eef4;
+}
+.galeria-obras-miniatura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px transparent;
+  transition: box-shadow 200ms ease;
+}
+.galeria-obras-miniatura:hover::after { box-shadow: inset 0 0 0 2px var(--go-accent); }
+
+/* Marks the thumbnail whose slot holds a film, not a photograph */
+.galeria-obras-selo-play {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.galeria-obras-selo-play > svg {
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--go-counter);
+}
+
+/* Tablet and desktop: main photograph on the left, the next three stacked on the right */
+@media (min-width: 768px) {
+  .galeria-obras-grade {
+    grid-template-columns: 67% minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 12px;
+    aspect-ratio: 2.1;
+  }
+  /* A single photograph takes the whole width */
+  .galeria-obras-grade[data-unica] { grid-template-columns: minmax(0, 1fr); }
+  .galeria-obras-principal { aspect-ratio: auto; height: 100%; }
+  .galeria-obras-miniaturas {
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    row-gap: 10px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .galeria-obras-miniaturas > li:nth-child(n + 4) { display: none; }
+  .galeria-obras-miniatura { height: 100%; aspect-ratio: auto; }
+}
+
+@media (min-width: 1024px) {
+  .galeria-obras-grade {
+    grid-template-columns: 70.6% minmax(0, 1fr);
+    column-gap: 18px;
+    aspect-ratio: 2.78;
+  }
+  .galeria-obras-miniaturas { row-gap: 12px; }
+}
+
+/* Ajuste de espacamento para a navbar do site original. */
+#pn-engenharia-rodoviaria .galeria-obras-interno { padding-top: 2rem; }
+/* PN_OBRAS_DAVI_GALERIA_V1_FIM */

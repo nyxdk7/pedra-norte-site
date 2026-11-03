@@ -375,3 +375,67 @@ html {
 /* Ajuste de espacamento para a navbar do site original. */
 #pn-engenharia-rodoviaria .galeria-obras-interno { padding-top: 2rem; }
 /* PN_OBRAS_DAVI_GALERIA_V1_FIM */
+
+/* PN_NAVBAR_VIDEO_DINAMICA_V1_INICIO */
+/* Apenas a Home: cor institucional da navbar sobre a filmagem.
+   O branco original permanece nas outras secoes e paginas. */
+header[data-navbar-video="ativo"] {
+  background-color: rgba(9, 21, 36, 0.45);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  border-bottom-color: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.13);
+}
+
+/* As duas marcas ficam brancas enquanto o fundo esta escuro. */
+header[data-navbar-video] a[aria-label="Ir para a página inicial"] img {
+  transition: filter 350ms ease;
+}
+header[data-navbar-video="ativo"] a[aria-label="Ir para a página inicial"] img {
+  filter: brightness(0) invert(1);
+}
+
+/* Somente links principais, sem afetar o dropdown branco de Atuacoes. */
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > a,
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > div > a {
+  color: rgba(255, 255, 255, 0.88);
+}
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > a:hover,
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > div > a:hover,
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > a[aria-current="page"],
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > div > a[aria-current="page"] {
+  color: #fff;
+}
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > a::after,
+header[data-navbar-video="ativo"] nav[aria-label="Navegação principal"] > div > a::after {
+  background-color: #a9cafa;
+}
+
+/* Botao de contato discreto sobre o video, sem perder contraste. */
+header[data-navbar-video="ativo"] > div > a[href="/contato"] {
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  box-shadow: none;
+}
+header[data-navbar-video="ativo"] > div > a[href="/contato"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botao hamburguer branco apenas na barra escura; menu mobile segue branco. */
+header[data-navbar-video="ativo"] > div > button[aria-controls="menu-mobile"] {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+header[data-navbar-video="ativo"] > div > button[aria-controls="menu-mobile"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header[data-navbar-video],
+  header[data-navbar-video] a[aria-label="Ir para a página inicial"] img {
+    transition: none;
+  }
+}
+/* PN_NAVBAR_VIDEO_DINAMICA_V1_FIM */

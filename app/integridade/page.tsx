@@ -15,7 +15,7 @@ const documentosIntegridade = [
   },
   {
     titulo: "Estrutura Organizacional",
-    href: "#",
+    href: "/documentos/organograma-msm-industrial.pdf",
     icone: Workflow,
   },
 ];
@@ -135,7 +135,7 @@ export default function IntegridadePage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {documentosIntegridade.map((documento) => {
               const Icone = documento.icone;
-              const emBreve = documento.titulo === "Estrutura Organizacional";
+              const emBreve = false;
 
               return (
                 <article
@@ -173,12 +173,12 @@ export default function IntegridadePage() {
                       <Link
                         href={documento.href}
                         target={
-                          documento.href.startsWith("http")
+                          (documento.href.startsWith("http") || documento.href.endsWith(".pdf"))
                             ? "_blank"
                             : undefined
                         }
                         rel={
-                          documento.href.startsWith("http")
+                          (documento.href.startsWith("http") || documento.href.endsWith(".pdf"))
                             ? "noopener noreferrer"
                             : undefined
                         }

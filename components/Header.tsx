@@ -21,6 +21,7 @@ export function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
   const [obrasMenuAberto, setObrasMenuAberto] = useState(false);
   const [rolouPagina, setRolouPagina] = useState(false);
+  const [navbarNoVideo, setNavbarNoVideo] = useState(false);
 
   function fecharMenu() {
     setMenuAberto(false);
@@ -30,12 +31,25 @@ export function Header() {
   useEffect(() => {
     function verificarScroll() {
       setRolouPagina(window.scrollY > 20);
+
+      // A navbar e escura apenas enquanto o video da Home esta atras dela.
+      // O limite usa a posicao real do Hero (inclusive em telas menores).
+      const videoHome = pathname === "/"
+        ? document.getElementById("hero-pedra-redesign")?.closest("section")
+        : null;
+      const fimNavbar = document.querySelector("header[data-navbar-video]")
+        ?.getBoundingClientRect().bottom ?? 80;
+      setNavbarNoVideo(Boolean(videoHome && videoHome.getBoundingClientRect().bottom > fimNavbar));
     }
 
     verificarScroll();
-    window.addEventListener("scroll", verificarScroll);
-    return () => window.removeEventListener("scroll", verificarScroll);
-  }, []);
+    window.addEventListener("scroll", verificarScroll, { passive: true });
+    window.addEventListener("resize", verificarScroll);
+    return () => {
+      window.removeEventListener("scroll", verificarScroll);
+      window.removeEventListener("resize", verificarScroll);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuAberto ? "hidden" : "";
@@ -60,6 +74,7 @@ export function Header() {
 
   return (
     <header
+      data-navbar-video={navbarNoVideo ? "ativo" : "inativo"}
       className={`fixed left-0 top-0 z-50 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-2xl transition-all duration-300 ${
         rolouPagina || menuAberto
           ? "shadow-[0_12px_35px_rgba(15,23,42,0.10)]"

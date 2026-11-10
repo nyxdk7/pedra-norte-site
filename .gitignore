@@ -14,7 +14,9 @@
 /coverage
 
 # next.js
-/.next/
+# No trailing slash: .next is a junction to a folder outside OneDrive, and "/.next/"
+# matches only real directories — Tailwind would then scan the build output it writes.
+/.next
 /out/
 
 # production
@@ -52,3 +54,16 @@ harness.config.json
 # da conta dona do repositorio. Os cortes usados pelo site vivem em
 # public/videos/ e estao versionados normalmente.
 assets/source-videos/
+
+# Material bruto e arquivos de trabalho largados na raiz do projeto: originais de
+# camera (RAW/TIFF), capturas de tela e recortes avulsos. Nao sao servidos pelo site;
+# o que o site usa vive em public/. O .DNG sozinho tem 70 MB.
+/*.DNG
+/*.TIFF
+/*.tiff
+/miniaturas.png
+/obra-macadame.png
+
+# Ferramentas locais de desenvolvimento
+/.playwright-cli/
+/.mcp.json

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <!-- Faixa de operacoes: os sete elos da cadeia do grupo (mineracao, construtora,
+       engenharia, usinagem, pavimentacao, tecnologia e obras) em desenho de linha.
+       Camada puramente de fundo: os cartoes sao opacos e ficam por cima, entao
+       nada aqui encobre fotografia, cartao ou texto. -->
+  <g stroke="#94b8de" stroke-opacity="0.3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g transform="translate(60 58)">
+    <path d="M 0 96 H 132"/>
+    <path d="M 18 96 L 50 48 L 82 96 Z"/>
+    <path d="M 34 74 H 66"/>
+    <path d="M 120 88 L 60 26"/>
+    <path d="M 111 96 L 51 34"/>
+    <circle cx="116" cy="92" r="6"/>
+    <circle cx="56" cy="30" r="6"/>
+    <path d="M 90 57 V 96"/>
+    </g>
+    <g transform="translate(430 70)">
+    <path d="M 4 62 H 136"/>
+    <path d="M 22 62 L 36 38 H 104 L 118 62"/>
+    <path d="M 36 38 V 62"/>
+    <path d="M 70 38 V 62"/>
+    <path d="M 104 38 V 62"/>
+    <path d="M 36 62 L 53 38"/>
+    <path d="M 53 38 L 70 62"/>
+    <path d="M 70 62 L 87 38"/>
+    <path d="M 87 38 L 104 62"/>
+    <path d="M 36 62 V 92"/>
+    <path d="M 104 62 V 92"/>
+    <path d="M 4 92 H 136"/>
+    </g>
+    <g transform="translate(780 50)">
+    <path d="M 4 84 L 54 56 L 62 70 L 12 98 Z"/>
+    <path d="M 20 90 L 28 76"/>
+    <path d="M 40 78 L 48 64"/>
+    <path d="M 64 74 H 82 V 52 H 64 Z"/>
+    <path d="M 73 52 V 14"/>
+    <path d="M 66 14 H 80"/>
+    <path d="M 64 74 V 100"/>
+    <path d="M 82 74 V 100"/>
+    <path d="M 94 20 H 134 V 64 L 114 86 L 94 64 Z"/>
+    <path d="M 94 32 H 134"/>
+    <path d="M 98 64 V 100"/>
+    <path d="M 130 64 V 100"/>
+    <path d="M 0 100 H 145"/>
+    </g>
+    <g transform="translate(1040 76)">
+    <path d="M 46 36 H 74 V 54 H 46 Z"/>
+    <path d="M 46 40 L 18 20"/>
+    <path d="M 74 40 L 102 20"/>
+    <path d="M 46 50 L 18 70"/>
+    <path d="M 74 50 L 102 70"/>
+    <circle cx="18" cy="20" r="11"/>
+    <circle cx="102" cy="20" r="11"/>
+    <circle cx="18" cy="70" r="11"/>
+    <circle cx="102" cy="70" r="11"/>
+    <path d="M 56 54 V 62 H 64 V 54"/>
+    <circle cx="60" cy="62" r="4"/>
+    </g>
+    <g transform="translate(200 398)">
+    <path d="M 46 104 V 26"/>
+    <path d="M 58 104 V 26"/>
+    <path d="M 46 92 L 58 80"/>
+    <path d="M 58 92 L 46 80"/>
+    <path d="M 46 68 L 58 56"/>
+    <path d="M 58 68 L 46 56"/>
+    <path d="M 46 44 L 58 32"/>
+    <path d="M 58 44 L 46 32"/>
+    <path d="M 34 104 H 70"/>
+    <path d="M 18 26 H 104"/>
+    <path d="M 52 26 V 8"/>
+    <path d="M 52 8 L 24 26"/>
+    <path d="M 52 8 L 96 26"/>
+    <path d="M 18 21 H 31 V 31 H 18 Z"/>
+    <path d="M 86 26 V 54"/>
+    <path d="M 80 54 H 92"/>
+    </g>
+    <g transform="translate(555 428)">
+    <circle cx="34" cy="62" r="28"/>
+    <circle cx="34" cy="62" r="17"/>
+    <path d="M 34 62 H 104"/>
+    <path d="M 62 62 V 38 H 104 V 62"/>
+    <circle cx="92" cy="76" r="14"/>
+    <circle cx="92" cy="76" r="7"/>
+    <path d="M 68 38 V 14"/>
+    <path d="M 98 38 V 14"/>
+    <path d="M 64 14 H 102"/>
+    <path d="M 2 90 H 118"/>
+    </g>
+    <g transform="translate(930 430)">
+    <path d="M 16 86 L 50 18"/>
+    <path d="M 104 86 L 70 18"/>
+    <path d="M 4 86 L 44 14"/>
+    <path d="M 116 86 L 76 14"/>
+    <path d="M 60 84 V 74"/>
+    <path d="M 60 66 V 57"/>
+    <path d="M 60 50 V 42"/>
+    <path d="M 60 36 V 29"/>
+    <path d="M 60 24 V 19"/>
+    <path d="M 44 14 H 76"/>
+    </g>
+  </g>
+</svg>

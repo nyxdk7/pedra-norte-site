@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import { ButtonLink } from "@/components/ui/Button";
-import { HeroVideoBotao, HeroVideoFundo, HeroVideoProvider } from "./HeroVideo";
+import { ArrowDown } from "lucide-react";
+import { HeroVideoBotao, HeroVideoFundo, HeroVideoProvider } from "@/components/ui/HeroVideo";
 import { indicadoresGrupo } from "./data";
 
+const VIDEO_HERO = "/videos/home/usina-britagem-aerea";
 // First frame of the background video: shown at once, and kept when the video does not play.
-const CAPA_HERO = "/videos/home/usina-britagem-aerea-capa.jpg";
+const CAPA_HERO = `${VIDEO_HERO}-capa.jpg`;
 
 /**
  * Full-screen hero: aerial video of the crushing plant (seamless 12 s loop, muted),
@@ -17,7 +17,7 @@ export function HomeHero() {
       aria-labelledby="hero-titulo"
       className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white lg:min-h-[max(44rem,100svh)]"
     >
-      <HeroVideoProvider>
+      <HeroVideoProvider base={VIDEO_HERO} alvo="section[aria-labelledby='hero-titulo']">
       {/* Video over its cover frame, in a manual 16:9 cover box (see .hero-stage) */}
       <div className="hero-stage absolute inset-0 -z-10">
         <div className="hero-frame hero-frame--video">
@@ -44,18 +44,8 @@ export function HomeHero() {
             </p>
 
             <h1 id="hero-titulo" className="hero-title animate-fade-up anim-delay-1 mt-6">
-              Engenharia, pavimentação, mineração e obras para grandes estruturas
+              Engenharia, Terraplanagem, Pavimentação e Mineração.
             </h1>
-
-            <div className="animate-fade-up anim-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/sobre" variant="light" size="lg" className="group/cta">
-                Conheça o grupo
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
-              </ButtonLink>
-              <ButtonLink href="/atuacoes" variant="glass" size="lg">
-                Ver áreas de atuação
-              </ButtonLink>
-            </div>
           </div>
 
         </div>

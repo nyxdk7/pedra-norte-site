@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Mail, Menu, MessageCircle, X } from "lucide-react";
+import { Mail, Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { buttonClasses } from "@/components/ui/Button";
@@ -11,7 +11,7 @@ import { siteContact } from "@/lib/site-config";
 // Routes that open on a dark photograph (Home hero, PageHero "foto"): only these start with
 // the glass capsule and white logo. Every other route — light openings, 404, future pages —
 // renders the solid capsule from the server on. Keep in sync with the pages' hero variants.
-const rotasEscuras = ["/", "/estrutura", "/atuacoes"];
+const rotasEscuras = ["/", "/estrutura", "/atuacoes", "/integridade"];
 
 function rotaEscura(pathname: string) {
   return rotasEscuras.includes(pathname);
@@ -19,10 +19,8 @@ function rotaEscura(pathname: string) {
 
 const links = [
   { href: "/", label: "Início" },
-  { href: "/sobre", label: "Sobre" },
   { href: "/estrutura", label: "Estrutura" },
   { href: "/atuacoes", label: "Atuações" },
-  { href: "/servicos", label: "Serviços" },
   { href: "/obras", label: "Obras" },
   { href: "/integridade", label: "Integridade" },
 ];
@@ -186,19 +184,6 @@ export function Header() {
           </nav>
 
           <div className="flex h-full items-center gap-2">
-            {/* Wrapper owns visibility: buttonClasses already sets `display`. */}
-            <div className="hidden h-full sm:block">
-              <Link
-                href="/contato"
-                onClick={fecharMenu}
-                aria-current={pathname.startsWith("/contato") ? "page" : undefined}
-                className={buttonClasses(solido ? "primary" : "light", "md", "group/cta focus-media h-full px-6")}
-              >
-                Fale conosco
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" aria-hidden="true" />
-              </Link>
-            </div>
-
             <button
               ref={botaoMenuRef}
               type="button"

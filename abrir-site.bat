@@ -15,6 +15,11 @@ cd /d "%~dp0"
 REM O otimizador de imagens do Next trava neste Windows (ver next.config.ts).
 set NEXT_IMAGE_UNOPTIMIZED=1
 
+REM O build (.next) e uma juncao para fora do OneDrive (sincronizar o build
+REM afogava o disco). Rodando de la, o worker de CSS do Next perde o caminho
+REM dos modulos do projeto; esta variavel devolve o caminho a ele.
+set NODE_PATH=%~dp0node_modules
+
 REM Se o site ja estiver de pe (outra janela destas, ou o Claude), so abre o
 REM navegador: a porta esta fixada, entao subir um segundo servidor daria erro.
 powershell -NoProfile -Command "try { Invoke-WebRequest -Uri 'http://localhost:3000/' -UseBasicParsing -TimeoutSec 3 | Out-Null; exit 0 } catch { exit 1 }" >nul 2>&1

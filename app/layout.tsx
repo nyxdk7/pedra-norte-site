@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Overpass, Source_Serif_4 } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ProximaPagina } from "@/components/ui/ProximaPagina";
 import { WhatsappButton } from "@/components/WhatsappButton";
 import "./globals.css";
 import IntegrityPopup from "@/components/IntegrityPopup";
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/home/hero-obras-acre.png",
+        url: "/images/home/hero-obras-acre-og.jpg",
         width: 1200,
         height: 630,
         alt: "MSM Industrial, Pedra Norte e Grupo Soster",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     title: "MSM Industrial | Pedra Norte | Grupo Soster",
     description:
       "Estrutura integrada para grandes obras de infraestrutura, pavimentação, mineração, agregados e construção civil no Acre.",
-    images: ["/images/home/hero-obras-acre.png"],
+    images: ["/images/home/hero-obras-acre-og.jpg"],
   },
   icons: {
     icon: "/icon.png",
@@ -100,6 +101,7 @@ export default function RootLayout({
         <IntegrityPopup />
         <Header />
         {children}
+        <ProximaPagina />
         <Footer />
         <WhatsappButton />
       </body>

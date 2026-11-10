@@ -1,59 +1,13 @@
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
+import { CentralOperacoes } from "@/components/estrutura/CentralOperacoes";
 import { PageHero } from "@/components/ui/PageHero";
-import { Container } from "@/components/ui/Section";
 
-const recursos = [
-  "Frota de transporte",
-  "Máquinas pesadas",
-  "Produção de asfalto",
-  "Pedreira e agregados",
-  "Concreto",
-  "Oficina",
-  "Borracharia",
-  "Canteiros",
-  "Abastecimento",
-];
-
-// Real photographs of the group's equipment and facilities (DNA: immersive, photo-led).
-const fotos = [
-  {
-    src: "/images/atuacoes/extracao-minerios/pedreira (3).jpeg",
-    alt: "Correias transportadoras e estruturas da planta de britagem",
-    classe: "aspect-[4/3] md:col-span-7 md:row-span-2 md:aspect-auto",
-    sizes: "(max-width: 768px) 100vw, 58vw",
-    posicao: "object-center",
-  },
-  {
-    src: "/images/atuacoes/pre-moldados/pre-moldados2.png",
-    alt: "Pátio de peças pré-moldadas de concreto com tubos de drenagem",
-    classe: "aspect-[16/10] md:col-span-5",
-    sizes: "(max-width: 768px) 100vw, 42vw",
-    posicao: "object-center",
-  },
-  {
-    src: "/images/atuacoes/edificacoes/edificacoes3.png",
-    alt: "Caminhão betoneira e bomba de concreto em obra de edificação",
-    classe: "aspect-[16/10] md:col-span-5",
-    sizes: "(max-width: 768px) 100vw, 42vw",
-    posicao: "object-center",
-  },
-  {
-    src: "/images/galeria/home2.png",
-    alt: "Caminhão-pipa ligado por mangueira a uma recicladora de solo, com rolo compactador ao fundo",
-    classe: "aspect-[16/9] md:col-span-8",
-    sizes: "(max-width: 768px) 100vw, 66vw",
-    posicao: "object-[50%_75%]",
-  },
-  {
-    src: "/images/galeria/home14.jpeg",
-    alt: "Vista da planta de britagem com correias transportadoras e pilhas de agregado",
-    classe: "aspect-[4/3] md:col-span-4 md:aspect-auto",
-    sizes: "(max-width: 768px) 100vw, 46vw",
-    posicao: "object-[40%_center]",
-  },
-];
+// Background footage of the hero: 44.9 s of the group's own plant and fleet
+// (excavators loading, the Ammann asphalt plant, the drill rig, the Pedra Norte
+// trucks), from the HLG source in assets/source-videos — tone-mapped to SDR on the
+// way in, so browsers do not show it washed out.
+const VIDEO_HERO = "/videos/estrutura/estrutura-operacional";
 
 export default function EstruturaPage() {
   return (
@@ -61,17 +15,11 @@ export default function EstruturaPage() {
       <PageHero
         eyebrow="Estrutura operacional"
         title="Capacidade própria para produzir, transportar, manter e executar."
-        image="/images/atuacoes/extracao-minerios/pedreira (7).jpeg"
-        imageAlt="Pá carregadeira diante da planta de britagem"
-        imagePosition="object-[45%_center]"
-        legenda="Planta de britagem da pedreira"
-        description={
-          <p>
-            A estrutura do grupo conecta frota, máquinas, produção de
-            materiais, manutenção, logística, canteiros e abastecimento para
-            sustentar obras e operações de diferentes portes.
-          </p>
-        }
+        image={`${VIDEO_HERO}-capa.jpg`}
+        video={VIDEO_HERO}
+        imageAlt="Escavadeira carregando um caminhão fora-de-estrada na frente de lavra da pedreira"
+        // 16:9 source: the cover crop is driven by height once the box is taller than that.
+        imageSizes="(max-aspect-ratio: 16/9) 178vh, 100vw"
         actions={
           <>
             <ButtonLink href="/contato" variant="signal" size="lg">
@@ -85,45 +33,22 @@ export default function EstruturaPage() {
         }
       />
 
-      {/* Technical inventory: the resources as a ruled 3 × 3 schedule */}
-      <section aria-labelledby="recursos-titulo" className="bg-background py-16 md:py-24">
-        <Container>
-          <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+      {/* The resources as the real chain, in photographs, on a full-bleed band. */}
+      <section aria-labelledby="recursos-titulo" className="on-dark central-faixa">
+        <div className="central-faixa-interno">
+          <div>
+            <p className="text-[0.9375rem] font-semibold text-accent">Recursos da estrutura</p>
             <h2
               id="recursos-titulo"
-              className="flex items-center gap-3 text-[0.9375rem] font-semibold text-muted-strong lg:col-span-3 lg:items-start lg:pt-5"
+              className="mt-3 text-[length:var(--type-h2)] font-bold leading-[1.06] text-white"
             >
-              <span aria-hidden="true" className="h-px w-8 bg-accent lg:mt-2.5" />
-              Recursos da estrutura
+              Um ecossistema de soluções integradas.
             </h2>
-            <ul className="grid grid-cols-2 border-t border-border sm:grid-cols-3 lg:col-span-9">
-              {recursos.map((item) => (
-                <li
-                  key={item}
-                  className="border-b border-border py-5 pr-4 text-lg font-bold leading-snug text-heading md:py-7 md:text-xl"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
-        </Container>
-      </section>
-
-      {/* Photo-led mosaic of the real equipment and plants */}
-      <section aria-labelledby="fotos-estrutura-titulo" className="bg-brita-100 py-16 md:py-24">
-        <h2 id="fotos-estrutura-titulo" className="sr-only">
-          Fotos da estrutura operacional
-        </h2>
-        <Container>
-          <ul className="grid gap-4 md:grid-cols-12 md:gap-5">
-            {fotos.map((foto) => (
-              <li key={foto.src} className={`relative overflow-hidden rounded-card bg-ink/10 ${foto.classe}`}>
-                <Image src={foto.src} alt={foto.alt} fill sizes={foto.sizes} className={`object-cover ${foto.posicao}`} />
-              </li>
-            ))}
-          </ul>
-        </Container>
+          <div className="mt-10 md:mt-12">
+            <CentralOperacoes />
+          </div>
+        </div>
       </section>
     </main>
   );

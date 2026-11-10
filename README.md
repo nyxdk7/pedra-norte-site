@@ -40,10 +40,10 @@ Tudo que o site serve está no repositório: basta clonar e rodar.
 
 ### Vídeos brutos de origem
 
-Os arquivos originais de drone e câmera (~628 MB, três arquivos entre 189 e
-223 MB) **não estão no Git**. Cada um ultrapassa o limite rígido de 100 MB por
-arquivo do GitHub, e colocá-los em Git LFS consumiria a cota de armazenamento
-e de banda da conta dona do repositório.
+Os arquivos originais de drone e câmera (~820 MB, cinco arquivos entre 69 e
+223 MB) **não estão no Git**. Quase todos ultrapassam o limite rígido de 100 MB
+por arquivo do GitHub, e colocá-los em Git LFS consumiria a cota de
+armazenamento e de banda da conta dona do repositório.
 
 Eles são entregues fora do Git (OneDrive, Drive ou disco) e devem ser
 colocados em `assets/source-videos/`, que já está no `.gitignore`. O site **não

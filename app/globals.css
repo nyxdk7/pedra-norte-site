@@ -1,4 +1,10 @@
-@import "tailwindcss";
+/* Classes are looked for only in the code. Left to auto-detect, Tailwind reads every
+   file in the project root — raw drone photos, TIFFs, the media in public/ — which on
+   OneDrive took minutes per build and stalled the dev server. */
+@import "tailwindcss" source(none);
+@source "../app";
+@source "../components";
+@source "../lib";
 
 /* ===========================================================================
    MSM Industrial — Design tokens (3 layers: primitive -> semantic -> component)
@@ -584,148 +590,151 @@ html {
   .eco-painel::after { animation: none; }
 }
 
-/* --- Atuações opening: slanted photographic panels, one per front ---
-   Panels are skewed; photographs are counter-skewed and oversized so they stay upright
-   and cover the slanted box. The outer panels run past the screen edges. */
-/* Full screen, the same measure as the Home film: the photographs are the opening of the
-   page, with nothing over them. */
-.atu-area { position: relative; height: 100svh; }
+/* --- Atuações: abertura ---
+   Only the photographs. Four slanted panels fill the band from edge to edge, and the
+   band is exactly as tall as the film that opens the home page, so the two openings
+   are the same size on the same screen.
+   Panels are skewed; their photographs are counter-skewed and oversized so the
+   pictures stay upright and still cover the slanted box.
 
+   The label on each panel is the home page's glass (.hero-vidro): navy frost, a white
+   hairline and a blur, so the words hold on any part of a photograph without a heavy
+   scrim darkening the picture underneath. */
+.atu-abertura {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-950) 70%);
+}
+@media (max-width: 1023px) {
+  .atu-abertura { padding: calc(var(--header-h) + 1.5rem) var(--gutter) 2.5rem; }
+}
 @media (min-width: 1024px) {
-  .atu-area { height: max(44rem, 100svh); }
+  /* The home page's film fills one viewport (min-h-[100svh], floor 44rem on lg) and this
+     band matches it exactly. A 16:9 box would be taller than the viewport on any screen
+     wider than 16:9 — 1079px against 951px at 1920x951 — so the openings read as two
+     different sizes and the band runs past the fold. */
+  .atu-abertura { min-height: max(44rem, 100svh); }
 }
 
 .atu-paineis {
-  position: absolute;
-  inset: 0 -4%;
-  display: flex;
-  gap: 8px;
+  display: grid;
+  gap: 0.875rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-
-.atu-painel {
-  position: relative;
-  flex: 1 1 0;
-  overflow: hidden;
-  transform: skewX(-10deg);
-  transition: flex-grow 480ms var(--ease-out);
+@media (min-width: 640px) and (max-width: 1023px) {
+  .atu-paineis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-
-.atu-link { position: absolute; inset: 0; display: block; color: #fff; }
-
-/* Focus ring drawn ABOVE the photograph (an outline on the link would sit under it). */
-.atu-link:focus-visible { outline: none; }
-.atu-link::after {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  z-index: 2;
-  pointer-events: none;
-}
-
 @media (min-width: 1024px) {
-  .atu-link::after { bottom: calc(3.5rem + 8px); }
-}
-.atu-link:focus-visible::after {
-  border: 3px solid var(--accent-400);
-  box-shadow: 0 0 0 3px var(--ink-900), inset 0 0 0 3px var(--ink-900);
-}
-
-@media (forced-colors: active) {
-  .atu-link:focus-visible::after { border-color: Highlight; }
-}
-
-.atu-foto {
-  position: absolute;
-  inset: 0 -30%;
-  transform: skewX(10deg);
-  transition: transform 480ms var(--ease-out);
-}
-
-@media (min-width: 1024px) {
-  /* A short fade at the foot only: the panel used to dissolve into the headline below it,
-     and at full height that same fade would eat a third of the photograph. */
-  .atu-foto {
-    -webkit-mask-image: linear-gradient(180deg, #000 86%, rgb(0 0 0 / 0.5) 95%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 86%, rgb(0 0 0 / 0.5) 95%, transparent 100%);
+  .atu-paineis {
+    position: absolute;
+    /* Wider than the band so the slanted edges still reach both margins. */
+    inset: 0 -5%;
+    display: flex;
+    gap: 7px;
   }
 }
 
-/* Dark band at the top of the photographs, behind the glass header (desktop) */
+.atu-painel {
+  position: relative;
+  /* Its own stacking context at every width: without it the photograph (z-index -1)
+     escapes the card on the layouts that carry no transform and falls behind its
+     background. */
+  isolation: isolate;
+  min-width: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ink-950);
+  aspect-ratio: 3 / 4;
+}
+@media (min-width: 1024px) {
+  .atu-painel {
+    flex: 1 1 0;
+    aspect-ratio: auto;
+    height: 100%;
+    border-radius: 0;
+    transform: skewX(-7deg);
+    transition: flex-grow 420ms var(--ease-out);
+  }
+  .atu-painel:hover,
+  .atu-painel:focus-within,
+  .atu-painel[data-ativo] { flex-grow: 1.45; }
+}
+
+.atu-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+.atu-link:focus-visible { outline: 2px solid var(--accent-400); outline-offset: -4px; }
+
+.atu-foto {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+}
+@media (min-width: 1024px) {
+  .atu-foto { inset: 0 -18%; transform: skewX(7deg); }
+}
+/* Two scrims, both short. The head one holds the header; the foot one settles the
+   photograph into the frosted strip and quiets the ground — the strip of scrub, road or
+   rubble that the bottom of a landscape photograph carries when it is cropped this tall. */
 .atu-foto::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(11 25 43 / 0.8) 0%, rgb(11 25 43 / 0.6) 16%, rgb(11 25 43 / 0.25) 28%, transparent 38%);
+  background:
+    linear-gradient(180deg, rgb(7 17 30 / 0.34) 0%, rgb(7 17 30 / 0) 32%),
+    linear-gradient(0deg, rgb(7 17 30 / 0.55) 0%, rgb(7 17 30 / 0) 30%);
 }
 
-/* Glass label, upright, centred on the visible part of the panel */
+/* The home page's glass, as a strip rather than a card: it is flush to the panel's
+   edges, so the four segments read as one frosted band across the whole opening,
+   broken only by the seams. */
 .atu-rotulo {
   position: absolute;
-  left: 50%;
-  bottom: 40%;
-  width: max-content;
-  max-width: min(78%, 16rem);
-  transform: translateX(-50%) skewX(10deg);
-  border-radius: 0.75rem;
-  background: rgb(11 25 43 / 0.9);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  padding: 0.55rem 0.9rem;
-  z-index: 1;
+  inset: auto 0 0 0;
+  display: block;
+  /* The edge is 2px at every state, so lighting it costs no shift in the words below. */
+  border-top: 2px solid rgb(255 255 255 / 0.16);
+  background-color: rgb(11 25 43 / 0.56);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  transition: border-color 280ms var(--ease-out), background-color 280ms var(--ease-out);
+}
+.atu-painel[data-ativo] .atu-rotulo {
+  border-top-color: var(--accent-500);
+  background-color: rgb(11 25 43 / 0.66);
 }
 
-/* Outer panels run past the screen: anchor their labels inside the visible screen. */
-.atu-painel:first-child .atu-rotulo { left: calc(4vw + var(--gutter) * 0.5); transform: skewX(10deg); }
-.atu-painel:last-child .atu-rotulo { left: auto; right: calc(4vw + var(--gutter) * 0.5); transform: skewX(10deg); }
-
+/* Only the words are counter-skewed: the strip itself keeps the panel's slant, so its
+   ends meet the seams. */
+.atu-rotulo-corpo { display: block; padding: 1.125rem 1.25rem 1.25rem; }
 @media (min-width: 1024px) {
-  .atu-painel:first-child .atu-rotulo,
-  .atu-painel:last-child .atu-rotulo { max-width: min(calc(100% - 4vw - var(--gutter) * 0.5 - 1.75rem), 16rem); }
+  .atu-rotulo-corpo { transform: skewX(7deg); padding: 1.375rem 1.5rem 1.5rem; }
+  /* The row runs 5% past each margin and the slant carries its foot further out, so the
+     words on the end panels are pushed back until they clear the screen. */
+  .atu-painel:first-child .atu-rotulo-corpo { padding-left: calc(9vw + 1rem); }
+  .atu-painel:last-child .atu-rotulo-corpo { padding-right: calc(9vw + 1rem); }
 }
 
-@media (min-width: 1024px) {
-  .atu-painel:hover,
-  .atu-painel:focus-within,
-  .atu-painel[data-ativo] { flex-grow: 1.4; }
-  .atu-painel:hover .atu-foto { transform: skewX(10deg) scale(1.04); }
+.atu-rotulo-nome {
+  display: block;
+  color: #fff;
+  font-size: clamp(1.125rem, 1.45vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
-
-
-
-
-/* Phones and tablets: the panels become slanted horizontal strata under the header. */
-@media (max-width: 1023px) {
-  /* The strata share the screen between them, so the opening is full height here too. */
-  .atu-paineis { inset: 0 -8%; flex-direction: column; gap: 6px; }
-  .atu-painel { flex: 1 1 0; transform: skewY(-4deg); }
-  /* Only the first stratum sits under the header: its band is drawn on the link, whose
-     box is the visible stratum (the photo is oversized vertically on strata). */
-  .atu-foto::after { display: none; }
-  .atu-painel:first-child .atu-link::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: calc(var(--header-h) + 3rem);
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(180deg, rgb(11 25 43 / 0.7) 0%, rgb(11 25 43 / 0.4) 55%, transparent 100%);
-  }
-  /* The first stratum carries the header band, so it takes a larger share. */
-  .atu-painel:first-child { flex-grow: 1.5; }
-  .atu-foto { inset: -30% 0; transform: skewY(4deg); }
-  .atu-rotulo,
-  .atu-painel:first-child .atu-rotulo,
-  .atu-painel:last-child .atu-rotulo {
-    left: calc(8% + var(--gutter));
-    right: auto;
-    bottom: 1.1rem;
-    max-width: calc(84% - 2 * var(--gutter));
-    transform: skewY(4deg);
-  }
-  .atu-texto { margin-top: 2.5rem; padding-bottom: 4rem; }
+@media (prefers-reduced-motion: reduce) {
+  .atu-painel, .atu-rotulo { transition: none; }
 }
 
 /* --- Obras: works module (MSM_Obras_Design_DNA_v1) ---
@@ -835,8 +844,7 @@ html {
   gap: 14px;
 }
 
-.galeria-obras-seta,
-.galeria-obras-pausa {
+.galeria-obras-seta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -853,15 +861,6 @@ html {
   color: var(--go-heading);
 }
 .galeria-obras-seta:hover { border-color: var(--go-heading); }
-.galeria-obras-pausa {
-  min-width: 164px;
-  gap: 0.625rem;
-  padding-inline: 1.5rem;
-  background: var(--go-control);
-  color: #ffffff;
-}
-.galeria-obras-pausa:hover { background: #12305a; }
-
 .galeria-obras :where(button):focus-visible {
   outline: 3px solid var(--go-focus);
   outline-offset: 3px;
@@ -1037,6 +1036,285 @@ html {
 .anim-delay-3 { animation-delay: 240ms; }
 .anim-delay-4 { animation-delay: 320ms; }
 
+/* --- Operations board (Estrutura) ---
+   Seven photographs read in order. The pictures carry the section, so nothing is laid
+   over them but the shade the title needs; gold marks only the current selection.
+   The band runs edge to edge on a flat navy, with a rail wider than the 1440px grid
+   (photographs gain from the room), capped so the reading panel stays readable. */
+.central-faixa {
+  border-top: 1px solid rgb(148 184 222 / 0.12);
+  padding-block: 4rem;
+  background: var(--ink-950);
+}
+@media (min-width: 768px) { .central-faixa { padding-block: 6rem; } }
+
+.central-faixa-interno {
+  width: 100%;
+  max-width: 110rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- A cadeia como uma esteira (Estrutura) ---
+   Seven stages, one belt. The grid of identical cards is gone: the rail is a single
+   object and only one stage stands open, so the section is read the way the material
+   actually moves — in at the quarry, out as a road. A closed stage keeps its number
+   and its name set upright along the slat, the way a name is stencilled down a silo;
+   that is the only ornament here, and it is also the label. Opening a stage is the
+   one piece of motion, and it answers a click. */
+
+.cadeia { display: grid; }
+
+/* The gap colour is the rail's own hairline, so no card carries a border of its own. */
+.cadeia-trilho {
+  display: flex;
+  gap: 2px;
+  height: clamp(24rem, 38vw, 33rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgb(148 184 222 / 0.16);
+}
+
+.cadeia-estagio {
+  position: relative;
+  flex: 0 1 clamp(3.25rem, 4.6vw, 5.5rem);
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink-950);
+  transition: flex-grow 560ms var(--ease-out);
+}
+.cadeia-estagio[data-aberta] { flex-grow: 1; }
+
+/* Closed, a photograph is a texture; open, it is the picture. */
+.cadeia-foto {
+  object-fit: cover;
+  filter: grayscale(0.6) brightness(0.55);
+  transform: scale(1.06);
+  transition: filter 560ms var(--ease-out), transform 720ms var(--ease-out);
+}
+.cadeia-estagio[data-aberta] .cadeia-foto { filter: none; transform: none; }
+
+.cadeia-veu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgb(7 17 30 / 0.5) 0%,
+    rgb(7 17 30 / 0.05) 30%,
+    rgb(7 17 30 / 0.72) 70%,
+    rgb(7 17 30 / 0.94) 100%
+  );
+}
+
+/* The whole slat is the control. */
+.cadeia-gatilho {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  padding: 1.25rem 0.5rem;
+  cursor: pointer;
+}
+.cadeia-gatilho:focus-visible { outline: 2px solid var(--accent-400); outline-offset: -4px; }
+.cadeia-estagio[data-aberta] .cadeia-gatilho { cursor: default; }
+
+.cadeia-marca,
+.cadeia-rotulo { transition: opacity 240ms var(--ease-out); }
+.cadeia-estagio[data-aberta] :is(.cadeia-marca, .cadeia-rotulo) { opacity: 0; }
+
+.cadeia-marca {
+  color: var(--accent-400);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+/* Set upright, reading bottom to top. */
+.cadeia-rotulo {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.cadeia-rotulo > span {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  white-space: nowrap;
+  color: rgb(236 244 252 / 0.9);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  line-height: 1;
+  transition: color 200ms var(--ease-out);
+}
+.cadeia-estagio:not([data-aberta]) .cadeia-gatilho:hover .cadeia-rotulo > span { color: #fff; }
+
+/* Open, the photograph is the picture: its veil only keeps the top edge from
+   glaring, and the reading block below carries a scrim of its own. */
+.cadeia-estagio[data-aberta] .cadeia-veu {
+  background: linear-gradient(
+    180deg,
+    rgb(7 17 30 / 0.38) 0%,
+    rgb(7 17 30 / 0.02) 26%,
+    rgb(7 17 30 / 0.12) 100%
+  );
+}
+
+/* The open stage carries the whole reading, so there is no panel below the rail.
+   The scrim is on the block, not on the photograph, so it grows with the text:
+   a stage with three segments reads as cleanly as one with a single line. */
+.cadeia-painel {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 3;
+  isolation: isolate;
+  padding: clamp(1.25rem, 2.2vw, 2.25rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out);
+}
+.cadeia-painel::before {
+  content: "";
+  position: absolute;
+  inset: -4.5rem 0 0 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgb(7 17 30 / 0) 0%,
+    rgb(7 17 30 / 0.55) 30%,
+    rgb(7 17 30 / 0.88) 62%,
+    rgb(7 17 30 / 0.96) 100%
+  );
+}
+.cadeia-estagio[data-aberta] .cadeia-painel {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 260ms;
+}
+
+.cadeia-painel-marca {
+  color: var(--accent-400);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+.cadeia-painel-titulo {
+  margin-top: 0.25rem;
+  color: #fff;
+  font-size: clamp(1.375rem, 1.7vw, 1.875rem);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.cadeia-texto,
+.cadeia-lista dd {
+  color: rgb(222 234 248 / 0.88);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.cadeia-texto { margin-top: 0.875rem; max-width: 44rem; }
+.cadeia-lista { margin: 1rem 0 0; display: grid; gap: 0.75rem; max-width: 46rem; }
+.cadeia-lista dt { color: var(--accent-400); font-size: 0.9375rem; font-weight: 700; }
+.cadeia-lista dd { margin: 0.125rem 0 0; }
+
+/* Phones: the rail stands up and the stages stack. */
+@media (max-width: 767px) {
+  .cadeia-trilho { flex-direction: column; height: auto; border-radius: 0.875rem; }
+  .cadeia-estagio {
+    flex: 0 0 auto;
+    height: 4.25rem;
+    transition: height 480ms var(--ease-out);
+  }
+  /* Tall enough for the longest stage (three segments) and still leave the
+     photograph a band of its own above the reading block. */
+  .cadeia-estagio[data-aberta] { height: 29rem; }
+  .cadeia-gatilho {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.875rem;
+    padding-inline: 1.125rem;
+  }
+  .cadeia-rotulo { flex: 0 1 auto; display: block; }
+  .cadeia-rotulo > span { writing-mode: horizontal-tb; rotate: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cadeia-estagio,
+  .cadeia-foto,
+  .cadeia-painel,
+  .cadeia-marca,
+  .cadeia-rotulo { transition: none; }
+}
+
+/* --- Kinetic headline (heroes carrying moving footage) ---
+   Each word rises out of its own clip, after a rule draws itself across the start of
+   the line. Only transform moves — the clip is a static overflow, so nothing here
+   touches layout or paint, and it keeps its rate while the video is downloading.
+   Timings sit above the 300ms UI ceiling on purpose: this is a once-per-visit opening
+   on a brand page, not an interface response. */
+@keyframes palavraSobe {
+  from { transform: translateY(104%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes reguaRisca {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.titulo-cinetico-regua {
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin-bottom: 1.25rem;
+  background: var(--accent-500);
+  transform-origin: left center;
+  animation: reguaRisca 420ms var(--ease-out) both;
+}
+
+.titulo-cinetico-palavra {
+  display: inline-block;
+  overflow: hidden;
+  /* The clip would cut descenders off at the baseline, so it is opened downwards by
+     the same amount it is pulled back up: the box keeps its original height. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  vertical-align: bottom;
+}
+
+.titulo-cinetico-palavra > span {
+  display: inline-block;
+  animation: palavraSobe 700ms var(--ease-out) both;
+  animation-delay: calc(180ms + var(--i) * 45ms);
+}
+
+/* The supporting copy overlaps the tail of the last word rather than queueing behind
+   it — strictly sequential reads as slow. */
+.titulo-cinetico ~ .animate-fade-up { animation-delay: 900ms; }
+.titulo-cinetico ~ * .animate-fade-up,
+.titulo-cinetico ~ .animate-fade-up.anim-delay-2 { animation-delay: 1040ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Movement goes, the arrival stays: the words simply fade up together. */
+  .titulo-cinetico-palavra { overflow: visible; }
+  .titulo-cinetico-palavra > span { animation: fadeUp 300ms var(--ease-out) both; animation-delay: 0ms; }
+  .titulo-cinetico-regua { animation: none; }
+  .titulo-cinetico ~ .animate-fade-up,
+  .titulo-cinetico ~ .animate-fade-up.anim-delay-2 { animation-delay: 0ms; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .gallery-image-enter,
@@ -1131,104 +1409,58 @@ html {
    in its panel — it is not repeated in a block of its own further down.
    =========================================================================== */
 
-/* The chosen panel is marked by a filled rule under its label, so the state is
-   read from a shape and not from the panel's width alone. */
-.atu-barra {
-  display: block;
-  height: 2px;
-  width: 0;
-  margin-top: 0.5rem;
-  background: var(--accent-500);
-  transition: width 320ms var(--ease-out);
-}
-.atu-painel[data-ativo] .atu-barra { width: 100%; }
 
-.detalhe-palco {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1.5;
-  border-radius: var(--radius-card, 0.875rem);
-  background: var(--brita-100);
+/* The front's claim reads across the top; the photographs below are a portfolio, all
+   of them on screen at once, so the work is seen without anyone clicking through it. */
+.detalhe-cabecalho { display: grid; gap: 1.5rem; }
+@media (min-width: 1024px) {
+  .detalhe-cabecalho {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
 }
 
-.detalhe-camada {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 320ms var(--ease-out);
-}
-.detalhe-camada[data-ativa] { opacity: 1; }
-
-.detalhe-contador {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 1;
-  border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 0.875rem;
-  font-weight: 650;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  color: #ffffff;
-  background: rgb(11 25 43 / 0.78);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
-
-/* The photographs are walked, never advanced on their own: no moving content,
-   so nothing here needs a pause control. */
-.detalhe-navegacao {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-.detalhe-seta {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--border-strong, #c9c9c2);
-  border-radius: 999px;
-  color: var(--heading);
-  transition: border-color 200ms ease, background-color 200ms ease;
-}
-.detalhe-seta:hover { border-color: var(--brand); background: var(--surface-subtle, #f2f2ee); }
-
-.detalhe-tracos {
-  display: flex;
-  flex: 1 1 auto;
-  gap: 6px;
-  margin: 0;
+.detalhe-portfolio {
+  margin: 2.5rem 0 0;
   padding: 0;
+  display: grid;
+  gap: 0.875rem;
   list-style: none;
 }
-.detalhe-tracos > li { flex: 1 1 0; }
+@media (min-width: 640px) { .detalhe-portfolio { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .detalhe-portfolio { margin-top: 3rem; gap: 1rem; }
+  /* Four photographs: one leads, three support. */
+  .detalhe-portfolio[data-qtd="4"] {
+    grid-template-columns: 1.45fr 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    height: clamp(26rem, 41vw, 34rem);
+  }
+  .detalhe-portfolio[data-qtd="4"] > li:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  .detalhe-portfolio[data-qtd="4"] > li:nth-child(2) { grid-column: 2 / 4; grid-row: 1; }
+  .detalhe-portfolio[data-qtd="4"] > li:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .detalhe-portfolio[data-qtd="4"] > li:nth-child(4) { grid-column: 3; grid-row: 2; }
+  .detalhe-portfolio[data-qtd="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
-/* A hairline per photograph: the position in the series is legible at a glance,
-   and each one is a target of its own. */
-.detalhe-traco {
-  display: block;
-  width: 100%;
-  /* 44px of touch target around a 2px rule (WCAG 2.5.8) */
-  height: 44px;
-  background: transparent;
+.detalhe-foto {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card, 0.875rem);
+  background: var(--brita-100);
+  aspect-ratio: 4 / 3;
 }
-.detalhe-traco::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  height: 2px;
-  background: var(--border-strong, #c9c9c2);
-  transition: background-color 200ms ease;
+@media (min-width: 1024px) {
+  .detalhe-portfolio[data-qtd="4"] .detalhe-foto { aspect-ratio: auto; height: 100%; }
 }
-.detalhe-traco:hover::after { background: var(--heading); }
-.detalhe-traco[data-ativo]::after { background: var(--accent-500); }
+.detalhe-foto img { transition: transform 600ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .detalhe-foto:hover img { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .detalhe-foto img { transition: none; }
+}
 
 .detalhe-rotulo {
   display: flex;
@@ -1271,9 +1503,6 @@ html {
   outline-offset: -4px;
 }
 
-@media (min-width: 1024px) {
-  .detalhe-palco { aspect-ratio: 1.45; }
-}
 
 /* The closing movement: set apart by a rule so it reads as the account catching up to
    today, and placed to sit beside the photograph of the signing. */
@@ -1294,3 +1523,361 @@ html {
   text-transform: uppercase;
   color: var(--brand);
 }
+
+/* --- Passagem automática para a próxima página ---
+   Nothing is drawn but the meter: once the document is at its end, more downward
+   scrolling fills the arc and a filled arc navigates. It always lands over the dark
+   footer, which is why it carries an edge of its own. */
+
+.proxima-medidor {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  z-index: 60;
+  translate: -50% 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.4375rem 1rem 0.4375rem 0.4375rem;
+  border-radius: 999px;
+  background: rgb(7 17 30 / 0.9);
+  /* The meter always lands over the dark footer, so it needs an edge of its own
+     to read as a control rather than as text floating on the page. */
+  border: 1px solid rgb(148 184 222 / 0.28);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  box-shadow: 0 10px 30px -12px rgb(7 17 30 / 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-out), translate 180ms var(--ease-out);
+}
+.proxima-medidor[data-ativo] { opacity: 1; translate: -50% 0; }
+@media (min-width: 768px) { .proxima-medidor { bottom: 1.75rem; } }
+
+.proxima-medidor svg { display: block; width: 2rem; height: 2rem; }
+.proxima-trilho { fill: none; stroke: rgb(236 244 252 / 0.22); stroke-width: 3; }
+.proxima-arco {
+  fill: none;
+  stroke: var(--accent-400);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 120ms linear;
+}
+.proxima-medidor-texto { font-size: 0.8125rem; font-weight: 650; white-space: nowrap; }
+@media (min-width: 768px) { .proxima-medidor-texto { font-size: 0.875rem; } }
+
+.proxima-medidor[data-sem-animacao],
+.proxima-medidor[data-sem-animacao] .proxima-arco { transition: none; }
+
+/* --- Rodapé institucional ---
+   Three bands. The service strip puts the brand, the invitation and the direct
+   channels within reach without scrolling the directory; the directory sits under it;
+   a legal bar closes. Light on purpose: the dark pages end on a clean edge. */
+.rodape {
+  background: var(--surface);
+  color: var(--heading);
+  border-top: 1px solid var(--border);
+}
+
+.rodape-servico { border-bottom: 1px solid var(--border); }
+.rodape-servico-grade {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  padding-block: 2.25rem;
+}
+@media (min-width: 768px) { .rodape-servico-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1120px) {
+  .rodape-servico-grade {
+    grid-template-columns: 1.05fr 0.95fr 1.1fr;
+    gap: 3rem;
+    padding-block: 2.75rem;
+  }
+}
+
+.rodape-descritor {
+  margin-top: 1.125rem;
+  max-width: 24rem;
+  color: var(--muted-strong);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.rodape-chamada { display: grid; gap: 0.875rem; justify-items: start; }
+@media (min-width: 1120px) { .rodape-chamada { justify-items: center; text-align: center; } }
+.rodape-chamada-texto { color: var(--muted-strong); font-size: 0.9375rem; font-weight: 600; }
+
+/* The two direct channels, ruled apart the way a service desk lists them. */
+.rodape-canais {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 520px) {
+  .rodape-canais { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+  .rodape-canais > li + li { padding-left: 1.5rem; border-left: 1px solid var(--border); }
+}
+@media (min-width: 1120px) { .rodape-canais { justify-self: end; } }
+
+.rodape-canal { display: inline-flex; align-items: center; gap: 0.75rem; }
+.rodape-canal-icone {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--blue-50);
+  color: var(--brand);
+  transition: background-color 180ms var(--ease-out);
+}
+.rodape-canal:hover .rodape-canal-icone { background: var(--blue-100); }
+.rodape-canal strong { display: block; color: var(--heading); font-size: 0.875rem; font-weight: 700; }
+.rodape-canal > span:last-child { color: var(--muted-strong); font-size: 0.9375rem; }
+
+.rodape-diretorio { border-bottom: 1px solid var(--border); }
+.rodape-grade { display: grid; gap: 2.5rem 2rem; padding-block: 3rem; }
+@media (min-width: 640px) { .rodape-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .rodape-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-block: 3.5rem; }
+}
+
+.rodape-titulo { color: var(--brand); font-size: 1rem; font-weight: 700; }
+.rodape-lista {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.875rem;
+  list-style: none;
+  font-size: 0.9375rem;
+}
+.rodape-lista-texto { color: var(--muted-strong); }
+.rodape-link { color: var(--heading); transition: color 180ms var(--ease-out); }
+.rodape-link:hover { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.rodape-link-icone { display: inline-flex; align-items: center; gap: 0.4375rem; }
+
+.rodape-hora {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.rodape-pulso {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent-500);
+  box-shadow: 0 0 0 3px rgb(214 170 70 / 0.2);
+}
+
+.rodape-legal { background: var(--brita-100); }
+.rodape-legal-grade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem 2rem;
+  padding-block: 1.25rem;
+  color: var(--muted-strong);
+  font-size: 0.875rem;
+}
+.rodape-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rodape-legal-link { color: var(--muted-strong); transition: color 180ms var(--ease-out); }
+.rodape-legal-link:hover { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rodape-link, .rodape-legal-link, .rodape-canal-icone { transition: none; }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --- Integridade: programa, canal e documentos ---
+   The page opens dark, like every other opening on the site. Its texture is the
+   engineering line-art already drawn for this project and not a photograph: there is no
+   honest photograph of a compliance programme, and a bought one is the first thing a
+   reader of this page distrusts. Everything after the opening is structure — who runs the
+   programme, the route a report travels, which documents actually exist — because that is
+   what someone who opens this page came for, and the previous version left all three
+   buried in prose. */
+.integ-abertura {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(158deg, var(--ink-900) 0%, var(--ink-950) 72%);
+}
+/* The drawing is held to the right of the measure and faded in, so no line ever crosses
+   the headline or the lead. */
+.integ-abertura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/padrao/cadeia-linhas.svg") right center / auto 120% no-repeat;
+  opacity: 0.22;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 74%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 74%);
+}
+@media (max-width: 1023px) { .integ-abertura::before { display: none; } }
+
+/* A hairline of the dark surface itself draws the steps apart: no step carries a border,
+   and the rail reads as one object. */
+.integ-fluxo {
+  counter-reset: etapa;
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: rgb(255 255 255 / 0.16);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+.integ-fluxo > li {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding: 1.125rem 1.25rem;
+  background: rgb(7 17 30 / 0.55);
+}
+.integ-fluxo > li::before {
+  counter-increment: etapa;
+  content: counter(etapa, decimal-leading-zero);
+  grid-row: 1 / 3;
+  color: var(--accent-400);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+.integ-fluxo dt { color: #fff; font-size: 0.9375rem; font-weight: 700; }
+.integ-fluxo dd { margin: 0.25rem 0 0; color: rgb(236 244 252 / 0.72); font-size: 0.9375rem; line-height: 1.5; }
+
+/* The two channels: one row each, the whole row is the control. */
+.integ-canal-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: var(--radius-panel);
+  padding: 1rem 1.25rem;
+  background: rgb(255 255 255 / 0.06);
+  transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+.integ-canal-link:hover { border-color: rgb(255 255 255 / 0.5); background: rgb(255 255 255 / 0.12); }
+.integ-canal-link strong { display: block; color: #fff; font-size: 0.9375rem; font-weight: 700; }
+.integ-canal-link span.endereco {
+  display: block;
+  margin-top: 0.125rem;
+  color: rgb(236 244 252 / 0.72);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+/* --- Integridade: organisational chart ---
+   Top of the tree as a chart on wide screens (partners, compliance beside them on a dashed
+   advisory line, a bus down to the two directorates); every directorate below that is an
+   indented list whose spine and ticks are drawn by each item, so the spine stops at the
+   last one instead of running past it. */
+.org { margin-top: 3rem; }
+@media (min-width: 1024px) { .org { margin-top: 4rem; } }
+
+.org-no {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  padding: 0.875rem 1.125rem;
+}
+.org-cargo { font-size: 0.9375rem; font-weight: 700; line-height: 1.3; color: var(--heading); }
+.org-sub { margin-top: 0.125rem; font-size: 0.8125rem; color: var(--muted); }
+.org-nome { margin-top: 0.25rem; font-size: 0.9375rem; color: var(--muted-strong); }
+
+.org-no--socios { border-color: var(--ink-900); background: var(--ink-900); text-align: center; }
+.org-no--socios .org-cargo { color: #fff; }
+.org-no--socios .org-sub { color: var(--accent-400); }
+.org-no--socios .org-nome { color: var(--on-dark-muted); }
+.org-no--socios .org-sub + .org-nome { margin-top: 0.625rem; }
+
+.org-no--compliance { border: 1px dashed var(--accent-500); background: #fffaf0; }
+
+.org-no--diretoria { border-color: var(--blue-700); background: var(--blue-700); }
+.org-no--diretoria .org-cargo { color: #fff; }
+.org-no--diretoria .org-nome { color: var(--blue-100); }
+
+.org-no--setor { background: var(--brita-50); padding: 0.75rem 1rem; }
+.org-no--setor .org-cargo { font-size: 0.875rem; font-weight: 600; }
+.org-no--setor .org-nome { font-size: 0.875rem; }
+
+.org-topo { display: grid; gap: 1rem; }
+.org-diretorias { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
+
+@media (min-width: 1024px) {
+  .org-topo { grid-template-columns: 1fr minmax(20rem, auto) 1fr; align-items: center; gap: 0; }
+  .org-no--socios { grid-column: 2; padding: 1.125rem 2rem; }
+  .org-no--compliance { position: relative; grid-column: 3; justify-self: start; margin-left: 3rem; }
+  .org-no--compliance::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 3rem;
+    border-top: 1px dashed var(--accent-500);
+  }
+
+  .org-diretorias { position: relative; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3.5rem; }
+  /* Down from the partners, then the bus across to the middle of each directorate */
+  .org-diretorias::before {
+    content: "";
+    position: absolute;
+    top: -3.5rem;
+    left: 50%;
+    height: 1.75rem;
+    border-left: 1px solid var(--border-strong);
+  }
+  .org-diretorias::after {
+    content: "";
+    position: absolute;
+    top: -1.75rem;
+    left: calc((100% - 3rem) / 4);
+    right: calc((100% - 3rem) / 4);
+    border-top: 1px solid var(--border-strong);
+  }
+  .org-no--diretoria { position: relative; text-align: center; }
+  .org-no--diretoria::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    height: 1.75rem;
+    border-left: 1px solid var(--border-strong);
+  }
+}
+
+.org-ramo { display: grid; gap: 0.75rem; margin-top: 0.75rem; padding-left: 2rem; }
+.org-ramo > li { position: relative; }
+.org-ramo > li::before,
+.org-ramo > li::after { content: ""; position: absolute; left: -1.25rem; }
+/* The tick into each box */
+.org-ramo > li::before { top: 1.375rem; width: 1.25rem; border-top: 1px solid var(--border-strong); }
+/* The spine: from the gap above down past this item, or only to the tick on the last one */
+.org-ramo > li::after { top: -0.75rem; bottom: 0; border-left: 1px solid var(--border-strong); }
+.org-ramo > li:last-child::after { bottom: auto; height: 2.125rem; }
+.org-ramo--setor { padding-left: 1.75rem; }

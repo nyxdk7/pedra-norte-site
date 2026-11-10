@@ -1,15 +1,20 @@
 import Link from "next/link";
-import { MapPin, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle } from "lucide-react";
 import { siteContact } from "@/lib/site-config";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { HoraLocal } from "@/components/ui/HoraLocal";
 import { buttonClasses } from "@/components/ui/Button";
 
-const linksRapidos = [
+/**
+ * Institutional footer in three bands: a service strip that puts the brand, the
+ * invitation and the direct channels within reach; a four-column directory under it;
+ * and a legal bar to close. Light, so the dark pages end on a clean edge.
+ */
+
+const navegacao = [
   { href: "/", label: "Início" },
-  { href: "/sobre", label: "Sobre" },
   { href: "/estrutura", label: "Estrutura" },
   { href: "/atuacoes", label: "Atuações" },
-  { href: "/servicos", label: "Serviços" },
   { href: "/obras", label: "Obras" },
   { href: "/integridade", label: "Integridade" },
   { href: "/contato", label: "Contato" },
@@ -26,77 +31,75 @@ const areasAtuacao = [
   "Locação de máquinas",
 ];
 
-const empresasGrupo = [
-  "MSM Industrial",
-  "Pedra Norte",
-  "Construtora Santa Maria",
-  "Auto Posto Correntão",
-  "Pré Molde",
-  "Tratorron",
-];
-
-const diferenciais = [
-  {
-    titulo: "Estrutura própria",
-    texto: "Integração entre produção, frota, equipe e execução em campo.",
-  },
-  {
-    titulo: "Atuação regional",
-    texto: "Presença forte em obras e fornecimentos no Acre.",
-  },
-];
-
-const tituloColuna = "font-display text-sm font-semibold text-white";
-const linkRodape = "text-sm text-on-dark-subtle transition-colors hover:text-white";
-
 export function Footer() {
   return (
-    <footer className="on-dark relative isolate overflow-hidden bg-surface-strong text-white">
+    <footer className="rodape">
+      <div className="rodape-servico">
+        <div className="container-msm rodape-servico-grade">
+          <div>
+            <Link href="/" className="inline-flex items-center" aria-label="MSM Industrial — página inicial">
+              <BrandLogo className="[--logo-h:2.5rem]" />
+            </Link>
+            <p className="rodape-descritor">
+              Engenharia, pavimentação, mineração e estrutura própria para
+              grandes obras no Acre.
+            </p>
+          </div>
 
-      <div className="container-msm grid gap-12 py-14 md:py-20 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
-        <div>
-          {/* Clean white rendition of the official logo on the night-blue footer */}
-          <Link href="/" className="inline-flex items-center" aria-label="MSM Industrial — página inicial">
-            <BrandLogo tom="claro" className="[--logo-h:2.75rem]" />
-          </Link>
+          <div className="rodape-chamada">
+            <p className="rodape-chamada-texto">Conte o que a sua obra precisa</p>
+            <a
+              href={siteContact.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonClasses("primary", "md")}
+            >
+              Fale conosco
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
 
-          <p className="mt-6 max-w-sm leading-relaxed text-on-dark-muted">
-            Grupo com atuação integrada em engenharia civil, infraestrutura,
-            pavimentação, concreto usinado, mineração, agregados,
-            pré-moldados e locação de máquinas.
-          </p>
-
-          <dl className="mt-8 grid max-w-md gap-5 border-t border-on-dark-border pt-6 sm:grid-cols-2">
-            {diferenciais.map((item) => (
-              <div key={item.titulo}>
-                <dt className="flex items-center gap-2 text-sm font-semibold text-white">
-                  <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-accent" />
-                  {item.titulo}
-                </dt>
-                <dd className="mt-1.5 text-sm leading-relaxed text-on-dark-subtle">{item.texto}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <a
-            href={siteContact.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonClasses("light", "md", "mt-8")}
-          >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            Fale conosco
-          </a>
+          <ul className="rodape-canais">
+            <li>
+              <a
+                href={siteContact.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rodape-canal"
+              >
+                <span aria-hidden="true" className="rodape-canal-icone">
+                  <MessageCircle className="h-5 w-5" />
+                </span>
+                <span>
+                  <strong>WhatsApp</strong>
+                  {siteContact.whatsappDisplay}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${siteContact.email}`} className="rodape-canal">
+                <span aria-hidden="true" className="rodape-canal-icone">
+                  <Mail className="h-5 w-5" />
+                </span>
+                <span>
+                  <strong>E-mail</strong>
+                  {siteContact.email}
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[0.8fr_1fr_1.2fr]">
-          <nav aria-label="Links rápidos">
-            <h2 className={tituloColuna}>Links rápidos</h2>
-            <ul className="mt-5 space-y-3">
-              {linksRapidos.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className={linkRodape}>
-                    {link.label}
+      <div className="rodape-diretorio">
+        <div className="container-msm rodape-grade">
+          <nav aria-label="Navegação do rodapé">
+            <h2 className="rodape-titulo">Conheça a MSM</h2>
+            <ul className="rodape-lista">
+              {navegacao.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="rodape-link">
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -104,73 +107,65 @@ export function Footer() {
           </nav>
 
           <div>
-            <h2 className={tituloColuna}>Atuação</h2>
-            <ul className="mt-5 space-y-3">
+            <h2 className="rodape-titulo">Atuação</h2>
+            <ul className="rodape-lista rodape-lista-texto">
               {areasAtuacao.map((area) => (
-                <li key={area} className="text-sm text-on-dark-subtle">
-                  {area}
-                </li>
+                <li key={area}>{area}</li>
               ))}
             </ul>
           </div>
 
-          <div className="col-span-2 md:col-span-1">
-            <h2 className={tituloColuna}>Grupo Soster</h2>
-            <ul className="mt-5 space-y-3">
-              {empresasGrupo.map((empresa) => (
-                <li key={empresa} className="text-sm text-on-dark-subtle">
-                  {empresa}
-                </li>
-              ))}
-            </ul>
-
-            <h2 className={`${tituloColuna} mt-10`}>Contato</h2>
-            <ul className="mt-5 space-y-4 text-sm">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>
-                  <strong className="block font-semibold text-white">Sede administrativa</strong>
-                  <span className="text-on-dark-subtle">{siteContact.location}</span>
-                </span>
+          <div>
+            <h2 className="rodape-titulo">Atendimento</h2>
+            <ul className="rodape-lista">
+              <li className="rodape-lista-texto">{siteContact.location}</li>
+              <li>
+                <a
+                  href={siteContact.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rodape-link rodape-link-icone"
+                >
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  Como chegar
+                </a>
               </li>
-              <li className="flex gap-3">
-                <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>
-                  <strong className="block font-semibold text-white">WhatsApp</strong>
-                  <a
-                    href={siteContact.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={linkRodape}
-                  >
-                    {siteContact.whatsappDisplay}
-                  </a>
-                </span>
+              <li>
+                <a
+                  href={siteContact.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rodape-link"
+                >
+                  {siteContact.whatsappDisplay}
+                </a>
               </li>
-              <li className="flex gap-3">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span className="min-w-0">
-                  <strong className="block font-semibold text-white">E-mail</strong>
-                  <a href={`mailto:${siteContact.email}`} className={`${linkRodape} break-all`}>
-                    {siteContact.email}
-                  </a>
-                </span>
+              <li>
+                <a href={`mailto:${siteContact.email}`} className="rodape-link break-all">
+                  {siteContact.email}
+                </a>
+              </li>
+              <li className="rodape-lista-texto">
+                <HoraLocal />
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-on-dark-border">
-        <div className="container-msm flex flex-col items-center justify-between gap-2 py-5 text-center text-sm text-on-dark-subtle md:flex-row md:text-left">
+      <div className="rodape-legal">
+        <div className="container-msm rodape-legal-grade">
+          <ul className="rodape-legal-links">
+            <li>
+              <Link href="/integridade" className="rodape-legal-link">
+                Canal de Integridade
+              </Link>
+            </li>
+          </ul>
+
           <p>
             © {new Date().getFullYear()} MSM Industrial LTDA / Pedra Norte.
             Todos os direitos reservados.
-          </p>
-
-          <p>
-            Desenvolvido por{" "}
-            <span className="font-semibold text-on-dark-muted">João Pedro</span>
           </p>
         </div>
       </div>

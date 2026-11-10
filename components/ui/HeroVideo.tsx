@@ -4,9 +4,9 @@ import { Pause, Play } from "lucide-react";
 import { createContext, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useReducedMotion } from "@/components/ui/useReducedMotion";
 
-const BASE = "/videos/home/usina-britagem-aerea";
-
 type Estado = {
+  /** Path of the delivery files without the `-1280.mp4` suffix. */
+  base: string;
   /** The video is (or should be) playing. */
   tocando: boolean;
   /** The hero is on screen and the tab is visible. */
@@ -38,11 +38,22 @@ function useEconomiaDeDados() {
 }
 
 /**
- * Background video of the Home hero. It plays muted and looped unless the visitor asked
- * for reduced motion or to save data (the cover photograph stays, and the button can
- * start it); it pauses off screen, in hidden tabs and with the pause button.
+ * Background video of a hero. It plays muted and looped unless the visitor asked for
+ * reduced motion or to save data (the cover photograph stays, and the button can start
+ * it); it pauses off screen, in hidden tabs and with the pause button.
+ *
+ * `base` is the delivery path without the `-1280.mp4` suffix; `alvo` is a selector for
+ * the hero section, watched so the video only runs while it is on screen.
  */
-export function HeroVideoProvider({ children }: { children: ReactNode }) {
+export function HeroVideoProvider({
+  base,
+  alvo,
+  children,
+}: {
+  base: string;
+  alvo: string;
+  children: ReactNode;
+}) {
   const reduzirMovimento = useReducedMotion();
   const economia = useEconomiaDeDados();
   // false on the server and during hydration: the video is only ever added on the client
@@ -54,7 +65,7 @@ export function HeroVideoProvider({ children }: { children: ReactNode }) {
   const tocando = escolha ?? (!reduzirMovimento && !economia);
 
   useEffect(() => {
-    const secao = document.querySelector("section[aria-labelledby='hero-titulo']");
+    const secao = document.querySelector(alvo);
     if (!secao) return;
     const observador = new IntersectionObserver(([entrada]) => setVisivel(entrada.isIntersecting));
     observador.observe(secao);
@@ -64,9 +75,10 @@ export function HeroVideoProvider({ children }: { children: ReactNode }) {
       observador.disconnect();
       document.removeEventListener("visibilitychange", aoMudarAba);
     };
-  }, []);
+  }, [alvo]);
 
   const estado: Estado = {
+    base,
     tocando,
     ativo: visivel && !abaOculta,
     montar: cliente && (tocando || escolha !== null),
@@ -83,7 +95,7 @@ export function HeroVideoFundo() {
   return <VideoFundo {...contexto} />;
 }
 
-function VideoFundo({ tocando, ativo, recusado }: Estado) {
+function VideoFundo({ base, tocando, ativo, recusado }: Estado) {
   const video = useRef<HTMLVideoElement>(null);
   const [pronto, setPronto] = useState(false);
 
@@ -128,10 +140,10 @@ function VideoFundo({ tocando, ativo, recusado }: Estado) {
       onPlaying={() => setPronto(true)}
     >
       {/* Codecs declared so browsers without VP9 fall straight back to H.264 */}
-      <source src={`${BASE}-1280.webm`} type='video/webm; codecs="vp9"' media="(max-width: 767px)" />
-      <source src={`${BASE}-1280.mp4`} type='video/mp4; codecs="avc1.64001F"' media="(max-width: 767px)" />
-      <source src={`${BASE}-1920.webm`} type='video/webm; codecs="vp9"' />
-      <source src={`${BASE}-1920.mp4`} type='video/mp4; codecs="avc1.640032"' />
+      <source src={`${base}-1280.webm`} type='video/webm; codecs="vp9"' media="(max-width: 767px)" />
+      <source src={`${base}-1280.mp4`} type='video/mp4; codecs="avc1.64001F"' media="(max-width: 767px)" />
+      <source src={`${base}-1920.webm`} type='video/webm; codecs="vp9"' />
+      <source src={`${base}-1920.mp4`} type='video/mp4; codecs="avc1.640032"' />
     </video>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useReducedMotion } from "@/components/ui/useReducedMotion";
 import { fonteObras } from "./fonteObras";
@@ -34,14 +34,14 @@ const rotuloMidia = (midia: FotoObra) => (midia.video ? "Vídeo" : "Foto");
 
 /**
  * The registered title, unchanged, with line breaks only between words: hyphenated codes
- * ("AC-380", "Xapuri-AC") never split, a free-standing dash stays with the word before and
+ * ("AC-380", "Xapuri-AC") never split, a free-standing dash or slash stays with the word before and
  * a kilometre mark stays with its number ("KM 202").
  */
 function TituloSemQuebra({ texto }: { texto: string }) {
   const grupos: string[] = [];
   for (const palavra of texto.split(" ")) {
     const anteriorGrupo = grupos[grupos.length - 1];
-    const juntar = anteriorGrupo !== undefined && (/^[-–—]$/.test(palavra) || (/(^|\s)km\.?$/i.test(anteriorGrupo) && /^\d/.test(palavra)));
+    const juntar = anteriorGrupo !== undefined && (/^[-–—/]$/.test(palavra) || (/(^|\s)km\.?$/i.test(anteriorGrupo) && /^\d/.test(palavra)));
     if (juntar) grupos[grupos.length - 1] += ` ${palavra}`;
     else grupos.push(palavra);
   }
@@ -123,15 +123,13 @@ function VideoObra({
  * One work, whole and self-contained: its exact title, its controls, the main photograph
  * with a counter and the next photographs beside it. The photographs alternate on their
  * own only while this work is on screen, so scrolling hands the movement from one work to
- * the next and nothing runs out of sight. Pauses with the button, on hover, while keyboard
- * focus is inside and in a hidden tab; starts paused under reduced motion.
+ * the next and nothing runs out of sight. Holds on hover, while keyboard focus is
+ * inside and in a hidden tab; stays still altogether under reduced motion.
  */
 function ObraEmpilhada({ obra, intervalo }: { obra: ObraGaleria; intervalo: number }) {
   const raiz = useRef<HTMLElement>(null);
   const reduzirMovimento = useReducedMotion();
   const [atual, setAtual] = useState(0);
-  // null = default (plays unless the visitor asked the OS to reduce motion)
-  const [escolha, setEscolha] = useState<boolean | null>(null);
   const [sobre, setSobre] = useState(false);
   const [comFoco, setComFoco] = useState(false);
   const [visivel, setVisivel] = useState(false);
@@ -140,7 +138,7 @@ function ObraEmpilhada({ obra, intervalo }: { obra: ObraGaleria; intervalo: numb
 
   const total = obra.fotos.length;
   const temNavegacao = total > 1;
-  const tocando = (escolha ?? !reduzirMovimento) && temNavegacao;
+  const tocando = !reduzirMovimento && temNavegacao;
   const rodando = tocando && !sobre && !comFoco && visivel && !abaOculta;
 
   const avancar = useCallback(() => {
@@ -225,14 +223,6 @@ function ObraEmpilhada({ obra, intervalo }: { obra: ObraGaleria; intervalo: numb
           <div className="galeria-obras-controles" role="group" aria-label={`Controles das fotos: ${obra.titulo}`}>
             <button type="button" className="galeria-obras-seta" aria-label="Foto anterior" onClick={() => navegar(-1)}>
               <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-            </button>
-            <button type="button" className="galeria-obras-pausa" onClick={() => setEscolha(!tocando)}>
-              {tocando ? (
-                <Pause className="h-4 w-4 fill-current" aria-hidden="true" />
-              ) : (
-                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
-              )}
-              {tocando ? "Pausar" : "Reproduzir"}
             </button>
             <button type="button" className="galeria-obras-seta" aria-label="Próxima foto" onClick={() => navegar(1)}>
               <ChevronRight className="h-5 w-5" aria-hidden="true" />

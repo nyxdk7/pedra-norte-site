@@ -15,11 +15,16 @@ export type FrenteHero = {
 };
 
 /**
- * Atuações opening: one slanted photographic panel per front, separated by thin seams and
- * fading into the page. The panels are the page's control surface — choosing one shows
- * that front below — so they are a tablist, not a list of links: the front is named once,
- * here, instead of being repeated in a block further down.
+ * Atuações opening: four slanted photographic panels filling a 16:9 band. They are the
+ * page's control surface — choosing one shows that front below — so they are a tablist,
+ * not a list of links, and the front is named once, here.
+ *
+ * Nothing is laid over the photographs but the frosted strip along their foot, which runs
+ * unbroken across the band and is cut only by the seams between panels. The chosen panel
+ * is marked by the gold edge along the top of its strip and by the room it takes, so the
+ * state is read from a shape and not from colour alone.
  */
+
 export function HeroAtuacoes({
   frentes,
   ativa,
@@ -30,7 +35,7 @@ export function HeroAtuacoes({
   ativa: number;
   /** `revelar` asks the caller to bring the detail region into view (pointer only). */
   onSelecionar: (indice: number, revelar?: boolean) => void;
-  /** The page's h1. The photographs fill the screen, so it is read, not shown. */
+  /** The page's h1. The photographs fill the band, so it is read, not shown. */
   titulo: string;
 }) {
   const abas = useRef<(HTMLButtonElement | null)[]>([]);
@@ -54,16 +59,17 @@ export function HeroAtuacoes({
   };
 
   return (
-    // The dark band behind the glass header is only the top of the photographs: the
-    // header turns solid as soon as the page scrolls (data-header-limite, in px).
-    <section aria-labelledby="atuacoes-titulo" data-header-limite="8" className="relative overflow-hidden bg-background">
-      {/* The photographs are the opening; the heading stays for screen readers and search. */}
+    // The header floats over the dark opening and turns solid once the page scrolls.
+    <section
+      aria-labelledby="atuacoes-titulo"
+      data-header-limite="8"
+      className="on-dark atu-abertura"
+    >
       <h1 id="atuacoes-titulo" className="sr-only">
         {titulo}
       </h1>
 
-      <div className="atu-area">
-        <ul
+      <ul
           role="tablist"
           aria-label="Frentes de atuação"
           aria-orientation="horizontal"
@@ -86,11 +92,10 @@ export function HeroAtuacoes({
                   aria-controls="frente-detalhe"
                   // Only the chosen panel is in the tab order; the arrows reach the rest.
                   tabIndex={selecionada ? 0 : -1}
-                  // The panels fill the screen, so the region they control starts below the
-                  // fold: a click brings it into view, or the control would look inert.
-                  // Arrow keys do not, because the focus must stay where the eye is.
+                  // A click also brings the region it controls into view, or the control
+                  // would look inert. Arrow keys do not: the focus stays where the eye is.
                   onClick={() => onSelecionar(indice, true)}
-                  className="atu-link group"
+                  className="atu-link"
                 >
                   <span className="atu-foto">
                     <Image
@@ -98,36 +103,30 @@ export function HeroAtuacoes({
                       alt=""
                       fill
                       loading="eager"
-                      // Strata run 8% past each edge below 1024px; on desktop the tall panels are
-                      // height-bound, so wide photos need more pixels than the panel width.
-                      sizes="(max-width: 1023px) 125vw, (max-width: 1279px) 90vw, 75vw"
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 30vw"
                       className="object-cover"
                       style={{ objectPosition: frente.posicao ?? "center" }}
                     />
                   </span>
+
                   <span className="atu-rotulo">
-                    <span className="hidden text-[0.6875rem] font-semibold uppercase leading-snug tracking-[0.14em] text-white sm:block">
-                      {frente.subtitulo}
+                    <span className="atu-rotulo-corpo">
+                      {/* Words never split, so "Pré-moldados" stays whole */}
+                      <span className="atu-rotulo-nome">
+                        {frente.titulo.split(" ").map((palavra, i) => (
+                          <span key={palavra + i}>
+                            {i > 0 ? " " : null}
+                            <span className="whitespace-nowrap">{palavra}</span>
+                          </span>
+                        ))}
+                      </span>
                     </span>
-                    {/* Words never split (no break at "Pré-moldados") */}
-                    <span className="block text-xl font-bold leading-tight text-white sm:mt-1">
-                      {frente.titulo.split(" ").map((palavra, i) => (
-                        <span key={palavra + i}>
-                          {i > 0 ? " " : null}
-                          <span className="whitespace-nowrap">{palavra}</span>
-                        </span>
-                      ))}
-                    </span>
-                    {/* The rule fills under the chosen panel: the selected state is read
-                        from a shape, not from colour alone. */}
-                    <span aria-hidden="true" className="atu-barra" />
                   </span>
                 </button>
               </li>
             );
           })}
-        </ul>
-      </div>
+      </ul>
     </section>
   );
 }

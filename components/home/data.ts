@@ -37,8 +37,8 @@ export const empresasGrupo = [
       "Produção de peças pré-moldadas de cimento para obras, drenagem, urbanização e infraestrutura.",
   },
   {
-    nome: "Tratorron",
-    imagem: "/images/grupo/tratorron-logo.png",
+    nome: "Trator Norte",
+    imagem: "/images/grupo/trator-norte-logo.png",
     atuacao: "Máquinas",
     descricao:
       "Locação de máquinas e equipamentos pesados para apoio operacional em obras de grande porte.",
@@ -56,13 +56,6 @@ export const empresasGrupo = [
     atuacao: "Materiais de construção",
     descricao:
       "Fornecedor parceiro em materiais para construção, apoiando demandas de obras, manutenção e operação.",
-  },
-];
-
-const outrosParceiros = [
-  {
-    nome: "Santa Maria",
-    imagem: "/images/parceiros/santa-maria.png",
   },
 ];
 
@@ -118,7 +111,7 @@ export const servicosPrincipais: Array<{
     descricao:
       "Disponibilização de máquinas e equipamentos pesados para apoio operacional em obras de diferentes portes.",
     detalhe: "Frota pesada",
-    empresa: "Tratorron",
+    empresa: "Trator Norte",
     operacional: "Máquinas para operação em campo",
   },
 ];
@@ -133,52 +126,47 @@ export const indicadoresGrupo = [
 // Ecosystem: the solutions the group delivers. Titles are servicosPrincipais titles or a
 // company's own "atuacao" label, verbatim. Links land on existing pages/anchors.
 export const solucoesEcossistema = [
+  { id: "terraplanagem", titulo: "Terraplanagem", href: "/atuacoes#frente-terraplanagem" },
   { id: "pavimentacao", titulo: "Pavimentação asfáltica", href: "/atuacoes#frente-pavimentacao" },
-  { id: "usinagem", titulo: "Usinagem de asfalto", href: "/servicos" },
-  { id: "concreto", titulo: "Concreto usinado", href: "/servicos" },
-  { id: "agregados", titulo: "Britas e agregados", href: "/atuacoes#frente-extracao-de-minerios" },
-  { id: "pre-moldados", titulo: "Pré-moldados", href: "/atuacoes#frente-pre-moldados" },
+  { id: "usinagem", titulo: "Usinagem de asfalto", href: "/estrutura" },
+  { id: "concreto", titulo: "Concreto usinado", href: "/estrutura" },
+  { id: "agregados", titulo: "Britas e agregados", href: "/atuacoes#frente-mineracao" },
+  { id: "pre-moldados", titulo: "Pré-moldados", href: "/estrutura" },
   { id: "maquinas", titulo: "Locação de máquinas", href: "/estrutura" },
-  { id: "construcao", titulo: "Construção civil", href: "/atuacoes#frente-edificacoes" },
+  { id: "construcao", titulo: "Construção civil", href: "/atuacoes#frente-engenharia" },
   { id: "apoio", titulo: "Apoio operacional", href: "/estrutura" },
   // No dedicated page: shown as text, not as a link.
   { id: "materiais", titulo: "Materiais de construção", href: null },
 ];
 
 // Which solutions each company delivers, taken from servicosPrincipais.empresa and from the
-// company's own atuacao. Santa Maria is listed only as "Parceiro estratégico", so no
-// solution is attributed to it. No company–client pairing is documented in the project,
-// so success cases are linked to the group as a whole.
+// company's own atuacao. No company–client pairing is documented in the project, so success
+// cases are linked to the group as a whole.
 export const solucoesPorEmpresa: Record<string, string[]> = {
-  "MSM Industrial": ["pavimentacao", "usinagem", "concreto"],
+  "MSM Industrial": ["pavimentacao", "terraplanagem", "usinagem", "concreto"],
   "Pedra Norte": ["agregados"],
   "Construtora Santa Maria": ["construcao"],
   "Auto Posto Correntão": ["apoio"],
   "Pré Molde": ["pre-moldados"],
-  Tratorron: ["maquinas"],
+  "Trator Norte": ["maquinas"],
   "Comercial da Construção": ["materiais"],
   "MW Materiais": ["materiais"],
-  "Santa Maria": [],
 };
 
-// Same list as "Casos de sucesso" in app/obras/page.tsx (kept in sync by hand until Wave 3).
+/** The one list of institutions and partners: the Home's ecosystem map and the Obras
+ *  page both read it, so a new logo is added here and shows up in both. Public bodies
+ *  first, private partners after. */
 export const casosSucesso = [
   { nome: "Prefeitura de Rio Branco", imagem: "/images/casos-sucesso/prefeitura-rio-branco.png" },
   { nome: "7º BEC", imagem: "/images/casos-sucesso/bec.png" },
   { nome: "DEPASA", imagem: "/images/casos-sucesso/depasa.png" },
   { nome: "DERACRE", imagem: "/images/casos-sucesso/deracre.png" },
   { nome: "DNIT", imagem: "/images/casos-sucesso/dnit.png" },
+  { nome: "Havan", imagem: "/images/casos-sucesso/havan.png" },
+  { nome: "Uninorte", imagem: "/images/casos-sucesso/uninorte.png" },
 ];
 
-export const empresasCarousel = [
-  ...empresasGrupo,
-  ...outrosParceiros.map((parceiro) => ({
-    ...parceiro,
-    atuacao: "Parceiro estratégico",
-    descricao:
-      "Parceiro comercial e operacional que complementa a rede de apoio e relacionamento do Grupo Soster.",
-  })),
-];
+export const empresasCarousel = [...empresasGrupo];
 
 
 // ---------------------------------------------------------------------------
